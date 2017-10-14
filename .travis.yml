@@ -1,9 +1,17 @@
 language: node_js
 node_js:
- - "node"
+- "node"
 before_install:
- - npm install -g gulp
+- npm install -g gulp
 script: gulp travis
 cache: yarn
 git:
   depth: 10
+deploy:
+  provider: releases
+  api_key:
+    secure: EdfSGYyvg4buTArqqKBZVmdBc+7x5TG4IHe23SXw8X/fIg47z8rNhD42qa707ItpxZqESbJRVgW/9ki+e1X3231I/twEAGwxRLskUUL+BzMrWcuwBJYHCbuF0juCnyI+GmvWiwVqTsREx68xy+AgtBNvzlopqT0617r1OfA7Nq9A7TA0qH8V00o3CwPJY35xL1iG+oSHQBwJ18YEjxKigZ5IRsH+TKacfvJL7hje/ngt9MraOU85CIsMIDHr+i7jsGyOwcqEnUDHwwZCkQcWYlwd90DP4FRGZ/jsiNN5/bxSGLkGYRbrNt9kboviXtLiNmy3xoyIYQR4dKeWEUixI8P6Pe5dykJ94xljlXqHt3l3r6cuIR08QFpwqTJkDrQ/A43/A9WF4V3VH7YfExbvQdhOz7Ie8RFiEp+fsRwXpaG/PBpJMVubx3hRVqAqSIuTICDqCw6lqTK1M92uKbmRoXcXoGvgC7BToSTqHmn90seN1NmMMtPCZRl3adugwdo3VH5ZTwZgAr15+0pGKbwF8dmqwuzvk/8Ss6r9wWhSgFLCVFW348Y118tCf/0lWMQvE90uadz+0zExn1hdAkLtEV2Jy/yYzeCVYAmWNfIfL6f7jEAgMifWrbjHydlBBKRJi9HzFDUeJrZnZQoaYbXx5uwi1nNiqaWvXNkHUzdCevY=
+  file: dist/randomwinpicker.de.zip
+  skip_cleanup: true
+  on:
+    repo: Dargmuesli/randomwinpicker.de
