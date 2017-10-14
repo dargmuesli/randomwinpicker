@@ -1,5 +1,9 @@
+[![Build Status](https://travis-ci.org/Dargmuesli/randomwinpicker.de.svg?branch=master)](https://travis-ci.org/Dargmuesli/randomwinpicker.de)
+
 # randomwinpicker.de
 This website chooses a "true" random winner for CS:GO case openings.
+
+![Welcome](images/welcome.jpg "Welcome to RandomWinPicker")
 
 ## Table of contents
 1. **[Description](#Description)**
@@ -18,7 +22,7 @@ It's made especially for CS:GO Case openings.
 
 ### A "true" random winner?
 
-RandomWinPicker uses the Random.org API to choose a winner based on the randomness of atmospheric noise.
+RandomWinPicker uses the [random.org](https://www.random.org/) API to choose a winner based on the randomness of atmospheric noise.
 This is one of the best - if not the best - way to generate random data. It is better than the pseudo-random number algorithms typically used in computer programs.
 But there is one limit: Every day only 1,000 requests can be sent to random.org and 250,000 bits can be in the requested answers from random.org. After that the Javascript function Math.random() of your Browser is used.
 
@@ -44,7 +48,7 @@ This website was not my absolutely first one to create, but the first one to fin
 
 Regarding hosting and availability I completely relied on my Raspberry Pi at home. It served the site via Apache and went down a few times rendering the site unusable. This was especially critical when I was not at home and not able to restart the Pi right away. I had a website downtime alert service in place though.
 
-Well, one way or another, the website found its use in some of Megaquests videos. Unfortunately not for a long time. Pretty soon new case opening videos became less and less until he created no new ones any more. I can't tell whether he was completely satisfied with my website. He made the impression that he liked this new and comfortable way to arrange his case opening videos, but did not like it when he found bugs ... of course. Sadly he stopped making those videos and, as far as I can tell, noone else used my site. I decided to stop paying for the domain randomwinpicker.de in mid-2017.
+Well, one way or another, the website found its use in some of Megaquests videos. Unfortunately not for a long time. Pretty soon new case opening videos became less and less until he created no new ones any more. I can't tell whether he was completely satisfied with my website. He made the impression that he liked this new and comfortable way to arrange his case opening videos, but did not like it when he found bugs ... of course. Sadly he stopped making those videos and, as far as I can tell, noone else used my site. I decided to stop paying for the domain [randomwinpicker.de](https://randomwinpicker.de/) in mid-2017.
 
 <a name="Build-Deploy"></a>
 
@@ -52,7 +56,7 @@ Well, one way or another, the website found its use in some of Megaquests videos
 
 ### Gulp
 
-This repository contains all scripts needed to build this project. The `gulpfile.js` automatically manages tasks like cleaning the build (`dist`) folder, copying files to it, manage dependencies with composer and yarn, creating symlinks and a zip file and finally watching for any changes.
+This repository contains all scripts needed to build this project. The `gulpfile.js` automatically manages tasks like cleaning the `build` (`dist`) folder, copying files to it, manage dependencies with composer and yarn, creating symlinks and a zip file and finally watching for any changes.
 
 By default the `gulp` command executes all necessary functions to build the website.
 
@@ -72,4 +76,4 @@ For Windows users I suggest to use my PowerShell [Docker-Management](https://git
 
 ## Status
 
-This project consumed way too many hours of my free time to let it vanish somewhere on my harddrive. Thus I decided to publish the source code on GitHub. My plan is to migrate the website to a subsite of my website jonas-thelemann.de to keep it available. Creating this repository from the legacy code I initially wrote was time consuming too, but I learned to use tools like Gulp, Yarn, Docker, Composer and environment variables which moves me one step closer to publishing the source code of my main website. I learned many best practises on how to create a website repository like this and about state of the art web technologies (which this website does *not* but *could* include). Over the next months I hope that I'll find time to improve the source code to meet my own quality requirements. But until then I hope someone else finds this repository useful. Be it that you want to create your own website or try to hack mine ;)
+This project consumed way too many hours of my free time to let it vanish somewhere on my harddrive. Thus I decided to publish the source code on GitHub. My plan is to migrate the website to a subsite of my website [jonas-thelemann.de](https://jonas-thelemann.de/) to keep it available. Creating this repository from the legacy code I initially wrote was time consuming too, but I learned to use tools like Gulp, Yarn, Docker, Composer and environment variables which moves me one step closer to publishing the source code of my main website. I learned many best practises on how to create a website repository like this and about state of the art web technologies (which this website does *not* but *could* include). Over the next months I hope that I'll find time to improve the source code to meet my own quality requirements. But until then I hope someone else finds this repository useful. Be it that you want to create your own website or try to hack mine ;)
