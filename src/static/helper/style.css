@@ -1,0 +1,36 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+body {
+    overflow: auto;
+}
+#container {
+    border: 1px solid grey;
+    width: 90vw;
+    height: 50vh;
+    margin: 0 5vw;
+    perspective: 1500px;
+    perspective-origin: 0% 50%;
+}
+#card {
+    width: 100%;
+    height: 100%;
+    transition: all 1.0s ease;
+    transform-style: preserve-3d;
+    transform-origin: 0 50% 0px;
+    transform: rotateY(90deg);
+}
+#container:hover #card {
+    transform: rotateY(0deg);
+}
+.face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-color: #2E692A;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="en" dir="ltr">
+
+<body>
+
+    <head>
+        <link rel="stylesheet" href="https://randomwinpicker.de/layout/stylesheets/fonts.css">
+        <link rel="stylesheet" href="https://randomwinpicker.de/layout/stylesheets/style.css">
+        <style>
+            * {
+                font-size: 100% !important;
+            }
+
+            h1 {
+                font-size: 250% !important;
+            }
+        </style>
+    </head>
+    <main>
+        <h1>
+            Wähle ein neues Passwort!
+        </h1>
+        <p>
+            Guten Tag {$email},
+        </p>
+        <p>
+            du hast einen Passwortwechsel angefragt.
+        </p>
+        <p>
+            Bitte klicke auf den folgenden Link oder kopiere ihn in die Adresszeile deines Browsers:
+        </p>
+        <p>
+            <a href="{$link}" title="{$link}">
+                {$link}
+            </a>
+        </p>
+        <p>
+            Falls du diese E-Mail nicht angfordert hast, ignoriere und lösche sie bitte!
+        </p>
+    </main>
+</body>
+
+</html>

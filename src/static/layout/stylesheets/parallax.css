@@ -1,0 +1,110 @@
+/*.parallax {
+    box-shadow: 0px 0px 15px 15px #050505, 0px 0px 15px 15px #050505 inset;
+    color: white;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 300px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    -webkit-perspective: 300px;
+}
+.parallax__group {
+    height: 100vh;
+    position: relative;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+.parallax__layer {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.parallax__layer--fore {
+    transform: translateZ(90px) scale(.7);
+    -webkit-transform: translateZ(90px) scale(.7);
+    z-index: 1;
+}
+.parallax__layer--base {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    z-index: 4;
+    margin-top: 10vh;
+}
+.parallax__layer--back {
+    transform: translateZ(-300px) scale(2.01);
+    -webkit-transform: translateZ(-300px) scale(2);
+    z-index: 3;
+}
+.parallax__layer--deep {
+    transform: translateZ(-600px) scale(3.025);
+    -webkit-transform: translateZ(-600px) scale(3);
+    z-index: 2;
+}
+body, html {
+    overflow: hidden;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+.content {
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    width: 75%;
+}
+article {
+    padding-top: 5vmin;
+}
+#group1 {
+    z-index:1;
+}
+#group1 .parallax__layer--base {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.hubble {
+    background: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url("../icons/hubble.jpg");
+    box-shadow: 0px 0px 15px 15px rgba(5,5,5,1), inset 0px 0px 15px 15px rgba(5,5,5,1);
+}
+.sombrero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url("../icons/sombrero.jpg");
+}
+.space {
+    background: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url("../icons/space.jpg");
+}
+.stars {
+    background: #050505 url(../icons/stars.png) repeat top center;
+    bottom: 0;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+#background {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#top {
+    position: absolute;
+    bottom: 10%;
+    text-align: center;
+    width: 100%;
+}
+#top a img {
+    margin: 10vmin;
+}
+#bot {
+    text-align: center;
+}*/

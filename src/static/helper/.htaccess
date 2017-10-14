@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Restricted Helper Area"
+AuthUserFile /var/www/randomwinpicker.de/helper/.htpasswd
+require valid-user

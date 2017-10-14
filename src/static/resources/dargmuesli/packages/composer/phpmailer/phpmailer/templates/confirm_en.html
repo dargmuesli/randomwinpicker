@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en" dir="ltr">
+
+<body>
+
+    <head>
+        <link rel="stylesheet" href="https://randomwinpicker.de/layout/stylesheets/fonts.css">
+        <link rel="stylesheet" href="https://randomwinpicker.de/layout/stylesheets/style.css">
+        <style>
+            * {
+                font-size: 100% !important;
+            }
+
+            h1 {
+                font-size: 250% !important;
+            }
+        </style>
+    </head>
+    <main>
+        <h1>
+            Validate your email address!
+        </h1>
+        <p>
+            Dear {$email},
+        </p>
+        <p>
+            you have registered your account on
+            <a href="https://randomwinpicker.de/" title="randomwinpicker.de">randomwinpicker.de</a> and you now only need to validate this e-mail address.
+        </p>
+        <p>
+            Please click on the following link or copy it to your browser's address bar:
+        </p>
+        <p>
+            <a href="{$link}" title="{$link}">
+                {$link}
+            </a>
+        </p>
+        <p>
+            If you didn't request this e-mail, please ignore and delete it!
+        </p>
+    </main>
+</body>
+
+</html>

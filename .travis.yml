@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+ - "node"
+before_install:
+ - npm install -g gulp
+script: gulp
+cache: yarn
+git:
+  depth: 10

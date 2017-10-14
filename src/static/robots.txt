@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /layout/data/filetree/categories
+Disallow: /robots.txt
+Allow: /
+Sitemap: https://randomwinpicker.de/sitemap.xml

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en" dir="ltr">
+
+<body>
+
+    <head>
+        <link rel="stylesheet" href="https://randomwinpicker.de/layout/stylesheets/fonts.css">
+        <link rel="stylesheet" href="https://randomwinpicker.de/layout/stylesheets/style.css">
+        <style>
+            * {
+                font-size: 100% !important;
+            }
+
+            h1 {
+                font-size: 250% !important;
+            }
+
+            #img {
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+    <main>
+        <h1>
+            A new item edit was submitted!
+        </h1>
+        <p>
+            User: {$user}
+        </p>
+        <p>
+            File:
+            <a href="https://randomwinpicker.de/filetree/categories{$file}" title="File">{$file}</a>
+        </p>
+        <p>
+            Name:
+            <a href="{$link}" title="Name">{$name}</a>
+        </p>
+        <p>
+            Image:
+            <a href="{$image}" title="Image URL">
+                <img src="{$image}" alt="Image" id="img">{$image}</a>
+        </p>
+        <p>
+            Quality: {$quality}
+        </p>
+        <p>
+            Type: {$type}
+        </p>
+    </main>
+</body>
+
+</html>
