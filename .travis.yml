@@ -15,3 +15,7 @@ deploy:
   skip_cleanup: true
   on:
     repo: Dargmuesli/randomwinpicker.de
+notifications:
+  email:
+    on_success: change
+    on_failure: change
