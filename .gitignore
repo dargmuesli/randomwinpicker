@@ -3,3 +3,4 @@
 /vendor
 .htpasswd
 *.env
+docker-compose.yml

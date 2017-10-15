@@ -37,7 +37,7 @@ gulp.dest = vfs.dest;
 
 gulp.task('default', function () {
     // Run build tasks
-    return runSequence('dist-clean', ['static', 'credentials', 'composer', 'yarn'], 'symlinks', 'zip', ['static-watch', 'credentials-watch', 'composer-watch', 'zip-watch']);
+    return runSequence('travis', ['static-watch', 'credentials-watch', 'composer-watch', 'zip-watch']);
 });
 
 gulp.task('travis', function (callback) {
