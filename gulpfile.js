@@ -25,8 +25,8 @@ const staticFolder = srcFolder + 'static/';
 const resFolder = distServerFolder + 'resources/';
 const depComposerFolder = resFolder + 'packages/composer/';
 const depYarnFolder = resFolder + 'packages/yarn/';
-const credentialsSrcGlob = ['credentials/**', 'credentials/.*'];
-const staticSrcFolder = [staticFolder + '**', staticFolder + '.*'];
+const credentialsSrcGlob = 'credentials/**';
+const staticSrcFolder = staticFolder + '**';
 const composerSrcGlob = 'vendor/**';
 const zipSrcGlob = distFolder + '**';
 
@@ -37,14 +37,12 @@ gulp.dest = vfs.dest;
 
 gulp.task('default', function () {
     // Run build tasks
-    runSequence('travis', ['static-watch', 'credentials-watch', 'composer-watch', 'zip-watch']);
-    return;
+    return runSequence('dist-clean', ['static', 'credentials', 'composer', 'yarn'], 'symlinks', 'zip', ['static-watch', 'credentials-watch', 'composer-watch', 'zip-watch']);
 });
 
-gulp.task('travis', function () {
+gulp.task('travis', function (callback) {
     // Run build tasks
-    runSequence('dist-clean', ['static', 'credentials', 'composer', 'yarn'], 'symlinks', 'zip');
-    return;
+    return runSequence('dist-clean', ['static', 'credentials', 'composer', 'yarn'], 'symlinks', 'zip', callback);
 });
 
 gulp.task('dist-clean', function () {
@@ -57,7 +55,7 @@ gulp.task('static', function () {
     buildInProgress = true;
 
     return new Promise(function (resolve, reject) {
-        gulp.src(staticSrcFolder, { resolveSymlinks: false })
+        gulp.src(staticSrcFolder, { resolveSymlinks: false, dot: true })
             .pipe(cached('static'))
             .on('error', reject)
             .pipe(gulp.dest(distServerFolder))
@@ -80,7 +78,7 @@ gulp.task('static-watch', function () {
 
 gulp.task('credentials', function () {
     // Copy credentials to dist folder
-    return gulp.src(credentialsSrcGlob, { followSymlinks: false })
+    return gulp.src(credentialsSrcGlob, { followSymlinks: false, dot: true })
         .pipe(cached('credentials'))
         .pipe(gulp.dest(distCredentialsFolder));
 });
@@ -103,7 +101,7 @@ gulp.task('composer', ['composer-clean'], function () {
     });
 
     // Copy all composer libraries to composer package resources dist folder
-    return gulp.src(composerSrcGlob, { resolveSymlinks: false })
+    return gulp.src(composerSrcGlob, { resolveSymlinks: false, dot: true })
         .pipe(gulp.dest(depComposerFolder));
 });
 
@@ -125,9 +123,9 @@ gulp.task('composer-watch', function () {
 
 gulp.task('yarn', ['yarn-clean'], function () {
     // Copy front-end javascript libraries to yarn package resources dist folder
-    gulp.src('node_modules/papaparse/papaparse{.min,}.js', { resolveSymlinks: false })
+    gulp.src('node_modules/papaparse/papaparse{.min,}.js', { resolveSymlinks: false, dot: true })
         .pipe(gulp.dest(depYarnFolder + 'papaparse/'));
-    gulp.src('node_modules/jqueryfiletree/dist/**', { resolveSymlinks: false })
+    gulp.src('node_modules/jqueryfiletree/dist/**', { resolveSymlinks: false, dot: true })
         .pipe(gulp.dest(depYarnFolder + 'jqueryfiletree/'));
     return;
 });
@@ -139,22 +137,22 @@ gulp.task('yarn-clean', function () {
 
 gulp.task('symlinks', function () {
     // Create all necessary symlinks
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Heavy', { resolveSymlinks: false })
+    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Heavy', { resolveSymlinks: false, dot: true })
         .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Schwer'));
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Knifes', { resolveSymlinks: false })
+    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Knifes', { resolveSymlinks: false, dot: true })
         .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Messer'));
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Pistols', { resolveSymlinks: false })
+    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Pistols', { resolveSymlinks: false, dot: true })
         .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Pistolen'));
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Rifles', { resolveSymlinks: false })
+    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Rifles', { resolveSymlinks: false, dot: true })
         .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Gewehre'));
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/SMGs', { resolveSymlinks: false })
+    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/SMGs', { resolveSymlinks: false, dot: true })
         .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/MPs'));
     return;
 });
 
 gulp.task('zip', function () {
     // Build a zip file containing the dist folder
-    return gulp.src(zipSrcGlob, { resolveSymlinks: false })
+    return gulp.src(zipSrcGlob, { resolveSymlinks: false, dot: true })
         .pipe(zip(pkg.name + '.zip'))
         .pipe(gulp.dest(path.dirname(distFolder)));
 });
