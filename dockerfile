@@ -3,8 +3,8 @@ FROM php:rc-apache
 
 # Project variables
 ENV PROJECT_NAME randomwinpicker.de
-ENV PROJECT_MODS headers rewrite
-ENV PROJECT_CONFS auth charset php security
+ENV PROJECT_MODS headers macro rewrite ssl
+ENV PROJECT_CONFS $PROJECT_NAME
 
 # Apache & PHP variables
 ENV APACHE_DIR /var/www/$PROJECT_NAME
@@ -16,7 +16,7 @@ RUN mkdir -p $APACHE_DIR
 
 # Copy Apache and PHP config files
 COPY docker/conf/apache/conf/* "$APACHE_CONFDIR/conf-available/"
-COPY docker/conf/apache/sites/* "$APACHE_CONFDIR/sites-available/"
+COPY docker/conf/apache/site/* "$APACHE_CONFDIR/sites-available/"
 COPY docker/conf/php/* "$PHP_INI_DIR/"
 
 # Enable mods, config and site
