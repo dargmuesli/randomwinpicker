@@ -1,12 +1,27 @@
 language: node_js
 node_js:
-- "node"
+- node
+sudo: required
+services:
+- docker
+env:
+  global:
+  - secure: E/kOI0xOAqOK14b9clxWdx0GvsxbVGRh0nwDmQV76yH8beVfuwyJEgodzJ/tSR0wBdcWCzGBabdvyMuQUzblXbY71+8v0B+4K6kbsJvTCwFwjeKMGDFHoL6tfP3rFkYbGdsEOaQ8r/nFAO955JjCc3ykY95TEPnLbY4rO3zg6iIKAwQW8wrR3HvDvucpcdWtZKCoBSbVQ/R+Hhsj0uY0ueBZ61KPBO1XPWhpdjM/5au0n7s+kx2E2QvZr11Ez4rUi2oaTqqgynKqB36aUQ5x1sCaQ4R25nuFMnOwAviSxLP4/GA9vJpE7BnSXWpDr2SLE7baw9c+ZRgR43+HA5/9yA44Fou6nnEF/fl30rFby0jR1mL8fOCdubW3gctqkGdu56atkFb0ZgfZh+Mot4NVvvVOckH+EV5iYALIzTp9tdq+pD6JwoBe9Zzkj6n4ftkQAVVnEcpFiha6bxGTf8tEJIsXcnklAHw3dJQZLsCamRFHqk0shcSqAXg+glrysuA7DnM8m4YpUwuM4zFbSf47Uwd5LF94Y3XFoDUh9XJ3eIz6SBE3pBAolw6QW9/yn9QWTR+geM6vaC84mQqKb2/Q7kkgKbOLjWuYdEEDaETqXcfkapRDeXu+jPPVwdP2VfXRAy6/E4Cy2G9un3muqn9mci/w+Hw9TS7RhIk7CpoEskI= #DOCKER_EMAIL
+  - secure: IjLdGfhJAefWkUTFBdKbiz4uJJ0lO29O8EAKPFEHOurOdUc95PjJu+B1PgaGqmfqrSfkY6IqaVZmhiYscTHl6CdKVIOGIs45ARyuMNjUXOVIuG5SJ6+FcM+rGRsqH1XOuDbU9vPdwMSXX5HjuARZqiWgq9V9V9cWMYIFz2UpZs/0mxt/3RXsN7JVp/UTA9ikhCJoiBNKkojfCkz6furgjbc4Y9s1TK00rV4LSRXNDWKbwI941fUHsxY6oIb33WH9j/bmpb/eJalQy2uFtguleVR9cLEDZWqsLH/QD2jChSPRsKdUPgpm9hzt4VdfsFHVMqr+VzR/VC9cOpNMWMGBP5IMAm/stAr3NJJRholT9hhRcx0NYP1C+n2t/xmPVBDJ4u2FVvXzK2GNVaQ1yPxXW68dYXvzhlZITg8TEgP8be3VgwTvjJCOAD7/kvEOJy2nRBrPh0chKa37XoOphzZP6Np5qU64vHSpxiZG99Zg0KdeT8ZS2KNnJecjdqksWFu4d3d6FxxzYEJrlBZjN4YmpL9QHdfDGpPmCjj3WhCg3lYWzz7aeap3ixbEBsVd+Nt/1ACzR+ZVgSMcZzsUOG+5nRL1WnOk8cCXNnofR8Y7hT0Dx5IW3IlLihI8ZKBnlNXzQmiSAuuokP6cnZVZb85FaHtByUi6T8S85Wg4H9RHt3Q= #DOCKER_USER
+  - secure: kszsIrMO1AmLLvBjx31A9ugUdt0bF1FfrTxRsDePvirbp+j+8BdE0jbpQr13D3FP5GM3d2IMrNAkP5Qzmuz0J5Kvkq4PQMrKqy4D6cQ7wlnEg/+F3JXxsafG4lgqHihhNBbYnFr71ATWq87v1DyDGBeJn23Zai03UPES7964GRAGnYNxy3LXXvZ82mwiqS++fG12o46j5aDlgMeMOamxUHCS3WL3Fc9nWJ1X9nWA82/T0KITL+KhKPX2tMM5LthykHsYiE4ggbjsGh8ZifLaP9mATYSxUb1oT+E8rMEqQCn3S4fD28/vDvqb31fqIpr6/3q8iPqGtQYb39lu86iJs/3VYXAPTJUHbBVG810o+tqOSy9qMmj16OkOxtdcbViyvWQRME45kuM0QiJUe5W9deSFdNcsd2uYlaFh13iXlCrOvgSlDoLYjND7aF2lDySLMd6zojnVkJZKgqYhgAP41oKrzrqrWaLDHy45sSIUwplQgpPu3CIBcv1yIxNcBMPFNmmL4V6cKDtBP0UkvHmzmIiTG8exeeWe+Zm0ixPs/vlnjbBPUcjQtbpdspkkbHxaq/UaBevjYHaNVIip7t2vBmh7On+OVjSDTpoERGMEb3BPGG3vdK6Mbf6pOLlzzsebsDfmgiSBnipjYcsaG/JsbRpr0hEirYlYCItj+tG6HwA= #DOCKER_PASS
+  - COMMIT=${TRAVIS_COMMIT::8}
 before_install:
 - npm install -g gulp
+after_success:
+- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+- export REPO=dargmuesli/randomwinpicker.de
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+- docker build -f Dockerfile -t $REPO:$COMMIT .
+- docker tag $REPO:$COMMIT $REPO:$TAG
+- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+- docker push $REPO
 script: gulp travis
 cache: yarn
-git:
-  depth: 10
 deploy:
   provider: releases
   api_key:
