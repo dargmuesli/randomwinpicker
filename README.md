@@ -2,6 +2,8 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/dargmuesli/randomwinpicker.de/badge.svg)](https://snyk.io/test/github/dargmuesli/randomwinpicker.de)
 
 # randomwinpicker.de
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Dargmuesli/randomwinpicker.de.svg)](https://greenkeeper.io/)
 This website chooses a "true" random winner for CS:GO case openings.
 
 ![Welcome](images/welcome.jpg "Welcome to RandomWinPicker")
