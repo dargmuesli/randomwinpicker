@@ -1,7 +1,9 @@
 [![Build Status](https://travis-ci.org/Dargmuesli/randomwinpicker.de.svg?branch=master)](https://travis-ci.org/Dargmuesli/randomwinpicker.de)
 [![Known Vulnerabilities](https://snyk.io/test/github/dargmuesli/randomwinpicker.de/badge.svg)](https://snyk.io/test/github/dargmuesli/randomwinpicker.de)
+[![Greenkeeper Badge](https://badges.greenkeeper.io/Dargmuesli/randomwinpicker.de.svg)](https://greenkeeper.io/)
 
 # randomwinpicker.de
+
 This website chooses a "true" random winner for CS:GO case openings.
 
 ![Welcome](images/welcome.jpg "Welcome to RandomWinPicker")
