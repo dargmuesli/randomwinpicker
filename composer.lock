@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "dapphp/securimage",
-            "version": "3.6.5",
+            "version": "3.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dapphp/securimage.git",
-                "reference": "3f5a84fd80b1a35d58332896c944142713a7e802"
+                "reference": "6eea2798f56540fa88356c98f282d6391a72be15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dapphp/securimage/zipball/3f5a84fd80b1a35d58332896c944142713a7e802",
-                "reference": "3f5a84fd80b1a35d58332896c944142713a7e802",
+                "url": "https://api.github.com/repos/dapphp/securimage/zipball/6eea2798f56540fa88356c98f282d6391a72be15",
+                "reference": "6eea2798f56540fa88356c98f282d6391a72be15",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "captcha",
                 "security"
             ],
-            "time": "2016-12-04T17:45:57+00:00"
+            "time": "2017-11-21T02:29:19+00:00"
         },
         {
             "name": "google/recaptcha",
@@ -100,16 +100,16 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v5.2.25",
+            "version": "v5.2.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "2baf20b01690fba8cf720c1ebcf9b988eda50915"
+                "reference": "70362997bda4376378be7d92d81e2200550923f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/2baf20b01690fba8cf720c1ebcf9b988eda50915",
-                "reference": "2baf20b01690fba8cf720c1ebcf9b988eda50915",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/70362997bda4376378be7d92d81e2200550923f7",
+                "reference": "70362997bda4376378be7d92d81e2200550923f7",
                 "shasum": ""
             },
             "require": {
@@ -173,7 +173,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2017-08-28T11:12:07+00:00"
+            "time": "2017-11-04T09:26:05+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

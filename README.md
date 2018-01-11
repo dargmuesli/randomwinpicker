@@ -3,7 +3,6 @@
 [![Greenkeeper Badge](https://badges.greenkeeper.io/Dargmuesli/randomwinpicker.de.svg)](https://greenkeeper.io/)
 
 # randomwinpicker.de
-
 This website chooses a "true" random winner for CS:GO case openings.
 
 ![Welcome](images/welcome.jpg "Welcome to RandomWinPicker")
