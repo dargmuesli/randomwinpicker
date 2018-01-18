@@ -68,11 +68,14 @@ How you choose to integrate the built project is up to you. Though, a `dockerfil
 
 The given `dockerfile` enables you to build a PHP/Apache-Server with the configuration files in the `docker` folder. It can be run as a Docker container just as you wish, but makes the site not fully functional. Additional services like a database service are needed. Those are defined in the `docker-compose.yml` file. With this file the deployment is complete.
 
-For Windows users I suggest to use my PowerShell [Docker-Management](https://github.com/dargmuesli/ps-docker-management) script. It manages Docker projects like this one. To make your Gulp build accessible via a webbrowser just run a command similar to this:
+For Windows users I suggest to use my PowerShell [PS-Docker-Management](https://github.com/dargmuesli/ps-docker-management) script. It manages Docker projects like this one. To make your Gulp build accessible via a webbrowser just run a command similar to this:
 
 ```PowerShell
-.\Docker-Management.ps1 -ProjectPath ..\randomwinpicker.de\
+.\Invoke-PSDockerManagement.ps1 -ProjectPath ..\randomwinpicker.de\
 ```
+
+#### Certificates
+For HTTPs/SSL usage certificates are required. Those can easily be generated using the `docker\conf\apache\cert\New-Certificates.ps1` script.
 
 <a name="Status"></a>
 
