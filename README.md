@@ -74,6 +74,9 @@ For Windows users I suggest to use my PowerShell [PS-Docker-Management](https://
 .\Invoke-PSDockerManagement.ps1 -ProjectPath ..\randomwinpicker.de\
 ```
 
+#### Environment Variables
+A `.env` file needs to be created containing the values written in `.env.template`. This way, username and passwords can be set for services like databases without having to add them to the source code directly. The default Docker Compose file relies on them.
+
 #### Certificates
 For HTTPs/SSL usage certificates are required. Those can easily be generated using the `docker\conf\apache\cert\New-Certificates.ps1` script.
 
