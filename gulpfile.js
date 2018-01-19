@@ -1,21 +1,18 @@
 'use strict';
 
-const cached = require('gulp-cached');
-const composer = require('gulp-composer');
-const del = require('del');
-const fs = require('fs');
-const gulp = require('gulp');
-const path = require('path');
-const runSequence = require('run-sequence');
-const symlink = require('gulp-symlink');
-const vfs = require('vinyl-fs');
-const watch = require('gulp-watch');
-const zip = require('gulp-zip');
+const gCached = require('gulp-cached');
+const gComposer = require('gulp-composer');
+const gDel = require('del');
+const gFs = require('fs');
+const gGulp = require('gulp');
+const gPath = require('path');
+const gVfs = require('vinyl-fs');
+const gZip = require('gulp-zip');
 
 // const debug = require('gulp-debug');
 // .pipe(debug())
 
-var pkg = JSON.parse(fs.readFileSync('./package.json'));
+var pkg = JSON.parse(gFs.readFileSync('./package.json'));
 
 const distFolder = 'dist/' + pkg.name + '/';
 const distCredentialsFolder = distFolder + 'credentials/';
@@ -32,149 +29,159 @@ const zipSrcGlob = distFolder + '**';
 
 var buildInProgress = false;
 
-gulp.src = vfs.src;
-gulp.dest = vfs.dest;
+gGulp.src = gVfs.src;
+gGulp.dest = gVfs.dest;
 
-gulp.task('default', function () {
-    // Run build tasks
-    return runSequence('travis', ['static-watch', 'credentials-watch', 'composer-watch', 'zip-watch']);
-});
-
-gulp.task('travis', function (callback) {
-    // Run build tasks
-    return runSequence('dist-clean', ['static', 'credentials', 'composer', 'yarn'], 'symlinks', 'zip', callback);
-});
-
-gulp.task('dist-clean', function () {
+function dist_clean() {
     // Delete all files from dist folder
-    return del([distFolder + '**', '!' + distFolder.replace(/\/$/, ''), path.dirname(distFolder) + '/' + pkg.name + '.zip']);
-});
+    return gDel([distFolder + '**', '!' + distFolder.replace(/\/$/, ''), gPath.dirname(distFolder) + '/' + pkg.name + '.zip']);
+}
 
-gulp.task('static', function () {
+exports.dist_clean = dist_clean;
+
+function staticSrc() {
     // Copy static files to dist folder
     buildInProgress = true;
 
     return new Promise(function (resolve, reject) {
-        gulp.src(staticSrcFolder, { resolveSymlinks: false, dot: true })
-            .pipe(cached('static'))
+        gGulp.src(staticSrcFolder, { dot: true })
+            .pipe(gCached('staticSrc'))
             .on('error', reject)
-            .pipe(gulp.dest(distServerFolder))
+            .pipe(gGulp.dest(distServerFolder))
             .on('end', resolve);
     }).then(function () {
         buildInProgress = false;
     });
-});
+}
 
-gulp.task('static-watch', function () {
+exports.staticSrc = staticSrc;
+
+function staticSrc_watch() {
     // Watch for any changes in static files to copy changes
-    watch(staticSrcFolder, { followSymlinks: false }, function (vinyl) {
-        if (vinyl.event == 'unlink') {
-            del.sync(path.resolve(distCredentialsFolder, path.relative(path.resolve('credentials'), vinyl.path)));
-        }
+    gGulp.watch(staticSrcFolder, { followSymlinks: false })
+        .on('unlink', function (path) {
+            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
+            staticSrc();
+        });
+}
 
-        gulp.start(['static']);
-    });
-});
+exports.staticSrc_watch = staticSrc_watch;
 
-gulp.task('credentials', function () {
+function credentials() {
     // Copy credentials to dist folder
-    return gulp.src(credentialsSrcGlob, { followSymlinks: false, dot: true })
-        .pipe(cached('credentials'))
-        .pipe(gulp.dest(distCredentialsFolder));
-});
+    return gGulp.src(credentialsSrcGlob, { dot: true })
+        .pipe(gCached('credentials'))
+        .pipe(gGulp.dest(distCredentialsFolder));
+}
 
-gulp.task('credentials-watch', function () {
+exports.credentials = credentials;
+
+function credentials_watch() {
     // Watch for any changes in credential files to copy changes
-    watch(credentialsSrcGlob, { followSymlinks: false }, function (vinyl) {
-        if (vinyl.event == 'unlink') {
-            del.sync(path.resolve(distCredentialsFolder, path.relative(path.resolve('credentials'), vinyl.path)));
-        }
+    gGulp.watch(credentialsSrcGlob, { followSymlinks: false })
+        .on('unlink', function (path) {
+            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
+            credentials();
+        });
+}
 
-        gulp.start(['credentials']);
-    });
-});
+exports.credentials_watch = credentials_watch;
 
-gulp.task('composer', ['composer-clean'], function () {
+function composer_clean() {
+    // Delete all files from composer package resources dist folder
+    return gDel(depComposerFolder + '*');
+}
+
+exports.composer_clean = composer_clean;
+
+function composer() {
     // Update composer
-    composer('update', {
+    gComposer('update', {
         'async': false
     });
 
     // Copy all composer libraries to composer package resources dist folder
-    return gulp.src(composerSrcGlob, { resolveSymlinks: false, dot: true })
-        .pipe(gulp.dest(depComposerFolder));
-});
+    return gGulp.src(composerSrcGlob, { dot: true })
+        .pipe(gGulp.dest(depComposerFolder));
+}
 
-gulp.task('composer-clean', function () {
-    // Delete all files from composer package resources dist folder
-    return del(depComposerFolder + '*');
-});
+exports.composer = gGulp.series(composer_clean, composer);
 
-gulp.task('composer-watch', function () {
+function composer_watch() {
     // Watch for any changes in composer files to copy changes
-    watch(composerSrcGlob, { followSymlinks: false }, function (vinyl) {
-        if (vinyl.event == 'unlink') {
-            del.sync(path.resolve(distCredentialsFolder, path.relative(path.resolve('credentials'), vinyl.path)));
-        }
+    gGulp.watch(composerSrcGlob, { followSymlinks: false })
+        .on('unlink', function (path) {
+            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
+            zip();
+        });
+}
 
-        gulp.start(['zip']);
-    });
-});
+exports.composer_watch = composer_watch;
 
-gulp.task('yarn', ['yarn-clean'], function () {
-    // Copy front-end javascript libraries to yarn package resources dist folder
-    gulp.src('node_modules/papaparse/papaparse{.min,}.js', { resolveSymlinks: false, dot: true })
-        .pipe(gulp.dest(depYarnFolder + 'papaparse/'));
-    gulp.src('node_modules/jqueryfiletree/dist/**', { resolveSymlinks: false, dot: true })
-        .pipe(gulp.dest(depYarnFolder + 'jqueryfiletree/'));
-    return;
-});
-
-gulp.task('yarn-clean', function () {
+function yarn_clean() {
     // Delete all files from yarn package resources dist folder
-    return del(depYarnFolder + '*');
-});
+    return gDel(depYarnFolder + '*');
+}
 
-gulp.task('symlinks', function () {
+exports.yarn_clean = yarn_clean;
+
+function yarn() {
+    // Copy front-end javascript libraries to yarn package resources dist folder
+    gGulp.src('node_modules/papaparse/papaparse{.min,}.js', { dot: true })
+        .pipe(gGulp.dest(depYarnFolder + 'papaparse/'));
+    return gGulp.src('node_modules/jqueryfiletree/dist/**', { dot: true })
+}
+
+exports.yarn = gGulp.series(yarn_clean, yarn);
+
+function symlinks() {
     // Create all necessary symlinks
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Heavy', { resolveSymlinks: false, dot: true })
-        .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Schwer'));
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Knifes', { resolveSymlinks: false, dot: true })
-        .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Messer'));
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Pistols', { resolveSymlinks: false, dot: true })
-        .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Pistolen'));
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Rifles', { resolveSymlinks: false, dot: true })
-        .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Gewehre'));
-    gulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/SMGs', { resolveSymlinks: false, dot: true })
-        .pipe(symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/MPs'));
-    return;
-});
+    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Heavy', { dot: true })
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Schwer'));
+    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Knifes', { dot: true })
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Messer'));
+    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Pistols', { dot: true })
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Pistolen'));
+    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Rifles', { dot: true })
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Gewehre'));
+    return gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/SMGs', { dot: true })
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/MPs'));
+}
 
-gulp.task('zip', function () {
+exports.symlinks = symlinks;
+
+function zip() {
     // Build a zip file containing the dist folder
-    return gulp.src(zipSrcGlob, { resolveSymlinks: false, dot: true })
-        .pipe(zip(pkg.name + '.zip'))
-        .pipe(gulp.dest(path.dirname(distFolder)));
-});
+    return gGulp.src(zipSrcGlob, { dot: true })
+        .pipe(gZip(pkg.name + '.zip'))
+        .pipe(gGulp.dest(gPath.dirname(distFolder)));
+}
+
+exports.zip = zip;
 
 function zipWaiter() {
     // Do not zip while a build is still in progress
     if (buildInProgress) {
         setTimeout(zipWaiter, 100);
     } else {
-        gulp.start(['zip']);
+        zip();
     }
 }
 
-gulp.task('zip-watch', function () {
+function zip_watch() {
     // Watch for any changes to start a zip rebuild
-    watch(zipSrcGlob, { followSymlinks: false }, function (vinyl) {
-        if (vinyl.event == 'unlink') {
-            del.sync(path.resolve(distCredentialsFolder, path.relative(path.resolve('credentials'), vinyl.path)));
-        }
+    gGulp.watch(zipSrcGlob, { followSymlinks: false })
+        .on('unlink', function (path) {
+            gDel.sync(path.resolve(distCredentialsFolder, path.relative(path.resolve('credentials'), path)));
 
-        console.log(vinyl.event + ' File "' + vinyl.path + '", running tasks...');
+            console.log('Unlink file "' + path + '", running tasks...');
 
-        zipWaiter();
-    });
-});
+            zipWaiter();
+        });
+}
+
+exports.zip_watch = zip_watch;
+
+// Build tasks
+gGulp.task('travis', gGulp.series(dist_clean, gGulp.parallel(staticSrc, credentials, composer, yarn), symlinks, zip));
+gGulp.task('default', gGulp.series('travis', gGulp.parallel(staticSrc_watch, credentials_watch, composer_watch, zip_watch)));
