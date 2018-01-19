@@ -59,7 +59,7 @@ exports.staticSrc = staticSrc;
 function staticSrc_watch() {
     // Watch for any changes in static files to copy changes
     gGulp.watch(staticSrcFolder, { followSymlinks: false })
-        .on('unlink', function (path) {
+        .on('all', function (event, path) {
             gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
             staticSrc();
         });
@@ -79,7 +79,7 @@ exports.credentials = credentials;
 function credentials_watch() {
     // Watch for any changes in credential files to copy changes
     gGulp.watch(credentialsSrcGlob, { followSymlinks: false })
-        .on('unlink', function (path) {
+        .on('all', function (event, path) {
             gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
             credentials();
         });
@@ -110,7 +110,7 @@ exports.composer = gGulp.series(composer_clean, composer);
 function composer_watch() {
     // Watch for any changes in composer files to copy changes
     gGulp.watch(composerSrcGlob, { followSymlinks: false })
-        .on('unlink', function (path) {
+        .on('all', function (event, path) {
             gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
             zip();
         });
@@ -129,7 +129,7 @@ function yarn() {
     // Copy front-end javascript libraries to yarn package resources dist folder
     gGulp.src('node_modules/papaparse/papaparse{.min,}.js', { dot: true })
         .pipe(gGulp.dest(depYarnFolder + 'papaparse/'));
-    return gGulp.src('node_modules/jqueryfiletree/dist/**', { dot: true })
+    return gGulp.src('node_modules/jqueryfiletree/dist/**', { dot: true });
 }
 
 exports.yarn = gGulp.series(yarn_clean, yarn);
@@ -171,10 +171,10 @@ function zipWaiter() {
 function zip_watch() {
     // Watch for any changes to start a zip rebuild
     gGulp.watch(zipSrcGlob, { followSymlinks: false })
-        .on('unlink', function (path) {
-            gDel.sync(path.resolve(distCredentialsFolder, path.relative(path.resolve('credentials'), path)));
+        .on('all', function (event, path) {
+            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
 
-            console.log('Unlink file "' + path + '", running tasks...');
+            console.log(event + ': "' + path + '". Running tasks...');
 
             zipWaiter();
         });
