@@ -63,6 +63,17 @@ This repository contains all scripts needed to build this project. The `gulpfile
 
 By default the `gulp` command executes all necessary functions to build the website. If Gulp is not installed globally, you need to run the `yarn` command first. This installs Gulp to a local `node_modules` folder.
 
+#### Composer
+For the `Composer` task to be executed you need to have PHP installed. Make sure that the following settings are made in your `php.ini`:
+
+```PHP
+extension_dir = "ext"
+date.timezone = UTC
+extension=gd2
+extension=php_openssl.dll
+extension=php_mbstring.dll
+```
+
 ### Docker
 
 How you choose to integrate the built project is up to you. Though, a `dockerfile` and a `docker-compose.yml` are provided.
