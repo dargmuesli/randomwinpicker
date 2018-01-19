@@ -11,6 +11,7 @@ This website chooses a "true" random winner for CS:GO case openings.
 1. **[Description](#Description)**
 2. **[History](#History)**
 3. **[Build & Deploy](#Build-Deploy)**
+4. **[Usage](#Usage)**
 5. **[Status](#Status)**
 
 <a name="Description"></a>
@@ -79,6 +80,22 @@ A `.env` file needs to be created containing the values written in `.env.templat
 
 #### Certificates
 For HTTPs/SSL usage certificates are required. Those can easily be generated using the `docker\conf\apache\cert\New-Certificates.ps1` script.
+
+<a name="Usage"></a>
+
+## Usage
+
+### Adminer
+Connect to the PostgreSQL instance via Adminer using:
+
+|          |                    |
+| -------- | ------------------ |
+| System   | PostgreSQL         |
+| Server   | postgres           |
+| Username | .env-username      |
+| Password | .env-password      |
+| Database | randomwinpicker.de |
+
 
 <a name="Status"></a>
 
