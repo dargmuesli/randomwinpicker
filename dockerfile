@@ -1,5 +1,5 @@
 # Base image
-FROM php:rc-apache
+FROM php:apache
 
 # Project variables
 ENV PROJECT_NAME randomwinpicker.de
@@ -33,18 +33,9 @@ RUN \
 
 # Enable extensions
 RUN apt-get install -y \
-    libfreetype6-dev \
-    libpng-dev \
     libpq-dev \
-    libsodium-dev \
-    php-gd \
-    php-libsodium \
-    && docker-php-ext-configure \
-    gd --with-freetype-dir=/usr/include/ \
     && docker-php-ext-install \
-    gd \
-    pdo_pgsql \
-    sodium
+    pdo_pgsql
 
 # Update workdir to server files' location
 WORKDIR $APACHE_DIR/server
