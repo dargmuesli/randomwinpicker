@@ -9,7 +9,7 @@
     $_SERVER['SERVER_ROOT'] = str_replace(DIRECTORY_SEPARATOR.$_SERVER['HTTP_HOST'], '', $_SERVER['DOCUMENT_ROOT']);
     $_SERVER['SERVER_ROOT_URL'] = $protocol.$_SERVER['HTTP_HOST'];
     // $firstErrorLogged = false;
-    $simpleLogging = $_SERVER['SERVER_NAME'] == 'localhost' ? true : true;
+    $simpleLogging = $_SERVER['SERVER_NAME'] == 'localhost' ? false : true;
 
     function errorHandler($errorLevel, $errorMessage, $errorFile, $errorLine, $errorContext)
     {
@@ -40,7 +40,7 @@
         $lastError = error_get_last();
 
         if ($lastError['type'] == E_ERROR) {
-            throw new ErrorException($errorMessage, 0, $errorLevel, $errorFile, $errorLine);
+            throw new ErrorException($lastError['message'], 0, $lastError['type'], $lastError['file'], $lastError['line']);
         }
     }
 
@@ -52,7 +52,7 @@
         $errorOutput = $exception->getMessage();
 
         if (!$simpleLogging) {
-            $errorOutput .= ' in "' . $exception->getFile() . '" on line: ' . $exception->getLine();
+            $errorOutput .= ' in \'' . $exception->getFile() . '\' on line: ' . $exception->getLine();
         }
 
         // if (!$firstErrorLogged) {
