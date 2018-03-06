@@ -61,7 +61,7 @@ Well, one way or another, the website found its use in some of Megaquests videos
 
 This repository contains all scripts needed to build this project. The `gulpfile.js` automatically manages tasks like cleaning the `build` (`dist`) folder, copying files to it, manage dependencies with composer and yarn, creating symlinks and a zip file and finally watching for any changes.
 
-By default the `gulp` command executes all necessary functions to build the website. If Gulp is not installed globally, you need to run the `yarn` command first. This installs Gulp to a local `node_modules` folder.
+By default the `gulp` command executes all necessary functions to build the website. If Gulp is not installed globally, you need to run the `yarn` command first. This installs Gulp to a local `node_modules` folder. Instructions on how to install Yarn can be found [here](https://yarnpkg.com/lang/en/docs/install/).
 
 #### Composer
 For the `Composer` task to be executed you need to have PHP installed. Make sure that the following settings are made in your `php.ini`:
