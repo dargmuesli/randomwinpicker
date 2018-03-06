@@ -22,9 +22,10 @@
     }
 
     $fileOrig = $_GET['file'];
-    $file = mb_convert_encoding($fileOrig, 'HTML-ENTITIES', 'UTF-8');
+    
+    $file = htmlspecialchars_decode(utf8_decode(htmlentities($fileOrig, ENT_COMPAT, 'UTF-8', false)));
     $nameOrig = $_POST['name'];
-    $name = mb_convert_encoding($nameOrig, 'HTML-ENTITIES', 'UTF-8');
+    $name = htmlspecialchars_decode(utf8_decode(htmlentities($nameOrig, ENT_COMPAT, 'UTF-8', false)));
 
     $link = $_GET['link'];
 
