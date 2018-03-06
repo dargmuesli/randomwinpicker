@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    session_start(); 
     
     // References
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
@@ -55,10 +55,9 @@
 
             if (isset($email) && isset($password)) {
                 // Hash the password with salt
-                $hash = sodium_crypto_pwhash_str(
+                $hash = password_hash(
                     $password,
-                    SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE,
-                    SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE
+                    PASSWORD_ARGON2I
                 );
 
                 // Check if entry already exists
@@ -90,7 +89,7 @@
 
                     // Insert the form values into the database
                     $stmt = $dbh->prepare("INSERT INTO accounts(mail, hash, code) VALUES ('" . $email . "', '" . $hash . "', '" . $code . "')");
-                    
+
                     if (!$stmt->execute()) {
                         throw new Exception($stmt->errorInfo()[2]);
                     }
@@ -102,7 +101,7 @@
                         $string_processed,
                         'Hey ' . $email . ', to confirm your email and gain access to all features of RandomWinPicker, copy the link below and open it in any browser!' . $link
                     );
-    
+
                     // Send the mail
                     if (!$mail->send()) {
                         switch ($lang) {
@@ -137,15 +136,15 @@
                 } else {
                     // Entry already exists
                     $stmt = $dbh->prepare("SELECT hash FROM accounts WHERE mail='" . $email . "'");
-                    
+
                     if (!$stmt->execute()) {
                         throw new Exception($stmt->errorInfo()[2]);
                     }
-                    
+
                     $hash = $stmt->fetch()[0];
 
                     // Check if password is correct
-                    if (sodium_crypto_pwhash_str_verify($hash, $password) == false) {
+                    if (password_verify($password, $hash) == false) {
                         switch ($lang) {
                             case 'de':
                                 $_SESSION['error'] = 'Falsches Passwort!';
@@ -156,20 +155,20 @@
                         }
                     } else {
                         $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
-                        
+
                         if (!$stmt->execute()) {
                             throw new Exception($stmt->errorInfo()[2]);
                         }
-                        
+
                         $row = $stmt->fetch()[0];
 
                         if ($row == -1) {
                             $stmt = $dbh->prepare("SELECT view FROM accounts WHERE mail='" . $email . "'");
-                            
+
                             if (!$stmt->execute()) {
                                 throw new Exception($stmt->errorInfo()[2]);
                             }
-                            
+
                             $view = $stmt->fetch()[0];
 
                             $_SESSION['email'] = $email;
@@ -201,8 +200,6 @@
                             }
                         }
                     }
-
-                    sodium_memzero($password);
                 }
             }
         }
