@@ -8,21 +8,21 @@
     "packages": [
         {
             "name": "dapphp/securimage",
-            "version": "3.6.6",
+            "version": "3.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dapphp/securimage.git",
-                "reference": "6eea2798f56540fa88356c98f282d6391a72be15"
+                "reference": "1ecb884797c66e01a875c058def46c85aecea45b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dapphp/securimage/zipball/6eea2798f56540fa88356c98f282d6391a72be15",
-                "reference": "6eea2798f56540fa88356c98f282d6391a72be15",
+                "url": "https://api.github.com/repos/dapphp/securimage/zipball/1ecb884797c66e01a875c058def46c85aecea45b",
+                "reference": "1ecb884797c66e01a875c058def46c85aecea45b",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
-                "php": ">=5.2.0"
+                "php": ">=5.4"
             },
             "suggest": {
                 "ext-pdo": "For database storage support",
@@ -37,7 +37,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -48,10 +48,12 @@
             "description": "PHP CAPTCHA Library",
             "homepage": "https://www.phpcaptcha.org",
             "keywords": [
+                "Forms",
+                "anti-spam",
                 "captcha",
                 "security"
             ],
-            "time": "2017-11-21T02:29:19+00:00"
+            "time": "2018-03-09T06:07:41+00:00"
         },
         {
             "name": "google/recaptcha",
