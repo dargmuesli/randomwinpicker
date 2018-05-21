@@ -40,7 +40,7 @@
                 "adminer": {
                     "image": "adminer",
                     "ports": [
-                        "6577:8080"
+                        "8888:8080"
                     ]
                 },
                 "visualizer": {
