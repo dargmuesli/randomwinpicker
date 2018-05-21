@@ -5,8 +5,10 @@ const gComposer = require('gulp-composer');
 const gDel = require('del');
 const gFs = require('fs');
 const gGulp = require('gulp');
+const gMergeStream = require('merge-stream');
 const gPath = require('path');
 const gVfs = require('vinyl-fs');
+const gYarn = require('gulp-yarn');
 const gZip = require('gulp-zip');
 
 // const debug = require('gulp-debug');
@@ -23,7 +25,7 @@ const resFolder = distServerFolder + 'resources/';
 const depComposerFolder = resFolder + 'packages/composer/';
 const depYarnFolder = resFolder + 'packages/yarn/';
 const credentialsSrcGlob = 'credentials/**';
-const staticSrcFolder = staticFolder + '**';
+const staticGlob = staticFolder + '**';
 const composerSrcGlob = 'vendor/**';
 const zipSrcGlob = distFolder + '**';
 
@@ -50,9 +52,9 @@ exports.credentials = credentials;
 
 function credentials_watch() {
     // Watch for any changes in credential files to copy changes
-    gGulp.watch(credentialsSrcGlob, { followSymlinks: false })
+    // Does currently not work as dotfiles cannot be watched with chokidar
+    gGulp.watch(credentialsSrcGlob)
         .on('all', function (event, path) {
-            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
             credentials();
         });
 }
@@ -64,7 +66,7 @@ function staticSrc() {
     buildInProgress = true;
 
     return new Promise(function (resolve, reject) {
-        gGulp.src(staticSrcFolder, { dot: true })
+        gGulp.src(staticGlob, { dot: true })
             .pipe(gCached('staticSrc'))
             .on('error', reject)
             .pipe(gGulp.dest(distServerFolder))
@@ -76,16 +78,24 @@ function staticSrc() {
 
 exports.staticSrc = staticSrc;
 
-function src_watch() {
+function staticSrc_watch() {
     // Watch for any changes in source files to copy changes
-    gGulp.watch(staticSrcFolder, { followSymlinks: false })
+    gGulp.watch(staticGlob)
         .on('all', function (event, path) {
-            gDel.sync(gPath.resolve(distFolder, gPath.relative(gPath.resolve('src'), path)));
             staticSrc();
         });
 }
 
-exports.src_watch = src_watch;
+exports.staticSrc_watch = staticSrc_watch;
+
+function composer_update() {
+    // Update composer
+    return gComposer('update', {
+        'async': false
+    });
+}
+
+exports.composer_update = composer_update;
 
 function composer_clean() {
     // Delete all files from composer package resources dist folder
@@ -94,29 +104,32 @@ function composer_clean() {
 
 exports.composer_clean = composer_clean;
 
-function composer() {
-    // Update composer
-    gComposer('update', {
-        'async': false
-    });
-
+function composer_src() {
     // Copy all composer libraries to composer package resources dist folder
-    return gGulp.src(composerSrcGlob, { dot: true })
+    return gGulp.src(composerSrcGlob)
         .pipe(gGulp.dest(depComposerFolder));
 }
 
-exports.composer = gGulp.series(composer_clean, composer);
+exports.composer_src = composer_src;
 
 function composer_watch() {
     // Watch for any changes in composer files to copy changes
-    gGulp.watch(composerSrcGlob, { followSymlinks: false })
+    gGulp.watch([composerSrcGlob, "composer.json"])
         .on('all', function (event, path) {
-            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
-            zip();
+            composer_update();
+            composer_src();
         });
 }
 
 exports.composer_watch = composer_watch;
+
+function yarn_update() {
+    // Update package dependencies
+    return gGulp.src("package.json")
+        .pipe(gYarn());
+}
+
+exports.yarn_update = yarn_update;
 
 function yarn_clean() {
     // Delete all files from yarn package resources dist folder
@@ -125,27 +138,41 @@ function yarn_clean() {
 
 exports.yarn_clean = yarn_clean;
 
-function yarn() {
+function yarn_src() {
     // Copy front-end javascript libraries to yarn package resources dist folder
-    gGulp.src('node_modules/papaparse/papaparse{.min,}.js', { dot: true })
-        .pipe(gGulp.dest(depYarnFolder + 'papaparse/'));
-    return gGulp.src('node_modules/jqueryfiletree/dist/**', { dot: true });
+    const streamArray = [gGulp.src('node_modules/papaparse/papaparse{.min,}.js')
+        .pipe(gGulp.dest(depYarnFolder + 'papaparse/')),
+    gGulp.src('node_modules/jqueryfiletree/dist/**')
+        .pipe(gGulp.dest(depYarnFolder + 'jqueryfiletree/'))];
+    return gMergeStream(streamArray);
 }
 
-exports.yarn = gGulp.series(yarn_clean, yarn);
+exports.yarn_src = yarn_src;
+
+function yarn_watch() {
+    // Watch for any changes in yarn files to copy changes
+    gGulp.watch(["package.json"])
+        .on('all', function (event, path) {
+            yarn_update();
+            yarn_src();
+        });
+}
+
+exports.yarn_watch = yarn_watch;
 
 function symlinks() {
     // Create all necessary symlinks
-    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Heavy', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Schwer'));
+    const streamArray = [gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Heavy', { dot: true })
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Schwer')),
     gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Knifes', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Messer'));
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Messer')),
     gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Pistols', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Pistolen'));
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Pistolen')),
     gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Rifles', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Gewehre'));
-    return gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/SMGs', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/MPs'));
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Gewehre')),
+    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/SMGs', { dot: true })
+        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/MPs'))];
+    return gMergeStream(streamArray);
 }
 
 exports.symlinks = symlinks;
@@ -170,12 +197,9 @@ function zipWaiter() {
 
 function zip_watch() {
     // Watch for any changes to start a zip rebuild
-    gGulp.watch(zipSrcGlob, { followSymlinks: false })
+    gGulp.watch(zipSrcGlob)
         .on('all', function (event, path) {
-            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
-
             console.log(event + ': "' + path + '". Running tasks...');
-
             zipWaiter();
         });
 }
@@ -183,5 +207,5 @@ function zip_watch() {
 exports.zip_watch = zip_watch;
 
 // Build tasks
-gGulp.task('travis', gGulp.series(dist_clean, gGulp.parallel(credentials, staticSrc, composer, yarn), symlinks, zip));
-gGulp.task('default', gGulp.series('travis', gGulp.parallel(credentials_watch, staticSrc_watch, composer_watch, zip_watch)));
+gGulp.task('travis', gGulp.series(dist_clean, gGulp.parallel(credentials, staticSrc, gGulp.series(composer_update, composer_src), gGulp.series(yarn_update, yarn_src)), symlinks, zip));
+gGulp.task('default', gGulp.series('travis', gGulp.parallel(credentials_watch, staticSrc_watch, composer_watch, yarn_watch, zip_watch)));
