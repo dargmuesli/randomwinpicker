@@ -76,15 +76,16 @@ function staticSrc() {
 
 exports.staticSrc = staticSrc;
 
-function staticSrc_watch() {
-    // Watch for any changes in static files to copy changes
+function src_watch() {
+    // Watch for any changes in source files to copy changes
     gGulp.watch(staticSrcFolder, { followSymlinks: false })
         .on('all', function (event, path) {
-            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
+            gDel.sync(gPath.resolve(distFolder, gPath.relative(gPath.resolve('src'), path)));
             staticSrc();
         });
 }
 
+exports.src_watch = src_watch;
 
 function composer_clean() {
     // Delete all files from composer package resources dist folder
