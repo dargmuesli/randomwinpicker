@@ -6,4 +6,3 @@
 *.csr
 *.env
 *.key
-docker-compose.yml
