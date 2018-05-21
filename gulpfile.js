@@ -39,6 +39,26 @@ function dist_clean() {
 
 exports.dist_clean = dist_clean;
 
+function credentials() {
+    // Copy credentials to dist folder
+    return gGulp.src(credentialsSrcGlob, { dot: true })
+        .pipe(gCached('credentials'))
+        .pipe(gGulp.dest(distCredentialsFolder));
+}
+
+exports.credentials = credentials;
+
+function credentials_watch() {
+    // Watch for any changes in credential files to copy changes
+    gGulp.watch(credentialsSrcGlob, { followSymlinks: false })
+        .on('all', function (event, path) {
+            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
+            credentials();
+        });
+}
+
+exports.credentials_watch = credentials_watch;
+
 function staticSrc() {
     // Copy static files to dist folder
     buildInProgress = true;
@@ -65,27 +85,6 @@ function staticSrc_watch() {
         });
 }
 
-exports.staticSrc_watch = staticSrc_watch;
-
-function credentials() {
-    // Copy credentials to dist folder
-    return gGulp.src(credentialsSrcGlob, { dot: true })
-        .pipe(gCached('credentials'))
-        .pipe(gGulp.dest(distCredentialsFolder));
-}
-
-exports.credentials = credentials;
-
-function credentials_watch() {
-    // Watch for any changes in credential files to copy changes
-    gGulp.watch(credentialsSrcGlob, { followSymlinks: false })
-        .on('all', function (event, path) {
-            gDel.sync(gPath.resolve(distCredentialsFolder, gPath.relative(gPath.resolve('credentials'), path)));
-            credentials();
-        });
-}
-
-exports.credentials_watch = credentials_watch;
 
 function composer_clean() {
     // Delete all files from composer package resources dist folder
@@ -183,5 +182,5 @@ function zip_watch() {
 exports.zip_watch = zip_watch;
 
 // Build tasks
-gGulp.task('travis', gGulp.series(dist_clean, gGulp.parallel(staticSrc, credentials, composer, yarn), symlinks, zip));
-gGulp.task('default', gGulp.series('travis', gGulp.parallel(staticSrc_watch, credentials_watch, composer_watch, zip_watch)));
+gGulp.task('travis', gGulp.series(dist_clean, gGulp.parallel(credentials, staticSrc, composer, yarn), symlinks, zip));
+gGulp.task('default', gGulp.series('travis', gGulp.parallel(credentials_watch, staticSrc_watch, composer_watch, zip_watch)));
