@@ -33,7 +33,7 @@ RUN mkdir -p $APACHE_DIR
 COPY --from=node /app/dist/randomwinpicker.de "$APACHE_DIR/"
 
 # Copy Apache and PHP config files
-COPY docker/conf/apache/cert/* "/etc/ssl/certs/"
+COPY docker/conf/certs/* "/etc/ssl/certs/"
 COPY docker/conf/apache/conf/* "$APACHE_CONFDIR/conf-available/"
 COPY docker/conf/apache/site/* "$APACHE_CONFDIR/sites-available/"
 COPY docker/conf/php/* "$PHP_INI_DIR/"
