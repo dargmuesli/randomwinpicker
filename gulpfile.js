@@ -126,7 +126,7 @@ exports.composer_watch = composer_watch;
 function yarn_update() {
     // Update package dependencies
     return gGulp.src("package.json")
-        .pipe(gYarn());
+        .pipe(gYarn({ args: '--no-cache --frozen-lockfile' }));
 }
 
 exports.yarn_update = yarn_update;
