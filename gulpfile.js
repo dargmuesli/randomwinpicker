@@ -207,5 +207,5 @@ function zip_watch() {
 exports.zip_watch = zip_watch;
 
 // Build tasks
-gGulp.task('travis', gGulp.series(dist_clean, gGulp.parallel(credentials, staticSrc, gGulp.series(composer_update, composer_src), gGulp.series(yarn_update, yarn_src)), symlinks, zip));
-gGulp.task('default', gGulp.series('travis', gGulp.parallel(credentials_watch, staticSrc_watch, composer_watch, yarn_watch, zip_watch)));
+gGulp.task('build', gGulp.series(dist_clean, gGulp.parallel(credentials, staticSrc, gGulp.series(composer_update, composer_src), gGulp.series(yarn_update, yarn_src)), symlinks, zip));
+gGulp.task('default', gGulp.series('build', gGulp.parallel(credentials_watch, staticSrc_watch, composer_watch, yarn_watch, zip_watch)));
