@@ -1,4 +1,22 @@
 # Base image
+FROM node:stretch AS node
+
+# Update and upgrade
+RUN \
+    apt-get update && \
+    apt-get -y upgrade && \
+    apt-get install -y php7.0 php-gd php7.0-zip composer
+
+WORKDIR /app
+
+COPY ./ /app/
+COPY package.json yarn.lock ./
+
+RUN yarn global add gulp-cli
+RUN yarn add gulp@4 -D
+RUN gulp build
+
+# Base image
 FROM php:apache
 
 # Project variables
@@ -12,7 +30,7 @@ ENV PHP_INI_DIR /usr/local/etc/php/
 
 # Create Apache directory and copy the files
 RUN mkdir -p $APACHE_DIR
-COPY dist/randomwinpicker.de "$APACHE_DIR/"
+COPY --from=node /app/dist/randomwinpicker.de "$APACHE_DIR/"
 
 # Copy Apache and PHP config files
 COPY docker/conf/apache/cert/* "/etc/ssl/certs/"
