@@ -7,6 +7,7 @@ const gFs = require('fs');
 const gGulp = require('gulp');
 const gMergeStream = require('merge-stream');
 const gPath = require('path');
+const gSymlink = require('gulp-symlink');
 const gVfs = require('vinyl-fs');
 const gYarn = require('gulp-yarn');
 const gZip = require('gulp-zip');
@@ -126,7 +127,7 @@ exports.composer_watch = composer_watch;
 function yarn_update() {
     // Update package dependencies
     return gGulp.src("package.json")
-        .pipe(gYarn());
+        .pipe(gYarn({ args: '--no-cache --frozen-lockfile' }));
 }
 
 exports.yarn_update = yarn_update;
@@ -162,16 +163,17 @@ exports.yarn_watch = yarn_watch;
 
 function symlinks() {
     // Create all necessary symlinks
-    const streamArray = [gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Heavy', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Schwer')),
-    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Knifes', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Messer')),
-    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Pistols', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Pistolen')),
-    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Rifles', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Gewehre')),
-    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/SMGs', { dot: true })
-        .pipe(gGulp.symlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/MPs'))];
+    // "gulp-symlink" is still required as Gulp's/Vinyl-fs's symlink function is incapable of changing the symlink's name
+    const streamArray = [gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Heavy')
+        .pipe(gSymlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Schwer')),
+    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Knifes')
+        .pipe(gSymlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Messer')),
+    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Pistols')
+        .pipe(gSymlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Pistolen')),
+    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Rifles')
+        .pipe(gSymlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/Gewehre')),
+    gGulp.src('dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/SMGs')
+        .pipe(gSymlink('dist/randomwinpicker.de/server/layout/data/filetree/categories/de/CS_GO/MPs'))];
     return gMergeStream(streamArray);
 }
 
@@ -207,5 +209,5 @@ function zip_watch() {
 exports.zip_watch = zip_watch;
 
 // Build tasks
-gGulp.task('travis', gGulp.series(dist_clean, gGulp.parallel(credentials, staticSrc, gGulp.series(composer_update, composer_src), gGulp.series(yarn_update, yarn_src)), symlinks, zip));
-gGulp.task('default', gGulp.series('travis', gGulp.parallel(credentials_watch, staticSrc_watch, composer_watch, yarn_watch, zip_watch)));
+gGulp.task('build', gGulp.series(dist_clean, gGulp.parallel(credentials, staticSrc, gGulp.series(composer_update, composer_src), gGulp.series(yarn_update, yarn_src)), symlinks, zip));
+gGulp.task('default', gGulp.series('build', gGulp.parallel(credentials_watch, staticSrc_watch, composer_watch, yarn_watch, zip_watch)));
