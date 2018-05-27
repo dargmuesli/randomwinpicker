@@ -10,7 +10,7 @@
         $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
     }
 
-    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=randomwinpicker.de", $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
     $dieLocation = '../../accounts/recovery.php';
 
     // Get the URL parameters
@@ -38,7 +38,7 @@
 
         // Check if entry already exists
         $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
-        
+
         if (!$stmt->execute()) {
             throw new Exception($stmt->errorInfo()[2]);
         }
@@ -77,7 +77,7 @@
             } else {
                 // Mark the user as invalid
                 $stmt = $dbh->prepare("UPDATE accounts SET code='" . $code . "' WHERE mail='" . $email . "'");
-                
+
                 if (!$stmt->execute()) {
                     throw new Exception($stmt->errorInfo()[2]);
                 }
@@ -115,7 +115,7 @@
         );
 
         $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
-        
+
         if (!$stmt->execute()) {
             throw new Exception($stmt->errorInfo()[2]);
         }
@@ -127,14 +127,14 @@
         if ($row == $code) {
             // Mark the user as validated
             $stmt = $dbh->prepare("UPDATE accounts SET code = -1 WHERE mail='" . $email . "'");
-            
+
             if (!$stmt->execute()) {
                 throw new Exception($stmt->errorInfo()[2]);
             }
 
             // Update the users password hash
             $stmt = $dbh->prepare("UPDATE accounts SET hash='" . $hash . "' WHERE mail='" . $email . "'");
-            
+
             if (!$stmt->execute()) {
                 throw new Exception($stmt->errorInfo()[2]);
             }

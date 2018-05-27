@@ -2,7 +2,7 @@
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
 
-    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=randomwinpicker.de", $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 
     if ($email == null || $hash == null) {
         switch ($lang) {
@@ -23,7 +23,7 @@
     $stmt_youtube = $dbh->prepare("SELECT youtube FROM accounts WHERE mail='" . $email . "'");
     $stmt_encoding = $dbh->prepare("SELECT encoding FROM accounts WHERE mail='" . $email . "'");
     $stmt_prices = $dbh->prepare("SELECT prices FROM accounts WHERE mail='" . $email . "'");
-    
+
     if (!$stmt_privacy->execute()) {
         throw new Exception($stmt_privacy->errorInfo()[2]);
     }

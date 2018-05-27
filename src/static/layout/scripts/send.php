@@ -4,12 +4,12 @@
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/mail.php';
 
-    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=randomwinpicker.de", $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 
     $user = $_GET['email'];
 
     $stmt = $dbh->prepare("SELECT privacy FROM accounts WHERE mail='" . $user . "'");
-    
+
     if (!$stmt->execute()) {
         throw new Exception($stmt->errorInfo()[2]);
     }
@@ -22,7 +22,7 @@
     }
 
     $fileOrig = $_GET['file'];
-    
+
     $file = htmlspecialchars_decode(utf8_decode(htmlentities($fileOrig, ENT_COMPAT, 'UTF-8', false)));
     $nameOrig = $_POST['name'];
     $name = htmlspecialchars_decode(utf8_decode(htmlentities($nameOrig, ENT_COMPAT, 'UTF-8', false)));

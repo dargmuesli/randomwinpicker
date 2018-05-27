@@ -11,7 +11,7 @@
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/mail.php';
 
-    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=randomwinpicker.de", $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 
     $dieLocation = '../../accounts/';
 
@@ -21,14 +21,14 @@
 
     if ($task == 'resend') {
         $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
-        
+
         if (!$stmt->execute()) {
             throw new Exception($stmt->errorInfo()[2]);
         }
 
         // Get database's code element
         $code = $stmt->fetch()[0];
-            
+
         if ($code != -1) { // && ($code != -2) {
             $link = $_SERVER['SERVER_ROOT_URL'].'/layout/scripts/validation.php?task=validate&email=$email&code=$code';
 
@@ -76,7 +76,7 @@
     } elseif ($task == 'delete') {
         // Delete account
         $stmt = $dbh->prepare("DELETE FROM accounts WHERE mail='" . $email . "' AND code<>-1");
-        
+
         if (!$stmt->execute()) {
             throw new Exception($stmt->errorInfo()[2]);
         }
@@ -94,7 +94,7 @@
 
         // Get database's code element
         $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
-        
+
         if (!$stmt->execute()) {
             throw new Exception($stmt->errorInfo()[2]);
         }

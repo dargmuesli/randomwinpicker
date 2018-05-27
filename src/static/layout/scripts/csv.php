@@ -1,19 +1,19 @@
 <?php
     header('Content-Type: application/javascript');
-    
+
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
 
-    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=randomwinpicker.de", $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 
     $encoding = 'UTF-8';
 
     if (isset($email)) {
         $stmt = $dbh->prepare("SELECT encoding FROM accounts WHERE mail='" . $email . "'");
-        
+
         if (!$stmt->execute()) {
             throw new Exception($stmt->errorInfo()[2]);
         }
-        
+
         $encoding = $stmt->fetch()[0];
     }
 ?>

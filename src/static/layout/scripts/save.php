@@ -1,15 +1,15 @@
 <?php
     session_start();
-    
+
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
 
-    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=randomwinpicker.de", $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 
     $storage = 'Session';
 
     if (isset($_SESSION['email'])) {
         $stmt = $dbh->prepare("SELECT storage FROM accounts WHERE mail='" . $_SESSION['email'] . "'");
-        
+
         if (!$stmt->execute()) {
             throw new Exception($stmt->errorInfo()[2]);
         }

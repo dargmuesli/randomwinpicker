@@ -4,7 +4,7 @@
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
 
-    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=randomwinpicker.de", $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 
     $participants = null;
 
@@ -29,7 +29,7 @@
             $items = $_SESSION['items'];
         }
     }
-    
+
     if (sizeof($participants) < sizeof($items)) {
         switch ($lang) {
             case 'de':
@@ -43,7 +43,7 @@
 <?php
 
     }
-    
+
     if (is_array($participants)) {
         $participants = htmlspecialchars_decode(json_encode($participants), ENT_NOQUOTES);
     }
@@ -59,7 +59,7 @@
     }
 
     $stmt = $dbh->prepare("SELECT prices FROM accounts WHERE mail='" . $email . "'");
-    
+
     if (!$stmt->execute()) {
         throw new Exception($stmt->errorInfo()[2]);
     }
