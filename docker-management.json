@@ -10,6 +10,13 @@
         "Content": {
             "version": "3.6",
             "services": {
+                "adminer": {
+                    "image": "adminer",
+                    "labels": [
+                        "traefik.backend=adminer",
+                        "traefik.frontend.rule=Host:adminer.randomwinpicker.test"
+                    ]
+                },
                 "apache": {
                     "image": "localhost:5000/dargmuesli/randomwinpicker.de",
                     "deploy": {
@@ -18,12 +25,14 @@
                             "condition": "on-failure"
                         }
                     },
-                    "ports": [
-                        "80:80",
-                        "443:443"
-                    ],
                     "volumes": [
                         "./dist/randomwinpicker.de:/var/www/randomwinpicker.de"
+                    ],
+                    "labels": [
+                        "traefik.backend=apache",
+                        "traefik.frontend.rule=Host:randomwinpicker.test,www.randomwinpicker.test",
+                        "traefik.protocol=https",
+                        "traefik.port=443"
                     ]
                 },
                 "postgres": {
@@ -40,33 +49,45 @@
                     ],
                     "volumes": [
                         "postgres-data:/var/lib/postgresql/data"
-                    ]
-                },
-                "adminer": {
-                    "image": "adminer",
-                    "ports": [
-                        "8888:8080"
-                    ]
-                },
-                "visualizer": {
-                    "image": "dockersamples/visualizer:stable",
-                    "ports": [
-                        "8080:8080"
                     ],
-                    "volumes": [
-                        "/var/run/docker.sock:/var/run/docker.sock"
+                    "labels": [
+                        "traefik.backend=postgres",
+                        "traefik.frontend.rule=Host:postgres.randomwinpicker.test"
+                    ]
+                },
+                "traefik": {
+                    "image": "traefik",
+                    "ports": [
+                        "80:80",
+                        "443:443"
                     ],
                     "deploy": {
+                        "mode": "global",
                         "placement": {
                             "constraints": [
                                 "node.role == manager"
                             ]
                         }
-                    }
+                    },
+                    "volumes": [
+                        "/var/run/docker.sock:/var/run/docker.sock",
+                        "./docker/conf/certs:/etc/ssl/certs"
+                    ],
+                    "command": [
+                        "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https",
+                        "--entryPoints=Name:https Address::443 TLS:/etc/ssl/certs/server.cer,/etc/ssl/certs/server.key Compress:true",
+                        "--defaultentrypoints=http,https",
+                        "--insecureSkipVerify=true",
+                        "--api",
+                        "--docker"
+                    ],
+                    "labels": [
+                        "traefik.port=8080",
+                        "traefik.backend=traefik",
+                        "traefik.frontend.rule=Host:traefik.randomwinpicker.test",
+                        "traefik.docker.network=randomwinpicker-de_default"
+                    ]
                 }
-            },
-            "volumes": {
-                "postgres-data": {}
             },
             "secrets": {
                 "postgres_user": {
@@ -78,6 +99,9 @@
                 "postgres_db": {
                     "external": true
                 }
+            },
+            "volumes": {
+                "postgres-data": {}
             }
         }
     }
