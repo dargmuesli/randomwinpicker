@@ -25,5 +25,7 @@ subjectAltName = @alt_names
 
 # Multiple Alternate Names are possible
 [alt_names]
-DNS.1 = randomwinpicker.dev
-DNS.2 = www.randomwinpicker.dev
+DNS.1 = randomwinpicker.test
+DNS.2 = adminer.randomwinpicker.test
+DNS.3 = traefik.randomwinpicker.test
+DNS.4 = www.randomwinpicker.test
