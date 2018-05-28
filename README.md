@@ -57,15 +57,18 @@ Well, one way or another, the website found its use in some of Megaquests videos
 
 ## Build & Deploy
 
+### Environment Variables
+Remember to create the `credentials/.env` file using the provided template to enable complete functionality.
+
 ### Yarn
 
-All required Node.js dependencies can be installed using Yarn. By default the `yarn` command utilizes the `package.json` file to automatically install the dependencies to a local `node_modules` folder. Instructions on how to install Yarn can be found [here](https://yarnpkg.com/lang/en/docs/install/).
+All required Node.js dependencies can be installed using [Yarn](https://yarnpkg.com/). By default the `yarn` command utilizes the `package.json` file to automatically install the dependencies to a local `node_modules` folder. Instructions on how to install Yarn can be found [here](https://yarnpkg.com/lang/en/docs/install/).
 
 ### Gulp
 
-This repository contains all scripts needed to build this project. The `gulpfile.js` automatically manages tasks like cleaning the `build` (`dist`) folder, copying files to it, manage dependencies with composer and yarn, creating symlinks and a zip file and finally watching for any changes.
+This repository contains all scripts needed to build this project. The `gulpfile.js` automatically manages tasks like cleaning the build (`dist`) folder, copying files to it, managing dependencies with composer and yarn, creating symlinks and a zip file and finally watching for any changes.
 
-By default the `gulp` command executes all necessary functions to build the website. If the Gulp-CLI is not installed globally, you need to run `yarn global add gulp-cli` first.
+By default the `gulp` command executes all necessary functions to build the website. If the [gulp-cli](https://yarnpkg.com/en/package/gulp-cli) is not installed globally, you need to run `yarn global add gulp-cli` first.
 
 #### Composer
 For the `Composer` task to be executed you need to have PHP installed. Make sure that the following settings are made in your `php.ini`:
@@ -80,44 +83,83 @@ extension=gd
 ##### Windows
 
 ```PHP
-extension_dir = "ext"
 date.timezone = UTC
 extension=gd2
+extension_dir = "ext"
 ```
 
 ### Docker
 
-How you choose to integrate the built project is up to you. Though, a `dockerfile` and a `docker-compose.yml` are provided.
+How you choose to integrate the built project is up to you. A `dockerfile` (and a `docker-compose.yml` template inside `docker-management.json`) is provided to make deployment a breeze.
 
-The given `dockerfile` enables you to build a PHP/Apache-Server with the configuration files in the `docker` folder. It can be run as a Docker container just as you wish, but makes the site not fully functional. Additional services like a database service are needed. Those are defined in the `docker-compose.yml` file. With this file the deployment is complete.
-
-For Windows users I suggest to use my PowerShell [PS-Docker-Management](https://github.com/dargmuesli/ps-docker-management) script. It manages Docker projects like this one. To make your Gulp build accessible via a webbrowser just run a command similar to this:
+The given `dockerfile` enables you to build a PHP/Apache-Server with the configuration files in the `docker` folder. It can be run as a Docker container just as you wish, but this alone makes the site not fully functional. Additional services like [a reverse proxy](https://traefik.io/) are needed. Those can be defined in the `docker-compose.yml` file, which describes a [stack that can be deployed on a swarm](https://docs.docker.com/engine/reference/commandline/stack_deploy/). With this file the deployment is complete. To generate a development version of this file you can use [PS-Docker-Management](https://github.com/dargmuesli/ps-docker-management). It simplifies development of Docker projects like this one. To setup this project's full Docker stack locally just run this command:
 
 ```PowerShell
-.\Invoke-PSDockerManagement.ps1 -ProjectPath ..\randomwinpicker.de\
+./Invoke-PSDockerManagement.ps1 -ProjectPath ../randomwinpicker.de/
 ```
 
-#### Environment Variables
-A `.env` file needs to be created containing the values written in `.env.template`. This way, username and passwords can be set for services like databases without having to add them to the source code directly. The default Docker Compose file relies on them.
+#### Secrets
+To keep confidential data, like usernames and passwords, out of the source code they need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/). These secrets do need to exist:
+- postgres_password
+- postgres_db
+- postgres_user
 
 #### Certificates
-For HTTPs/SSL usage certificates are required. Those can easily be generated using the `docker\conf\certs\New-Certificates.ps1` script. The `root.cer` certificate needs to be imported in the browser.
+HTTPs/SSL encryption requires certificates. Those can easily be generated using the `docker/conf/certs/New-Certificates.ps1` script. The `root.cer` certificate needs to be imported in your browser.
 
 <a name="Usage"></a>
 
 ## Usage
 
-### Adminer
-Connect to the PostgreSQL instance via Adminer using:
+### DNS
+The default configuration assumes that the local development is done on `randomwinpicker.test`. Therefore one needs to configure the local DNS resolution to make this address resolvable. This can either be done by simply adding this domain and all subdomains to the operation system's hosts file or by settings up a local DNS server. An advantage of the latter method is that subdomain wildcards can be used and thus not every subdomain needs to be defined separately.
 
-|          |                    |
-| -------- | ------------------ |
-| System   | PostgreSQL         |
-| Server   | postgres           |
-| Username | .env-username      |
-| Password | .env-password      |
-| Database | randomwinpicker.de |
+Here is an example configuration for [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq) on [Arch Linux](https://www.archlinux.org/) that uses the local DNS server on top of the router's advertised DNS server:
 
+`/etc/dnsmasq.conf`
+```Conf
+# Use NetworkManager's resolv.conf
+resolv-file=/run/NetworkManager/resolv.conf
+
+# Limit to machine-wide requests
+listen-address=127.0.0.1
+
+# Wildcard DNS
+address=/randomwinpicker.test/127.0.0.1
+
+# Enable logging (systemctl status dnsmasq)
+#log-queries
+```
+
+`/etc/NetworkManager/NetworkManager.conf`
+```Conf
+[main]
+
+# Don't touch /etc/resolv.conf
+rc-manager=unmanaged
+```
+
+### Adminer / PostgreSQL
+
+Connect to the PostgreSQL instance via [Adminer](https://www.adminer.org/) on [adminer.randomwinpicker.test](https://adminer.randomwinpicker.test) using:
+
+|          |                     |
+| -------- | ------------------- |
+| System   | PostgreSQL          |
+| Server   | postgres            |
+| Username | [postgres_user]     |
+| Password | [postgres_password] |
+| Database | [postgres_db]       |
+
+Values in square brackets are Docker secrets.
+
+### Apache
+
+You can access the website at [randomwinpicker.test](https://randomwinpicker.test).
+
+### Traefik
+
+You can access the reverse proxy's dashboard at [traefik.randomwinpicker.test](https://traefik.randomwinpicker.test).
 
 <a name="Status"></a>
 
@@ -125,4 +167,4 @@ Connect to the PostgreSQL instance via Adminer using:
 
 The original creation of this website consumed way too many hours of my free time to let it vanish somewhere on my harddrive. Thus, I decided to publish the source code to GitHub. My plan is to migrate the website to a subsite of my website [jonas-thelemann.de](https://jonas-thelemann.de/) to keep it available.
 
-Creating this repository from the legacy code I initially wrote was time consuming too, but I learned to use tools like Gulp, Yarn, Docker, Composer and environment variables which moves me one step closer to publishing the source code of my main website. I learned many best practises on how to create a website repository and about state of the art web technologies (which this website does *not* but *could* include). Over the next months I hope that I'll find time to improve the source code to meet my own quality requirements. But until then I hope someone else finds this repository useful. Be it that you want to create your own website or try to hack mine ;)
+Creating this repository from the legacy code I initially wrote was time consuming too, but I learned to use tools like Gulp, Yarn, Docker, Composer, environment variables and a reverse proxy, which moves me one step closer to publishing the source code of my main website. I learned many best practises on how to create a website repository and about state of the art web technologies (which this website does *not* but *could* include). Over the next months I hope that I'll find time to improve the source code to meet my own quality requirements. But until then I hope someone else finds this repository useful. Be it that you want to create your own website or try to hack mine ;)
