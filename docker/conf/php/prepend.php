@@ -72,7 +72,7 @@
                     EN
                 </h2>
                 <p>
-                A error occurred and has been logged. Please contact me directly if this error is not resolved in three days and name the following error message:
+                An error occurred and has been logged. Please contact me directly if this error is not resolved in three days and name the following error message:
                 <br>
                 "'.$errorOutput.'"
                 </p>
