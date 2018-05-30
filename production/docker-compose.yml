@@ -1,0 +1,98 @@
+version: "3.6"
+services:
+  adminer:
+    image: "adminer"
+    deploy:
+      labels:
+      - "traefik.backend=adminer"
+      - "traefik.enable=true"
+      - "traefik.frontend.auth.basic=${STACK_AUTH_BASIC}"
+      - "traefik.frontend.rule=Host:adminer.${STACK_DOMAIN}"
+      - "traefik.port=8080"
+  apache:
+    image: "dargmuesli/randomwinpicker.de"
+    deploy:
+      labels:
+      - "traefik.backend=apache"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:${STACK_DOMAIN},www.${STACK_DOMAIN}"
+      - "traefik.port=443"
+      - "traefik.protocol=https"
+      restart_policy:
+        condition: "on-failure"
+    volumes:
+    - "acme-data:/etc/ssl/certs"
+    - "./dist/credentials:/var/www/randomwinpicker.de/credentials"
+  certdumper:
+    image: "alpine:latest"
+    command: >
+      ash -c " \
+        apk --no-cache add inotify-tools jq openssl util-linux bash && \
+        wget https://raw.githubusercontent.com/containous/traefik/master/contrib/scripts/dumpcerts.sh -O dumpcerts.sh && \
+        chmod 744 dumpcerts.sh && \
+        while true; do \
+          bash dumpcerts.sh /etc/traefik/acme/acme.json /etc/traefik/acme/ && \
+          ln -f /etc/traefik/acme/certs/* /etc/traefik/acme/ && \
+          ln -f /etc/traefik/acme/private/* /etc/traefik/acme/ && \
+          inotifywait -e modify /etc/traefik/acme/acme.json
+        done"
+    volumes:
+    - "acme-data:/etc/traefik/acme"
+  postgres:
+    image: "postgres"
+    environment:
+      POSTGRES_DB_FILE: "/run/secrets/postgres_db"
+      POSTGRES_PASSWORD_FILE: "/run/secrets/postgres_password"
+      POSTGRES_USER_FILE: "/run/secrets/postgres_user"
+    secrets:
+    - "postgres_db"
+    - "postgres_password"
+    - "postgres_user"
+    volumes:
+    - "postgres-data:/var/lib/postgresql/data"
+  traefik:
+    image: "traefik"
+    ports:
+    - "80:80"
+    - "443:443"
+    deploy:
+      labels:
+      - "traefik.backend=traefik"
+      - "traefik.docker.network=${STACK_NETWORK_NAME}"
+      - "traefik.enable=true"
+      - "traefik.frontend.auth.basic=${STACK_AUTH_BASIC}"
+      - "traefik.frontend.rule=Host:traefik.${STACK_DOMAIN}"
+      - "traefik.port=8080"
+      mode: "global"
+      placement:
+        constraints:
+          - "node.role == manager"
+    env_file: "traefik.env"
+    command:
+    - "--acme.acmeLogging=true"
+    - "--acme.dnsChallenge.provider=${STACK_ACME_PROVIDER}"
+    - "--acme.domains=${STACK_DOMAIN},adminer.${STACK_DOMAIN},traefik.${STACK_DOMAIN},www.${STACK_DOMAIN}"
+    - "--acme.email=${STACK_ACME_EMAIL}"
+    - "--acme.entrypoint=https"
+    - "--acme.storage=/etc/traefik/acme/acme.json"
+    - "--api"
+    - "--defaultentrypoints=http,https"
+    - "--docker"
+    - "--docker.exposedByDefault=false"
+    - "--docker.swarmMode=true"
+    - "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https"
+    - "--entryPoints=Name:https Address::443 TLS Compress:true"
+    - "--insecureSkipVerify=true"
+    volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+    - "acme-data:/etc/traefik/acme"
+secrets:
+  postgres_db:
+    external: true
+  postgres_password:
+    external: true
+  postgres_user:
+    external: true
+volumes:
+  acme-data: {}
+  postgres-data: {}

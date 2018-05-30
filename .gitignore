@@ -1,9 +1,9 @@
 /dist
 /node_modules
 /vendor
+/docker-compose.yml
 .htpasswd
 *.crt
 *.csr
 *.env
 *.key
-docker-compose.yml
