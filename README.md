@@ -105,7 +105,7 @@ To keep confidential data, like usernames and passwords, out of the source code 
 - postgres_user
 
 #### Certificates
-HTTPs/SSL encryption requires certificates. Those can easily be generated using the `docker/conf/certs/New-Certificates.ps1` script. The `root.cer` certificate needs to be imported in your browser.
+HTTPs/SSL encryption requires certificates. Those can easily be generated using the `docker/conf/certs/New-Certificates.ps1` script. The `root.crt` certificate needs to be imported in your browser.
 
 <a name="Usage"></a>
 
