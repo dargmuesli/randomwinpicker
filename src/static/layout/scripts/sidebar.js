@@ -33,5 +33,5 @@ document.addEventListener('DOMContentLoaded', function () {
             sidebars[0].style.marginTop = '0px';
             sidebars[1].style.marginTop = '0px';
         }
-    };
+    }
 });

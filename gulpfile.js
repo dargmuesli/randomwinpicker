@@ -55,7 +55,7 @@ function credentials_watch() {
     // Watch for any changes in credential files to copy changes
     // Does currently not work as dotfiles cannot be watched with chokidar
     gGulp.watch(credentialsSrcGlob)
-        .on('all', function (event, path) {
+        .on('all', function () {
             credentials();
         });
 }
@@ -82,7 +82,7 @@ exports.staticSrc = staticSrc;
 function staticSrc_watch() {
     // Watch for any changes in source files to copy changes
     gGulp.watch(staticGlob)
-        .on('all', function (event, path) {
+        .on('all', function () {
             staticSrc();
         });
 }
@@ -115,8 +115,8 @@ exports.composer_src = composer_src;
 
 function composer_watch() {
     // Watch for any changes in composer files to copy changes
-    gGulp.watch([composerSrcGlob, "composer.json"])
-        .on('all', function (event, path) {
+    gGulp.watch([composerSrcGlob, 'composer.json'])
+        .on('all', function () {
             composer_update();
             composer_src();
         });
@@ -126,7 +126,7 @@ exports.composer_watch = composer_watch;
 
 function yarn_update() {
     // Update package dependencies
-    return gGulp.src("package.json")
+    return gGulp.src('package.json')
         .pipe(gYarn({ args: '--no-cache --frozen-lockfile' }));
 }
 
@@ -152,8 +152,8 @@ exports.yarn_src = yarn_src;
 
 function yarn_watch() {
     // Watch for any changes in yarn files to copy changes
-    gGulp.watch(["package.json"])
-        .on('all', function (event, path) {
+    gGulp.watch(['package.json'])
+        .on('all', function () {
             yarn_update();
             yarn_src();
         });

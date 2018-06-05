@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     link = document.getElementById('link');
 
     if (spoiler) {
-        spoiler.addEventListener('transitionend', function (event) {
+        spoiler.addEventListener('transitionend', function () {
             if (visible == false) {
                 spoiler.style.overflowY = 'hidden';
                 spoiler.style.maxHeight = '0px';
