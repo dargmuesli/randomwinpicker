@@ -20,7 +20,7 @@
     if (isset($_GET['g-recaptcha-response']) && $_GET['g-recaptcha-response']) {
         $response = $reCaptcha->verify(
             $_GET['g-recaptcha-response'],
-            $_SERVER['REMOTE_ADDR']
+            $_SERVER['HTTP_X_REAL_IP']
         );
     }
 

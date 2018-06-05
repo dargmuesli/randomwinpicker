@@ -7,7 +7,7 @@
     function verifyReCaptcha($response)
     {
         $reCaptcha = get_recaptcha();
-        $verification = $reCaptcha->verify($_POST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR']);
+        $verification = $reCaptcha->verify($_POST['g-recaptcha-response'], $_SERVER['HTTP_X_REAL_IP']);
 
         if ($verification->isSuccess()) {
             return true;
@@ -122,14 +122,12 @@ case 'de':    ?>
                         </p>
                     </address>
 <?php
-
     } else {
         ?>
                     <form action="../imprint/" method="post" id="adform">
                         <div data-theme="dark" data-callback="sub" class="g-recaptcha" data-sitekey="<?php echo get_recaptcha_sitekey(); ?>"></div>
                     </form>
 <?php
-
     }
 ?>
                 </section>
@@ -379,14 +377,12 @@ default:    ?>
                         </p>
                     </address>
 <?php
-
     } else {
         ?>
                     <form action="../imprint/" method="post" id="adform">
                         <div data-theme="dark" data-callback="sub" class="g-recaptcha" data-sitekey="<?php echo get_recaptcha_sitekey(); ?>"></div>
                     </form>
 <?php
-
     }
 ?>
                 </section>
