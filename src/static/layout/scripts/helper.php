@@ -12,7 +12,7 @@
 
         if (strlen($str) > 0) {
             $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
-            preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title); // ignore case
+            preg_match('/\<title\>(.*)\<\/title\>/i', $str, $title); // ignore case
             return $title[1];
         }
     }
@@ -25,7 +25,7 @@
             $name = $img = $quality = $type = $category = '';
 
             $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
-            preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title); // ignore case
+            preg_match('/\<title\>(.*)\<\/title\>/i', $str, $title); // ignore case
             if ($title[1] != 'CS:GO Stash - Browse all skins, stickers, and music') {
                 preg_match('/\<h2\>(.*)\<\/h2\>/i', $str, $name); // ignore case
                 preg_match('/\<img class="img-responsive center-block main-skin-img" src\="https\:\/\/csgostash\.com\/img\/skins\/(.*?)\.png/i', $str, $img); // ignore case
@@ -152,7 +152,7 @@
         end_json = parseInt(document.getElementById('end_json').value);
 
         document.getElementById('fileselect').onchange = function() {
-            var file = document.getElementById("fileselect").files[0];
+            var file = document.getElementById('fileselect').files[0];
             if (file) {
                 var reader = new FileReader();
                 reader.readAsText(file, 'ISO-8859-1');
@@ -187,8 +187,7 @@
     function retrieveTitleData() {
         setTimeout(function () {
             var client = new XMLHttpRequest();
-            client.open('GET', '<?php echo $_SERVER['REQUEST_URI'];
-        ?>?i=' + index, false);
+            client.open('GET', '<?php echo $_SERVER['REQUEST_URI']; ?>?i=' + index, false);
             client.onreadystatechange = function() {
                 if ((client.readyState == 4) && (client.status == 200)) {
                     if (client.responseText != 'CS:GO Stash - Browse all skins, stickers, and music<br>') {
@@ -211,8 +210,7 @@
     function retrieveJsonData() {
         setTimeout(function () {
             var client = new XMLHttpRequest();
-            client.open('GET', '<?php echo $_SERVER['REQUEST_URI'];
-        ?>?j=' + index, false);
+            client.open('GET', '<?php echo $_SERVER['REQUEST_URI']; ?>?j=' + index, false);
             client.onreadystatechange = function() {
                 if ((client.readyState == 4) && (client.status == 200)) {
                     var jsonNode = document.getElementById('json');

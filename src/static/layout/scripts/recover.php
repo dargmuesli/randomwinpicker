@@ -10,7 +10,7 @@
         $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
     }
 
-    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
     $dieLocation = '../../accounts/recovery.php';
 
     // Get the URL parameters

@@ -4,7 +4,7 @@
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
 
-    $dbh = new PDO("pgsql:host=".$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 
     $participants = null;
 
@@ -39,9 +39,8 @@
                 $_SESSION['error'] = 'Too many items for too few participants! Who shall win all that?!';
                 break;
         } ?>
-        window.location = "<?php echo $_SERVER['SERVER_ROOT_URL']; ?>/dialog/items.php";
+        window.location = '<?php echo $_SERVER['SERVER_ROOT_URL']; ?>/dialog/items.php';
 <?php
-
     }
 
     if (is_array($participants)) {

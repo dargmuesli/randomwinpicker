@@ -76,7 +76,7 @@ default:    ?>
         <header>
 <?php
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, "\t\t\t");
+    warning($success, $error, $lang, '\t\t\t');
 ?>
             <div>
                 <a href="../" title="Back" id="back">
@@ -86,7 +86,7 @@ default:    ?>
             <div id="account">
 <?php
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
-    account('../', $email, $lang, "\t\t\t\t");
+    account('../', $email, $lang, '\t\t\t\t');
 ?>
             </div>
         </header>
@@ -109,7 +109,6 @@ default:    ?>
                     </p>
                 </section>
 <?php
-
     } ?>
 <?php if ($view == 'Instructions') {
         ?>
@@ -138,7 +137,6 @@ default:    ?>
                     </p>
                 </section>
 <?php
-
     } ?>
             <div class="alone">
                 <table class="box">
@@ -164,11 +162,11 @@ default:    ?>
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
-        initializeTable(json_decode($_COOKIE['participants'], true), 'participants', "\t\t\t\t\t");
+        initializeTable(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');
     } elseif (isset($_SESSION['participants']) && ($_SESSION['participants'] != '')) {
-        initializeTable($_SESSION['participants'], 'participants', "\t\t\t\t\t");
+        initializeTable($_SESSION['participants'], 'participants', '\t\t\t\t\t');
     } else {
-        initializeTable(null, 'participants', "\t\t\t\t\t");
+        initializeTable(null, 'participants', '\t\t\t\t\t');
     }
 ?>
                     </tbody>
@@ -194,7 +192,6 @@ default:    ?>
                         <input type="file" accept=".csv" id="csv-file" name="files" class="hide" />
                     </p>
 <?php
-
 } ?>
                 <p>
                     <a href="items.php" title="Items">
@@ -222,10 +219,9 @@ default:    ?>
                     </p>
                 </section>
 <?php
-
 } ?>
 <?php if ($view == 'Instructions') {
-    ?>
+        ?>
                 <section class="double">
                     <h2>
                         CSV files
@@ -251,8 +247,7 @@ default:    ?>
                     </p>
                 </section>
 <?php
-
-} ?>
+    } ?>
             <div class="alone">
                 <table class="box">
                     <tbody id="tbody">
@@ -277,11 +272,11 @@ default:    ?>
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
-        initializeTable(json_decode($_COOKIE['participants'], true), 'participants', "\t\t\t\t\t");
+        initializeTable(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');
     } elseif (isset($_SESSION['participants']) && ($_SESSION['participants'] != '')) {
-        initializeTable($_SESSION['participants'], 'participants', "\t\t\t\t\t");
+        initializeTable($_SESSION['participants'], 'participants', '\t\t\t\t\t');
     } else {
-        initializeTable(null, 'participants', "\t\t\t\t\t");
+        initializeTable(null, 'participants', '\t\t\t\t\t');
     }
 ?>
                     </tbody>
@@ -307,7 +302,6 @@ default:    ?>
                     <input type="file" accept=".csv" id="csv-file" name="files" class="hide" />
                 </p>
 <?php
-
 } ?>
                 <p>
                     <a href="items.php" title="Items">

@@ -77,7 +77,7 @@ default:    ?>
         <header>
 <?php
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, "\t\t\t");
+    warning($success, $error, $lang, '\t\t\t');
 ?>
             <div>
                 <a href="participants.php" title="Back" id="back">
@@ -87,7 +87,7 @@ default:    ?>
             <div id="account">
 <?php
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
-    account('../', $email, $lang, "\t\t\t\t");
+    account('../', $email, $lang, '\t\t\t\t');
 ?>
             </div>
         </header>
@@ -114,7 +114,6 @@ case 'de':    ?>
                         Um einen Gegenstand zu entfernen, klicke doppelt auf ihn.
                     </p>
 <?php
-
 } ?>
                 <div class="center">
                     <table class="box">
@@ -147,7 +146,7 @@ case 'de':    ?>
         $content = [0 => ['column0' => '1', 'column1' => '<button class="link" title="Win" id="sI(0)"><figure class="item" id="selected"><img>---<br><figcaption><span></span><span></span></figcaption></figure></button>', 'column1classes' => 'data']]; //id="iniTable"
     }
 
-    initializeTable($content, 'items', "\t\t\t\t\t\t");
+    initializeTable($content, 'items', '\t\t\t\t\t\t');
 ?>
                         </tbody>
                     </table>
@@ -166,15 +165,14 @@ case 'de':    ?>
                             </button>
                         </p>
 <?php
-
 } ?>
                 </div>
             </section>
 <?php if ($view != 'Data') {
-    ?>
+        ?>
                 <section class="double" id="items-right">
 <?php if ($view == 'Instructions') {
-        ?>
+            ?>
                             <h2 id="assignItems">
                                 Gewinne hinzufügen
                             </h2>
@@ -187,8 +185,7 @@ case 'de':    ?>
                                 Dann wähle auf der rechten Seite die Gewinne und Eigenschaften aus.
                             </p>
 <?php
-
-    } ?>
+        } ?>
                     <section class="double sidebar" id="items-right-left">
                         <h3>
                             Zustand
@@ -240,15 +237,14 @@ case 'de':    ?>
                             </button>
                         </p>
 <?php if (isset($email)) {
-        ?>
+            ?>
                         <p>
                             <button class="link" title="Import Session" id="importSession">
                                 Importiere Sitzungsdaten
                             </button>
                         </p>
 <?php
-
-    } ?>
+        } ?>
                     </section>
                     <section class="double sidebar" id="items-left-left">
                         <h3>
@@ -259,8 +255,7 @@ case 'de':    ?>
                     </section>
                 </section>
 <?php
-
-} ?>
+    } ?>
             <div class="alone">
                 <button class="link" title="Draw" id="testGo">
                     <img src="../layout/icons/arrow.png" alt="Draw" class="next"/>
@@ -290,7 +285,6 @@ default:    ?>
                         To remove an item, double click it.
                     </p>
 <?php
-
 } ?>
                 <div class="center">
                     <table class="box">
@@ -323,7 +317,7 @@ default:    ?>
         $content = [0 => ['column0' => '1', 'column1' => '<button class="link" title="Win" id="sI(0)"><figure class="item" id="selected"><img>---<br><figcaption><span></span><span></span></figcaption></figure></button>', 'column1classes' => 'data']]; //id="iniTable"
     }
 
-    initializeTable($content, 'items', "\t\t\t\t\t\t");
+    initializeTable($content, 'items', '\t\t\t\t\t\t');
 ?>
                         </tbody>
                     </table>
@@ -342,15 +336,14 @@ default:    ?>
                         </button>
                     </p>
 <?php
-
 } ?>
                 </div>
             </section>
 <?php if ($view != 'Data') {
-    ?>
+        ?>
                 <section class="double" id="items-right">
 <?php if ($view == 'Instructions') {
-        ?>
+            ?>
                     <h2 id="assignItems">
                         Assign items
                     </h2>
@@ -362,8 +355,7 @@ default:    ?>
                         Then choose the item(s) and attributes that can be won on the right side.
                     </p>
 <?php
-
-    } ?>
+        } ?>
                     <section class="double sidebar"  id="items-right-left">
                         <h3>
                             Condition
@@ -415,15 +407,14 @@ default:    ?>
                             </button>
                         </p>
 <?php if (isset($email)) {
-        ?>
+            ?>
                         <p>
                             <button class="link" title="Import Session" id="importSession">
                                 Import session data
                             </button>
                         </p>
 <?php
-
-    } ?>
+        } ?>
                     </section>
                     <section class="double sidebar" id="items-left-left">
                         <h3>
@@ -434,8 +425,7 @@ default:    ?>
                     </section>
                 </section>
 <?php
-
-} ?>
+    } ?>
             <div class="alone">
                 <button class="link" title="Draw" id="testGo">
                     <img src="../layout/icons/arrow.png" alt="Draw" class="next"/>
