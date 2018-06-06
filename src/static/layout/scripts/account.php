@@ -8,10 +8,11 @@
         global $dbh;
 
         if (isset($email)) {
-            $stmt = $dbh->prepare("SELECT privacy FROM accounts WHERE mail='" . $email . "'");
+            $stmt = $dbh->prepare('SELECT privacy FROM accounts WHERE mail = :email');
+            $stmt->bindParam(':email', $email);
 
             if (!$stmt->execute()) {
-                throw new Exception($stmt->errorInfo()[2]);
+                throw new PDOException($stmt->errorInfo()[2]);
             }
 
             $privacy = $stmt->fetch()[0];

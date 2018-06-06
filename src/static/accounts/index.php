@@ -5,10 +5,11 @@
     $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].";port=".$_ENV['PGSQL_PORT'].";dbname=".$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 
     if (isset($email)) {
-        $stmt = $dbh->prepare("SELECT hash FROM accounts WHERE mail='" . $email . "'");
+        $stmt = $dbh->prepare('SELECT hash FROM accounts WHERE mail = :email');
+        $stmt->bindParam(':email', $email);
 
         if (!$stmt->execute()) {
-            throw new Exception($stmt->errorInfo()[2]);
+            throw new PDOException($stmt->errorInfo()[2]);
         }
 
         $row = $stmt->fetch()[0];

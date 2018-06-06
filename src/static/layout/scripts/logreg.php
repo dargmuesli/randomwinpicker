@@ -61,10 +61,11 @@
                 );
 
                 // Check if entry already exists
-                $stmt = $dbh->prepare("SELECT * FROM accounts WHERE mail='" . $email . "'");
+                $stmt = $dbh->prepare('SELECT * FROM accounts WHERE mail = :email');
+                $stmt->bindParam(':email', $email);
 
                 if (!$stmt->execute()) {
-                    throw new Exception($stmt->errorInfo()[2]);
+                    throw new PDOException($stmt->errorInfo()[2]);
                 }
 
                 $row = $stmt->fetch()[0];
@@ -88,10 +89,13 @@
                     }, $file);
 
                     // Insert the form values into the database
-                    $stmt = $dbh->prepare("INSERT INTO accounts(mail, hash, code) VALUES ('" . $email . "', '" . $hash . "', '" . $code . "')");
+                    $stmt = $dbh->prepare('INSERT INTO accounts(mail, hash, code) VALUES (:email, :hash, :code)');
+                    $stmt->bindParam(':email', $email);
+                    $stmt->bindParam(':hash', $hash);
+                    $stmt->bindParam(':code', $code);
 
                     if (!$stmt->execute()) {
-                        throw new Exception($stmt->errorInfo()[2]);
+                        throw new PDOException($stmt->errorInfo()[2]);
                     }
 
                     // Send an email for confirmation
@@ -135,10 +139,11 @@
                     }
                 } else {
                     // Entry already exists
-                    $stmt = $dbh->prepare("SELECT hash FROM accounts WHERE mail='" . $email . "'");
+                    $stmt = $dbh->prepare('SELECT hash FROM accounts WHERE mail = :email');
+                    $stmt->bindParam(':email', $email);
 
                     if (!$stmt->execute()) {
-                        throw new Exception($stmt->errorInfo()[2]);
+                        throw new PDOException($stmt->errorInfo()[2]);
                     }
 
                     $hash = $stmt->fetch()[0];
@@ -154,19 +159,21 @@
                                 break;
                         }
                     } else {
-                        $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
+                        $stmt = $dbh->prepare('SELECT code FROM accounts WHERE mail = :email');
+                        $stmt->bindParam(':email', $email);
 
                         if (!$stmt->execute()) {
-                            throw new Exception($stmt->errorInfo()[2]);
+                            throw new PDOException($stmt->errorInfo()[2]);
                         }
 
                         $row = $stmt->fetch()[0];
 
                         if ($row == -1) {
-                            $stmt = $dbh->prepare("SELECT view FROM accounts WHERE mail='" . $email . "'");
+                            $stmt = $dbh->prepare('SELECT view FROM accounts WHERE mail = :email');
+                            $stmt->bindParam(':email', $email);
 
                             if (!$stmt->execute()) {
-                                throw new Exception($stmt->errorInfo()[2]);
+                                throw new PDOException($stmt->errorInfo()[2]);
                             }
 
                             $view = $stmt->fetch()[0];

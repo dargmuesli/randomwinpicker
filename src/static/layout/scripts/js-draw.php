@@ -57,10 +57,11 @@
         $quantity = $_SESSION['quantity'];
     }
 
-    $stmt = $dbh->prepare("SELECT prices FROM accounts WHERE mail='" . $email . "'");
+    $stmt = $dbh->prepare('SELECT prices FROM accounts WHERE mail = :email');
+    $stmt->bindParam(':email', $email);
 
     if (!$stmt->execute()) {
-        throw new Exception($stmt->errorInfo()[2]);
+        throw new PDOException($stmt->errorInfo()[2]);
     }
 
     $pricesQuery = $stmt->fetch()[0];

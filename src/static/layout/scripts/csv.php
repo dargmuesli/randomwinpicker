@@ -8,10 +8,11 @@
     $encoding = 'UTF-8';
 
     if (isset($email)) {
-        $stmt = $dbh->prepare("SELECT encoding FROM accounts WHERE mail='" . $email . "'");
+        $stmt = $dbh->prepare('SELECT encoding FROM accounts WHERE mail = :email');
+        $stmt->bindParam(':email', $email);
 
         if (!$stmt->execute()) {
-            throw new Exception($stmt->errorInfo()[2]);
+            throw new PDOException($stmt->errorInfo()[2]);
         }
 
         $encoding = $stmt->fetch()[0];

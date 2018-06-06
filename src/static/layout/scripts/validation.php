@@ -20,10 +20,11 @@
     $email = $_GET['email'];
 
     if ($task == 'resend') {
-        $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
+        $stmt = $dbh->prepare('SELECT code FROM accounts WHERE mail = :email');
+        $stmt->bindParam(':email', $email);
 
         if (!$stmt->execute()) {
-            throw new Exception($stmt->errorInfo()[2]);
+            throw new PDOException($stmt->errorInfo()[2]);
         }
 
         // Get database's code element
@@ -75,10 +76,11 @@
         }
     } elseif ($task == 'delete') {
         // Delete account
-        $stmt = $dbh->prepare("DELETE FROM accounts WHERE mail='" . $email . "' AND code<>-1");
+        $stmt = $dbh->prepare('DELETE FROM accounts WHERE mail = :email AND code<>-1');
+        $stmt->bindParam(':email', $email);
 
         if (!$stmt->execute()) {
-            throw new Exception($stmt->errorInfo()[2]);
+            throw new PDOException($stmt->errorInfo()[2]);
         }
 
         switch ($lang) {
@@ -93,10 +95,11 @@
         $code = $_GET['code'];
 
         // Get database's code element
-        $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
+        $stmt = $dbh->prepare('SELECT code FROM accounts WHERE mail = :email');
+        $stmt->bindParam(':email', $email);
 
         if (!$stmt->execute()) {
-            throw new Exception($stmt->errorInfo()[2]);
+            throw new PDOException($stmt->errorInfo()[2]);
         }
 
         $row = $stmt->fetch()[0];
@@ -104,10 +107,11 @@
         // Check if database's and parameter's code is equal
         if ($row == $code) {
             // Mark the user as validated
-            $stmt = $dbh->prepare("UPDATE accounts SET code = -1 WHERE mail='" . $email . "'");
+            $stmt = $dbh->prepare('UPDATE accounts SET code = -1 WHERE mail = :email');
+            $stmt->bindParam(':email', $email);
 
             if (!$stmt->execute()) {
-                throw new Exception($stmt->errorInfo()[2]);
+                throw new PDOException($stmt->errorInfo()[2]);
             }
 
             switch ($lang) {

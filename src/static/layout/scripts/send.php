@@ -8,10 +8,11 @@
 
     $user = $_GET['email'];
 
-    $stmt = $dbh->prepare("SELECT privacy FROM accounts WHERE mail='" . $user . "'");
+    $stmt = $dbh->prepare('SELECT privacy FROM accounts WHERE mail = :mail');
+    $stmt->bindParam(':mail', $user);
 
     if (!$stmt->execute()) {
-        throw new Exception($stmt->errorInfo()[2]);
+        throw new PDOException($stmt->errorInfo()[2]);
     }
 
     // Entry already exists

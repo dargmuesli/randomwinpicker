@@ -17,12 +17,18 @@
         die(header('Location:../accounts/'));
     }
 
-    $stmt_privacy = $dbh->prepare("SELECT privacy FROM accounts WHERE mail='" . $email . "'");
-    $stmt_view = $dbh->prepare("SELECT view FROM accounts WHERE mail='" . $email . "'");
-    $stmt_storage = $dbh->prepare("SELECT storage FROM accounts WHERE mail='" . $email . "'");
-    $stmt_youtube = $dbh->prepare("SELECT youtube FROM accounts WHERE mail='" . $email . "'");
-    $stmt_encoding = $dbh->prepare("SELECT encoding FROM accounts WHERE mail='" . $email . "'");
-    $stmt_prices = $dbh->prepare("SELECT prices FROM accounts WHERE mail='" . $email . "'");
+    $stmt_privacy = $dbh->prepare('SELECT privacy FROM accounts WHERE mail = :email');
+    $stmt_privacy->bindParam(':email', $email);
+    $stmt_view = $dbh->prepare('SELECT view FROM accounts WHERE mail = :email');
+    $stmt_view->bindParam(':email', $email);
+    $stmt_storage = $dbh->prepare('SELECT storage FROM accounts WHERE mail = :email');
+    $stmt_storage->bindParam(':email', $email);
+    $stmt_youtube = $dbh->prepare('SELECT youtube FROM accounts WHERE mail = :email');
+    $stmt_youtube->bindParam(':email', $email);
+    $stmt_encoding = $dbh->prepare('SELECT encoding FROM accounts WHERE mail = :email');
+    $stmt_encoding->bindParam(':email', $email);
+    $stmt_prices = $dbh->prepare('SELECT prices FROM accounts WHERE mail = :email');
+    $stmt_prices->bindParam(':email', $email);
 
     if (!$stmt_privacy->execute()) {
         throw new Exception($stmt_privacy->errorInfo()[2]);
@@ -118,7 +124,7 @@ default:    ?>
             </div>
 <?php
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, "\t\t\t");
+    warning($success, $error, $lang, '\t\t\t');
 ?>
             <div>
                 <a href="../" title="Back" id="back">
@@ -128,7 +134,7 @@ default:    ?>
             <div id="account">
 <?php
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
-    account('../', $email, $lang, "\t\t\t\t");
+    account('../', $email, $lang, '\t\t\t\t');
 ?>
             </div>
         </header>

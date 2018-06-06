@@ -37,10 +37,11 @@
         }, $file);
 
         // Check if entry already exists
-        $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
+        $stmt = $dbh->prepare('SELECT code FROM accounts WHERE mail = :email');
+        $stmt->bindParam(':email', $email);
 
         if (!$stmt->execute()) {
-            throw new Exception($stmt->errorInfo()[2]);
+            throw new PDOException($stmt->errorInfo()[2]);
         }
 
         $row = $stmt->fetch()[0];
@@ -76,10 +77,12 @@
                 }
             } else {
                 // Mark the user as invalid
-                $stmt = $dbh->prepare("UPDATE accounts SET code='" . $code . "' WHERE mail='" . $email . "'");
+                $stmt = $dbh->prepare('UPDATE accounts SET code = :code WHERE mail = :email');
+                $stmt->bindParam(':code', $code);
+                $stmt->bindParam(':email', $email);
 
                 if (!$stmt->execute()) {
-                    throw new Exception($stmt->errorInfo()[2]);
+                    throw new PDOException($stmt->errorInfo()[2]);
                 }
 
                 switch ($lang) {
@@ -114,10 +117,11 @@
             SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE
         );
 
-        $stmt = $dbh->prepare("SELECT code FROM accounts WHERE mail='" . $email . "'");
+        $stmt = $dbh->prepare('SELECT code FROM accounts WHERE mail = :email');
+        $stmt->bindParam(':email', $email);
 
         if (!$stmt->execute()) {
-            throw new Exception($stmt->errorInfo()[2]);
+            throw new PDOException($stmt->errorInfo()[2]);
         }
 
         // Get database's code element
@@ -126,17 +130,20 @@
         // Check if database's and parameter's code is equal
         if ($row == $code) {
             // Mark the user as validated
-            $stmt = $dbh->prepare("UPDATE accounts SET code = -1 WHERE mail='" . $email . "'");
+            $stmt = $dbh->prepare('UPDATE accounts SET code = -1 WHERE mail = :email');
+            $stmt->bindParam(':email', $email);
 
             if (!$stmt->execute()) {
-                throw new Exception($stmt->errorInfo()[2]);
+                throw new PDOException($stmt->errorInfo()[2]);
             }
 
             // Update the users password hash
-            $stmt = $dbh->prepare("UPDATE accounts SET hash='" . $hash . "' WHERE mail='" . $email . "'");
+            $stmt = $dbh->prepare('UPDATE accounts SET hash = :hash WHERE mail = :email');
+            $stmt->bindParam(':hash', $hash);
+            $stmt->bindParam(':email', $email);
 
             if (!$stmt->execute()) {
-                throw new Exception($stmt->errorInfo()[2]);
+                throw new PDOException($stmt->errorInfo()[2]);
             }
 
             switch ($lang) {

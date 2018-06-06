@@ -8,10 +8,11 @@
     $storage = 'Session';
 
     if (isset($_SESSION['email'])) {
-        $stmt = $dbh->prepare("SELECT storage FROM accounts WHERE mail='" . $_SESSION['email'] . "'");
+        $stmt = $dbh->prepare('SELECT storage FROM accounts WHERE mail = :email');
+        $stmt->bindParam(':email', $email);
 
         if (!$stmt->execute()) {
-            throw new Exception($stmt->errorInfo()[2]);
+            throw new PDOException($stmt->errorInfo()[2]);
         }
 
         $storage = $stmt->fetch()[0];
