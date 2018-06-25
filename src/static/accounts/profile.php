@@ -31,27 +31,27 @@
     $stmt_prices->bindParam(':email', $email);
 
     if (!$stmt_privacy->execute()) {
-        throw new Exception($stmt_privacy->errorInfo()[2]);
+        throw new PDOException($stmt_privacy->errorInfo()[2]);
     }
 
     if (!$stmt_view->execute()) {
-        throw new Exception($stmt_view->errorInfo()[2]);
+        throw new PDOException($stmt_view->errorInfo()[2]);
     }
 
     if (!$stmt_storage->execute()) {
-        throw new Exception($stmt_storage->errorInfo()[2]);
+        throw new PDOException($stmt_storage->errorInfo()[2]);
     }
 
     if (!$stmt_youtube->execute()) {
-        throw new Exception($stmt_youtube->errorInfo()[2]);
+        throw new PDOException($stmt_youtube->errorInfo()[2]);
     }
 
     if (!$stmt_encoding->execute()) {
-        throw new Exception($stmt_encoding->errorInfo()[2]);
+        throw new PDOException($stmt_encoding->errorInfo()[2]);
     }
 
     if (!$stmt_prices->execute()) {
-        throw new Exception($stmt_prices->errorInfo()[2]);
+        throw new PDOException($stmt_prices->errorInfo()[2]);
     }
 
     $privacy = $stmt_privacy->fetch()[0];
