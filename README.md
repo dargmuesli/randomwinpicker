@@ -162,7 +162,7 @@ sudo -E docker stack deploy -c docker-compose.yml randomwinpicker-de
 
 ### Adminer / PostgreSQL
 
-Connect to the PostgreSQL instance via [Adminer](https://www.adminer.org/) on [adminer.randomwinpicker.test](https://adminer.randomwinpicker.test) using:
+Connect to the PostgreSQL instance via [Adminer](https://www.adminer.org/) locally on [adminer.randomwinpicker.test](https://adminer.randomwinpicker.test) using:
 
 |          |                     |
 | -------- | ------------------- |
@@ -176,11 +176,11 @@ Values in square brackets are Docker secrets.
 
 ### Apache
 
-You can access the website at [randomwinpicker.test](https://randomwinpicker.test).
+You can access the main website locally at [randomwinpicker.test](https://randomwinpicker.test).
 
 ### Traefik
 
-You can access the reverse proxy's dashboard at [traefik.randomwinpicker.test](https://traefik.randomwinpicker.test).
+You can access the reverse proxy's dashboard locally at [traefik.randomwinpicker.test](https://traefik.randomwinpicker.test).
 
 <a name="Status"></a>
 
