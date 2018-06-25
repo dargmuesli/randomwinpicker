@@ -41,7 +41,7 @@ COPY docker/conf/php/* "$PHP_INI_DIR/"
 # Enable mods, config and site
 RUN a2enmod $PROJECT_MODS
 RUN a2enconf $PROJECT_NAME
-RUN rm $APACHE_CONFDIR/sites-enabled/*
+RUN a2dissite *
 RUN a2ensite $PROJECT_NAME
 
 # Update and upgrade
