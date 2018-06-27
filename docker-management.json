@@ -91,7 +91,7 @@
                     ],
                     "volumes": [
                         "/var/run/docker.sock:/var/run/docker.sock",
-                        "./docker/conf/certs:/etc/ssl/certs"
+                        "./docker/randomwinpicker.de/certs:/etc/ssl/certs"
                     ]
                 }
             },

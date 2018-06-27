@@ -59,7 +59,7 @@ Well, one way or another, the website found its use in some of Megaquests videos
 ## Configuration
 
 ### Certificates
-HTTPs/SSL encryption requires certificates. Those can easily be generated using the `docker/conf/certs/New-Certificates.ps1` script. The `root.crt` certificate needs to be imported in your browser.
+HTTPs/SSL encryption requires certificates. Those can easily be generated using the `docker/randomwinpicker.de/certs/New-Certificates.ps1` script. The `root.crt` certificate needs to be imported in your browser.
 
 ### Docker Secrets
 To keep confidential data, like usernames and passwords, out of the source code they need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/). These secrets do need to exist:

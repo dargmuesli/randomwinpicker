@@ -4,7 +4,6 @@ FROM node:stretch AS node
 # Update and upgrade
 RUN \
     apt-get update && \
-    apt-get -y upgrade && \
     apt-get install -y php7.0 php-gd php7.0-zip composer
 
 WORKDIR /app
@@ -33,10 +32,10 @@ RUN mkdir -p $APACHE_DIR
 COPY --from=node /app/dist/randomwinpicker.de "$APACHE_DIR/"
 
 # Copy Apache and PHP config files
-COPY docker/conf/certs/* "/etc/ssl/certs/"
-COPY docker/conf/apache/conf/* "$APACHE_CONFDIR/conf-available/"
-COPY docker/conf/apache/site/* "$APACHE_CONFDIR/sites-available/"
-COPY docker/conf/php/* "$PHP_INI_DIR/"
+COPY docker/randomwinpicker.de/certs/* "/etc/ssl/certs/"
+COPY docker/randomwinpicker.de/apache/conf/* "$APACHE_CONFDIR/conf-available/"
+COPY docker/randomwinpicker.de/apache/site/* "$APACHE_CONFDIR/sites-available/"
+COPY docker/randomwinpicker.de/php/* "$PHP_INI_DIR/"
 
 # Enable mods, config and site
 RUN a2enmod $PROJECT_MODS
@@ -44,13 +43,9 @@ RUN a2enconf $PROJECT_NAME
 RUN a2dissite *
 RUN a2ensite $PROJECT_NAME
 
-# Update and upgrade
-RUN \
-    apt-get update && \
-    apt-get -y upgrade
-
 # Enable extensions
-RUN apt-get install -y \
+RUN apt-get update \
+    && apt-get install -y \
     libpq-dev \
     && docker-php-ext-install \
     pdo_pgsql
