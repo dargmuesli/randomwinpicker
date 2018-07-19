@@ -3,35 +3,35 @@
 
     if (isset($email) && isset($_COOKIE['participants'])) {
         if (count($_COOKIE['participants']) == 0) {
-            participantsError();
+            participants_error();
         }
     } elseif (isset($_SESSION['participants'])) {
         if (count($_SESSION['participants']) == 0) {
-            participantsError();
+            participants_error();
         }
     } else {
-        participantsError();
+        participants_error();
     }
 
     if (isset($email) && isset($_COOKIE['items'])) {
         if (count($_COOKIE['items']) == 0) {
-            itemsError();
+            items_error();
         }
     } elseif (isset($_SESSION['items'])) {
         if (count($_SESSION['items']) == 0) {
-            itemsError();
+            items_error();
         }
     } else {
-        itemsError();
+        items_error();
     }
 
-    function participantsError()
+    function participants_error()
     {
         $_SESSION['error'] = 'No participants defined!';
         die(header('Location: participants.php'));
     }
 
-    function itemsError()
+    function items_error()
     {
         $_SESSION['error'] = 'No items defined!';
         die(header('Location: items.php'));

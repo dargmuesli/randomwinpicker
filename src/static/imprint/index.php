@@ -4,7 +4,7 @@
 
     $response = null;
 
-    function verifyReCaptcha($response)
+    function verify_recaptcha($response)
     {
         $reCaptcha = get_recaptcha();
         $verification = $reCaptcha->verify($_POST['g-recaptcha-response'], $_SERVER['HTTP_X_REAL_IP']);
@@ -18,7 +18,7 @@
 
     if (!empty($_POST)) {
         if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
-            $response = verifyReCaptcha($_POST['g-recaptcha-response']);
+            $response = verify_recaptcha($_POST['g-recaptcha-response']);
         }
     }
 ?>

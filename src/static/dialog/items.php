@@ -146,7 +146,7 @@ case 'de':    ?>
         $content = [0 => ['column0' => '1', 'column1' => '<button class="link" title="Win" id="sI(0)"><figure class="item" id="selected"><img>---<br><figcaption><span></span><span></span></figcaption></figure></button>', 'column1classes' => 'data']]; //id="iniTable"
     }
 
-    initializeTable($content, 'items', '\t\t\t\t\t\t');
+    initialize_table($content, 'items', '\t\t\t\t\t\t');
 ?>
                         </tbody>
                     </table>
@@ -317,7 +317,7 @@ default:    ?>
         $content = [0 => ['column0' => '1', 'column1' => '<button class="link" title="Win" id="sI(0)"><figure class="item" id="selected"><img>---<br><figcaption><span></span><span></span></figcaption></figure></button>', 'column1classes' => 'data']]; //id="iniTable"
     }
 
-    initializeTable($content, 'items', '\t\t\t\t\t\t');
+    initialize_table($content, 'items', '\t\t\t\t\t\t');
 ?>
                         </tbody>
                     </table>

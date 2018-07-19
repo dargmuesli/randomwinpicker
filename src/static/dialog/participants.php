@@ -162,11 +162,11 @@ default:    ?>
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
-        initializeTable(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');
+        initialize_table(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');
     } elseif (isset($_SESSION['participants']) && ($_SESSION['participants'] != '')) {
-        initializeTable($_SESSION['participants'], 'participants', '\t\t\t\t\t');
+        initialize_table($_SESSION['participants'], 'participants', '\t\t\t\t\t');
     } else {
-        initializeTable(null, 'participants', '\t\t\t\t\t');
+        initialize_table(null, 'participants', '\t\t\t\t\t');
     }
 ?>
                     </tbody>
@@ -272,11 +272,11 @@ default:    ?>
     require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
-        initializeTable(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');
+        initialize_table(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');
     } elseif (isset($_SESSION['participants']) && ($_SESSION['participants'] != '')) {
-        initializeTable($_SESSION['participants'], 'participants', '\t\t\t\t\t');
+        initialize_table($_SESSION['participants'], 'participants', '\t\t\t\t\t');
     } else {
-        initializeTable(null, 'participants', '\t\t\t\t\t');
+        initialize_table(null, 'participants', '\t\t\t\t\t');
     }
 ?>
                     </tbody>

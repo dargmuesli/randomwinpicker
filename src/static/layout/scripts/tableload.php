@@ -1,5 +1,5 @@
 <?php
-    function initializeTable($content, $type, $tab) {
+    function initialize_table($content, $type, $tab) {
         if (isset($content)) {
             for ($i = 0; $i < count($content); $i++) {
                 echo $tab . "\t" . '<tr id="tr' . ($i + 1) . '">' . PHP_EOL;

@@ -13,7 +13,7 @@
 
     if (isset($_SESSION['email'])) {
         $email = $_SESSION['email'];
-    } else if (isset($_COOKIE['email'])) {
+    } elseif (isset($_COOKIE['email'])) {
         $email = $_COOKIE['email'];
     } else {
         $email = null;
@@ -21,29 +21,29 @@
 
     if (isset($_SESSION['hash'])) {
         $hash = $_SESSION['hash'];
-    } else if (isset($_COOKIE['hash'])) {
+    } elseif (isset($_COOKIE['hash'])) {
         $hash = $_COOKIE['hash'];
     } else {
         $hash = null;
     }
 
-    if (isset($_SESSION['error'])){
+    if (isset($_SESSION['error'])) {
         $error = $_SESSION['error'];
     } else {
         $error = null;
     }
 
-    if (isset($_SESSION['success'])){
+    if (isset($_SESSION['success'])) {
         $success = $_SESSION['success'];
     } else {
         $success = null;
     }
 
     if (isset($_GET['task']) && ($_GET['task'] == 'importSession')) {
-        importSession();
+        import_session();
     }
 
-    function importSession() {
+    function import_session()
+    {
         setcookie('items', json_encode($_SESSION['items']), time() + (60 * 60 * 24 * 365), '/');
     }
-?>
