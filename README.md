@@ -186,6 +186,6 @@ You can access the reverse proxy's dashboard locally at [traefik.randomwinpicker
 
 ## Status
 
-The original creation of this website consumed way too many hours of my free time to let it vanish somewhere on my harddrive. Thus, I decided to publish the source code to GitHub. My plan is to migrate the website to a subsite of my website [jonas-thelemann.de](https://jonas-thelemann.de/) to keep it available.
+This website is currently not reachable through an own domain. My plan is to migrate the website to a subsite of my website [jonas-thelemann.de](https://jonas-thelemann.de/) to keep it available. The original creation of this website consumed way too many hours of my free time to let it vanish somewhere on my harddrive. Thus, I decided to publish the source code to GitHub.
 
 Creating this repository from the legacy code I initially wrote was time consuming too, but I learned to use tools like Gulp, Yarn, Docker, Composer, environment variables and a reverse proxy, which moves me one step closer to publishing the source code of my main website. I learned many best practises on how to create a website repository and about state of the art web technologies (which this website does *not* but *could* include). Over the next months I hope that I'll find time to improve the source code to meet my own quality requirements. But until then I hope someone else finds this repository useful. Be it that you want to create your own website or try to hack mine ;)
