@@ -16,11 +16,13 @@
                         "labels": [
                             "traefik.backend=adminer",
                             "traefik.enable=true",
-                            "traefik.frontend.auth.basic=jonas:$$apr1$$k850e1u9$$WRBoSvyQSIRaMwQz6l6781",
                             "traefik.frontend.rule=Host:adminer.randomwinpicker.test",
                             "traefik.port=8080"
                         ]
-                    }
+                    },
+                    "volumes": [
+                        "./production/adminer/adminer.css:/var/www/html/adminer.css"
+                    ]
                 },
                 "apache": {
                     "image": "localhost:5000/dargmuesli/randomwinpicker.de",
@@ -37,7 +39,8 @@
                         }
                     },
                     "volumes": [
-                        "./dist/randomwinpicker.de:/var/www/randomwinpicker.de"
+                        "./dist/randomwinpicker.de:/var/www/randomwinpicker.de",
+                        "./docker/randomwinpicker.de/certificates:/etc/ssl/certificates"
                     ]
                 },
                 "postgres": {
@@ -59,15 +62,24 @@
                 "traefik": {
                     "image": "traefik",
                     "ports": [
-                        "80:80",
-                        "443:443"
+                        {
+                            "target": 80,
+                            "published": 80,
+                            "protocol": "tcp",
+                            "mode": "host"
+                        },
+                        {
+                            "target": 443,
+                            "published": 443,
+                            "protocol": "tcp",
+                            "mode": "host"
+                        }
                     ],
                     "deploy": {
                         "labels": [
                             "traefik.backend=traefik",
                             "traefik.docker.network=randomwinpicker-de_default",
                             "traefik.enable=true",
-                            "traefik.frontend.auth.basic=jonas:$$apr1$$k850e1u9$$WRBoSvyQSIRaMwQz6l6781",
                             "traefik.frontend.rule=Host:traefik.randomwinpicker.test",
                             "traefik.port=8080"
                         ],
@@ -86,7 +98,7 @@
                         "--docker.exposedByDefault=false",
                         "--docker.swarmMode=true",
                         "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https",
-                        "--entryPoints=Name:https Address::443 TLS:/etc/ssl/certificates/server.crt,/etc/ssl/certificates/server.key Compress:true",
+                        "--entryPoints=Name:https Address::443 TLS:/etc/ssl/certificates/randomwinpicker.de.crt,/etc/ssl/certificates/randomwinpicker.de.key Compress:true",
                         "--insecureSkipVerify=true"
                     ],
                     "volumes": [
@@ -97,13 +109,13 @@
             },
             "secrets": {
                 "postgres_db": {
-                    "external": true
+                    "file": "./docker/secrets/postgres_db"
                 },
                 "postgres_password": {
-                    "external": true
+                    "file": "./docker/secrets/postgres_password"
                 },
                 "postgres_user": {
-                    "external": true
+                    "file": "./docker/secrets/postgres_user"
                 }
             },
             "volumes": {
