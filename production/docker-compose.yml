@@ -4,7 +4,6 @@ services:
     image: "adminer"
     deploy:
       labels:
-      - "traefik.backend=adminer"
       - "traefik.enable=true"
       - "traefik.frontend.auth.basic=${STACK_AUTH_BASIC}"
       - "traefik.frontend.rule=Host:adminer.${STACK_DOMAIN}"
@@ -15,7 +14,6 @@ services:
     image: "dargmuesli/randomwinpicker.de"
     deploy:
       labels:
-      - "traefik.backend=apache"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${STACK_DOMAIN},www.${STACK_DOMAIN}"
       - "traefik.port=443"
@@ -55,11 +53,16 @@ services:
   traefik:
     image: "traefik"
     ports:
-    - "80:80"
-    - "443:443"
+    - target: 80
+      published: 80
+      protocol: "tcp"
+      mode: "host"
+    - target: 443
+      published: 443
+      protocol: "tcp"
+      mode: "host"
     deploy:
       labels:
-      - "traefik.backend=traefik"
       - "traefik.docker.network=${STACK_NETWORK_NAME}"
       - "traefik.enable=true"
       - "traefik.frontend.auth.basic=${STACK_AUTH_BASIC}"
