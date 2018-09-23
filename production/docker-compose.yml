@@ -21,7 +21,7 @@ services:
       restart_policy:
         condition: "on-failure"
     volumes:
-    - "acme-data:/etc/ssl/certs"
+    - "acme-data:/etc/ssl/certificates"
     - "./dist/credentials:/var/www/randomwinpicker.de/credentials"
   certdumper:
     image: "alpine:latest"
@@ -32,7 +32,7 @@ services:
         chmod 744 dumpcerts.sh && \
         while true; do \
           bash dumpcerts.sh /etc/traefik/acme/acme.json /etc/traefik/acme/ && \
-          ln -f /etc/traefik/acme/certs/* /etc/traefik/acme/ && \
+          ln -f /etc/traefik/acme/certificates/* /etc/traefik/acme/ && \
           ln -f /etc/traefik/acme/private/* /etc/traefik/acme/ && \
           inotifywait -e modify /etc/traefik/acme/acme.json
         done"

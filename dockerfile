@@ -32,10 +32,10 @@ RUN mkdir -p $APACHE_DIR
 COPY --from=node /app/dist/randomwinpicker.de "$APACHE_DIR/"
 
 # Copy Apache and PHP config files
-COPY docker/randomwinpicker.de/certs/* "/etc/ssl/certs/"
-COPY docker/randomwinpicker.de/apache/conf/* "$APACHE_CONFDIR/conf-available/"
-COPY docker/randomwinpicker.de/apache/site/* "$APACHE_CONFDIR/sites-available/"
-COPY docker/randomwinpicker.de/php/* "$PHP_INI_DIR/"
+COPY docker/$PROJECT_NAME/certificates/* /etc/ssl/certificates/
+COPY docker/$PROJECT_NAME/apache/conf/* $APACHE_CONFDIR/conf-available/
+COPY docker/$PROJECT_NAME/apache/site/* $APACHE_CONFDIR/sites-available/
+COPY docker/$PROJECT_NAME/php/* $PHP_INI_DIR/
 
 # Enable mods, config and site
 RUN a2enmod $PROJECT_MODS

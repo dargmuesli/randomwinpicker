@@ -86,12 +86,12 @@
                         "--docker.exposedByDefault=false",
                         "--docker.swarmMode=true",
                         "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https",
-                        "--entryPoints=Name:https Address::443 TLS:/etc/ssl/certs/server.crt,/etc/ssl/certs/server.key Compress:true",
+                        "--entryPoints=Name:https Address::443 TLS:/etc/ssl/certificates/server.crt,/etc/ssl/certificates/server.key Compress:true",
                         "--insecureSkipVerify=true"
                     ],
                     "volumes": [
                         "/var/run/docker.sock:/var/run/docker.sock",
-                        "./docker/randomwinpicker.de/certs:/etc/ssl/certs"
+                        "./docker/randomwinpicker.de/certificates:/etc/ssl/certificates"
                     ]
                 }
             },
