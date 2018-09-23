@@ -9,6 +9,8 @@ services:
       - "traefik.frontend.auth.basic=${STACK_AUTH_BASIC}"
       - "traefik.frontend.rule=Host:adminer.${STACK_DOMAIN}"
       - "traefik.port=8080"
+    volumes:
+    - "./adminer/adminer.css:/var/www/html/adminer.css"
   apache:
     image: "dargmuesli/randomwinpicker.de"
     deploy:
