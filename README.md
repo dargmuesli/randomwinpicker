@@ -62,10 +62,18 @@ Well, one way or another, the website found its use in some of Megaquests videos
 HTTPs/SSL encryption requires certificates. Those can easily be generated using the [new-certificates.sh](https://gist.github.com/Dargmuesli/538a2c382c009f4620803679c8172c9d) script. The root certificate needs to be imported in your browser.
 
 ### Docker Secrets
-To keep confidential data, like usernames and passwords, out of the source code they need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/). These secrets do need to exist:
+To keep confidential data, like usernames and passwords, out of the source code they need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/). Under `docker/secrets/` these files, which contain the passwords' values, need to exist:
 - postgres_password
 - postgres_db
 - postgres_user
+
+Don't use password files for production though. Use the `docker secret create` command instead. PowerShell on Windows may add a carriage return at the end of strings piped to the command. A workaround can be that you create secrets from temporary files that do not contain a trailing newline. They can be written using:
+
+```PowerShell
+"secret data" | Out-File secret_name -NoNewline
+```
+
+When done, shred those files!
 
 ### DNS
 The default configuration assumes that the local development is done on `randomwinpicker.test`. Therefore one needs to configure the local DNS resolution to make this address resolvable. This can either be done by simply adding this domain and all subdomains to the operation system's hosts file or by settings up a local DNS server. An advantage of the latter method is that subdomain wildcards can be used and thus not every subdomain needs to be defined separately.
