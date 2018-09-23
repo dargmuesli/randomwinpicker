@@ -11,7 +11,7 @@ services:
     volumes:
     - "./adminer/adminer.css:/var/www/html/adminer.css"
   apache:
-    image: "dargmuesli/randomwinpicker.de"
+    image: "dargmuesli/${STACK_DOMAIN}:${STACK_VERSION}"
     deploy:
       labels:
       - "traefik.enable=true"
@@ -22,7 +22,7 @@ services:
         condition: "on-failure"
     volumes:
     - "acme-data:/etc/ssl/certificates"
-    - "./dist/credentials:/var/www/randomwinpicker.de/credentials"
+    - "./credentials:/var/www/${STACK_DOMAIN}/credentials"
   certdumper:
     image: "alpine:latest"
     command: >
