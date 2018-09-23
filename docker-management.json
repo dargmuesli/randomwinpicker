@@ -6,7 +6,7 @@
         "Port": "5000"
     },
     "ComposeFile": {
-        "Name": "docker-compose.yml",
+        "Name": "stack.yml",
         "Content": {
             "version": "3.6",
             "services": {
