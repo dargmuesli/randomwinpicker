@@ -1,8 +1,8 @@
 <?php
     session_start();
 
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/mail.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/dotenv.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/mail.php';
 
     if (isset($_SESSION['lang'])) {
         $lang = $_SESSION['lang'];

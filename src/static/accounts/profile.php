@@ -1,6 +1,6 @@
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/dotenv.php';
 
     $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 
@@ -123,7 +123,7 @@ default:    ?>
                 <img src="../layout/icons/ajax-loader-arrows.gif" alt="Save Status">
             </div>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
     warning($success, $error, $lang, '\t\t\t');
 ?>
             <div>
@@ -133,7 +133,7 @@ default:    ?>
             </div>
             <div id="account">
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/account.php';
     account('../', $email, $lang, '\t\t\t\t');
 ?>
             </div>

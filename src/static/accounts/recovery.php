@@ -1,5 +1,5 @@
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>" dir="ltr" id="stars">
@@ -59,7 +59,7 @@ default:    ?>
         </div>
         <header>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
     warning($success, $error, $lang, '\t\t\t');
 ?>
             <div>
@@ -69,7 +69,7 @@ default:    ?>
             </div>
             <div id="account">
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/account.php';
     account('../', $email, $lang, '\t\t\t\t');
 ?>
             </div>

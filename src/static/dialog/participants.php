@@ -1,5 +1,5 @@
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
 
     if (isset($_COOKIE['view'])) {
         $view = $_COOKIE['view'];
@@ -75,7 +75,7 @@ default:    ?>
         </div>
         <header>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
     warning($success, $error, $lang, '\t\t\t');
 ?>
             <div>
@@ -85,7 +85,7 @@ default:    ?>
             </div>
             <div id="account">
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/account.php';
     account('../', $email, $lang, '\t\t\t\t');
 ?>
             </div>
@@ -159,7 +159,7 @@ default:    ?>
                             </th>
                         </tr>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/tableload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
         initialize_table(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');
@@ -269,7 +269,7 @@ default:    ?>
                             </th>
                         </tr>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/tableload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
         initialize_table(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');

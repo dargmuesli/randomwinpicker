@@ -1,8 +1,8 @@
 <?php
     header('Content-Type: application/javascript');
 
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/recaptcha.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/recaptcha.php';
 
     if (isset($_GET['quantity'])) {
         $_SESSION['quantity'] = $_GET['quantity'];
