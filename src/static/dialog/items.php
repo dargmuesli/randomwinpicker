@@ -77,7 +77,7 @@ default:    ?>
         <header>
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, '\t\t\t');
+    warning($success, $error, $lang, "\t\t\t");
 ?>
             <div>
                 <a href="participants.php" title="Back" id="back">
@@ -87,7 +87,7 @@ default:    ?>
             <div id="account">
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/account.php';
-    account('../', $email, $lang, '\t\t\t\t');
+    account('../', $email, $lang, "\t\t\t\t");
 ?>
             </div>
         </header>
@@ -146,7 +146,7 @@ case 'de':    ?>
         $content = [0 => ['column0' => '1', 'column1' => '<button class="link" title="Win" id="sI(0)"><figure class="item" id="selected"><img>---<br><figcaption><span></span><span></span></figcaption></figure></button>', 'column1classes' => 'data']]; //id="iniTable"
     }
 
-    initialize_table($content, 'items', '\t\t\t\t\t\t');
+    initialize_table($content, 'items', "\t\t\t\t\t\t");
 ?>
                         </tbody>
                     </table>
@@ -317,7 +317,7 @@ default:    ?>
         $content = [0 => ['column0' => '1', 'column1' => '<button class="link" title="Win" id="sI(0)"><figure class="item" id="selected"><img>---<br><figcaption><span></span><span></span></figcaption></figure></button>', 'column1classes' => 'data']]; //id="iniTable"
     }
 
-    initialize_table($content, 'items', '\t\t\t\t\t\t');
+    initialize_table($content, 'items', "\t\t\t\t\t\t");
 ?>
                         </tbody>
                     </table>

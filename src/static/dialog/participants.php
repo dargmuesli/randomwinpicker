@@ -76,7 +76,7 @@ default:    ?>
         <header>
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, '\t\t\t');
+    warning($success, $error, $lang, "\t\t\t");
 ?>
             <div>
                 <a href="../" title="Back" id="back">
@@ -86,7 +86,7 @@ default:    ?>
             <div id="account">
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/account.php';
-    account('../', $email, $lang, '\t\t\t\t');
+    account('../', $email, $lang, "\t\t\t\t");
 ?>
             </div>
         </header>
@@ -162,11 +162,11 @@ default:    ?>
     require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
-        initialize_table(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');
+        initialize_table(json_decode($_COOKIE['participants'], true), 'participants', "\t\t\t\t\t");
     } elseif (isset($_SESSION['participants']) && ($_SESSION['participants'] != '')) {
-        initialize_table($_SESSION['participants'], 'participants', '\t\t\t\t\t');
+        initialize_table($_SESSION['participants'], 'participants', "\t\t\t\t\t");
     } else {
-        initialize_table(null, 'participants', '\t\t\t\t\t');
+        initialize_table(null, 'participants', "\t\t\t\t\t");
     }
 ?>
                     </tbody>
@@ -272,11 +272,11 @@ default:    ?>
     require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
-        initialize_table(json_decode($_COOKIE['participants'], true), 'participants', '\t\t\t\t\t');
+        initialize_table(json_decode($_COOKIE['participants'], true), 'participants', "\t\t\t\t\t");
     } elseif (isset($_SESSION['participants']) && ($_SESSION['participants'] != '')) {
-        initialize_table($_SESSION['participants'], 'participants', '\t\t\t\t\t');
+        initialize_table($_SESSION['participants'], 'participants', "\t\t\t\t\t");
     } else {
-        initialize_table(null, 'participants', '\t\t\t\t\t');
+        initialize_table(null, 'participants', "\t\t\t\t\t");
     }
 ?>
                     </tbody>

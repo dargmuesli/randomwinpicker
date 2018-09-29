@@ -83,7 +83,7 @@ default:    ?>
         <header>
 <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, '\t\t\t');
+    warning($success, $error, $lang, "\t\t\t");
 ?>
             <div>
                 <a href="../" title="Back" id="back">
