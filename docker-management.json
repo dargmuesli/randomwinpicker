@@ -14,7 +14,6 @@
                     "image": "adminer",
                     "deploy": {
                         "labels": [
-                            "traefik.backend=adminer",
                             "traefik.enable=true",
                             "traefik.frontend.rule=Host:adminer.randomwinpicker.test",
                             "traefik.port=8080"
@@ -24,19 +23,15 @@
                         "./production/adminer/adminer.css:/var/www/html/adminer.css"
                     ]
                 },
-                "apache": {
+                "randomwinpicker-de": {
                     "image": "localhost:5000/dargmuesli/randomwinpicker.de",
                     "deploy": {
                         "labels": [
-                            "traefik.backend=apache",
                             "traefik.enable=true",
                             "traefik.frontend.rule=Host:randomwinpicker.test,www.randomwinpicker.test",
                             "traefik.port=443",
                             "traefik.protocol=https"
-                        ],
-                        "restart_policy": {
-                            "condition": "on-failure"
-                        }
+                        ]
                     },
                     "volumes": [
                         "./dist/randomwinpicker.de:/var/www/randomwinpicker.de",
@@ -77,7 +72,6 @@
                     ],
                     "deploy": {
                         "labels": [
-                            "traefik.backend=traefik",
                             "traefik.docker.network=randomwinpicker-de_default",
                             "traefik.enable=true",
                             "traefik.frontend.rule=Host:traefik.randomwinpicker.test",
