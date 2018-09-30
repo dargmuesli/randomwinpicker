@@ -6,7 +6,7 @@
         "Port": "5000"
     },
     "ComposeFile": {
-        "Name": "docker-compose.yml",
+        "Name": "stack.yml",
         "Content": {
             "version": "3.6",
             "services": {
@@ -14,30 +14,28 @@
                     "image": "adminer",
                     "deploy": {
                         "labels": [
-                            "traefik.backend=adminer",
                             "traefik.enable=true",
-                            "traefik.frontend.auth.basic=jonas:$$apr1$$k850e1u9$$WRBoSvyQSIRaMwQz6l6781",
                             "traefik.frontend.rule=Host:adminer.randomwinpicker.test",
                             "traefik.port=8080"
                         ]
-                    }
+                    },
+                    "volumes": [
+                        "./production/adminer/adminer.css:/var/www/html/adminer.css"
+                    ]
                 },
-                "apache": {
+                "randomwinpicker-de": {
                     "image": "localhost:5000/dargmuesli/randomwinpicker.de",
                     "deploy": {
                         "labels": [
-                            "traefik.backend=apache",
                             "traefik.enable=true",
                             "traefik.frontend.rule=Host:randomwinpicker.test,www.randomwinpicker.test",
                             "traefik.port=443",
                             "traefik.protocol=https"
-                        ],
-                        "restart_policy": {
-                            "condition": "on-failure"
-                        }
+                        ]
                     },
                     "volumes": [
-                        "./dist/randomwinpicker.de:/var/www/randomwinpicker.de"
+                        "./dist/randomwinpicker.de:/var/www/randomwinpicker.de",
+                        "./docker/randomwinpicker.de/certificates:/etc/ssl/certificates"
                     ]
                 },
                 "postgres": {
@@ -59,15 +57,23 @@
                 "traefik": {
                     "image": "traefik",
                     "ports": [
-                        "80:80",
-                        "443:443"
+                        {
+                            "target": 80,
+                            "published": 80,
+                            "protocol": "tcp",
+                            "mode": "host"
+                        },
+                        {
+                            "target": 443,
+                            "published": 443,
+                            "protocol": "tcp",
+                            "mode": "host"
+                        }
                     ],
                     "deploy": {
                         "labels": [
-                            "traefik.backend=traefik",
                             "traefik.docker.network=randomwinpicker-de_default",
                             "traefik.enable=true",
-                            "traefik.frontend.auth.basic=jonas:$$apr1$$k850e1u9$$WRBoSvyQSIRaMwQz6l6781",
                             "traefik.frontend.rule=Host:traefik.randomwinpicker.test",
                             "traefik.port=8080"
                         ],
@@ -86,24 +92,24 @@
                         "--docker.exposedByDefault=false",
                         "--docker.swarmMode=true",
                         "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https",
-                        "--entryPoints=Name:https Address::443 TLS:/etc/ssl/certs/server.crt,/etc/ssl/certs/server.key Compress:true",
+                        "--entryPoints=Name:https Address::443 TLS:/etc/ssl/certificates/randomwinpicker.de.crt,/etc/ssl/certificates/randomwinpicker.de.key Compress:true",
                         "--insecureSkipVerify=true"
                     ],
                     "volumes": [
                         "/var/run/docker.sock:/var/run/docker.sock",
-                        "./docker/randomwinpicker.de/certs:/etc/ssl/certs"
+                        "./docker/randomwinpicker.de/certificates:/etc/ssl/certificates"
                     ]
                 }
             },
             "secrets": {
                 "postgres_db": {
-                    "external": true
+                    "file": "./docker/secrets/postgres_db"
                 },
                 "postgres_password": {
-                    "external": true
+                    "file": "./docker/secrets/postgres_password"
                 },
                 "postgres_user": {
-                    "external": true
+                    "file": "./docker/secrets/postgres_user"
                 }
             },
             "volumes": {

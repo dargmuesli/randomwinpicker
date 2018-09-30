@@ -1,5 +1,5 @@
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>" dir="ltr" id="par">
@@ -63,13 +63,13 @@ default:    ?>
             <div class="parallax__layer parallax__layer--fore">
                 <header>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, '\t\t\t\t\t');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
+    warning($success, $error, $lang, "\t\t\t\t\t");
 ?>
                     <div id="account">
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
-    account('', $email, $lang, '\t\t\t\t\t\t');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/account.php';
+    account('', $email, $lang, "\t\t\t\t\t\t");
 ?>
                     </div>
                 </header>

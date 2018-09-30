@@ -31,7 +31,7 @@
         }
     }
 
-    $result = shell_exec('/usr/bin/python '.$_SERVER['SERVER_ROOT'].'/layout/scripts/cost.py ' . str_replace(')', '', str_replace('(', '', $line)));
+    $result = shell_exec('/usr/bin/python '.$_SERVER['DOCUMENT_ROOT'].'/layout/scripts/cost.py ' . str_replace(')', '', str_replace('(', '', $line)));
     $str = '';
 
     if (isset($_GET['tag']) && $tag == 'st') {

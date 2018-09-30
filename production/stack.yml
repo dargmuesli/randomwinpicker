@@ -4,16 +4,16 @@ services:
     image: "adminer"
     deploy:
       labels:
-      - "traefik.backend=adminer"
       - "traefik.enable=true"
       - "traefik.frontend.auth.basic=${STACK_AUTH_BASIC}"
       - "traefik.frontend.rule=Host:adminer.${STACK_DOMAIN}"
       - "traefik.port=8080"
+    volumes:
+    - "./adminer/adminer.css:/var/www/html/adminer.css"
   apache:
-    image: "dargmuesli/randomwinpicker.de"
+    image: "dargmuesli/${STACK_DOMAIN}:${STACK_VERSION}"
     deploy:
       labels:
-      - "traefik.backend=apache"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${STACK_DOMAIN},www.${STACK_DOMAIN}"
       - "traefik.port=443"
@@ -21,8 +21,8 @@ services:
       restart_policy:
         condition: "on-failure"
     volumes:
-    - "acme-data:/etc/ssl/certs"
-    - "./dist/credentials:/var/www/randomwinpicker.de/credentials"
+    - "acme-data:/etc/ssl/certificates"
+    - "./credentials:/var/www/${STACK_DOMAIN}/credentials"
   certdumper:
     image: "alpine:latest"
     command: >
@@ -32,7 +32,7 @@ services:
         chmod 744 dumpcerts.sh && \
         while true; do \
           bash dumpcerts.sh /etc/traefik/acme/acme.json /etc/traefik/acme/ && \
-          ln -f /etc/traefik/acme/certs/* /etc/traefik/acme/ && \
+          ln -f /etc/traefik/acme/certificates/* /etc/traefik/acme/ && \
           ln -f /etc/traefik/acme/private/* /etc/traefik/acme/ && \
           inotifywait -e modify /etc/traefik/acme/acme.json
         done"
@@ -53,11 +53,16 @@ services:
   traefik:
     image: "traefik"
     ports:
-    - "80:80"
-    - "443:443"
+    - target: 80
+      published: 80
+      protocol: "tcp"
+      mode: "host"
+    - target: 443
+      published: 443
+      protocol: "tcp"
+      mode: "host"
     deploy:
       labels:
-      - "traefik.backend=traefik"
       - "traefik.docker.network=${STACK_NETWORK_NAME}"
       - "traefik.enable=true"
       - "traefik.frontend.auth.basic=${STACK_AUTH_BASIC}"
