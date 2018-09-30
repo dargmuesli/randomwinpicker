@@ -1,5 +1,5 @@
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
 
     if (isset($_COOKIE['view'])) {
         $view = $_COOKIE['view'];
@@ -76,8 +76,8 @@ default:    ?>
         </div>
         <header>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, '\t\t\t');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
+    warning($success, $error, $lang, "\t\t\t");
 ?>
             <div>
                 <a href="participants.php" title="Back" id="back">
@@ -86,8 +86,8 @@ default:    ?>
             </div>
             <div id="account">
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
-    account('../', $email, $lang, '\t\t\t\t');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/account.php';
+    account('../', $email, $lang, "\t\t\t\t");
 ?>
             </div>
         </header>
@@ -136,7 +136,7 @@ case 'de':    ?>
                                 </th>
                             </tr>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/tableload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['items']) && ($_COOKIE['items'] != '')) {
         $content = json_decode($_COOKIE['items'], true);
@@ -146,7 +146,7 @@ case 'de':    ?>
         $content = [0 => ['column0' => '1', 'column1' => '<button class="link" title="Win" id="sI(0)"><figure class="item" id="selected"><img>---<br><figcaption><span></span><span></span></figcaption></figure></button>', 'column1classes' => 'data']]; //id="iniTable"
     }
 
-    initialize_table($content, 'items', '\t\t\t\t\t\t');
+    initialize_table($content, 'items', "\t\t\t\t\t\t");
 ?>
                         </tbody>
                     </table>
@@ -307,7 +307,7 @@ default:    ?>
                                 </th>
                             </tr>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/tableload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/tableload.php';
 
     if (isset($email) && isset($_COOKIE['items']) && ($_COOKIE['items'] != '')) {
         $content = json_decode($_COOKIE['items'], true);
@@ -317,7 +317,7 @@ default:    ?>
         $content = [0 => ['column0' => '1', 'column1' => '<button class="link" title="Win" id="sI(0)"><figure class="item" id="selected"><img>---<br><figcaption><span></span><span></span></figcaption></figure></button>', 'column1classes' => 'data']]; //id="iniTable"
     }
 
-    initialize_table($content, 'items', '\t\t\t\t\t\t');
+    initialize_table($content, 'items', "\t\t\t\t\t\t");
 ?>
                         </tbody>
                     </table>

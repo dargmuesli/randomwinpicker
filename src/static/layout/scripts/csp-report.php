@@ -1,5 +1,5 @@
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/mail.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/mail.php';
 
     // Send `204 No Content` status code
     http_response_code(204);

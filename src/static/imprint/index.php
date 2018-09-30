@@ -1,6 +1,6 @@
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/recaptcha.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/recaptcha.php';
 
     $response = null;
 
@@ -81,8 +81,8 @@ default:    ?>
         </div>
         <header>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, '\t\t\t');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
+    warning($success, $error, $lang, "\t\t\t");
 ?>
             <div>
                 <a href="../" title="Back" id="back">
@@ -91,8 +91,8 @@ default:    ?>
             </div>
             <div id="account">
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
-    account('../', $email, $lang, '\t\t\t\t');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/account.php';
+    account('../', $email, $lang, "\t\t\t\t");
 ?>
             </div>
         </header>

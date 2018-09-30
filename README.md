@@ -59,13 +59,21 @@ Well, one way or another, the website found its use in some of Megaquests videos
 ## Configuration
 
 ### Certificates
-HTTPs/SSL encryption requires certificates. Those can easily be generated using the `docker/randomwinpicker.de/certs/New-Certificates.ps1` script. The `root.crt` certificate needs to be imported in your browser.
+HTTPs/SSL encryption requires certificates. Those can easily be generated using the [new-certificates.sh](https://gist.github.com/Dargmuesli/538a2c382c009f4620803679c8172c9d) script. The root certificate needs to be imported in your browser.
 
 ### Docker Secrets
-To keep confidential data, like usernames and passwords, out of the source code they need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/). These secrets do need to exist:
+To keep confidential data, like usernames and passwords, out of the source code they need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/). Under `docker/secrets/` these files, which contain the passwords' values, need to exist:
 - postgres_password
 - postgres_db
 - postgres_user
+
+Don't use password files for production though. Use the `docker secret create` command instead. PowerShell on Windows may add a carriage return at the end of strings piped to the command. A workaround can be that you create secrets from temporary files that do not contain a trailing newline. They can be written using:
+
+```PowerShell
+"secret data" | Out-File secret_name -NoNewline
+```
+
+When done, shred those files!
 
 ### DNS
 The default configuration assumes that the local development is done on `randomwinpicker.test`. Therefore one needs to configure the local DNS resolution to make this address resolvable. This can either be done by simply adding this domain and all subdomains to the operation system's hosts file or by settings up a local DNS server. An advantage of the latter method is that subdomain wildcards can be used and thus not every subdomain needs to be defined separately.
@@ -132,9 +140,9 @@ By default the `gulp` command executes all necessary functions to build the webs
 
 ### Docker
 
-How you choose to integrate the built project is up to you. A `dockerfile` and a `docker-compose.yml` template are provided to make deployment a breeze.
+How you choose to integrate the built project is up to you. A `dockerfile` and a `stack.yml` template are provided to make deployment a breeze.
 
-The given `dockerfile` enables you to build a PHP/Apache-Server with the configuration files in the `docker` folder. It can be run as a Docker container just as you wish, but this alone makes the site not fully functional. Additional services like [a reverse proxy](https://traefik.io/) are needed. Those can be defined in the `docker-compose.yml` file, which describes a [stack that can be deployed on a swarm](https://docs.docker.com/engine/reference/commandline/stack_deploy/). With this file the deployment is complete.
+The given `dockerfile` enables you to build a PHP/Apache-Server with the configuration files in the `docker` folder. It can be run as a Docker container just as you wish, but this alone makes the site not fully functional. Additional services like [a reverse proxy](https://traefik.io/) are needed. Those can be defined in the `stack.yml` file, which describes a [stack that can be deployed on a swarm](https://docs.docker.com/engine/reference/commandline/stack_deploy/). With this file the deployment is complete.
 
 #### Development
 
@@ -146,15 +154,21 @@ To generate a development version of this file you can use [PS-Docker-Management
 
 #### Production
 
-Use the `production/docker-compose.yml` file to deploy the predefined stack on a server. You need to specify environment variables as outlined in the `production/*.env` files.
+Utilize [deploy.sh](https://gist.github.com/Dargmuesli/6f303f4550b8ff241897dbda30a49cb3) for automatic deployment.
+
+<details>
+    <summary>Details</summary>
+
+Use the `production/stack.yml` file to deploy the predefined stack on a server. You need to specify environment variables as outlined in the `production/*.env` files.
 
 `.env` contains environment variables for the stack file itself. Use a command similar to this for deployment where `-E` indicates preserved environment variables for `sudo` use:
 
 ```Bash
-sudo -E docker stack deploy -c docker-compose.yml randomwinpicker-de
+sudo -E docker stack deploy -c stack.yml randomwinpicker-de
 ```
 
 `traefik.env` sets provider credentials for DNS authentication as environment variables for the traefik service.
+</details>
 
 <a name="Usage"></a>
 

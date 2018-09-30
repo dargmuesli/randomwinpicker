@@ -6,10 +6,9 @@
     error_reporting(E_ALL);
 
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
-    $_SERVER['SERVER_ROOT'] = str_replace('/'.$_SERVER['HTTP_HOST'], '', $_SERVER['DOCUMENT_ROOT']);
+    $_SERVER['SERVER_ROOT'] = dirname($_SERVER['DOCUMENT_ROOT']);
     $_SERVER['SERVER_ROOT_URL'] = $protocol.$_SERVER['HTTP_HOST'];
-    // $firstErrorLogged = false;
-    $simpleLogging = $_SERVER['SERVER_NAME'] == 'localhost' ? false : true;
+    $simpleLogging = strrchr($_SERVER['SERVER_NAME'], '.') == '.test' ? false : true;
 
     function error_handler($errorLevel, $errorMessage, $errorFile, $errorLine, $errorContext)
     {
@@ -46,7 +45,6 @@
 
     function exception_handler(Exception $exception)
     {
-        // global $firstErrorLogged;
         global $simpleLogging;
 
         $errorOutput = $exception->getMessage();
@@ -55,7 +53,6 @@
             $errorOutput .= ' in \'' . $exception->getFile() . '\' on line: ' . $exception->getLine();
         }
 
-        // if (!$firstErrorLogged) {
         echo '
             <section>
                 <h2>
@@ -77,9 +74,6 @@
                 "'.$errorOutput.'"
                 </p>
             </section>';
-        // }
-
-        // $firstErrorLogged = true;
     }
 
     class WarningException extends ErrorException

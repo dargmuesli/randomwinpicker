@@ -1,5 +1,5 @@
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/sessioncookie.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
 
     if (isset($email) && isset($_COOKIE['participants'])) {
         if (count($_COOKIE['participants']) == 0) {
@@ -99,8 +99,8 @@ default:    ?>
         </div>
         <header>
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/warning.php';
-    warning($success, $error, $lang, '\t\t\t');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/warning.php';
+    warning($success, $error, $lang, "\t\t\t");
 ?>
             <div>
                 <a href="items.php" title="Back" id="back">
@@ -109,8 +109,8 @@ default:    ?>
             </div>
             <div id="account">
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/account.php';
-    account('../', $email, $lang, '\t\t\t\t');
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/account.php';
+    account('../', $email, $lang, "\t\t\t\t");
 ?>
             </div>
         </header>

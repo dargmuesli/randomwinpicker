@@ -1,7 +1,7 @@
 <?php
-    require_once $_SERVER['SERVER_ROOT'] . '/resources/packages/composer/autoload.php';
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dev.php';
-    require_once $_SERVER['SERVER_ROOT'] . '/layout/scripts/dotenv.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/resources/packages/composer/autoload.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/dev.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/dotenv.php';
 
     function get_recaptcha()
     {
