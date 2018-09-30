@@ -6,7 +6,7 @@
             Error <?php echo $_GET['code']; ?> [randomwinpicker.de]
         </title>
         <link rel="icon" href="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/icons/favicon.ico'; ?>" type="image/png" />
-        <link rel="stylesheet" href="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/stylesheets/fonts.css'; ?>">
+        <link rel="stylesheet" href="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/stylesheets/fonts.php'; ?>">
         <link rel="stylesheet" href="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/stylesheets/style.css'; ?>">
         <link rel="stylesheet" href="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/stylesheets/error.css'; ?>">
     </head>

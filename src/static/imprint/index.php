@@ -38,7 +38,7 @@ default:    ?>
         </title>
         <link rel="canonical" href="https://randomwinpicker.de/imprint" />
         <link rel="icon" href="../layout/icons/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../layout/stylesheets/fonts.css">
+        <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
         <link rel="stylesheet" href="../layout/stylesheets/style.css">
         <meta name="author" content="Jonas Thelemann" />
         <meta name="description" content="The legal disclosure of this website according to section 5 TMG with contact, image rights, disclaimer and privacy statement." />
