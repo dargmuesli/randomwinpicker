@@ -77,7 +77,7 @@ default:    ?>
         </title>
         <link rel="canonical" href="https://randomwinpicker.de/accounts/profile.php" />
         <link rel="icon" href="../layout/icons/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../layout/stylesheets/fonts.css">
+        <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
         <link rel="stylesheet" href="../layout/stylesheets/style.css">
         <meta name="author" content="Jonas Thelemann" />
         <meta name="description" content="View all settings of your personal account." />

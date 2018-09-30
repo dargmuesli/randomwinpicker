@@ -27,7 +27,7 @@ default:    ?>
         <link rel="canonical" href="https://randomwinpicker.de/dialog/items.php" />
         <link rel="icon" href="../layout/icons/favicon.ico" type="image/png" />
         <link rel="stylesheet" href="../resources/packages/yarn/jqueryfiletree/jqueryfiletree.min.css">
-        <link rel="stylesheet" href="../layout/stylesheets/fonts.css">
+        <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
         <link rel="stylesheet" href="../layout/stylesheets/style.css">
         <meta name="author" content="Jonas Thelemann" />
         <meta name="description" content="Specify all items that can be won by all participants." />
