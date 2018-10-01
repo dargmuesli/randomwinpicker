@@ -17,7 +17,7 @@ default:    ?>
         </title>
         <link rel="canonical" href="https://randomwinpicker.de/accounts/recovery.php" />
         <link rel="icon" href="../layout/icons/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../layout/stylesheets/fonts.css">
+        <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
         <link rel="stylesheet" href="../layout/stylesheets/style.css">
         <meta name="author" content="Jonas Thelemann" />
         <meta name="description" content="If you lost your password you can recover it right here!" />

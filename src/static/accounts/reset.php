@@ -17,7 +17,7 @@ default:    ?>
         </title>
         <link rel="canonical" href="https://randomwinpicker.de/accounts/reset.php" />
         <link rel="icon" href="../layout/icons/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../layout/stylesheets/fonts.css">
+        <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
         <link rel="stylesheet" href="../layout/stylesheets/style.css">
         <meta name="author" content="Jonas Thelemann" />
         <meta name="description" content="Enter your new password here to regain access to your account." />

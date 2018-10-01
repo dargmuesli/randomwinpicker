@@ -7,7 +7,7 @@
         </title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="../layout/stylesheets/loading.css">
-        <link rel="stylesheet" href="../layout/stylesheets/fonts.css">
+        <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
         <link rel="icon" href="../layout/icons/favicon.ico" type="image/x-icon" />
         <script src="../layout/scripts/helper.php"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
