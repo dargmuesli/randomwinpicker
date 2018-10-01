@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-function showSpoiler() {
+export function showSpoiler() {
     if ((spoiler.style.overflowY == 'hidden') || (spoiler.style.overflowY == '')) {
         visible = true;
         spoiler.style.overflowY = 'visible';

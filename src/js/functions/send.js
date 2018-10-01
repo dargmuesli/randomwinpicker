@@ -1,4 +1,4 @@
-function sendFiles() {
+export function sendFiles() {
     var filesArray = document.getElementById('fileElem').files;
 
     for (var i = 0; i < filesArray.length; i++) {
@@ -6,7 +6,7 @@ function sendFiles() {
     }
 }
 
-function upload(file, uri) {
+export function upload(file, uri) {
     var xhr = new XMLHttpRequest();
     var fd = new FormData();
 
