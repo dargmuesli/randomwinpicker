@@ -10,7 +10,7 @@ services:
       - "traefik.port=8080"
     volumes:
     - "./adminer/adminer.css:/var/www/html/adminer.css"
-  apache:
+  randomwinpicker.de:
     image: "dargmuesli/${STACK_DOMAIN}:${STACK_VERSION}"
     deploy:
       labels:
@@ -25,8 +25,8 @@ services:
       restart_policy:
         condition: "on-failure"
     volumes:
+    - "./${STACK_DOMAIN}/credentials:/var/www/${STACK_DOMAIN}/credentials"
     - "acme-data:/etc/ssl/certificates"
-    - "./credentials:/var/www/${STACK_DOMAIN}/credentials"
   certdumper:
     image: "alpine:latest"
     command: >
