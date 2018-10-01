@@ -11,7 +11,11 @@
     $_SERVER['SERVER_ROOT'] = dirname($_SERVER['DOCUMENT_ROOT']);
     $_SERVER['SERVER_ROOT_URL'] = $protocol.$_SERVER['HTTP_HOST'];
 
-    if (in_array('HTTP_X_FORWARDED_PREFIX', $_SERVER)) {
+    if (substr($_SERVER['SERVER_ROOT_URL'], -1) != '/') {
+        $_SERVER['SERVER_ROOT_URL'] .= '/';
+    }
+
+    if (array_key_exists('HTTP_X_FORWARDED_PREFIX', $_SERVER)) {
         $_SERVER['SERVER_ROOT_URL'] .= $_SERVER['HTTP_X_FORWARDED_PREFIX'];
     }
 
