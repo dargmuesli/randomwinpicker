@@ -15,9 +15,13 @@ services:
     deploy:
       labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:${STACK_DOMAIN},www.${STACK_DOMAIN}"
       - "traefik.port=443"
       - "traefik.protocol=https"
+      - "traefik.default.frontend.priority=1"
+      - "traefik.default.frontend.rule=Host:${STACK_DOMAIN},www.${STACK_DOMAIN}"
+      - "traefik.auth.frontend.priority=2"
+      - "traefik.auth.frontend.rule=Host:${STACK_DOMAIN},www.${STACK_DOMAIN};PathPrefix:/tools/"
+      - "traefik.auth.frontend.auth.basic=${STACK_AUTH_BASIC}"
       restart_policy:
         condition: "on-failure"
     volumes:
