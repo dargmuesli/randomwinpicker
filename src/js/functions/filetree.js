@@ -1,30 +1,21 @@
-<?php
-    session_start();
+import { customAlert } from './alert.js';
+import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './table.js';
 
-    header('Content-Type: application/javascript');
-
-    if (isset($_SESSION['lang'])) {
-        $lang = $_SESSION['lang'];
-    } else {
-        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-    }
-?>
-//<script>
-$(document).ready (function() {
-    $('.filetree').fileTree({root: '/', script: '../resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function(file) {
+$(document).ready(function () {
+    $('.filetree').fileTree({ root: '/', script: '../resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function (file) {
         openFile(file);
     });
 });
 
-function openFile(file) {
+export function openFile(file) {
     var nameparts = file;
     nameparts = nameparts.split('/');
     nameparts = nameparts.splice(3, 2);
     var name = nameparts[0] + ', ' + nameparts[1];
 
     var client = new XMLHttpRequest();
-    client.open('GET', '<?php echo $_SERVER['SERVER_ROOT_URL']; ?>/layout/data/filetree/categories/<?php echo $lang; ?>' + file + '?' + new Date().getTime(), true);
-    client.onreadystatechange = function() {
+    client.open('GET', '/layout/data/filetree/categories/' + file + '?' + new Date().getTime(), true); //<?php echo $_SERVER['SERVER_ROOT_URL']; ?> <?php echo $lang; ?>
+    client.onreadystatechange = function () {
         if ((client.readyState == 4) && (client.status == 200)) {
             var json = isJsonString(client.responseText);
 
@@ -83,27 +74,27 @@ function openFile(file) {
 
                 (function () {
                     var iCopy = index;
-                    document.getElementById('sI(' + iCopy + ')').addEventListener('click', function(){selectItem(iCopy);});
-                }())
+                    document.getElementById('sI(' + iCopy + ')').addEventListener('click', function () { selectItem(iCopy); });
+                }());
 
-                condition.disabled = false;
-                condition.selectedIndex = 0;
+                // condition.disabled = false;
+                // condition.selectedIndex = 0;
 
                 if (json.type == 'StatTrak') {
                     document.getElementById('hType').style.display = 'block';
                     type.parentNode.style.display = 'initial';
                     type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;';
-                    document.getElementById('chkType').addEventListener('click', function(){assignStatTrak();});
+                    document.getElementById('chkType').addEventListener('click', function () { assignStatTrak(); });
                     type = document.getElementById('chkType');
                 } else if (json.type == 'Souvenir') {
-					document.getElementById('hType').style.display = 'block';
-					type.parentNode.style.display = 'initial';
+                    document.getElementById('hType').style.display = 'block';
+                    type.parentNode.style.display = 'initial';
                     type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir';
-                    document.getElementById('chkType').addEventListener('click', function(){assignSouvenir();});
+                    document.getElementById('chkType').addEventListener('click', function () { assignSouvenir(); });
                     type = document.getElementById('chkType');
                 } else {
-					type.parentNode.style.display = 'none';
-					document.getElementById('hType').style.display = 'none';
+                    type.parentNode.style.display = 'none';
+                    document.getElementById('hType').style.display = 'none';
                 }
 
                 for (var i = (index + 1); i < document.querySelectorAll('.item').length; i++) {
@@ -113,83 +104,69 @@ function openFile(file) {
 
                         el.parentNode.replaceChild(elClone, el);
                         elClone.id = 'sI(' + iCopy + ')';
-                        elClone.addEventListener('click', function(){selectItem(iCopy)});
-                    }())
+                        elClone.addEventListener('click', function () { selectItem(iCopy); });
+                    }());
                 }
 
                 document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + i + ')">';
 
                 saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
             } else {
-<?php    switch ($lang) {
-case 'de':    ?>
-            dialogBox.render('Keine validen Daten!', 'Möchtest du diesen Gewinn editieren?', file, 'contribute');
-<?php    break;
-default:    ?>
-            dialogBox.render('No valid data!', 'Do you want to edit this item?', file, 'contribute');
-<?php    break;
-    }    ?>
+                customAlert.render(i18next.t('No valid data!'), i18next.t('Do you want to edit this item?'), file, 'contribute');
+                //customAlert.render('Keine validen Daten!', 'Möchtest du diesen Gewinn editieren?', file, 'contribute');
             }
         }
-    }
+    };
     client.send();
 }
 
-function isJsonString(str) {
-    try    {
+export function isJsonString(str) {
+    try {
         var json = JSON.parse(str);
 
         if (json && typeof json === 'object' && json !== null) {
             return json;
         }
+    } catch (e) {
+        // TODO
     }
-    catch (e) {}
 
     return false;
 }
 
-function assignCondition() {
+export function assignCondition() {
     var condition = document.getElementById('condition');
     var selected = document.getElementById('selected');
     var span = selected.getElementsByTagName('span')[0];
 
-<?php    switch ($lang) {
-case 'de':    ?>
     if (condition.options[0].selected) {
         span.innerHTML = '';
     } else if (condition.options[1].selected) {
+        i18next.t('[FN]');
         span.innerHTML = '[FN]';
+        // span.innerHTML = '[FN]';
     } else if (condition.options[2].selected) {
+        i18next.t('[FN]');
         span.innerHTML = '[MG]';
+        // span.innerHTML = '[MW]';
     } else if (condition.options[3].selected) {
+        i18next.t('[FN]');
         span.innerHTML = '[EE]';
+        // span.innerHTML = '[FT]';
     } else if (condition.options[4].selected) {
+        i18next.t('[FN]');
         span.innerHTML = '[AG]';
+        // span.innerHTML = '[WW]';
     } else if (condition.options[5].selected) {
+        i18next.t('[FN]');
         span.innerHTML = '[KS]';
+        // span.innerHTML = '[BS]';
     }
-<?php    break;
-default:    ?>
-    if (condition.options[0].selected) {
-        span.innerHTML = '';
-    } else if (condition.options[1].selected) {
-        span.innerHTML = '[FN]';
-    } else if (condition.options[2].selected) {
-        span.innerHTML = '[MW]';
-    } else if (condition.options[3].selected) {
-        span.innerHTML = '[FT]';
-    } else if (condition.options[4].selected) {
-        span.innerHTML = '[WW]';
-    } else if (condition.options[5].selected) {
-        span.innerHTML = '[BS]';
-    }
-<?php    break;
-    }    ?>
 
     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }
 
-function assignStatTrak() {
+export function assignStatTrak() {
     var type = document.getElementById('chkType');
     var selected = document.getElementById('selected');
     var span = selected.getElementsByTagName('span')[1];
@@ -203,7 +180,7 @@ function assignStatTrak() {
     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }
 
-function assignSouvenir() {
+export function assignSouvenir() {
     var type = document.getElementById('chkType');
     var selected = document.getElementById('selected');
     var span = selected.getElementsByTagName('span')[1];
@@ -217,46 +194,32 @@ function assignSouvenir() {
     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }
 
-function hideImages() {
+export function hideImages() {
     var data = document.getElementsByClassName('data');
     var link = document.getElementById('hideimages');
+    var i, j;
 
     if (link.classList.contains('shown')) {
-        for (var i = 0; i < document.querySelectorAll('.data').length; i++) {
-            for (var j = 0; j < data[i].querySelectorAll('.set').length; j++) {
+        for (i = 0; i < document.querySelectorAll('.data').length; i++) {
+            for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
                 data[i].getElementsByTagName('img')[j].style.display = 'none';
             }
         }
 
-<?php    switch ($lang) {
-case 'de':    ?>
-        link.innerHTML = 'Zeige alle Bilder';
-<?php    break;
-default:    ?>
-        link.innerHTML = 'Show all images';
-<?php    break;
-    }    ?>
+        link.innerHTML = i18next.t('Zeige alle Bilder'); //'Show all images'
         link.classList.add('hidden');
         link.classList.remove('shown');
     } else {
-        for (var i = 0; i < document.querySelectorAll('.data').length; i++) {
-            for (var j = 0; j < data[i].querySelectorAll('.set').length; j++) {
+        for (i = 0; i < document.querySelectorAll('.data').length; i++) {
+            for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
                 data[i].getElementsByTagName('img')[j].style.display = 'inline';
             }
         }
 
-<?php    switch ($lang) {
-case 'de':    ?>
-        link.innerHTML = 'Verstecke alle Bilder';
-<?php    break;
-default:    ?>
-        link.innerHTML = 'Hide all images';
-<?php    break;
-    }    ?>
+        link.innerHTML = i18next.t('Verstecke alle Bilder'); //'Hide all images'
         link.classList.add('shown');
         link.classList.remove('hidden');
     }
 
     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }
-//</script>

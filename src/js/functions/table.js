@@ -1,30 +1,33 @@
-<?php
-    session_start();
+import { customAlert } from './alert.js';
+import { assignSouvenir, assignStatTrak } from './filetree.js';
+import { changeLanguage } from './language.js';
+import { htmlspecialchars_decode } from './phpin.js';
 
-    header('Content-Type: application/javascript');
+// Save the amount of tablerows
+var count;
+// var count = <?php if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
+//     echo count(json_decode($_COOKIE['participants']), true);
+// } elseif (isset($_SESSION['participants']) && ($_SESSION['participants'] != '')) {
+//     echo count($_SESSION['participants']);
+// } else {
+//     echo 0;
+// }; ?>;
 
-    if (isset($_SESSION['lang'])) {
-        $lang = $_SESSION['lang'];
-    } else {
-        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-    }
-?>
-//<script>
 var editing = false;
 var resetting = false;
 var load = false;
 
-function sendRow(tableInputCount, uniques, type) {
+export function sendRow(tableInputCount, uniques, type) {
     var tableInputs = new Object();
 
     for (var i = 0; i < tableInputCount; i++) {
         tableInputs['tableInput' + i] = document.getElementById('tableInput' + i).value;
     }
 
-    addRow(document.getElementsByTagName('tbody')[0], document.getElementsByClassName('data'), uniques, tableInputs, type)
+    addRow(document.getElementsByTagName('tbody')[0], document.getElementsByClassName('data'), uniques, tableInputs, type);
 }
 
-function addRow(tbody, data, uniques, tableInputs, type) {
+export function addRow(tbody, data, uniques, tableInputs, type) {
     if ((tableInputs['tableInput0'] != '') && ((/^\d+$/.test(tableInputs['tableInput0'])) || (/^\d+$/.test(tableInputs['tableInput1'])))) { //Wenn Text und Nummer valide sind
         var alreadyExisting = false;
         var error;
@@ -34,9 +37,10 @@ function addRow(tbody, data, uniques, tableInputs, type) {
             document.getElementById('tr0').remove(); //Platzhalter entfernen
         } else { //Wenn Daten vorhanden
             outer:
-            for (var i = 0; i < count; i++) { //Zeilen durchlaufen
+            for (var i = 0; i < count; i++) {//Zeilen durchlaufen
                 for (var j = uniques[0]; j < Object.keys(tableInputs).length; j += uniques[j + 1] - uniques[j]) { //Spalten durchlaufen
-                    if (htmlspecialchars_decode(tableInputs['tableInput' + j]) == htmlspecialchars_decode(data[i * Object.keys(tableInputs).length + j].innerHTML)) { //.replace(/(\r\n|\n|\r)/gm, ' ').replace(/\s+/g, ' ').trim()
+                    if (htmlspecialchars_decode(tableInputs['tableInput' + j]) == htmlspecialchars_decode(data[i * Object.keys(tableInputs).length + j].innerHTML)) {
+                        //.replace(/(\r\n|\n|\r)/gm, ' ').replace(/\s+/g, ' ').trim()
                         alreadyExisting = true; //Vorkommnis merken
                         error = (i + 1) + '|' + (j + 1); //Vorkommnis markieren
                         value = tableInputs['tableInput' + j]; //Vorkommnis speichern
@@ -50,12 +54,13 @@ function addRow(tbody, data, uniques, tableInputs, type) {
             count++; //Zähler erhöhen
 
             var newElement = '';
-            var oldElement = '';
+            // var oldElement = '';
 
             newElement += '<td class="data">';
-                newElement += tableInputs['tableInput0'];
+            newElement += tableInputs['tableInput0'];
             newElement += '</td>';
             newElement += '<td class="data">';
+
             if (checkAbsolute()) { //Bei generischer Tabelle
                 newElement += tableInputs['tableInput1'];
                 if (count == 1) { //Bei erstem Element
@@ -63,34 +68,37 @@ function addRow(tbody, data, uniques, tableInputs, type) {
                 } else { //Wenn nicht erstes Element
                     newElement += '<figure class="item">';
                 }
-                        newElement += '<img>';
-                        newElement += '---';
-                        newElement += '<br>';
-                        newElement += '<figcaption>';
-                            newElement += '<span>';
-                            newElement += '</span>';
-                            newElement += '<span>';
-                            newElement += '</span>';
-                        newElement += '</figcaption>';
-                    newElement += '</figure>';
+                newElement += '<img>';
+                newElement += '---';
+                newElement += '<br>';
+                newElement += '<figcaption>';
+                newElement += '<span>';
+                newElement += '</span>';
+                newElement += '<span>';
+                newElement += '</span>';
+                newElement += '</figcaption>';
+                newElement += '</figure>';
                 newElement += '</a>';
             } else {
                 //newElement += '<span>';
                 newElement += tableInputs['tableInput1'];
                 //newElement += '</span>';
             }
+
             newElement += '</td>';
             newElement += '<td class="remove">';
-                newElement += '<button class="link" title="Remove" id="rR(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')">'; // onclick="removeRow(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')"
-                    newElement += 'X';
-                newElement += '</button>';
+            newElement += '<button class="link" title="Remove" id="rR(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')">'; // onclick="removeRow(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')"
+            newElement += 'X';
+            newElement += '</button>';
             newElement += '</td>';
             newElement += '<td class="up">';
+
             if (count != 1) { //Wenn nicht erstes Element
                 newElement += '<button class="link" title="Up" id="mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')">'; // onclick="moveRowUp(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')"
-                    newElement += '&#x25B2;';
+                newElement += '&#x25B2;';
                 newElement += '</button>';
             }
+
             newElement += '</td>';
             newElement += '<td class="down">';
             newElement += '</td>';
@@ -103,14 +111,14 @@ function addRow(tbody, data, uniques, tableInputs, type) {
             // Make links clickable
             (function () {
                 var tmp = count;
-                document.getElementById('rR(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function(){removeRow(tmp , Object.keys(tableInputs).length, type);}); //parseInt(this.id.substring(3, this.id.length - 7 - Object.keys(tableInputs).length.toString().length - type.length))
-            }())
+                document.getElementById('rR(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { removeRow(tmp, Object.keys(tableInputs).length, type); }); //parseInt(this.id.substring(3, this.id.length - 7 - Object.keys(tableInputs).length.toString().length - type.length))
+            }());
 
             if (count != 1) { //Wenn nicht erstes Element
                 (function () {
                     var tmp = count;
-                    document.getElementById('mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function(){moveRowUp(tmp, Object.keys(tableInputs).length, type);});
-                }())
+                    document.getElementById('mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { moveRowUp(tmp, Object.keys(tableInputs).length, type); });
+                }());
 
                 var button = document.createElement('button');
                 button.setAttribute('class', 'link');
@@ -122,15 +130,15 @@ function addRow(tbody, data, uniques, tableInputs, type) {
                 //document.getElementsByClassName('down')[count - 2].innerHTML += oldElement; //Vorherigem Element Steuerelement hinzufügen
                 (function () {
                     var tmp = count;
-                    document.getElementById('mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function(){moveRowDown((tmp - 1), Object.keys(tableInputs).length, type);});
-                }())
+                    document.getElementById('mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { moveRowDown((tmp - 1), Object.keys(tableInputs).length, type); });
+                }());
             }
 
             if (checkAbsolute()) { //Bei generischer Tabelle
                 (function () {
                     var tmp = document.getElementsByClassName('item').length - 1;
-                    document.getElementById('sI(' + tmp + ')').addEventListener('click', function(){selectItem(tmp);});
-                }())
+                    document.getElementById('sI(' + tmp + ')').addEventListener('click', function () { selectItem(tmp); });
+                }());
                 document.getElementById('tableInput0').value = parseInt(document.getElementById('tableInput0').value) + 1; //Nummer erhöhen
                 document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren  onclick="selectItem(' + document.getElementsByClassName('item').length + ')"
 
@@ -143,14 +151,9 @@ function addRow(tbody, data, uniques, tableInputs, type) {
                 document.getElementById('tableInput0').focus(); //Eingabefeld selektieren
             }
         } else { //Bei Duplikat
-<?php    switch ($lang) {
-case 'de':    ?>
-        alert('Wert "' + value + '" existiert schon @ (' + error + ')!'); //Fehler ausgeben
-<?php    break;
-default:    ?>
-        alert('Value "' + value + '" already exists @ (' + error + ')!'); //Fehler ausgeben
-<?php    break;
-    }    ?>
+            alert('Wert "' + value + '" existiert schon @ (' + error + ')!'); //Fehler ausgeben
+            // alert('Value "' + value + '" already exists @ (' + error + ')!'); //Fehler ausgeben
+            i18next.t('cancel');
         }
 
         if (!editing) {
@@ -159,7 +162,7 @@ default:    ?>
     }
 }
 
-function removeRow(ID, tableInputs, type) {
+export function removeRow(ID, tableInputs, type) {
     var tbody = document.getElementsByTagName('tbody')[0];
 
     if (count > 1) { //Wenn mehr als ein Element
@@ -178,14 +181,14 @@ function removeRow(ID, tableInputs, type) {
 
                     el2.parentNode.replaceChild(el2Clone, el2);
                     el2Clone.id = 'rR(' + (jCopy - 1) + ', ' + tableInputs + ', \'' + type + '\')'; //ID aufrücken
-                    el2Clone.addEventListener('click', function(){removeRow((jCopy - 1), tableInputs, type)}); //Eventlistener aufrücken
+                    el2Clone.addEventListener('click', function () { removeRow((jCopy - 1), tableInputs, type); }); //Eventlistener aufrücken
 
                     if (jCopy != 2) { //Wenn nicht zweites Element
                         var el3 = getChildNode(getChildNode(currentElement, 3), 0), el3Clone = el3.cloneNode(true);
 
                         el3.parentNode.replaceChild(el3Clone, el3);
                         el3Clone.id = 'mRU(' + (jCopy - 1) + ', ' + tableInputs + ', \'' + type + '\')'; //ID aufrücken
-                        el3Clone.addEventListener('click', function(){moveRowUp((jCopy - 1), tableInputs, type)}); //Eventlistener aufrücken
+                        el3Clone.addEventListener('click', function () { moveRowUp((jCopy - 1), tableInputs, type); }); //Eventlistener aufrücken
                     }
 
                     if (jCopy != count) { //Wenn nicht letztes Element
@@ -193,7 +196,7 @@ function removeRow(ID, tableInputs, type) {
 
                         el4.parentNode.replaceChild(el4Clone, el4);
                         el4Clone.id = 'mRD(' + (jCopy - 1) + ', ' + tableInputs + ', \'' + type + '\')'; //ID aufrücken
-                        el4Clone.addEventListener('click', function(){moveRowDown((jCopy - 1), tableInputs, type)}); //Eventlistener aufrücken
+                        el4Clone.addEventListener('click', function () { moveRowDown((jCopy - 1), tableInputs, type); }); //Eventlistener aufrücken
                     }
 
                     document.getElementById('tr' + jCopy).id = 'tr' + (jCopy - 1); //ID aufrücken
@@ -201,7 +204,7 @@ function removeRow(ID, tableInputs, type) {
                     if (checkAbsolute()) { //Bei generischer Tabelle
                         getChildNode(currentElement, 0).innerHTML = jCopy - 1; //Nummer verringern
                     }
-                }())
+                }());
             }
         }
     }
@@ -220,8 +223,8 @@ function removeRow(ID, tableInputs, type) {
 
                 el.parentNode.replaceChild(elClone, el);
                 elClone.id = 'sI(' + i + ')'; //ID aufrücken
-                elClone.addEventListener('click', function(){selectItem(iCopy)}); //Eventlistener aufrücken
-            }())
+                elClone.addEventListener('click', function () { selectItem(iCopy); }); //Eventlistener aufrücken
+            }());
         }
 
         if (document.querySelectorAll('.item').length > 0) {
@@ -235,7 +238,7 @@ function removeRow(ID, tableInputs, type) {
         }
 
         document.getElementById('tableInput0').value = (count + 1); //Nummer verringern
-/*!*/        document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren  onclick="selectItem(' + document.getElementsByClassName('item').length + ')"
+        /*!*/        document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren  onclick="selectItem(' + document.getElementsByClassName('item').length + ')"
     }
 
     if (count == 0) { //Wenn Tabelle leer
@@ -251,11 +254,11 @@ function removeRow(ID, tableInputs, type) {
     }
 }
 
-function reset(tableInputs, type) {
+export function reset(tableInputs, type) {
     editing = true;
     resetting = true;
 
-    for (i = count; i > 0; i--) { //Zeilen durchlaufen
+    for (let i = count; i > 0; i--) { //Zeilen durchlaufen
         if (i == 1) {
             editing = false;
         }
@@ -264,13 +267,15 @@ function reset(tableInputs, type) {
     }
 }
 
-function moveRowDown(ID, tableInputs, type) {
+export function moveRowDown(ID, tableInputs, type) {
+    var uppertableInput1, lowertableInput1;
+
     if (!checkAbsolute()) { //Bei nicht generischer Tabelle
         var uppertableInput0 = getChildNode(document.getElementById('tr' + ID), 0).innerHTML;
         var lowertableInput0 = getChildNode(document.getElementById('tr' + (ID + 1)), 0).innerHTML;
 
-        var uppertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).textContent;
-        var lowertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + (ID + 1)), 1), 0).textContent;
+        uppertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).textContent;
+        lowertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + (ID + 1)), 1), 0).textContent;
 
         getChildNode(document.getElementById('tr' + ID), 0).innerHTML = lowertableInput0; //HTML der nächsten Zeile übernehmen
         getChildNode(document.getElementById('tr' + (ID + 1)), 0).innerHTML = uppertableInput0; //HTML der vorigen Zeile übernehmen
@@ -278,8 +283,8 @@ function moveRowDown(ID, tableInputs, type) {
         getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).textContent = lowertableInput1; //HTML der nächsten Zeile übernehmen
         getChildNode(getChildNode(document.getElementById('tr' + (ID + 1)), 1), 0).textContent = uppertableInput1; //HTML der vorigen Zeile übernehmen
     } else {
-        var uppertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).innerHTML;
-        var lowertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + (ID + 1)), 1), 0).innerHTML;
+        uppertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).innerHTML;
+        lowertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + (ID + 1)), 1), 0).innerHTML;
 
         getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).innerHTML = lowertableInput1; //HTML der nächsten Zeile übernehmen
         getChildNode(getChildNode(document.getElementById('tr' + (ID + 1)), 1), 0).innerHTML = uppertableInput1; //HTML der vorigen Zeile übernehmen
@@ -288,13 +293,15 @@ function moveRowDown(ID, tableInputs, type) {
     saveTableCreate(tableInputs, type, document.getElementById('tr' + ID).parentNode); //Tabelle Speichern
 }
 
-function moveRowUp(ID, tableInputs, type) {
-    if (!checkAbsolute()) { //Bei nicht generischer Tabelle
-        var uppertableInput0 = getChildNode(document.getElementById('tr' + (ID - 1)), 0).innerHTML;
-        var lowertableInput0 = getChildNode(document.getElementById('tr' + ID), 0).innerHTML;
+export function moveRowUp(ID, tableInputs, type) {
+    var uppertableInput0, lowertableInput0, uppertableInput1, lowertableInput1;
 
-        var uppertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + (ID - 1)), 1), 0).textContent;
-        var lowertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).textContent;
+    if (!checkAbsolute()) { //Bei nicht generischer Tabelle
+        uppertableInput0 = getChildNode(document.getElementById('tr' + (ID - 1)), 0).innerHTML;
+        lowertableInput0 = getChildNode(document.getElementById('tr' + ID), 0).innerHTML;
+
+        uppertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + (ID - 1)), 1), 0).textContent;
+        lowertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).textContent;
 
         getChildNode(document.getElementById('tr' + (ID - 1)), 0).innerHTML = lowertableInput0; //HTML der nächsten Zeile übernehmen
         getChildNode(document.getElementById('tr' + ID), 0).innerHTML = uppertableInput0; //HTML der vorigen Zeile übernehmen
@@ -302,8 +309,8 @@ function moveRowUp(ID, tableInputs, type) {
         getChildNode(getChildNode(document.getElementById('tr' + (ID - 1)), 1), 0).textContent = lowertableInput1; //HTML der nächsten Zeile übernehmen
         getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).textContent = uppertableInput1; //HTML der vorigen Zeile übernehmen
     } else {
-        var uppertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + (ID - 1)), 1), 0).innerHTML;
-        var lowertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).innerHTML;
+        uppertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + (ID - 1)), 1), 0).innerHTML;
+        lowertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).innerHTML;
 
         getChildNode(getChildNode(document.getElementById('tr' + (ID - 1)), 1), 0).innerHTML = lowertableInput1; //HTML der nächsten Zeile übernehmen
         getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).innerHTML = uppertableInput1; //HTML der vorigen Zeile übernehmen
@@ -312,16 +319,16 @@ function moveRowUp(ID, tableInputs, type) {
     saveTableCreate(tableInputs, type, document.getElementById('tr' + ID).parentNode); //Tabelle Speichern
 }
 
-function saveTableCreate(columnCount, type, object) {
+export function saveTableCreate(columnCount, type, object) {
     var main = document.getElementsByTagName('main')[0];
 
-	main.style.cursor = 'progress';
-	object.style.opacity = '0.1';
+    main.style.cursor = 'progress';
+    object.style.opacity = '0.1';
 
     saveTableSend(columnCount, type, object, main); //setTimeout(function() {saveTableSend(columnCount, type, object, main)}, 10);
 }
 
-function saveTableSend(columnCount, type, object, main) {
+export function saveTableSend(columnCount, type, object, main) {
     var content = [];
 
     for (var i = 1; i <= count; i++) { //Zeilen durchlaufen
@@ -344,53 +351,42 @@ function saveTableSend(columnCount, type, object, main) {
 
     xmlhttp.open('POST', '../layout/scripts/save.php', true);
     xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
-            if (languageChanging) {
-                languageChanging = false;
-<?php    switch ($lang) {
-case 'de':    ?>
-                changeLanguage('en');
-<?php    break;
-default:    ?>
-                changeLanguage('de');
-<?php    break;
-    }    ?>
-            }
+            // if (languageChanging) {
+            //     languageChanging = false;
+
+            //     changeLanguage('en');
+            //     // changeLanguage('de');
+            //     i18next.t('cancel');
+            // }
 
             if (xmlhttp.responseText == 'NULL\n' && resetting == false) {
-<?php    switch ($lang) {
-case 'de':    ?>
+
                 alert('Speichern fehlgeschlagen: Überprüfe deine Datei oder sende weniger Anfragen!');
-<?php    break;
-default:    ?>
-                alert('Saving failed: Check your file or send less requests!');
-<?php    break;
-    }    ?>
+                // alert('Saving failed: Check your file or send less requests!');
+                changeLanguage('de');
+                i18next.t('cancel');
             }
 
             resetting = false;
 
-			main.style.cursor = 'auto';
-			object.style.opacity = '1';
+            main.style.cursor = 'auto';
+            object.style.opacity = '1';
         }
-    }
+    };
     xmlhttp.send('content=' + content + '&type=' + type);
 }
 
-function selectItem(index) {
+export function selectItem(index) {
     var selected = document.getElementById('selected');
 
     if ((load == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
         var file = selected.firstChild.className.substring(4);
-<?php    switch ($lang) {
-case 'de':    ?>
-        dialogBox.render('Löschen', 'Möchtest du diesen Gewinn löschen?', file, 'delete');
-<?php    break;
-default:    ?>
-        dialogBox.render('Delete', 'Do you want to remove this item?', file, 'delete');
-<?php    break;
-    }    ?>
+
+        customAlert.render('Löschen', 'Möchtest du diesen Gewinn löschen?', file, 'delete');
+        // customAlert.render('Delete', 'Do you want to remove this item?', file, 'delete');
+        i18next.t('cancel');
     } else {
         load = false;
 
@@ -407,8 +403,8 @@ default:    ?>
             if (selected.innerHTML == '<img>---<br><figcaption><span></span><span></span></figcaption>') {
                 condition.selectedIndex = 0; //'---' auswählen
                 condition.disabled = true;
-				type.parentNode.style.display = 'none';
-				document.getElementById('hType').style.display = 'none';
+                type.parentNode.style.display = 'none';
+                document.getElementById('hType').style.display = 'none';
             } else {
                 condition.disabled = false;
 
@@ -422,39 +418,47 @@ default:    ?>
                 }
 
                 if (notes.className == 'StatTrak') {
-					document.getElementById('hType').style.display = 'block';
-					type.parentNode.style.display = 'initial';
-					type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;'; // onclick="assignStatTrak();"
-					document.getElementById('chkType').addEventListener('click', function(){assignStatTrak();});
-					type = document.getElementById('chkType');
-				} else if (notes.className == 'Souvenir') {
-					document.getElementById('hType').style.display = 'block';
-					type.parentNode.style.display = 'initial';
-					type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir'; // onclick="assignSouvenir();"
-					document.getElementById('chkType').addEventListener('click', function(){assignSouvenir();});
-					type = document.getElementById('chkType');
-				} else {
-					type.parentNode.style.display = 'none';
-					document.getElementById('hType').style.display = 'none';
-				}
+                    document.getElementById('hType').style.display = 'block';
+                    type.parentNode.style.display = 'initial';
+                    type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;'; // onclick="assignStatTrak();"
+                    document.getElementById('chkType').addEventListener('click', function () { assignStatTrak(); });
+                    type = document.getElementById('chkType');
+                } else if (notes.className == 'Souvenir') {
+                    document.getElementById('hType').style.display = 'block';
+                    type.parentNode.style.display = 'initial';
+                    type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir'; // onclick="assignSouvenir();"
+                    document.getElementById('chkType').addEventListener('click', function () { assignSouvenir(); });
+                    type = document.getElementById('chkType');
+                } else {
+                    type.parentNode.style.display = 'none';
+                    document.getElementById('hType').style.display = 'none';
+                }
 
-                if (span1.innerHTML == '') { //Wenn kein Tag
+                if (span1.innerHTML == '') {
+                    //Wenn kein Tag
                     condition.selectedIndex = 0; //'---' auswählen
-                } else if (span1.innerHTML == '[FN]') { //Wenn Tag 'Factory New'
+                } else if (span1.innerHTML == '[FN]') {
+                    //Wenn Tag 'Factory New'
                     condition.selectedIndex = 1; //'Factory New' auswählen
-                } else if (span1.innerHTML == '[MG]' || span1.innerHTML == '[MW]') { //Wenn Tag 'Minimal Wear'
+                } else if (span1.innerHTML == '[MG]' || span1.innerHTML == '[MW]') {
+                    //Wenn Tag 'Minimal Wear'
                     condition.selectedIndex = 2; //'Minimal Wear' auswählen
-                } else if (span1.innerHTML == '[EE]' || span1.innerHTML == '[FT]') { //Wenn Tag 'Field-Tested'
+                } else if (span1.innerHTML == '[EE]' || span1.innerHTML == '[FT]') {
+                    //Wenn Tag 'Field-Tested'
                     condition.selectedIndex = 3; //'Field-Tested' auswählen
-                } else if (span1.innerHTML == '[AG]' || span1.innerHTML == '[WW]') { //Wenn Tag 'Well-Worn'
+                } else if (span1.innerHTML == '[AG]' || span1.innerHTML == '[WW]') {
+                    //Wenn Tag 'Well-Worn'
                     condition.selectedIndex = 4; //'Well-Worn' auswählen
-                } else if (span1.innerHTML == '[KS]' || span1.innerHTML == '[BS]') { //Wenn Tag 'Battle-Scarred'
+                } else if (span1.innerHTML == '[KS]' || span1.innerHTML == '[BS]') {
+                    //Wenn Tag 'Battle-Scarred'
                     condition.selectedIndex = 5; //'Battle-Scarred' auswählen
                 }
 
-                if (span2.innerHTML == '') { //Wenn kein Tag
+                if (span2.innerHTML == '') {
+                    //Wenn kein Tag
                     type.checked = false; //Haken entfernen
-                } else  { //Wenn Tag 'StatTrak' oder 'Souvenir'
+                } else {
+                    //Wenn Tag 'StatTrak' oder 'Souvenir'
                     type.checked = true; //Haken setzen
                 }
             }
@@ -466,7 +470,7 @@ default:    ?>
     }
 }
 
-function checkAbsolute() {
+export function checkAbsolute() {
     if (document.getElementById('tableInput0').classList.contains('absolute')) { //Bei generischer Tabelle
         return true;
     } else { //Wenn Tabelle benutzerdefiniert ist
@@ -474,7 +478,7 @@ function checkAbsolute() {
     }
 }
 
-function getFirstChild(el) {
+export function getFirstChild(el) {
     var firstChild = el.firstChild;
 
     while (firstChild != null && firstChild.nodeType == 3) {
@@ -484,7 +488,7 @@ function getFirstChild(el) {
     return firstChild;
 }
 
-function getLastChild(el) {
+export function getLastChild(el) {
     var lastChild = el.lastChild;
 
     while (lastChild != null && lastChild.nodeType == 3) {
@@ -494,7 +498,7 @@ function getLastChild(el) {
     return lastChild;
 }
 
-function getChildNode(el, i) {
+export function getChildNode(el, i) {
     var j = 0;
     var childNode = el.childNodes[j];
 
@@ -513,7 +517,6 @@ function getChildNode(el, i) {
     return childNode;
 }
 
-function isNumeric(n) {
+export function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
-//</script>

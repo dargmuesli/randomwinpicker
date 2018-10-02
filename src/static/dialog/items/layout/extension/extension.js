@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var box = document.getElementById('box');
     if (typeof(box) != 'undefined' && box != null) {
-        box.addEventListener('click', function(){dialogBox.render('', '<div id="captcha_container"></div>', '', '');grecaptcha.render('captcha_container', {'sitekey': '<?php echo get_recaptcha_sitekey(); ?>', 'theme': 'dark', 'callback': function(response){validateResponse(response, 'feature');}});});
+        box.addEventListener('click', function(){customAlert.render('', '<div id="captcha_container"></div>', '', '');grecaptcha.render('captcha_container', {'sitekey': '<?php echo get_recaptcha_sitekey(); ?>', 'theme': 'dark', 'callback': function(response){validateResponse(response, 'feature');}});});
     }
     var hideimages = document.getElementById('hideimages');
     if (typeof(hideimages) != 'undefined' && hideimages != null) {

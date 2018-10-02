@@ -1,4 +1,4 @@
-function saveSettingsWorker(form, value) {
+export function saveSettingsWorker(form, value) {
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.open('POST', 'savesettings.php?form=' + form, false);
