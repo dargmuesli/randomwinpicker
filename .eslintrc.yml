@@ -4,6 +4,9 @@ env:
   jquery: true
   node: true
 extends: 'eslint:recommended'
+globals:
+  i18next: false
+  Papa: false
 parserOptions:
   sourceType: module
 rules:
