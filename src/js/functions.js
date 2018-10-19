@@ -11,7 +11,6 @@ import * as Send from './functions/send.js';
 import * as SideBar from './functions/sidebar.js';
 import * as Spoiler from './functions/spoiler.js';
 import * as Table from './functions/table.js';
-import * as Tag from './functions/tag.js';
 
 module.exports = {
     Airport,
@@ -26,6 +25,5 @@ module.exports = {
     Send,
     SideBar,
     Spoiler,
-    Table,
-    Tag
+    Table
 };
