@@ -46,16 +46,25 @@
             </head>';
 
         $html .= '
-            <body>
-                <noscript>
-                    <iframe height="0" sandbox="" src="//www.googletagmanager.com/ns.html?id=GTM-KL6875" width="0"></iframe>
-                </noscript>
-                '.$content.'
-                '.get_feature_translation(['drg/gtm/mjs'])
-                .$featureTranslation.'
-            </body>';
-
-        $html .= '
+                <body>
+                    <noscript>
+                        <iframe height="0" sandbox="" src="//www.googletagmanager.com/ns.html?id=GTM-KL6875" width="0"></iframe>
+                    </noscript>
+                    '.$content.'
+                    <div id="dialogoverlay"></div>
+                    <div id="dialogbox">
+                        <div>
+                            <div id="dialogboxhead">
+                            </div>
+                            <div id="dialogboxbody">
+                            </div>
+                            <div id="dialogboxfoot">
+                            </div>
+                        </div>
+                    </div>
+                    '.get_feature_translation(['drg/gtm/mjs'])
+                    .$featureTranslation.'
+                </body>
             </html>';
 
         echo get_indented_ml($html);
