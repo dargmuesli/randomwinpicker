@@ -46,6 +46,18 @@
                 ]
             ]
         ],
+            'error' => [
+                'content' => [
+                    'de' => 'Schau was du angerichtet hast! Das ist eine Sonneneruption...',
+                    'en' => 'Look what you\'ve done! That is a sun eruption...'
+                ],
+                'title' => [
+                    'head' => [
+                        'de' => 'Fehler',
+                        'en' => 'Error'
+                    ]
+                ]
+            ],
         'start' => [
             'about' => [
                 'content' => [

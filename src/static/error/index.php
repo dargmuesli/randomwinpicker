@@ -1,45 +1,35 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="UTF-8">
-        <title>
-            Error <?php echo $_GET['code']; ?> [randomwinpicker.de]
-        </title>
-        <link rel="icon" href="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/icons/favicon.ico'; ?>" type="image/png" />
-        <link rel="stylesheet" href="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/stylesheets/fonts.php'; ?>">
-        <link rel="stylesheet" href="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/stylesheets/style.css'; ?>">
-        <link rel="stylesheet" href="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/stylesheets/error.css'; ?>">
-    </head>
-    <body>
+<?php
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/cache/enabled.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/base/skeleton.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
+
+    last_modified(get_page_mod_time());
+
+    $skeletonTitle = translate('pages.error.title.head').' '.$_GET['code'];
+    $skeletonDescription = '';
+    $skeletonFeatures = ['lcl/ext/css'];
+    $skeletonKeywords = '';
+    $skeletonContent = '
         <header>
-            <a href="<?php if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
-    echo $_SERVER['HTTP_REFERER'];
-} else {
-    echo 'index.php';
-} ?>" title="Back" id="back">
-                <img src="<?php echo 'https://' . $_SERVER['SERVER_NAME'] . '/layout/icons/arrow.png'; ?>" alt="Arrow" class="rotate"/>
-            </a>
+            <a class="rotate" href="';
+
+    if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
+        $skeletonContent .= $_SERVER['HTTP_REFERER'];
+    } else {
+        $skeletonContent .= '/index.php';
+    }
+
+    $skeletonContent .= '" title="Back" id="back"></a>
         </header>
         <main>
             <div>
                 <h1>
-                    Error <?php echo $_GET['code']; ?>
+                    Error '.$_GET['code'].'
                 </h1>
-<?php    switch ($lang) {
-case 'de':    ?>
                 <p>
-                    Schau was du angerichtet hast! Das ist eine Sonneneruption...
+                    '.translate('pages.error.content').'
                 </p>
-<?php        break;
-default:    ?>
-                <p>
-                    Look what you've done! That is a sun eruption...
-                </p>
-<?php         break;
-}    ?>
             </div>
-        </main>
-        <footer>
-        </footer>
-    </body>
-</html>
+        </main>';
+
+    output_html($skeletonTitle, $skeletonDescription, $skeletonContent, $skeletonFeatures, $skeletonKeywords);
