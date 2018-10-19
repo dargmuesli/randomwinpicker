@@ -1,11 +1,17 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/dotenv.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/database/pdo.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
-    $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
-
-    function account($level, $email, $lang, $tab)
+    function get_account_html($email)
     {
-        global $dbh;
+        $accountHtml = '';
+
+        // Load .env file
+        load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
+
+        // Get database handle
+        $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
 
         if (isset($email)) {
             $stmt = $dbh->prepare('SELECT privacy FROM accounts WHERE mail = :email');
@@ -18,30 +24,15 @@
             $privacy = $stmt->fetch()[0];
         }
 
-        switch ($lang) {
-            case 'de':
-                if (!isset($privacy)) {
-                    echo $tab . 'Gast | <a href="' . $level . 'accounts/" title="Anmelden">Anmelden</a>' . "\n";
-                } elseif (($privacy == 'E-mail address') && isset($email)) {
-                    echo $tab . '<a href="' . $level . 'accounts/profile.php" title="Profile">' . $email . ' &#x2261;</a> | <a href="' . $level . 'layout/scripts/logreg.php?task=out" title="Abmelden">Abmelden</a>' . "\n";
-                } elseif ($privacy == 'Member') {
-                    echo $tab . '<a href="' . $level . 'accounts/profile.php" title="Profile">Mitglied &#x2261;</a> | <a href="' . $level . 'layout/scripts/logreg.php?task=out" title="Abmelden">Abmelden</a>' . "\n";
-                } elseif (($privacy != 'E-mail address') && ($privacy != 'Member')) {
-                    echo $tab . '<a href="' . $level . 'accounts/profile.php" title="Profile">' . $privacy . ' &#x2261;</a> | <a href="' . $level . 'layout/scripts/logreg.php?task=out" title="Abmelden">Abmelden</a>' . "\n";
-                }
-
-                break;
-            default:
-                if (!isset($privacy)) {
-                    echo $tab . 'Guest | <a href="' . $level . 'accounts/" title="Sign In / Up">Sign In / Up</a>' . "\n";
-                } elseif (($privacy == 'E-mail address') && isset($email)) {
-                    echo $tab . '<a href="' . $level . 'accounts/profile.php" title="Profile">' . $email . ' &#x2261;</a> | <a href="' . $level . 'layout/scripts/logreg.php?task=out" title="Logout">Logout</a>' . "\n";
-                } elseif ($privacy == 'Member') {
-                    echo $tab . '<a href="' . $level . 'accounts/profile.php" title="Profile">Member &#x2261;</a> | <a href="' . $level . 'layout/scripts/logreg.php?task=out" title="Logout">Logout</a>' . "\n";
-                } elseif (($privacy != 'E-mail address') && ($privacy != 'Member')) {
-                    echo $tab . '<a href="' . $level . 'accounts/profile.php" title="Profile">' . $privacy . ' &#x2261;</a> | <a href="' . $level . 'layout/scripts/logreg.php?task=out" title="Logout">Logout</a>' . "\n";
-                }
-
-                break;
+        if (!isset($privacy)) {
+            $accountHtml = translate('scripts.account.guest').' | <a href="/accounts/" title="'.translate('scripts.account.login').'">'.translate('scripts.account.login').'</a>';
+        } elseif (($privacy == 'E-mail address') && isset($email)) {
+            $accountHtml = '<a href="/accounts/profile.php" title="'.translate('scripts.account.profile').'">' . $email . ' &#x2261;</a> | <a href="' . $level . 'layout/scripts/logreg.php?task=out" title="'.translate('scripts.account.logout').'">'.translate('scripts.account.logout').'</a>';
+        } elseif ($privacy == 'Member') {
+            $accountHtml = '<a href="/accounts/profile.php" title="'.translate('scripts.account.profile').'">'.translate('scripts.account.member').' &#x2261;</a> | <a href="' . $level . 'layout/scripts/logreg.php?task=out" title="'.translate('scripts.account.logout').'">'.translate('scripts.account.logout').'</a>';
+        } elseif (($privacy != 'E-mail address') && ($privacy != 'Member')) {
+            $accountHtml = '<a href="/accounts/profile.php" title="'.translate('scripts.account.profile').'">' . $privacy . ' &#x2261;</a> | <a href="' . $level . 'layout/scripts/logreg.php?task=out" title="'.translate('scripts.account.logout').'">'.translate('scripts.account.logout').'</a>';
         }
+
+        return $accountHtml;
     }
