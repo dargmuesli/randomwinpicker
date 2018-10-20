@@ -26,10 +26,10 @@
                     <base href="'.$baseUrl;
 
         if (isset($_GET['code'])) {
-            $html .= '/error/">';
+            $html .= '/error/';
         }
 
-        $html .= '
+        $html .= '">
                 <link href="'.$_SERVER['REQUEST_URI'].'" rel="canonical">
                 <link href="/resources/dargmuesli/icons/favicon.ico" rel="icon" type="image/x-icon">
                 <meta name="author" content="Jonas Thelemann" />
