@@ -29,6 +29,10 @@
                 'slm.js' => '/jquery/jquery.slim.js',
                 'slm.mjs' => '/jquery/jquery.slim.min.js',
             ),
+            'jqft' => array(
+                'mjs' => '/jqueryfiletree/jQueryFileTree.min.js',
+                'mcss' => '/jqueryfiletree/jQueryFileTree.min.css',
+            ),
         ),
         'ext' => array(
             'recaptcha' => array(
