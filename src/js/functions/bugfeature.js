@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         bug.addEventListener('click', function () {
             document.body.scrollTop = 0;
             document.body.style.overflow = 'hidden';
-            customAlert.render('', '<div id="captcha_container"></div>', '', '');
+            new customAlert().render('', '<div id="captcha_container"></div>', '', '');
             // grecaptcha.render('captcha_container', { 'sitekey': '<?php echo get_recaptcha_sitekey(); ?>', 'theme': 'dark', 'callback': function (response) { validateResponse(response, 'bug'); } });
         });
     }
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         feature.addEventListener('click', function () {
             document.body.scrollTop = 0;
             document.body.style.overflow = 'hidden';
-            customAlert.render('', '<div id="captcha_container"></div>', '', '');
+            new customAlert().render('', '<div id="captcha_container"></div>', '', '');
             // grecaptcha.render('captcha_container', { 'sitekey': '<?php echo get_recaptcha_sitekey(); ?>', 'theme': 'dark', 'callback': function (response) { validateResponse(response, 'feature'); } });
         });
     }

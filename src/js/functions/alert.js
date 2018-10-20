@@ -1,40 +1,39 @@
 import { saveTableCreate, selectItem } from './table.js';
 import { i18n } from './translations.js';
 
-export function customAlert() {
-    this.render = function (heading, dialog, file, task) {
+export class customAlert {
+    constructor() { }
+
+    render(heading, dialog, file, task) {
         var dialogoverlay = document.getElementById('dialogoverlay');
         var dialogbox = document.getElementById('dialogbox');
-        // var body = document.getElementsByTagName('body')[0];
-
         dialogoverlay.style.display = 'block';
         dialogbox.style.display = 'inline';
         document.getElementById('dialogboxhead').innerHTML = '<h3>' + heading + '</h3>';
         document.getElementById('dialogboxbody').innerHTML = dialog;
         document.getElementById('dialogboxfoot').innerHTML = '<button id="ok">OK</button><button id="cancel">' + i18n.t('functions:alert.cancel') + '</button>';
         document.getElementById('ok').addEventListener('click', () => this.ok(file, task));
-        document.getElementById('ok').addEventListener('click', function () { this.ok(file, task); });
-        document.getElementById('cancel').addEventListener('click', function () { this.cancel(); });
-    };
+        document.getElementById('cancel').addEventListener('click', () => this.cancel());
+    }
 
-    this.ok = function (file, task) {
+    ok(file, task) {
         document.body.style.overflow = '';
-
         if (task == 'contribute') {
             window.location.href = 'contribute.php?file=' + file;
-        } else if (task == 'delete') {
+        }
+        else if (task == 'delete') {
             removeSelected();
-        } else if (task == '') {
+        }
+        else if (task == '') {
             this.cancel();
         }
-    };
+    }
 
-    this.cancel = function () {
+    cancel() {
         document.body.style.overflow = '';
-
         document.getElementById('dialogbox').style.display = 'none';
         document.getElementById('dialogoverlay').style.display = 'none';
-    };
+    }
 }
 
 export function removeSelected() {
