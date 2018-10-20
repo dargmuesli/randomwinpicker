@@ -62,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    '.get_feature_translation(['drg/gtm/mjs'])
+                    '.get_feature_translation(['pkg/jq/mjs', 'pkg/jqft/mjs', 'drg/gtm/mjs', 'drg/base/func.js'])
                     .$featureTranslation.'
                 </body>
             </html>';

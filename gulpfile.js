@@ -81,6 +81,10 @@ let symlinkArray = [
 
 let yarnArray = [
     {
+        source: 'node_modules/jquery/dist/jquery*.js',
+        target: 'jquery/'
+    },
+    {
         source: 'node_modules/jqueryfiletree/dist/**',
         target: 'jqueryfiletree/'
     },
