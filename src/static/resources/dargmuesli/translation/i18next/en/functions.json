@@ -1,0 +1,34 @@
+{
+    "alert": {
+        "cancel": "Cancel"
+    },
+    "filetree": {
+        "conditions": {
+            "fn": "[FN]",
+            "mw": "[MW]",
+            "ft": "[FT]",
+            "ww": "[WW]",
+            "bs": "[BS]"
+        },
+        "contribute": {
+            "title": "No valid data!",
+            "question": "Do you want to edit this item?"
+        },
+        "images": {
+            "hide": "Hide all images",
+            "show": "Show all images"
+        }
+    },
+    "table": {
+        "add": {
+            "duplicate": "Value '{{value}}' already exists @ '{{error}}'!"
+        },
+        "save": {
+            "error": "Saving failed: Check your file or send less requests!"
+        },
+        "select": {
+            "question": "Do you want to remove this item?",
+            "title": "Delete"
+        }
+    }
+}

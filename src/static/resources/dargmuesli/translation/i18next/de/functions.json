@@ -1,0 +1,34 @@
+{
+    "alert": {
+        "cancel": "Abbrechen"
+    },
+    "filetree": {
+        "conditions": {
+            "fn": "[FN]",
+            "mw": "[MG]",
+            "ft": "[EE]",
+            "ww": "[AG]",
+            "bs": "[KS]"
+        },
+        "contribute": {
+            "title": "Keine validen Daten!",
+            "question": "Möchtest du diesen Gewinn editieren?"
+        },
+        "images": {
+            "hide": "Verstecke alle Bilder'",
+            "show": "Zeige alle Bilder"
+        }
+    },
+    "table": {
+        "add": {
+            "duplicate": "Wert '{{value}}' existiert schon @ '{{error}}'!"
+        },
+        "save": {
+            "error": "Speichern fehlgeschlagen: Überprüfe deine Datei oder sende weniger Anfragen!"
+        },
+        "select": {
+            "question": "Möchtest du diesen Gewinn löschen?",
+            "title": "Löschen"
+        }
+    }
+}

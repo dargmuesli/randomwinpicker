@@ -1,5 +1,6 @@
 import { customAlert } from './alert.js';
 import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './table.js';
+import { i18n } from './translations.js';
 
 $(document).ready(function () {
     $('.filetree').fileTree({ root: '/', script: '../resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function (file) {
@@ -112,8 +113,7 @@ export function openFile(file) {
 
                 saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
             } else {
-                customAlert.render(i18next.t('No valid data!'), i18next.t('Do you want to edit this item?'), file, 'contribute');
-                //customAlert.render('Keine validen Daten!', 'Möchtest du diesen Gewinn editieren?', file, 'contribute');
+                customAlert.render(i18n.t('functions:filetree.contribute.title'), i18n.t('functions:filetree.contribute.question'), file, 'contribute');
             }
         }
     };
@@ -142,25 +142,15 @@ export function assignCondition() {
     if (condition.options[0].selected) {
         span.innerHTML = '';
     } else if (condition.options[1].selected) {
-        i18next.t('[FN]');
-        span.innerHTML = '[FN]';
-        // span.innerHTML = '[FN]';
+        span.innerHTML = i18n.t('functions:filetree.conditions.fn');
     } else if (condition.options[2].selected) {
-        i18next.t('[FN]');
-        span.innerHTML = '[MG]';
-        // span.innerHTML = '[MW]';
+        span.innerHTML = i18n.t('functions:filetree.conditions.mw');
     } else if (condition.options[3].selected) {
-        i18next.t('[FN]');
-        span.innerHTML = '[EE]';
-        // span.innerHTML = '[FT]';
+        span.innerHTML = i18n.t('functions:filetree.conditions.ft');
     } else if (condition.options[4].selected) {
-        i18next.t('[FN]');
-        span.innerHTML = '[AG]';
-        // span.innerHTML = '[WW]';
+        span.innerHTML = i18n.t('functions:filetree.conditions.ww');
     } else if (condition.options[5].selected) {
-        i18next.t('[FN]');
-        span.innerHTML = '[KS]';
-        // span.innerHTML = '[BS]';
+        span.innerHTML = i18n.t('functions:filetree.conditions.bs');
     }
 
     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
@@ -206,7 +196,7 @@ export function hideImages() {
             }
         }
 
-        link.innerHTML = i18next.t('Zeige alle Bilder'); //'Show all images'
+        link.innerHTML = i18n.t('functions:filetree.images.show');
         link.classList.add('hidden');
         link.classList.remove('shown');
     } else {
@@ -216,7 +206,7 @@ export function hideImages() {
             }
         }
 
-        link.innerHTML = i18next.t('Verstecke alle Bilder'); //'Hide all images'
+        link.innerHTML = i18n.t('functions:filetree.images.hide');
         link.classList.add('shown');
         link.classList.remove('hidden');
     }

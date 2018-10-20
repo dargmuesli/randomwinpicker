@@ -2,6 +2,7 @@ import { customAlert } from './alert.js';
 import { assignSouvenir, assignStatTrak } from './filetree.js';
 import { changeLanguage } from './language.js';
 import { htmlspecialchars_decode } from './phpin.js';
+import { i18n } from './translations.js';
 
 // Save the amount of tablerows
 var count;
@@ -151,9 +152,7 @@ export function addRow(tbody, data, uniques, tableInputs, type) {
                 document.getElementById('tableInput0').focus(); //Eingabefeld selektieren
             }
         } else { //Bei Duplikat
-            alert('Wert "' + value + '" existiert schon @ (' + error + ')!'); //Fehler ausgeben
-            // alert('Value "' + value + '" already exists @ (' + error + ')!'); //Fehler ausgeben
-            i18next.t('cancel');
+            alert(i18n.t('scripts:table.add.duplicate', { value: value, error: error })); //Fehler ausgeben
         }
 
         if (!editing) {
@@ -358,15 +357,11 @@ export function saveTableSend(columnCount, type, object, main) {
 
             //     changeLanguage('en');
             //     // changeLanguage('de');
-            //     i18next.t('cancel');
             // }
 
             if (xmlhttp.responseText == 'NULL\n' && resetting == false) {
-
-                alert('Speichern fehlgeschlagen: Überprüfe deine Datei oder sende weniger Anfragen!');
-                // alert('Saving failed: Check your file or send less requests!');
                 changeLanguage('de');
-                i18next.t('cancel');
+                alert(i18n.t('functions:table.save.error'));
             }
 
             resetting = false;
@@ -384,9 +379,7 @@ export function selectItem(index) {
     if ((load == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
         var file = selected.firstChild.className.substring(4);
 
-        customAlert.render('Löschen', 'Möchtest du diesen Gewinn löschen?', file, 'delete');
-        // customAlert.render('Delete', 'Do you want to remove this item?', file, 'delete');
-        i18next.t('cancel');
+        customAlert.render(i18n.t('functions:table.select.title'), i18n.t('functions:table.select.question'), file, 'delete');
     } else {
         load = false;
 
