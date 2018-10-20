@@ -1,3 +1,3 @@
-export function sub() {
+function sub() {
     document.getElementById('adform').submit();
 }
