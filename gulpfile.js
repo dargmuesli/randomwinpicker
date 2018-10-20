@@ -282,7 +282,7 @@ function jsSrcWatch() {
     // Watch for any changes in source files to copy changes
     gGulp.watch(srcJsFolder)
         .on('all', function () {
-            js_src();
+            jsSrc();
         });
 }
 
