@@ -6,7 +6,8 @@
 #again, #go{background:rgba(255, 0, 27, 0.25) none repeat scroll 0% 0%;border:2px solid white;border-radius:1vmin;padding:1vmin;}
 #again button{font-size:3vmin;}
 #again button, #go button{color:white;font-family:'bangers';text-shadow:inherit;}
-#back{background-image:url('/resources/dargmuesli/icons/arrow.png');background-position:center center;background-repeat:no-repeat;background-size:cover;display:block;height:3vw;margin:4vh 0 0 1.5vw;width:10vw;}
+#back{float:left;}
+#back > a{background-image:url('/resources/dargmuesli/icons/arrow.png');background-position:center center;background-repeat:no-repeat;background-size:cover;display:block;height:3vw;margin:4vh 0 0 1.5vw;width:10vw;}
 #content{font-size:1.5vmin;margin-top:5vh;text-align:left;}
 #content p, #content div{font-family:'bangers';font-size:125%;text-align:left;}
 #content .places{border-bottom:2px solid #000;border-top:2px solid #000;}

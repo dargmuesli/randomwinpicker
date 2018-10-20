@@ -37,10 +37,8 @@
     $skeletonKeywords = 'images, contents, pages, information, act, tmg, accountability, links, parties, legal';
     $skeletonContent = '
         <header>'.get_warning_html($success, $error).'
-            <div>
-                <a href="../" title="Back" id="back">
-                    <img src="../resources/dargmuesli/icons/arrow.png" alt="Welcome" class="rotate"/>
-                </a>
+            <div id="back">
+                <a class="rotate" href="../" title="Back"></a>
             </div>
             <div id="account">
                 '.get_account_html($email).'
