@@ -1,6 +1,6 @@
 import { customAlert } from './alert.js';
 import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './table.js';
-import { i18n } from './translations.js';
+import { i18n } from './language.js';
 
 $(document).ready(function () {
     $('.filetree').fileTree({ root: '/', script: '../resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function (file) {

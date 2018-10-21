@@ -1,5 +1,5 @@
 import { saveTableCreate, selectItem } from './table.js';
-import { i18n } from './translations.js';
+import { i18n } from './language.js';
 
 export class customAlert {
     constructor() { }

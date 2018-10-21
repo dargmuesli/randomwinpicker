@@ -2,7 +2,7 @@ import { customAlert } from './alert.js';
 import { assignSouvenir, assignStatTrak } from './filetree.js';
 import { changeLanguage } from './language.js';
 import { htmlspecialchars_decode } from './phpin.js';
-import { i18n } from './translations.js';
+import { i18n } from './language.js';
 
 // Save the amount of tablerows
 var count;
