@@ -87,18 +87,20 @@
                     <footer>
                         <p id="language">';
 
-    foreach (array('de', 'en') as $supportedLanguage) {
-        $currentLanguage = get_language();
-
-        if ($supportedLanguage != $currentLanguage) {
+    switch (get_language()) {
+        case 'de':
             $skeletonContent .= '
                 <button class="link en" id="lang" title="Switch to English">
-                    <img src="/resources/dargmuesli/icons/'.$supportedLanguage.'.png" alt="English Flag" id="flag">
-                </button>';
-        }
+                    <img src="/resources/dargmuesli/icons/en.png" alt="English Flag" id="flag">';
+            break;
+        default:
+            $skeletonContent .= '
+                <button class="link de" id="lang" title="Switch to German">
+                    <img src="/resources/dargmuesli/icons/de.png" alt="German Flag" id="flag">';
     }
 
     $skeletonContent .= '
+                            </button>
                         </p>
                         <p class="seethrough">
                             -

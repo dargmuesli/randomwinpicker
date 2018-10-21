@@ -1,16 +1,6 @@
 <?php
     session_start();
 
-    $lang = 'de';
-
-    if (isset($_SESSION['lang'])) {
-        $lang = $_SESSION['lang'];
-    } else {
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-        }
-    }
-
     if (isset($_SESSION['email'])) {
         $email = $_SESSION['email'];
     } elseif (isset($_COOKIE['email'])) {

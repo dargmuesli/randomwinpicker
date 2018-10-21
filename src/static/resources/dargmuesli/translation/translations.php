@@ -335,8 +335,8 @@
             $language = strtolower(substr($httpAcceptLanguages[0], 0, 2));
         }
 
-        if (isset($_SESSION['lang']) && is_string($_SESSION['lang'])) {
-            $language = $_SESSION['lang'];
+        if (isset($_COOKIE['i18next']) && is_string($_COOKIE['i18next'])) {
+            $language = $_COOKIE['i18next'];
         }
 
         return $language;
