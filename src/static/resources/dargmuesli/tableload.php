@@ -1,53 +1,67 @@
 <?php
-    function initialize_table($content, $type, $tab) {
+    function get_init_table_html($content, $type)
+    {
+        $initTableHtml = '';
+
         if (isset($content)) {
             for ($i = 0; $i < count($content); $i++) {
-                echo $tab . "\t" . '<tr id="tr' . ($i + 1) . '">' . PHP_EOL;
-                echo $tab . "\t\t" . '<td class="data">' . PHP_EOL;
-                echo $tab . "\t\t\t" . $content[$i]['column0'] . PHP_EOL;
-                echo $tab . "\t\t" . '</td>' . PHP_EOL;
-                echo $tab . "\t\t" . '<td class="' . $content[$i]['column1classes'] . '">' . PHP_EOL;
-                echo $tab . "\t\t\t" . $content[$i]['column1'] . PHP_EOL;
-                echo $tab . "\t\t" . '</td>' . PHP_EOL;
-                echo $tab . "\t\t" . '<td class="remove">' . PHP_EOL;
-                echo $tab . "\t\t\t" . '<button class="link" title="Remove" id="rR(' . ($i + 1) . ', 2, \'' . $type . '\')">' . PHP_EOL;
-                echo $tab . "\t\t\t\t" . 'X' . PHP_EOL;
-                echo $tab . "\t\t\t" . '</button>' . PHP_EOL;
-                echo $tab . "\t\t" . '</td>' . PHP_EOL;
-                echo $tab . "\t\t" . '<td class="up">' . PHP_EOL;
+                $initTableHtml = '
+                    <tr id="tr' . ($i + 1) . '">
+                        <td class="data">
+                            '.$content[$i]['column0'].'
+                        </td>
+                        <td class="' . $content[$i]['column1classes'] . '">
+                            '.$content[$i]['column1'].'
+                        </td>
+                        <td class="remove">
+                            <button class="link" title="Remove" id="rR(' . ($i + 1) . ', 2, \'' . $type . '\')">
+                                X
+                            </button>
+                        </td>
+                        <td class="up">';
+
                 if ($i > 0) {
-                    echo $tab . "\t\t\t" . '<button class="link" title="Up" id="mRU(' . ($i + 1) . ', 2, \'' . $type . '\')">' . PHP_EOL;
-                    echo $tab . "\t\t\t\t" . '&#x25B2;' . PHP_EOL;
-                    echo $tab . "\t\t\t" . '</button>' . PHP_EOL;
+                    $initTableHtml .= '
+                        <button class="link" title="Up" id="mRU(' . ($i + 1) . ', 2, \'' . $type . '\')">
+                            &#x25B2;
+                        </button>';
                 }
-                echo $tab . "\t\t" . '</td>' . PHP_EOL;
-                echo $tab . "\t\t" . '<td class="down">' . PHP_EOL;
+
+                $initTableHtml .= '
+                    </td>
+                    <td class="down">';
+
                 if ($i != count($content) - 1) {
-                    echo $tab . "\t\t\t" . '<button class="link" title="Down" id="mRD(' . ($i + 1) . ', 2, \'' . $type . '\')">' . PHP_EOL;
-                    echo $tab . "\t\t\t\t" . '&#x25BC;' . PHP_EOL;
-                    echo $tab . "\t\t\t" . '</button>' . PHP_EOL;
+                    $initTableHtml .= '
+                        <button class="link" title="Down" id="mRD(' . ($i + 1) . ', 2, \'' . $type . '\')">
+                            &#x25BC;
+                        </button>';
                 }
-                echo $tab . "\t\t" . '</td>' . PHP_EOL;
-                echo $tab . "\t" . '</tr>' . PHP_EOL;
+
+                $initTableHtml .= '
+                        </td>
+                    </tr>';
             }
         } else {
-            echo $tab . "\t" . '<tr id="tr0">' . PHP_EOL;
-            echo $tab . "\t\t" . '<td class="data">' . PHP_EOL;
-            echo $tab . "\t\t\t" . '---' . PHP_EOL;
-            echo $tab . "\t\t" . '</td>' . PHP_EOL;
-            echo $tab . "\t\t" . '<td class="data">' . PHP_EOL;
-            echo $tab . "\t\t\t" . '---' . PHP_EOL;
-            echo $tab . "\t\t" . '</td>' . PHP_EOL;
-            echo $tab . "\t\t" . '<td>' . PHP_EOL;
-            echo $tab . "\t\t\t" . '---' . PHP_EOL;
-            echo $tab . "\t\t" . '</td>' . PHP_EOL;
-            echo $tab . "\t\t" . '<td>' . PHP_EOL;
-            echo $tab . "\t\t\t" . '---' . PHP_EOL;
-            echo $tab . "\t\t" . '</td>' . PHP_EOL;
-            echo $tab . "\t\t" . '<td>' . PHP_EOL;
-            echo $tab . "\t\t\t" . '---' . PHP_EOL;
-            echo $tab . "\t\t" . '</td>' . PHP_EOL;
-            echo $tab . "\t" . '</tr>' . PHP_EOL;
+            $initTableHtml = '
+                <tr id="tr0">
+                    <td class="data">
+                        ---
+                    </td>
+                    <td class="data">
+                        ---
+                    </td>
+                    <td>
+                        ---
+                    </td>
+                    <td>
+                        ---
+                    </td>
+                    <td>
+                        ---
+                    </td>
+                </tr>';
         }
+
+        return $initTableHtml;
     }
-?>
