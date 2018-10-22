@@ -287,34 +287,6 @@
                         </section>
                     </article>
                 </div>
-            </main>
-            <footer>
-            <p id="language">';
-
-    foreach (array('de', 'en') as $supportedLanguage) {
-        $currentLanguage = get_language();
-
-        if ($supportedLanguage != $currentLanguage) {
-            $skeletonContent .= '
-                <button class="link en" id="lang" title="Switch to English">
-                    <img src="/resources/dargmuesli/icons/'.$supportedLanguage.'.png" alt="English Flag" id="flag">
-                </button>';
-        }
-    }
-
-    $skeletonContent .= '
-            </p>
-            <p class="seethrough">
-                -
-                <a href="imprint" title="Imprint">
-                    '.translate('pages.general.footer.imprint').'
-                </a>
-                |
-                <button id="bug" class="link" title="Report a bug">
-                    '.translate('pages.general.footer.bug-report').'
-                </button>
-                -
-            </p>
-        </footer>';
+            </main>'.get_footer();
 
     output_html($skeletonTitle, $skeletonDescription, $skeletonContent, $skeletonFeatures, $skeletonKeywords);

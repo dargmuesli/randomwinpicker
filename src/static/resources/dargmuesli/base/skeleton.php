@@ -69,3 +69,40 @@
 
         echo get_indented_ml($html);
     }
+
+    function get_footer()
+    {
+        $footer = '
+            <footer>
+                <p id="language">';
+
+        switch (get_language()) {
+            case 'de':
+                $footer .= '
+                    <button class="link en" id="lang" title="Switch to English">
+                        <img src="/resources/dargmuesli/icons/en.png" alt="English Flag" id="flag">';
+                break;
+            default:
+                $footer .= '
+                    <button class="link de" id="lang" title="Switch to German">
+                        <img src="/resources/dargmuesli/icons/de.png" alt="German Flag" id="flag">';
+        }
+
+        $footer .= '
+                    </button>
+                </p>
+                <p class="seethrough">
+                    -
+                    <a href="/imprint/" title="Imprint">
+                        '.translate('pages.general.footer.imprint').'
+                    </a>
+                    |
+                    <button id="bug" class="link" title="Report a bug">
+                        '.translate('pages.general.footer.bug-report').'
+                    </button>
+                    -
+                </p>
+            </footer>';
+
+        return $footer;
+    }

@@ -83,37 +83,7 @@
                         <a href="dialog/participants.php" title="Start">
                             <img src="/resources/dargmuesli/icons/arrow.png" alt="Participants" class="next"/>
                         </a>
-                    </main>
-                    <footer>
-                        <p id="language">';
-
-    switch (get_language()) {
-        case 'de':
-            $skeletonContent .= '
-                <button class="link en" id="lang" title="Switch to English">
-                    <img src="/resources/dargmuesli/icons/en.png" alt="English Flag" id="flag">';
-            break;
-        default:
-            $skeletonContent .= '
-                <button class="link de" id="lang" title="Switch to German">
-                    <img src="/resources/dargmuesli/icons/de.png" alt="German Flag" id="flag">';
-    }
-
-    $skeletonContent .= '
-                            </button>
-                        </p>
-                        <p class="seethrough">
-                            -
-                            <a href="imprint" title="Imprint">
-                                '.translate('pages.general.footer.imprint').'
-                            </a>
-                            |
-                            <button id="bug" class="link" title="Report a bug">
-                                '.translate('pages.general.footer.bug-report').'
-                            </button>
-                            -
-                        </p>
-                    </footer>
+                    </main>'.get_footer().'
                 </div>
             </div>
         </div>';
