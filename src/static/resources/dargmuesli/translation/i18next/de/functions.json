@@ -2,6 +2,11 @@
     "alert": {
         "cancel": "Abbrechen"
     },
+    "extension": {
+        "items": {
+            "warning": "Nicht alle Gewinnen wurde ein Zustand zugewiesen. Bitte ändern!"
+        }
+    },
     "filetree": {
         "conditions": {
             "fn": "[FN]",

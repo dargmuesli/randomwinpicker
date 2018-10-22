@@ -1,28 +1,10 @@
-<?php
-    header('Content-Type: application/javascript');
-
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/recaptcha.php';
-
-    if (isset($_GET['quantity'])) {
-        $_SESSION['quantity'] = $_GET['quantity'];
-        die(header('Location:../../dialog/draw.php'));
-    }
-?>
-//<script>
-var count = <?php if (isset($email) && isset($_COOKIE['items'])) {
-    echo count(json_decode($_COOKIE['items']), true);
-} elseif (isset($_SESSION['items'])) {
-    echo count($_SESSION['items']);
-} else {
-    echo 1;
-}; ?>;
+var count = 0;
 
 function importSession() {
     var http = new XMLHttpRequest();
 
-    http.open('GET', '../layout/scripts/sessioncookie.php?task=importSession', true);
-    http.onreadystatechange = function() {
+    http.open('GET', '/resources/dargmuesli/sessioncookie.php?task=importSession', true);
+    http.onreadystatechange = function () {
         if (http.readyState == 4 && http.status == 200) {
             location.reload();
         }
@@ -41,16 +23,9 @@ function testGo() {
     }
 
     if (proceed) {
-        window.location = '../layout/scripts/js-items.php?quantity=' + count;
+        window.location = 'extension.php?quantity=' + count;
     } else {
-<?php    switch ($lang) {
-case 'de':    ?>
-        alert('Nicht alle Gewinnen wurde ein Zustand zugewiesen. Bitte ändern!');
-<?php    break;
-default:    ?>
-        alert('Not all items have a condition assigned, please change!');
-<?php    break;
-    }    ?>
+        alert(Dargmuesli.Language.i18n.t('functions:extension.items.warning'));
     }
 }
 
@@ -77,57 +52,52 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    <?php if (isset($_SESSION['reload']) && $_SESSION['reload'] == true) {
-        ?>
-        refreshTable();
-    <?php unset($_SESSION['reload']);
-    } ?>
+    refreshTable();
 
     load = true;
 
     document.getElementById('tableInput0').value = count + 1;
     document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">';
 
-    selectItem(document.querySelectorAll('.item').length - 1);
+    Dargmuesli.Table.selectItem(document.querySelectorAll('.item').length - 1);
 
-    if (document.getElementsByClassName('item')[document.querySelectorAll('.item').length - 1].className == 'item meleeweapons')
-    {
+    if (document.getElementsByClassName('item')[document.querySelectorAll('.item').length - 1].className == 'item meleeweapons') {
         document.getElementById('quality').className = 'meleeweapons';
         document.getElementById('quality').selectedIndex = 7;
         document.getElementById('quality').disabled = true;
     }
 
     var box = document.getElementById('box');
-    if (typeof(box) != 'undefined' && box != null) {
-        box.addEventListener('click', function(){customAlert.render('', '<div id="captcha_container"></div>', '', '');grecaptcha.render('captcha_container', {'sitekey': '<?php echo get_recaptcha_sitekey(); ?>', 'theme': 'dark', 'callback': function(response){validateResponse(response, 'feature');}});});
+    if (typeof (box) != 'undefined' && box != null) {
+        box.addEventListener('click', function () { customAlert.render('', '<div id="captcha_container"></div>', '', ''); grecaptcha.render('captcha_container', { 'sitekey': '<?php echo get_recaptcha_sitekey(); ?>', 'theme': 'dark', 'callback': function (response) { validateResponse(response, 'feature'); } }); });
     }
     var hideimages = document.getElementById('hideimages');
-    if (typeof(hideimages) != 'undefined' && hideimages != null) {
-        hideimages.addEventListener('click', function(){hideImages();});
+    if (typeof (hideimages) != 'undefined' && hideimages != null) {
+        hideimages.addEventListener('click', function () { Dargmuesli.FileTree.hideImages(); });
     }
     var element = document.getElementById('importSession');
-    if (typeof(element) != 'undefined' && element != null) {
-        element.addEventListener('click', function(){importSession();});
+    if (typeof (element) != 'undefined' && element != null) {
+        element.addEventListener('click', function () { importSession(); });
     }
     var testGoElement = document.getElementById('testGo');
-    if (typeof(testGoElement) != 'undefined' && testGoElement != null) {
-        testGoElement.addEventListener('click', function(){testGo();});
+    if (typeof (testGoElement) != 'undefined' && testGoElement != null) {
+        testGoElement.addEventListener('click', function () { testGo(); });
     }
     var chkType = document.getElementById('chkType');
-    if (typeof(chkType) != 'undefined' && chkType != null) {
-        chkType.addEventListener('click', function(){assignStatTrak();});
+    if (typeof (chkType) != 'undefined' && chkType != null) {
+        chkType.addEventListener('click', function () { Dargmuesli.FileTree.assignStatTrak(); });
     }
     var condition = document.getElementById('condition');
-    if (typeof(condition) != 'undefined' && condition != null) {
-        condition.addEventListener('change', function(){assignCondition();});
+    if (typeof (condition) != 'undefined' && condition != null) {
+        condition.addEventListener('change', function () { Dargmuesli.FileTree.assignCondition(); });
     }
     var add = document.getElementById('add');
-    if (typeof(add) != 'undefined' && add != null) {
-        add.addEventListener('click', function(){sendRow(2, [0], 'items')});
+    if (typeof (add) != 'undefined' && add != null) {
+        add.addEventListener('click', function () { Dargmuesli.Table.sendRow(2, [0], 'items') });
     }
     var resetElement = document.getElementById('reset');
-    if (typeof(resetElement) != 'undefined' && resetElement != null) {
-        resetElement.addEventListener('click', function(){reset(2, 'items')});
+    if (typeof (resetElement) != 'undefined' && resetElement != null) {
+        resetElement.addEventListener('click', function () { Dargmuesli.Table.reset(2, 'items') });
     }
 
     var i = 1;
@@ -142,11 +112,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     var iCopy = i;
 
                     if (child.className == 'remove') {
-                        getChildNode(child, 0).addEventListener('click', function(){removeRow(iCopy, 2, 'items')});;
+                        Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', function () { Dargmuesli.Table.removeRow(iCopy, 2, 'items') });;
                     } else if (child.className == 'up' && child.childNodes[1] != null) {
-                        getChildNode(child, 0).addEventListener('click', function(){moveRowUp(iCopy, 2, 'items')});;
+                        Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', function () { Dargmuesli.Table.moveRowUp(iCopy, 2, 'items') });;
                     } else if (child.className == 'down' && child.childNodes[1] != null) {
-                        getChildNode(child, 0).addEventListener('click', function(){moveRowDown(iCopy, 2, 'items')});;
+                        Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', function () { Dargmuesli.Table.moveRowDown(iCopy, 2, 'items') });;
                     }
                 }())
             }
@@ -163,11 +133,10 @@ document.addEventListener('DOMContentLoaded', function () {
         (function () {
             var iCopy = i;
 
-            sI.addEventListener('click', function(){selectItem(iCopy)});;
+            sI.addEventListener('click', function () { Dargmuesli.Table.selectItem(iCopy) });;
         }())
 
         i++;
         sI = document.getElementById('sI(' + i + ')');
     }
 });
-//</script>

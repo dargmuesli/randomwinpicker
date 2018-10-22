@@ -1,0 +1,7 @@
+html {
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("/resources/dargmuesli/icons/galaxy.jpg");
+    background-color: #000005;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

@@ -2,6 +2,11 @@
     "alert": {
         "cancel": "Cancel"
     },
+    "extension": {
+        "items": {
+            "warning": "Not all items have a condition assigned, please change!"
+        }
+    },
     "filetree": {
         "conditions": {
             "fn": "[FN]",

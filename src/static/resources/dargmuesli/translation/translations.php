@@ -237,6 +237,146 @@
                     'en' => 'Information in accordance with section 5 TMG.'
                 ]
             ],
+            'items' => [
+                'condition' => [
+                    'bs' => [
+                        'de' => 'Kampfspuren',
+                        'en' => 'Battle-Scarred'
+                    ],
+                    'fn' => [
+                        'de' => 'Fabrikneu',
+                        'en' => 'Factory New'
+                    ],
+                    'ft' => [
+                        'de' => 'Einsatzerprobt',
+                        'en' => 'Field-Tested'
+                    ],
+                    'mw' => [
+                        'de' => 'Minimale Gebrauchsspuren',
+                        'en' => 'Minimal Wear'
+                    ],
+                    'title' => [
+                        'de' => 'Zustand',
+                        'en' => 'Condition'
+                    ],
+                    'ww' => [
+                        'de' => 'Abgenutzt',
+                        'en' => 'Well-Worn'
+                    ]
+                ],
+                'form' => [
+                    'add' => [
+                        'de' => 'Hinzufügen',
+                        'en' => 'Add'
+                    ],
+                    'reset' => [
+                        'de' => 'Zurücksetzen',
+                        'en' => 'Reset'
+                    ],
+                ],
+                'improvements' => [
+                    'button' => [
+                        'de' => 'Schlage neue Gewinne &amp; Kategorien vor',
+                        'en' => 'Suggest new items &amp; categories'
+                    ],
+                    'title' => [
+                        'de' => 'Verbesserungen',
+                        'en' => 'Improvements'
+                    ]
+                ],
+                'instructions' => [
+                    'categories' => [
+                        'configure' => [
+                            'de' => 'Konfiguriere unten die Gewinnklassen.',
+                            'en' => 'Configure the prize classes below.'
+                        ],
+                        'items' => [
+                            'de' => 'Du kannst so viele Gewinne hinzufügen, wie du willst.
+                                    <br>
+                                    Um einen Gegenstand zu entfernen, klicke doppelt auf ihn.',
+                            'en' => 'You can add as many items as you want.
+                                    <br>
+                                    To remove an item, double click it.'
+                        ],
+                        'title' => [
+                            'de' => 'Kategorien erstellen',
+                            'en' => 'Create categories'
+                        ]
+                    ],
+                    'items' => [
+                        'class' => [
+                            'de' => 'Gib die Gewinne für die jeweilige Gewinnklasse an.',
+                            'en' => 'Specify the items that can be won by each win class.'
+                        ],
+                        'select' => [
+                            'de' => 'Klicke auf die entsprechende Tabellenzelle auf der linken Seite, um sie auszuwählen.
+                                    <br>
+                                    Dann wähle auf der rechten Seite die Gewinne und Eigenschaften aus.',
+                            'en' => 'Click on the corresponding table cell on the left side to select it.
+                                    <br>
+                                    Then choose the item(s) and attributes that can be won on the right side.'
+                        ],
+                        'title' => [
+                            'de' => 'Gewinne hinzufügen',
+                            'en' => 'Assign items'
+                        ]
+                    ]
+                ],
+                'items' => [
+                    'title' => [
+                        'de' => 'Gewinne',
+                        'en' => 'Wins'
+                    ]
+                ],
+                'table' => [
+                    'class' => [
+                        'de' => 'Klasse',
+                        'en' => 'Class'
+                    ],
+                    'down' => [
+                        'de' => 'Runter',
+                        'en' => 'Down'
+                    ],
+                    'remove' => [
+                        'de' => 'Entfernen',
+                        'en' => 'Remove'
+                    ],
+                    'up' => [
+                        'de' => 'Hoch',
+                        'en' => 'Up'
+                    ],
+                    'win' => [
+                        'de' => 'Gewinn',
+                        'en' => 'Win'
+                    ]
+                ],
+                'title' => [
+                    'head' => [
+                        'de' => 'Gewinne',
+                        'en' => 'Items'
+                    ]
+                ],
+                'tools' => [
+                    'hide' => [
+                        'de' => 'Verstecke alle Bilder',
+                        'en' => 'Hide all images'
+                    ],
+                    'import' => [
+                        'de' => 'Importiere Sitzungsdaten',
+                        'en' => 'Import session data'
+                    ],
+                    'title' => [
+                        'de' => 'Werkzeuge',
+                        'en' => 'Tools'
+                    ]
+                ],
+                'type' => [
+                    'title' => [
+                        'de' => 'Typ',
+                        'en' => 'Type'
+                    ]
+                ]
+            ],
             'participants' => [
                 'csv' => [
                     'button' => [
