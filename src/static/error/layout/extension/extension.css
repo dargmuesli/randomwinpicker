@@ -1,7 +1,11 @@
-main {
-    font-size: 200%;
+html {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/resources/dargmuesli/icons/eruption.jpg);
+    background-color: #000005;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-#space {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(/resources/dargmuesli/icons/eruption.jpg);
+main {
+    font-size: 200%;
 }

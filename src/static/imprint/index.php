@@ -33,7 +33,7 @@
 
     $skeletonTitle = translate('pages.imprint.title');
     $skeletonDescription = 'The legal disclosure of this website according to section 5 TMG with contact, image rights, disclaimer and privacy statement';
-    $skeletonFeatures = ['lcl/ext/js', 'ext/recaptcha/de-async-defer'];
+    $skeletonFeatures = ['lcl/ext/css', 'lcl/ext/js', 'ext/recaptcha/de-async-defer'];
     $skeletonKeywords = 'images, contents, pages, information, act, tmg, accountability, links, parties, legal';
     $skeletonContent = '
         <header>'.get_warning_html($success, $error).'

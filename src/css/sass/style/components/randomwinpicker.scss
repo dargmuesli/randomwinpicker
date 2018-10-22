@@ -41,10 +41,7 @@
 #place3{background:rgba(168,124,59,0.5) none repeat scroll 0% 0%;border-bottom:2px solid rgba(168,124,59,0.25);border-top:2px solid rgba(168,124,59,0.25);box-shadow:0px 0px 10px 10px rgba(168,124,59,0.5);margin-bottom:5vh;padding:1vmin;}
 #saveStatus{bottom:0px;display:none;position:fixed;}
 #selected{border:2px solid #fff;}
-#sombrero{background:linear-gradient(rgba(0, 0, 0, 0.75),rgba(0, 0, 0, 0.75)), url("../icons/sombrero.jpg");background-color:#000005;background-position:center center;background-repeat:no-repeat;background-size:cover;}
-#space{background:linear-gradient(rgba(0, 0, 0, 0.75),rgba(0, 0, 0, 0.75)), url("../icons/space.jpg");background-color:#000005;background-position:center center;background-repeat:no-repeat;background-size:cover;}
 #stars{background:#050505 url(../icons/stars.png) repeat top center;display:block;left:0;position:absolute;right:0;top:0;width:100%;z-index:0;}
-.stars{background:#050505 url(../icons/stars.png) repeat top center;display:block;left:0;position:absolute;right:0;top:0;width:100%;z-index:0;}
 #top{bottom:10%;position:absolute;text-align:center;width:100%;}
 #top a img{margin:10vmin;}
 .alert{background-color:#fcc;border:1px solid;border-color:#ff6565;color:#ff6565;font-family:"bangers";font-size:3vmin;letter-spacing:0.1vw;margin:5px 0 0 0;padding:5px;text-align:center;text-shadow:none;}
@@ -98,6 +95,7 @@
 .set{background:linear-gradient(to bottom, #0e0e0e 0%,#7d7e7d 100%);padding:1vmin;}
 .seethrough{display:block;margin:1vmin;opacity:0.5;}
 .spoiler{margin-left:5vw;max-height:0px;opacity:0;overflow:hidden;transition:max-height .5s ease, opacity .5s ease;}
+.stars{background:#050505 url(../icons/stars.png) repeat top center;display:block;left:0;position:absolute;right:0;top:0;width:100%;z-index:0;}
 .thumb{margin:10px;max-height:100px;max-width:100px;vertical-align:middle;}
 .turn{transform:rotateY(90deg);transform-origin:0 50% 0px;transform-style:preserve-3d;transition:all 1.0s ease;}
 .turn p{margin-top:1vh;}

@@ -17,7 +17,7 @@
 
         $html = '
             <!DOCTYPE html>
-            <html dir="ltr" id="space" lang="'.get_language().'">
+            <html dir="ltr" lang="'.get_language().'">
                 <head>
                     <meta charset="UTF-8">
                     <title>
