@@ -47,6 +47,22 @@
                     ]
                 ]
             ],
+            'draw' => [
+                'button' => [
+                    'de' => 'Los!',
+                    'en' => 'Go!'
+                ],
+                'next' => [
+                    'de' => 'Zeige den nächsten Gewinner!',
+                    'en' => 'Reveal the next winner!'
+                ],
+                'title' => [
+                    'head' => [
+                        'de' => 'Ziehung',
+                        'en' => 'Draw'
+                    ]
+                ]
+            ],
             'general' => [
                 'footer' => [
                     'imprint' => [

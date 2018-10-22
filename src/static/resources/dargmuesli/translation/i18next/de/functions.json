@@ -3,6 +3,15 @@
         "cancel": "Abbrechen"
     },
     "extension": {
+        "draw": {
+            "button": "Nochmal ziehen!",
+            "limit": "% der täglich möglichen Anfragen an random.org wurden genutzt.",
+            "place": {
+                "ranking": "Platz",
+                "span": "Der Gewinner ist"
+            },
+            "reveal": "Zeige den {{round}}. Gewinner"
+        },
         "items": {
             "warning": "Nicht alle Gewinnen wurde ein Zustand zugewiesen. Bitte ändern!"
         }

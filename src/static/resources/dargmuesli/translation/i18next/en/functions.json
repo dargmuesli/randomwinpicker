@@ -3,6 +3,15 @@
         "cancel": "Cancel"
     },
     "extension": {
+        "draw": {
+            "button": "Draw again!",
+            "limit": "% of the daily possible requests to random.org were used.",
+            "place": {
+                "ranking": "place",
+                "span": "The winner is"
+            },
+            "reveal": "Reveal the {{round}}. winner"
+        },
         "items": {
             "warning": "Not all items have a condition assigned, please change!"
         }
