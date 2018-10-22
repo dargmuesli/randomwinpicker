@@ -237,6 +237,100 @@
                     'en' => 'Information in accordance with section 5 TMG.'
                 ]
             ],
+            'participants' => [
+                'csv' => [
+                    'button' => [
+                        'de' => 'Tutorial: Wie man diese Datei (richtig) erstellt',
+                        'en' => 'Tutorial: How to build this file (correctly)'
+                    ],
+                    'content' => [
+                        'de' => 'Du kannst auch eine <a href="https://de.wikipedia.org/wiki/CSV_%28Dateiformat%29" title="CSV (Dateiformat)" target="_blank">.csv</a>-Datei hochladen, um die Tabelle zu füllen.
+                                <br>
+                                Warnung: Die Tabelle wird beim Hochladen einer Datei zurückgesetzt!',
+                        'en' => 'You can also upload a <a href="https://en.wikipedia.org/wiki/Comma-separated_values" title="Comma-separated values" target="_blank">.csv</a> file to fill the table below.
+                                <br>
+                                Warning: The table resets when you load a file!'
+                    ],
+                    'spoiler' => [
+                        'de' => 'Um diese Datei zu erhalten, klicke auf "Speichern unter" in <a href="https://www.openoffice.org/de/" title="Apache OpenOffice" target="_blank">OpenOffice Calc</a> oder "Exportieren" in <a href="https://products.office.com/de-DE/home" title="Microsoft Office" target="_blank">Microsoft Office Excel</a>.
+                                Dann wähle eine semikolongetrennte .csv-Datei mit den Titeln "username" und "quantity". Gehe sicher, dass die Codierung auf UTF-8 gestellt ist!
+                                <br>
+                                Lasse deinen Mauszeiger über diesem Text schweben, um ein Formatbeispiel zu sehen.',
+                        'en' => 'To get this file use "save as" in <a href="https://www.openoffice.org/" title="Apache OpenOffice" target="_blank">OpenOffice Calc</a> or "export" in <a href="https://products.office.com/en/home" title="Microsoft Office" target="_blank">Microsoft Office Excel</a>.
+                                Then choose a semicolon seperated .csv-file that has the headlines "username" and "quantity". Make sure that encoding is set to UTF-8!
+                                <br>
+                                Let your cursor hover over this text to see a format example.'
+                    ],
+                    'title' => [
+                        'de' => 'CSV Dateien',
+                        'en' => 'CSV files'
+                    ]
+                ],
+                'data' => [
+                    'content' => [
+                        'de' => 'Gib die Namen aller Teilnehmer und ihre Gewinnchancen an.
+                                <br>
+                                Beispielweise abhängig von der Anzahl der gespendeten CS:GO Keys.',
+                        'en' => 'Enter all participants\' names and their chance of winning.
+                                <br>
+                                For instance, depending on the amount of CS:GO keys they\'ve donated.'
+                    ],
+                    'title' => [
+                        'de' => 'Namen und Quantität',
+                        'en' => 'Names and quantity'
+                    ]
+                ],
+                'form' => [
+                    'add' => [
+                        'de' => 'Hinzufügen',
+                        'en' => 'Add'
+                    ],
+                    'quantity' => [
+                        'de' => 'Die Gewinnwahrscheinlichkeit.',
+                        'en' => 'The count of chances to win.'
+                    ],
+                    'reset' => [
+                        'de' => 'Zurücksetzen',
+                        'en' => 'Reset'
+                    ],
+                    'upload' => [
+                        'de' => 'Hochladen',
+                        'en' => 'Upload'
+                    ],
+                    'username' => [
+                        'de' => 'Ein Benutzername.',
+                        'en' => 'A username.'
+                    ]
+                ],
+                'table' => [
+                    'down' => [
+                        'de' => 'Runter',
+                        'en' => 'Down'
+                    ],
+                    'quantity' => [
+                        'de' => 'Quantität',
+                        'en' => 'Quantity'
+                    ],
+                    'remove' => [
+                        'de' => 'Entfernen',
+                        'en' => 'Remove'
+                    ],
+                    'username' => [
+                        'de' => 'Benutzername',
+                        'en' => 'Username'
+                    ],
+                    'up' => [
+                        'de' => 'Hoch',
+                        'en' => 'Up'
+                    ],
+                ],
+                'title' => [
+                    'head' => [
+                        'de' => 'Teilnehmer',
+                        'en' => 'Participants'
+                    ]
+                ]
+            ],
             'start' => [
                 'about' => [
                     'content' => [
