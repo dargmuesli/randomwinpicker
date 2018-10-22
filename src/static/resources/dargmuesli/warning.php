@@ -1,55 +1,52 @@
 <?php
-    function warning($success, $error, $lang, $tab) {
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
+
+    function get_warning_html($success, $error)
+    {
         $underconstruction = false;
 
-        echo $tab . '<noscript>' . PHP_EOL;
-        echo $tab . "\t" . '<div class="alert">' . PHP_EOL;
-        echo $tab . "\t\t" . '<p>' . PHP_EOL;
-        switch ($lang) {
-            case 'de':
-                echo $tab . "\t\t\t" . 'Um alle Funktionen dieser Website benutzen zu können, muss JAVASCRIPT aktiviert sein.' . PHP_EOL;
-                break;
-            default:
-                echo $tab . "\t\t\t" . 'To be able to use all features of this website JAVASCRIPT needs to be enabled.' . PHP_EOL;
-                break;
-        }
-        echo $tab . "\t\t" . '</p>' . PHP_EOL;
-        echo $tab . "\t" . '</div>' . PHP_EOL;
-        echo $tab . '</noscript>' . PHP_EOL;
+        $warning_html = '
+            <noscript>
+                <div class="alert">
+                    <p>
+                        '.translate('scripts.warning.noscript').'
+                    </p>
+                </div>
+            </noscript>';
 
         if ($success != null) {
-            echo $tab . '<div class="note">' . PHP_EOL;
-            if ($success != null) {
-                echo $tab . "\t" . '<p>' . PHP_EOL;
-                echo $tab . "\t\t" . $success . PHP_EOL;
-                echo $tab . "\t" . '</p>' . PHP_EOL;
-            }
-            echo $tab . '</div>' . PHP_EOL;
+            $warning_html .= '
+                <div class="note">
+                    <p>
+                        $success
+                    </p>
+                </div>';
         }
 
-        if ($underconstruction || $error != null) {
-            echo $tab . '<div class="alert">' . PHP_EOL;
-            if($underconstruction) {
-                echo $tab . "\t" . '<p>' . PHP_EOL;
-                switch ($lang) {
-                    case 'de':
-                        echo $tab . "\t\t" . 'Manche Funktionen dieser Website funktionieren momentan nicht, aber es arbeitet jemand daran!' . PHP_EOL;
-                        break;
-                    default:
-                        echo $tab . "\t\t" . 'Some functions of this website currently do not work, but somebody is working on it!' . PHP_EOL;
-                        break;
-                }
-                echo $tab . "\t" . '</p>' . PHP_EOL;
+        if ($underconstruction || $error) {
+            $warning_html .= '
+                <div class="alert">';
+
+            if ($underconstruction) {
+                $warning_html .= '
+                    <p>
+                        '.translate('scripts.warning.noscript').'
+                    </p>';
             }
-            if ($error != null) {
-                echo $tab . "\t" . '<p>' . PHP_EOL;
-                echo $tab . "\t\t" . $error . PHP_EOL;
-                echo $tab . "\t" . '</p>' . PHP_EOL;
+
+            if ($error) {
+                $warning_html .= '
+                    <p>
+                        '.$error.'
+                    </p>';
             }
-            echo $tab . '</div>' . PHP_EOL;
+
+            $warning_html .= '
+                </div>';
         }
 
         $_SESSION['error'] = null;
         $_SESSION['success'] = null;
+
+        return $warning_html;
     }
-?>
