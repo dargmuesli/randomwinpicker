@@ -1,4 +1,4 @@
-import { alert } from './alert.js';
+import { alert } from './alert';
 
 document.addEventListener('DOMContentLoaded', function () {
     let bug = document.getElementById('bug');

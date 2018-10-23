@@ -1,8 +1,8 @@
-import { alert } from './alert.js';
-import { assignSouvenir, assignStatTrak } from './filetree.js';
-import { changeLanguage } from './language.js';
-import { htmlspecialchars_decode } from './phpin.js';
-import { i18n } from './language.js';
+import { alert } from './alert';
+import { assignSouvenir, assignStatTrak } from './filetree';
+import { changeLanguage } from './language';
+import { htmlspecialchars_decode } from './phpin';
+import { i18n } from './language';
 
 // Save the amount of tablerows
 let count;

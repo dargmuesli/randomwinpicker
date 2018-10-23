@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 
-import { reset } from './table.js';
+import { reset } from './table';
 
 export function handleFileSelect(evt, enc) {
     let file = evt.target.files[0];
