@@ -69,7 +69,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let box = document.getElementById('box');
     if (typeof (box) != 'undefined' && box != null) {
-        box.addEventListener('click', function () { Dargmuesli.Alert.alert.render('', '<div id="captcha_container"></div>', '', ''); grecaptcha.render('captcha_container', { 'sitekey': '<?php echo get_recaptcha_sitekey(); ?>', 'theme': 'dark', 'callback': function (response) { Dargmuesli.BugFeature.validateResponse(response, 'feature'); } }); });
+        box.addEventListener('click', function () {
+            Dargmuesli.Alert.alert.render('', '<div id="captcha_container"></div>', '', '');
+            grecaptcha.render('captcha_container', {
+                'sitekey': Dargmuesli.Globals.recaptchaSitekey, 'theme': 'dark', 'callback': function (response) {
+                    Dargmuesli.BugFeature.validateResponse(response, 'feature');
+                }
+            });
+        });
     }
     let hideimages = document.getElementById('hideimages');
     if (typeof (hideimages) != 'undefined' && hideimages != null) {

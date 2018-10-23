@@ -1,4 +1,5 @@
 import { alert } from './alert';
+import { recaptchaSitekey } from './globals';
 
 document.addEventListener('DOMContentLoaded', function () {
     let bug = document.getElementById('bug');
@@ -7,7 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.scrollTop = 0;
             document.body.style.overflow = 'hidden';
             alert.render('', '<div id="captcha_container"></div>', '', '');
-            // grecaptcha.render('captcha_container', { 'sitekey': '<?php echo get_recaptcha_sitekey(); ?>', 'theme': 'dark', 'callback': function (response) { validateResponse(response, 'bug'); } });
+            grecaptcha.render('captcha_container', {
+                'sitekey': recaptchaSitekey, 'theme': 'dark', 'callback': function (response) {
+                    validateResponse(response, 'bug');
+                }
+            });
         });
     }
     let feature = document.getElementById('feature');
@@ -16,7 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.scrollTop = 0;
             document.body.style.overflow = 'hidden';
             alert.render('', '<div id="captcha_container"></div>', '', '');
-            // grecaptcha.render('captcha_container', { 'sitekey': '<?php echo get_recaptcha_sitekey(); ?>', 'theme': 'dark', 'callback': function (response) { validateResponse(response, 'feature'); } });
+            grecaptcha.render('captcha_container', {
+                'sitekey': recaptchaSitekey, 'theme': 'dark', 'callback': function (response) {
+                    validateResponse(response, 'feature');
+                }
+            });
         });
     }
 });
