@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var condition = elements[0].parentNode.lastChild.getElementsByTagName('span')[0].innerHTML;
                 var type = elements[0].parentNode.lastChild.getElementsByTagName('span')[1].innerHTML;
 
-                eval(elements[0].parentNode.parentNode.getAttribute('onclick'));
+                elements[0].parentNode.parentNode.click();
                 Dargmuesli.Alert.removeSelected();
                 Dargmuesli.FileTree.openFile(link);
 
