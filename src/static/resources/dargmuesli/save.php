@@ -21,7 +21,6 @@
     if ($_POST['type'] == 'participants') {
         if ($storage == 'Session') {
             $_SESSION['participants'] = json_decode($_POST['content'], true);
-            var_dump(json_decode($_POST['content'], true));
         } elseif ($storage == 'Cookies') {
             setcookie('participants', $_POST['content'], time() + (60 * 60 * 24 * 365), '/');
         }

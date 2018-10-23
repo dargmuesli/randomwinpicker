@@ -27,7 +27,7 @@
     $skeletonContent = '
         <header>'.get_warning_html($success, $error).'
             <div id="back">
-                <a class="rotate" href="/" title="Back"></a>
+                <a class="rotate" href="/dialog/participants/" title="Back"></a>
             </div>
             <div id="account">
                 '.get_account_html($email).'

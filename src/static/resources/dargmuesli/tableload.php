@@ -5,7 +5,7 @@
 
         if (isset($content)) {
             for ($i = 0; $i < count($content); $i++) {
-                $initTableHtml = '
+                $initTableHtml .= '
                     <tr id="tr' . ($i + 1) . '">
                         <td class="data">
                             '.$content[$i]['column0'].'
@@ -43,7 +43,7 @@
                     </tr>';
             }
         } else {
-            $initTableHtml = '
+            $initTableHtml .= '
                 <tr id="tr0">
                     <td class="data">
                         ---

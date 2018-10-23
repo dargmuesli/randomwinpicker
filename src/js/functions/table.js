@@ -152,7 +152,7 @@ export function addRow(tbody, data, uniques, tableInputs, type) {
                 document.getElementById('tableInput0').focus(); //Eingabefeld selektieren
             }
         } else { //Bei Duplikat
-            alert(i18n.t('scripts:table.add.duplicate', { value: value, error: error })); //Fehler ausgeben
+            alert(i18n.t('functions:table.add.duplicate', { value: value, error: error })); //Fehler ausgeben
         }
 
         if (!editing) {
@@ -348,8 +348,8 @@ export function saveTableSend(columnCount, type, object, main) {
 
     var xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.open('POST', '../layout/scripts/save.php', true);
-    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xmlhttp.open('POST', '/resources/dargmuesli/save.php', true);
+    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
             // if (languageChanging) {

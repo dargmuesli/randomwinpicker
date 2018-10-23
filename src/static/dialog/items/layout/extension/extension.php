@@ -1,7 +1,7 @@
 <?php
     if (isset($_GET['quantity'])) {
         $_SESSION['quantity'] = $_GET['quantity'];
-        die(header('Location:../../dialog/draw.php'));
+        die(header('Location:/dialog/draw/'));
     }
 
 // <?php if (isset($email) && isset($_COOKIE['items'])) {

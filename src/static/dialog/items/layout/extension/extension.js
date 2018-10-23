@@ -23,7 +23,7 @@ function testGo() {
     }
 
     if (proceed) {
-        window.location = 'extension.php?quantity=' + count;
+        window.location = 'layout/extension/extension.php?quantity=' + count;
     } else {
         alert(Dargmuesli.Language.i18n.t('functions:extension.items.warning'));
     }
@@ -42,8 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 var type = elements[0].parentNode.lastChild.getElementsByTagName('span')[1].innerHTML;
 
                 eval(elements[0].parentNode.parentNode.getAttribute('onclick'));
-                removeSelected();
-                openFile(link);
+                Dargmuesli.Alert.removeSelected();
+                Dargmuesli.FileTree.openFile(link);
 
                 var selected = document.getElementById('selected');
                 selected.lastChild.getElementsByTagName('span')[0].innerHTML = condition;

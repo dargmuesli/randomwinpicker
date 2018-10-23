@@ -20,11 +20,9 @@ export class customAlert {
         document.body.style.overflow = '';
         if (task == 'contribute') {
             window.location.href = 'contribute.php?file=' + file;
-        }
-        else if (task == 'delete') {
+        } else if (task == 'delete') {
             removeSelected();
-        }
-        else if (task == '') {
+        } else if (task == '') {
             this.cancel();
         }
     }
