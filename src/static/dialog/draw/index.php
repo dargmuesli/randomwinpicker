@@ -7,7 +7,7 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/sessioncookie.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/warning.php';
 
-    require_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/tableload.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/tableload.php';
 
     last_modified(get_page_mod_time());
 

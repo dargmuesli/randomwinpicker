@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 

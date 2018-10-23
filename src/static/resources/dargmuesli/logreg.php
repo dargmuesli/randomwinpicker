@@ -1,9 +1,11 @@
 <?php
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     // References
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/dotenv.php';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/mail.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/dotenv.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/mail.php';
 
     $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
 

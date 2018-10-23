@@ -1,4 +1,8 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
     function get_warning_html($success, $error)

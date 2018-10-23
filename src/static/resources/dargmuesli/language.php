@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
     if (isset($_POST['language'])) {
         setcookie('i18next', $_POST['language'], time()+60*60*24*365, '/', '', true, false);

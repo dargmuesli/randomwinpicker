@@ -1,5 +1,5 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/dotenv.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/dotenv.php';
 
     $params = array('apiKey' => $_ENV['RANDOMORG_APIKEY'], 'n' => $_GET['n'], 'decimalPlaces' => 4, 'replacement' => false);
     $fields = array('jsonrpc' => '2.0', 'method' => 'generateDecimalFractions', 'params' => $params, 'id' => 1);

@@ -1,5 +1,5 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/resources/packages/composer/autoload.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/packages/composer/autoload.php';
 
     function load_env_file($folder, $file = '.env', $override = false)
     {

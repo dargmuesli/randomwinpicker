@@ -1,7 +1,9 @@
 <?php
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/recaptcha.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/recaptcha.php';
 
     if (isset($_SESSION['lang'])) {
         $lang = $_SESSION['lang'];

@@ -1,8 +1,16 @@
 <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/sessioncookie.php';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/scripts/dotenv.php';
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
-    $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/database/pdo.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
+
+    // Load .env file
+    load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
+
+    // Get database handle
+    $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
 
     $participants = null;
 

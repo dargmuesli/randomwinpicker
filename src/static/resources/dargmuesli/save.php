@@ -1,8 +1,10 @@
 <?php
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/resources/dargmuesli/database/pdo.php';
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/resources/dargmuesli/filesystem/environment.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/database/pdo.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
 
     // Load .env file
     load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
