@@ -71,5 +71,5 @@ export function removeSelected() {
 
     /*!*/    document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren  onclick="selectItem(' + document.getElementsByClassName('item').length + ')"
 
-    customAlert.cancel();
+    alert.cancel();
 }
