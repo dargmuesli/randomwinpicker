@@ -6,17 +6,23 @@ import { i18n } from './language.js';
 
 // Save the amount of tablerows
 var count;
-// var count = <?php if (isset($email) && isset($_COOKIE['participants']) && ($_COOKIE['participants'] != '')) {
-//     echo count(json_decode($_COOKIE['participants']), true);
-// } elseif (isset($_SESSION['participants']) && ($_SESSION['participants'] != '')) {
-//     echo count($_SESSION['participants']);
-// } else {
-//     echo 0;
-// }; ?>;
-
 var editing = false;
 var resetting = false;
 var load = false;
+
+var type = window.location.href.substring(0, window.location.href.length - 1);
+type = type.substr(type.lastIndexOf('/') + 1);
+
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', '/resources/dargmuesli/table.php?type=' + type, true);
+xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        count = xhr.responseText;
+    }
+};
+xhr.send();
+
 
 export function sendRow(tableInputCount, uniques, type) {
     var tableInputs = new Object();
