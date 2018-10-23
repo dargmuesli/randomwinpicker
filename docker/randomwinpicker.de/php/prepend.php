@@ -56,6 +56,8 @@
     {
         global $simpleLogging;
 
+        http_response_code(500);
+
         $errorOutput = $exception->getMessage();
 
         if (!$simpleLogging) {
