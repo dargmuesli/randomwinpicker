@@ -24,10 +24,6 @@
         }
     }
 
-    if (is_array($participants)) {
-        $participants = htmlspecialchars_decode(json_encode($participants), ENT_NOQUOTES);
-    }
-
     $items = null;
 
     if (isset($email) && isset($_COOKIE['items'])) {
@@ -40,12 +36,18 @@
         }
     }
 
-    if (is_array($items)) {
-        $items = htmlspecialchars_decode(json_encode($items), ENT_NOQUOTES);
-    }
-
     if (sizeof($participants) < sizeof($items)) {
         $_SESSION['error'] = translate('scripts.draw.error');
+    }
+
+    // Process the data after comparing the array sizes
+
+    if (is_array($participants)) {
+        $participants = htmlspecialchars_decode(json_encode($participants), ENT_NOQUOTES);
+    }
+
+    if (is_array($items)) {
+        $items = htmlspecialchars_decode(json_encode($items), ENT_NOQUOTES);
     }
 
     $quantity = -1;

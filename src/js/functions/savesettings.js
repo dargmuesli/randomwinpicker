@@ -26,5 +26,8 @@ export function saveSettingsWorker(form, value) {
 
 onmessage = function (event) {
     let args = event.data.args;
-    saveSettingsWorker(args[0], args[1]);
+
+    if (args) {
+        saveSettingsWorker(args[0], args[1]);
+    }
 };

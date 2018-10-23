@@ -8,7 +8,7 @@ import { i18n } from './language';
 let count;
 let editing = false;
 let resetting = false;
-let load = false;
+export let tableLoading = false;
 
 let type = window.location.href.substring(0, window.location.href.length - 1);
 type = type.substr(type.lastIndexOf('/') + 1);
@@ -384,12 +384,12 @@ export function saveTableSend(columnCount, type, object, main) {
 export function selectItem(index) {
     let selected = document.getElementById('selected');
 
-    if ((load == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
+    if ((tableLoading == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
         let file = selected.firstChild.className.substring(4);
 
         alert.render(i18n.t('functions:table.select.title'), i18n.t('functions:table.select.question'), file, 'delete');
     } else {
-        load = false;
+        tableLoading = false;
 
         selected.removeAttribute('id'); //Auswahl entfernen
         document.getElementsByTagName('figure')[index].setAttribute('id', 'selected'); //Auswählen

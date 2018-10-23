@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     refreshTable();
 
-    load = true;
+    Dargmuesli.Table.tableLoading = true;
 
     document.getElementById('tableInput0').value = count + 1;
     document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">';
@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     let box = document.getElementById('box');
+
     if (typeof (box) != 'undefined' && box != null) {
         box.addEventListener('click', function () {
             Dargmuesli.Alert.alert.render('', '<div id="captcha_container"></div>', '', '');
@@ -78,31 +79,45 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
     let hideimages = document.getElementById('hideimages');
+
     if (typeof (hideimages) != 'undefined' && hideimages != null) {
         hideimages.addEventListener('click', function () { Dargmuesli.FileTree.hideImages(); });
     }
+
     let element = document.getElementById('importSession');
+
     if (typeof (element) != 'undefined' && element != null) {
         element.addEventListener('click', function () { importSession(); });
     }
+
     let testGoElement = document.getElementById('testGo');
+
     if (typeof (testGoElement) != 'undefined' && testGoElement != null) {
         testGoElement.addEventListener('click', function () { testGo(); });
     }
+
     let chkType = document.getElementById('chkType');
+
     if (typeof (chkType) != 'undefined' && chkType != null) {
         chkType.addEventListener('click', function () { Dargmuesli.FileTree.assignStatTrak(); });
     }
+
     let condition = document.getElementById('condition');
+
     if (typeof (condition) != 'undefined' && condition != null) {
         condition.addEventListener('change', function () { Dargmuesli.FileTree.assignCondition(); });
     }
+
     let add = document.getElementById('add');
+
     if (typeof (add) != 'undefined' && add != null) {
         add.addEventListener('click', function () { Dargmuesli.Table.sendRow(2, [0], 'items'); });
     }
+
     let resetElement = document.getElementById('reset');
+
     if (typeof (resetElement) != 'undefined' && resetElement != null) {
         resetElement.addEventListener('click', function () { Dargmuesli.Table.reset(2, 'items'); });
     }
@@ -140,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
         (function () {
             let iCopy = i;
 
-            sI.addEventListener('click', function () { Dargmuesli.Table.selectItem(iCopy); });;
+            sI.addEventListener('click', function () { Dargmuesli.Table.selectItem(iCopy); });
         }());
 
         i++;
