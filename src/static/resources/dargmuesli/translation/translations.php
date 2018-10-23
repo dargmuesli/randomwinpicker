@@ -23,6 +23,12 @@
                     'en' => 'Member'
                 ]
             ],
+            'draw' => [
+                'error' => [
+                    'de' => 'Zu viele Gewinne für zu wenig Teilnehmer! Wer soll das alles gewinnen?!',
+                    'en' => 'Too many items for too few participants! Who shall win all that?!'
+                ]
+            ],
             'warning' => [
                 'construction' => [
                     'de' => 'Manche Funktionen dieser Website funktionieren momentan nicht, aber es arbeitet jemand daran!',

@@ -1,10 +1,23 @@
 // window.location = '/dialog/items/';
 
-let round = 0; //<? php echo $quantity; ?>;
 let index = 0;
-let items = 0; //<? php echo $items ?>;
-let participants = 0; //<? php echo $participants ?>;
+let items, participants, prices, round; //<? php echo $quantity $items $participants ?>;
 let winners = {};
+
+let xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'extension.php', true);
+xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        let json = JSON.parse(xhr.responseText);
+
+        items = json.items;
+        participants = json.participants;
+        prices = json.prices;
+        round = json.quantity;
+    }
+};
+xhr.send();
 
 function draw() {
     if (round > 0) {
@@ -75,12 +88,7 @@ function draw() {
 
             index++;
 
-            if (true
-                /*<? php if ($prices) {
-                echo 'true';
-            } else {
-                echo 'false';
-            } ?>*/) {
+            if (prices) {
                 win = '<figure class="opensans win ' + qualities[0] + '" id="fig' + index + '"><div class="price"></div><img align="middle" alt="' + names[0] + '" src="' + images[0] + '" class="set"><br>' + names[0] + '</figure>';
             } else {
                 win = '<figure class="opensans win ' + qualities[0] + '" id="fig' + index + '"><img align="middle" alt="' + names[0] + '" src="' + images[0] + '" class="set"><br>' + names[0] + '</figure>';
@@ -98,12 +106,7 @@ function draw() {
             }, 100);
         }());
 
-        if (true
-        /*<? php if ($prices) {
-            echo 'true';
-        } else {
-            echo 'false';
-        } ?>*/) {
+        if (prices) {
             let xhr = new XMLHttpRequest();
 
             xhr.open('GET', '../layout/scripts/cost.php?item=' + priceNames[0] + '&origin=place' + round + '-fig1', true);
@@ -151,12 +154,7 @@ function addRest(length, qualities, names, images, priceNames) {
     let earlyPlace = $('.place:eq(0)');
     let origin = earlyPlace.parent().attr('id') + '-fig' + (index + 1);
 
-    if (true
-        /*<? php if ($prices) {
-        echo 'true';
-    } else {
-        echo 'false';
-    } ?>*/) {
+    if (prices) {
         earlyPlace.append('<figure class="opensans win ' + qualities[index] + '" id="fig' + (index + 1) + '"><div class="price"></div><img align="middle" alt="' + names[index] + '" src="' + images[index] + '" class="set"><br>' + names[index] + '</figure>');
 
         let xhr = new XMLHttpRequest();

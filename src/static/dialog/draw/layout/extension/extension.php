@@ -24,6 +24,10 @@
         }
     }
 
+    if (is_array($participants)) {
+        $participants = htmlspecialchars_decode(json_encode($participants), ENT_NOQUOTES);
+    }
+
     $items = null;
 
     if (isset($email) && isset($_COOKIE['items'])) {
@@ -36,23 +40,12 @@
         }
     }
 
-    if (sizeof($participants) < sizeof($items)) {
-        switch ($lang) {
-            case 'de':
-                $_SESSION['error'] = 'Zu viele Gewinne für zu wenig Teilnehmer! Wer soll das alles gewinnen?!';
-                break;
-            default:
-                $_SESSION['error'] = 'Too many items for too few participants! Who shall win all that?!';
-                break;
-        }
-    }
-
-    if (is_array($participants)) {
-        $participants = htmlspecialchars_decode(json_encode($participants), ENT_NOQUOTES);
-    }
-
     if (is_array($items)) {
         $items = htmlspecialchars_decode(json_encode($items), ENT_NOQUOTES);
+    }
+
+    if (sizeof($participants) < sizeof($items)) {
+        $_SESSION['error'] = translate('scripts.draw.error');
     }
 
     $quantity = -1;
@@ -70,3 +63,10 @@
 
     $pricesQuery = $stmt->fetch()[0];
     $prices = $pricesQuery[0][0];
+
+    echo json_encode([
+        'items' => $items,
+        'participants' => $participants,
+        'prices' => $prices,
+        'quantity' => $quantity
+    ]);
