@@ -6,7 +6,7 @@ let winners = {};
 
 let xhr = new XMLHttpRequest();
 
-xhr.open('GET', 'extension.php', true);
+xhr.open('GET', 'layout/extension/extension.php', true);
 xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
         let json = JSON.parse(xhr.responseText);
@@ -109,7 +109,7 @@ function draw() {
         if (prices) {
             let xhr = new XMLHttpRequest();
 
-            xhr.open('GET', '../layout/scripts/cost.php?item=' + priceNames[0] + '&origin=place' + round + '-fig1', true);
+            xhr.open('GET', '/resources/dargmuesli/cost.php?item=' + priceNames[0] + '&origin=place' + round + '-fig1', true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     let responseArray = xhr.responseText.split('-');
@@ -159,7 +159,7 @@ function addRest(length, qualities, names, images, priceNames) {
 
         let xhr = new XMLHttpRequest();
 
-        xhr.open('GET', '../layout/scripts/cost.php?item=' + priceNames[index] + '&origin=' + origin, true);
+        xhr.open('GET', '/resources/dargmuesli/cost.php?item=' + priceNames[index] + '&origin=' + origin, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 let responseArray = xhr.responseText.split('-');
@@ -182,7 +182,7 @@ function addRest(length, qualities, names, images, priceNames) {
 }
 
 function addPrices(element, price) {
-    element.append('<div class="price-outer"><img class="price-img" src="../layout/icons/price.png"><div class="price-inner">' + price + '</div></div>');
+    element.append('<div class="price-outer"><img class="price-img" src="/resources/dargmuesli/icons/price.png"><div class="price-inner">' + price + '</div></div>');
 }
 
 function getAllIndexes(arr, val) {
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open('GET', '../layout/scripts/random.php?n=' + round, true);
+    xhr.open('GET', '/resources/dargmuesli/random.php?n=' + round, true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             let json = JSON.parse(xhr.responseText);

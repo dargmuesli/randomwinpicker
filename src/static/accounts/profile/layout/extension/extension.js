@@ -41,7 +41,7 @@ export function saveSettings(form, value) {
 
 export function startWorker(form, value) {
     if (typeof (w) == 'undefined') {
-        w = new Worker('../layout/scripts/savesettings.js');
+        w = new Worker('/resources/dargmuesli/savesettings.js');
     }
 
     w.postMessage({ 'args': [form, value] });

@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 export function validateResponse(response, type) {
     let xhr = new XMLHttpRequest();
 
-    xhr.open('GET', '../layout/scripts/suggest.php?type=' + type + '&g-recaptcha-response=' + response, true);
+    xhr.open('GET', '/resources/dargmuesli/suggest.php?type=' + type + '&g-recaptcha-response=' + response, true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             if (xhr.responseText != '') {

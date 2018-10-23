@@ -3,7 +3,7 @@
         session_start();
     }
 
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/recaptcha.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/recaptcha.php';
 
     if (isset($_SESSION['lang'])) {
         $lang = $_SESSION['lang'];

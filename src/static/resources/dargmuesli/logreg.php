@@ -4,10 +4,14 @@
     }
 
     // References
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/dotenv.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/mail.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/mail.php';
 
-    $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    // Load .env file
+    load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
+
+    // Get database handle
+    $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
 
     $securimage = new Securimage();
 
@@ -75,14 +79,14 @@
                 if (!$row) {
                     // Entry doesn't exist
                     $code = rand();
-                    $link = $_SERVER['SERVER_ROOT_URL'].'/layout/scripts/validation.php?task=validate&email=' . $email . '&code=' . $code;
+                    $link = $_SERVER['SERVER_ROOT_URL'].'/resources/dargmuesli/validation.php?task=validate&email=' . $email . '&code=' . $code;
 
                     switch ($lang) {
                         case 'de':
-                            $file = file_get_contents('../../resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_de.html');
+                            $file = file_get_contents('..//resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_de.html');
                             break;
                         default:
-                            $file = file_get_contents('../../resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_en.html');
+                            $file = file_get_contents('..//resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_en.html');
                             break;
                     }
 
@@ -201,10 +205,10 @@
                         } else {
                             switch ($lang) {
                                 case 'de':
-                            $_SESSION['error'] = 'Bestätigung unvollständig! <a href="../layout/scripts/validation.php?task=resend&email=' . $email . '" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="../layout/scripts/validation.php?task=delete&email=' . $email . '" title="Diese Anfrage löschen">diese Anfrage löschen</a>.';
+                            $_SESSION['error'] = 'Bestätigung unvollständig! <a href="/resources/dargmuesli/validation.php?task=resend&email=' . $email . '" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Diese Anfrage löschen">diese Anfrage löschen</a>.';
                                     break;
                                 default:
-                            $_SESSION['error'] = 'Validation incomplete! <a href="../layout/scripts/validation.php?task=resend&email=' . $email . '" title="Resend the validation email">Resend the email</a> or <a href="../layout/scripts/validation.php?task=delete&email=' . $email . '" title="Delete this request">delete this request</a>.';
+                            $_SESSION['error'] = 'Validation incomplete! <a href="/resources/dargmuesli/validation.php?task=resend&email=' . $email . '" title="Resend the validation email">Resend the email</a> or <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Delete this request">delete this request</a>.';
                                     break;
                             }
                         }

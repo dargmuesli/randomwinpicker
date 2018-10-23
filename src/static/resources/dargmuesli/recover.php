@@ -3,8 +3,8 @@
         session_start();
     }
 
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/dotenv.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/mail.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/mail.php';
 
     if (isset($_SESSION['lang'])) {
         $lang = $_SESSION['lang'];
@@ -12,7 +12,11 @@
         $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
     }
 
-    $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    // Load .env file
+    load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
+
+    // Get database handle
+    $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
     $dieLocation = '../../accounts/recovery.php';
 
     // Get the URL parameters
@@ -27,10 +31,10 @@
 
         switch ($lang) {
             case 'de':
-                $file = file_get_contents('../../resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/reset_de.html');
+                $file = file_get_contents('..//resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/reset_de.html');
                 break;
             default:
-                $file = file_get_contents('../../resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/reset_en.html');
+                $file = file_get_contents('..//resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/reset_en.html');
                 break;
         }
 
@@ -99,10 +103,10 @@
         } else {
             switch ($lang) {
                 case 'de':
-                    $_SESSION['error'] = 'Account wurde noch nicht aktiviert! <a href="../layout/scripts/validation.php?task=delete&email=' . $email . '" title="Diese Anfrage löschen">Diese Anfrage löschen</a>.';
+                    $_SESSION['error'] = 'Account wurde noch nicht aktiviert! <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Diese Anfrage löschen">Diese Anfrage löschen</a>.';
                     break;
                 default:
-                    $_SESSION['error'] = 'Accuont was not activated yet! <a href="../layout/scripts/validation.php?task=delete&email=' . $email . '" title="Delete this request">delete this request</a>.';
+                    $_SESSION['error'] = 'Accuont was not activated yet! <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Delete this request">delete this request</a>.';
                     break;
             }
         }

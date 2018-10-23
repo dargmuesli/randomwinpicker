@@ -1,6 +1,6 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/packages/composer/autoload.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/dotenv.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
 
     function get_mailer($address, $subject, $body, $altBody = "")
     {

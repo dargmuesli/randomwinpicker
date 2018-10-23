@@ -3,10 +3,14 @@
         session_start();
     }
 
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/dotenv.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/mail.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/mail.php';
 
-    $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    // Load .env file
+    load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
+
+    // Get database handle
+    $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
 
     $user = $_GET['email'];
 
@@ -45,7 +49,7 @@
 
     file_put_contents('../filetree/categories' . $fileOrig, $newFile);
 
-    $htmlFile = file_get_contents('../../resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/contribute.html');
+    $htmlFile = file_get_contents('..//resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/contribute.html');
     $string_processed = preg_replace_callback('~\{\$(.*?)\}~si', function ($match) use ($user, $file, $name, $link, $image, $quality, $type) {
         return eval('return $' . $match[1] . ';');
     }, $htmlFile);

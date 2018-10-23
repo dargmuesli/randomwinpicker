@@ -69,7 +69,7 @@
             </div>
             <div>
                 <p id="loading">
-                    <img src="../layout/icons/ajax-loader.gif" alt="Loading"/>
+                    <img src="/resources/dargmuesli/icons/ajax-loader.gif" alt="Loading"/>
                 </p>
             </div>
             <div id="content" class="data">

@@ -1,8 +1,12 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/sessioncookie.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/dotenv.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/sessioncookie.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
 
-    $dbh = new PDO('pgsql:host='.$_ENV['PGSQL_HOST'].';port='.$_ENV['PGSQL_PORT'].';dbname='.$_ENV['PGSQL_DATABASE'], $_ENV['PGSQL_USERNAME'], $_ENV['PGSQL_PASSWORD']);
+    // Load .env file
+    load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
+
+    // Get database handle
+    $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
 
     if ($email == null || $hash == null) {
         switch ($lang) {
@@ -76,7 +80,7 @@ default:    ?>
     }    ?>
         </title>
         <link rel="canonical" href="https://randomwinpicker.de/accounts/profile.php" />
-        <link rel="icon" href="../layout/icons/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/resources/dargmuesli/icons/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
         <link rel="stylesheet" href="../layout/stylesheets/style.css">
         <meta name="author" content="Jonas Thelemann" />
@@ -88,10 +92,10 @@ default:    ?>
         <meta property="og:title" content="Welcome - RandomWinPicker" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://randomwinpicker.de/" />
-        <script src="../layout/scripts/alert.php"></script>
-        <script src="../layout/scripts/bugfeature.php"></script>
-        <script src="../layout/scripts/js-profile.php"></script>
-        <script src="../layout/scripts/language.php"></script>
+        <script src="/resources/dargmuesli/alert.php"></script>
+        <script src="/resources/dargmuesli/bugfeature.php"></script>
+        <script src="/resources/dargmuesli/js-profile.php"></script>
+        <script src="/resources/dargmuesli/language.php"></script>
 <?php    switch ($lang) {
 case 'de':    ?>
         <script src='https://www.google.com/recaptcha/api.js?hl=de&amp;render=explicit' async defer></script>
@@ -106,7 +110,7 @@ default:    ?>
             <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T32JLW" height="0" width="0">
             </iframe>
         </noscript>
-        <script src="../layout/scripts/tag.js"></script>
+        <script src="/resources/dargmuesli/tag.js"></script>
         <div id="dialogoverlay"></div>
         <div id="dialogbox">
             <div>
@@ -120,20 +124,20 @@ default:    ?>
         </div>
         <header>
             <div id="saveStatus">
-                <img src="../layout/icons/ajax-loader-arrows.gif" alt="Save Status">
+                <img src="/resources/dargmuesli/icons/ajax-loader-arrows.gif" alt="Save Status">
             </div>
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/warning.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/warning.php';
     warning($success, $error, $lang, "\t\t\t");
 ?>
             <div>
                 <a href="../" title="Back" id="back">
-                    <img src="../layout/icons/arrow.png" alt="Welcome" class="rotate"/>
+                    <img src="/resources/dargmuesli/icons/arrow.png" alt="Welcome" class="rotate"/>
                 </a>
             </div>
             <div id="account">
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/layout/scripts/account.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/account.php';
     account('../', $email, $lang, "\t\t\t\t");
 ?>
             </div>
@@ -463,12 +467,12 @@ default:    ?>
 <?php    switch ($lang) {
 case 'de':    ?>
                 <button class="link en" id="lang" title="Switch to English">
-                    <img src="../layout/icons/eng.png" alt="English Flag" id="flag">
+                    <img src="/resources/dargmuesli/icons/eng.png" alt="English Flag" id="flag">
                 </button>
 <?php    break;
 default:    ?>
                 <button class="link de" id="lang" title="Auf Deutsch wechseln">
-                    <img src="../layout/icons/ger.png" alt="German Flag" id="flag">
+                    <img src="/resources/dargmuesli/icons/ger.png" alt="German Flag" id="flag">
                 </button>
 <?php    break;
     }    ?>
