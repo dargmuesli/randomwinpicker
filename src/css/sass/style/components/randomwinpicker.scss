@@ -134,6 +134,6 @@ table{border-spacing:0;margin:2.5vh auto;}
 td{border-top:1px solid white;}
 textarea{overflow:hidden;width:100%;}
 th{border:1px solid white;padding:0 1vh;}
-ul.jqueryFileTree{font-family:"Open Sans";font-size:2vmin;line-height:24px;}
-ul.jqueryFileTree a{color:#f8f8f8;}
-ul.jqueryFileTree li.selected>a{font-weight:normal;}
+ul.jqueryFileTree{font-family:"Open Sans" !important;font-size:2vmin !important;line-height:24px !important;}
+ul.jqueryFileTree a{color:#f8f8f8 !important;}
+ul.jqueryFileTree li.selected>a{font-weight:normal !important;}

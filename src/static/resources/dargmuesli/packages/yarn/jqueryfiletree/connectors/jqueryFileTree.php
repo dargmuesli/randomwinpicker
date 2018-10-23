@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
+
     if (!array_key_exists('HTTP_REFERER', $_SERVER)) {
         exit('No direct script access allowed');
     }
@@ -31,17 +33,7 @@
      */
     //$root = null;
 
-    $lang = 'de';
-
-    if (isset($_SESSION['lang'])) {
-        $lang = $_SESSION['lang'];
-    } else {
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-        }
-    }
-
-    $root = $_SERVER['DOCUMENT_ROOT'] . '/layout/data/filetree/categories/' . $lang . '/';
+    $root = $_SERVER['DOCUMENT_ROOT'] . '/layout/data/filetree/categories/' . get_language() . '/';
     if (!$root) {
         exit('ERROR: Root filesystem directory not set in jqueryFileTree.php');
     }

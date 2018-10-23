@@ -3,7 +3,7 @@ import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './tabl
 import { i18n } from './language.js';
 
 $(document).ready(function () {
-    $('.filetree').fileTree({ root: '/', script: '../resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function (file) {
+    $('.filetree').fileTree({ root: '/', script: '/resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function (file) {
         openFile(file);
     });
 });
@@ -15,7 +15,7 @@ export function openFile(file) {
     var name = nameparts[0] + ', ' + nameparts[1];
 
     var client = new XMLHttpRequest();
-    client.open('GET', '/layout/data/filetree/categories/' + file + '?' + new Date().getTime(), true); //<?php echo $_SERVER['SERVER_ROOT_URL']; ?> <?php echo $lang; ?>
+    client.open('GET', '/layout/data/filetree/categories/' + i18n.language + file + '?' + new Date().getTime(), true); //<?php echo $_SERVER['SERVER_ROOT_URL']; ?> <?php echo $lang; ?>
     client.onreadystatechange = function () {
         if ((client.readyState == 4) && (client.status == 200)) {
             var json = isJsonString(client.responseText);
@@ -78,8 +78,10 @@ export function openFile(file) {
                     document.getElementById('sI(' + iCopy + ')').addEventListener('click', function () { selectItem(iCopy); });
                 }());
 
-                // condition.disabled = false;
-                // condition.selectedIndex = 0;
+                var condition = document.getElementById('condition');
+
+                condition.disabled = false;
+                condition.selectedIndex = 0;
 
                 if (json.type == 'StatTrak') {
                     document.getElementById('hType').style.display = 'block';
