@@ -18,7 +18,7 @@ export function openFile(file) {
     xhr.open('GET', '/layout/data/filetree/categories/' + i18n.language + file + '?' + new Date().getTime(), true); //<?php echo $_SERVER['SERVER_ROOT_URL']; ?> <?php echo $lang; ?>
     xhr.onreadystatechange = function () {
         if ((xhr.readyState == 4) && (xhr.status == 200)) {
-            let json = isJsonString(xhr.responseText);
+            let json = JSON.parse(xhr.responseText);
 
             if ((json != false) && ((json.name != '') || (json.url != ''))) {
                 let selected = document.getElementById('selected');
@@ -124,19 +124,19 @@ export function openFile(file) {
     xhr.send();
 }
 
-export function isJsonString(str) {
-    try {
-        let json = JSON.parse(str);
+// export function tryGetJson(str) {
+//     try {
+//         let json = JSON.parse(str);
 
-        if (json && typeof json === 'object' && json !== null) {
-            return json;
-        }
-    } catch (e) {
-        // TODO
-    }
+//         if (json && typeof json === 'object' && json !== null) {
+//             return json;
+//         }
+//     } catch (e) {
+//         console.log('Cannot parse JSON from "' + str + '"!');
+//     }
 
-    return false;
-}
+//     return false;
+// }
 
 export function assignCondition() {
     let condition = document.getElementById('condition');
