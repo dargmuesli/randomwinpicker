@@ -186,12 +186,12 @@
 
     function retrieveTitleData() {
         setTimeout(function () {
-            var client = new XMLHttpRequest();
-            client.open('GET', '<?php echo $_SERVER['REQUEST_URI']; ?>?i=' + index, false);
-            client.onreadystatechange = function() {
-                if ((client.readyState == 4) && (client.status == 200)) {
-                    if (client.responseText != 'CS:GO Stash - Browse all skins, stickers, and music<br>') {
-                        document.getElementById('title').innerHTML += 'https://csgostash.com/skin/' + index + '/' + client.responseText.replace(' - CS:GO Stash', '').replace(' | ', '-').replace(/\s/g, '-');
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '<?php echo $_SERVER['REQUEST_URI']; ?>?i=' + index, false);
+            xhr.onreadystatechange = function() {
+                if ((xhr.readyState == 4) && (xhr.status == 200)) {
+                    if (xhr.responseText != 'CS:GO Stash - Browse all skins, stickers, and music<br>') {
+                        document.getElementById('title').innerHTML += 'https://csgostash.com/skin/' + index + '/' + xhr.responseText.replace(' - CS:GO Stash', '').replace(' | ', '-').replace(/\s/g, '-');
                     }
 
                     if (index < end_title) {
@@ -203,19 +203,19 @@
                     }
                 }
             }
-            client.send();
+            xhr.send();
         }, 1);
     }
 
     function retrieveJsonData() {
         setTimeout(function () {
-            var client = new XMLHttpRequest();
-            client.open('GET', '<?php echo $_SERVER['REQUEST_URI']; ?>?j=' + index, false);
-            client.onreadystatechange = function() {
-                if ((client.readyState == 4) && (client.status == 200)) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '<?php echo $_SERVER['REQUEST_URI']; ?>?j=' + index, false);
+            xhr.onreadystatechange = function() {
+                if ((xhr.readyState == 4) && (xhr.status == 200)) {
                     var jsonNode = document.getElementById('json');
 
-                    jsonNode.innerHTML += client.responseText;
+                    jsonNode.innerHTML += xhr.responseText;
 
                     if (index < end_json) {
                         index++;
@@ -226,7 +226,7 @@
                     }
                 }
             }
-            client.send();
+            xhr.send();
         }, 1);
     }
 

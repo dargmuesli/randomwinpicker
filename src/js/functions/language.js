@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 export function changeLanguage(lang) {
-    var xmlhttp = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
 
-    xmlhttp.open('POST', '/resources/dargmuesli/language.php', true);
-    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4) {
+    xhr.open('POST', '/resources/dargmuesli/language.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
             location.reload();
         }
     };
-    xmlhttp.send('language=' + lang);
+    xhr.send('language=' + lang);
 }

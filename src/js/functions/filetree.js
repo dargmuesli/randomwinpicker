@@ -1,4 +1,4 @@
-import { customAlert } from './alert.js';
+import { alert } from './alert.js';
 import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './table.js';
 import { i18n } from './language.js';
 
@@ -9,22 +9,22 @@ $(document).ready(function () {
 });
 
 export function openFile(file) {
-    var nameparts = file;
+    let nameparts = file;
     nameparts = nameparts.split('/');
     nameparts = nameparts.splice(3, 2);
-    var name = nameparts[0] + ', ' + nameparts[1];
+    let name = nameparts[0] + ', ' + nameparts[1];
 
-    var client = new XMLHttpRequest();
-    client.open('GET', '/layout/data/filetree/categories/' + i18n.language + file + '?' + new Date().getTime(), true); //<?php echo $_SERVER['SERVER_ROOT_URL']; ?> <?php echo $lang; ?>
-    client.onreadystatechange = function () {
-        if ((client.readyState == 4) && (client.status == 200)) {
-            var json = isJsonString(client.responseText);
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/layout/data/filetree/categories/' + i18n.language + file + '?' + new Date().getTime(), true); //<?php echo $_SERVER['SERVER_ROOT_URL']; ?> <?php echo $lang; ?>
+    xhr.onreadystatechange = function () {
+        if ((xhr.readyState == 4) && (xhr.status == 200)) {
+            let json = isJsonString(xhr.responseText);
 
             if ((json != false) && ((json.name != '') || (json.url != ''))) {
-                var selected = document.getElementById('selected');
-                var btn = selected.parentNode;
-                var td = btn.parentNode;
-                var type = document.getElementById('chkType');
+                let selected = document.getElementById('selected');
+                let btn = selected.parentNode;
+                let td = btn.parentNode;
+                let type = document.getElementById('chkType');
 
                 if (getFirstChild(getLastChild(td)).id != 'selected') {
                     td.lastChild.click();
@@ -33,7 +33,7 @@ export function openFile(file) {
                     td = btn.parentNode;
                 }
 
-                var index = parseInt(btn.id.replace('sI(', '').replace(')', '')) + 1;
+                let index = parseInt(btn.id.replace('sI(', '').replace(')', '')) + 1;
 
                 if (selected.innerHTML.indexOf('---') != -1) {
                     td.removeChild(selected.parentNode);
@@ -42,7 +42,7 @@ export function openFile(file) {
                     selected.removeAttribute('id');
                 }
 
-                var quality = '';
+                let quality = '';
 
                 if (json.quality == 'Consumer Grade') {
                     quality = ' consumergrade';
@@ -58,7 +58,7 @@ export function openFile(file) {
                     quality = ' covert';
                 }
 
-                var newElement = '<figure class="item' + quality;
+                let newElement = '<figure class="item' + quality;
 
                 if (document.getElementById('hideimages').classList.contains('hidden')) {
                     newElement += ' hide';
@@ -66,7 +66,7 @@ export function openFile(file) {
 
                 newElement += '" id="selected"><img src="' + json.url + '" alt="' + name + '" class="set ' + file + '"><figcaption>' + name + '<br><span></span><span class="' + json.type + '"></span></figcaption></figure>';
 
-                var button = document.createElement('button');
+                let button = document.createElement('button');
                 button.setAttribute('class', 'link');
                 button.setAttribute('title', 'Win');
                 button.setAttribute('id', 'sI(' + index + ')');
@@ -74,11 +74,11 @@ export function openFile(file) {
                 td.appendChild(button);
 
                 (function () {
-                    var iCopy = index;
+                    let iCopy = index;
                     document.getElementById('sI(' + iCopy + ')').addEventListener('click', function () { selectItem(iCopy); });
                 }());
 
-                var condition = document.getElementById('condition');
+                let condition = document.getElementById('condition');
 
                 condition.disabled = false;
                 condition.selectedIndex = 0;
@@ -100,10 +100,12 @@ export function openFile(file) {
                     document.getElementById('hType').style.display = 'none';
                 }
 
-                for (var i = (index + 1); i < document.querySelectorAll('.item').length; i++) {
+                let i;
+
+                for (i = (index + 1); i < document.querySelectorAll('.item').length; i++) {
                     (function () {
-                        var el = document.getElementsByClassName('item')[i].parentNode, elClone = el.cloneNode(true);
-                        var iCopy = i;
+                        let el = document.getElementsByClassName('item')[i].parentNode, elClone = el.cloneNode(true);
+                        let iCopy = i;
 
                         el.parentNode.replaceChild(elClone, el);
                         elClone.id = 'sI(' + iCopy + ')';
@@ -115,16 +117,16 @@ export function openFile(file) {
 
                 saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
             } else {
-                customAlert.render(i18n.t('functions:filetree.contribute.title'), i18n.t('functions:filetree.contribute.question'), file, 'contribute');
+                alert.render(i18n.t('functions:filetree.contribute.title'), i18n.t('functions:filetree.contribute.question'), file, 'contribute');
             }
         }
     };
-    client.send();
+    xhr.send();
 }
 
 export function isJsonString(str) {
     try {
-        var json = JSON.parse(str);
+        let json = JSON.parse(str);
 
         if (json && typeof json === 'object' && json !== null) {
             return json;
@@ -137,9 +139,9 @@ export function isJsonString(str) {
 }
 
 export function assignCondition() {
-    var condition = document.getElementById('condition');
-    var selected = document.getElementById('selected');
-    var span = selected.getElementsByTagName('span')[0];
+    let condition = document.getElementById('condition');
+    let selected = document.getElementById('selected');
+    let span = selected.getElementsByTagName('span')[0];
 
     if (condition.options[0].selected) {
         span.innerHTML = '';
@@ -159,9 +161,9 @@ export function assignCondition() {
 }
 
 export function assignStatTrak() {
-    var type = document.getElementById('chkType');
-    var selected = document.getElementById('selected');
-    var span = selected.getElementsByTagName('span')[1];
+    let type = document.getElementById('chkType');
+    let selected = document.getElementById('selected');
+    let span = selected.getElementsByTagName('span')[1];
 
     if (type.checked) {
         span.innerHTML = '[ST]';
@@ -173,9 +175,9 @@ export function assignStatTrak() {
 }
 
 export function assignSouvenir() {
-    var type = document.getElementById('chkType');
-    var selected = document.getElementById('selected');
-    var span = selected.getElementsByTagName('span')[1];
+    let type = document.getElementById('chkType');
+    let selected = document.getElementById('selected');
+    let span = selected.getElementsByTagName('span')[1];
 
     if (type.checked) {
         span.innerHTML = '[SV]';
@@ -187,9 +189,9 @@ export function assignSouvenir() {
 }
 
 export function hideImages() {
-    var data = document.getElementsByClassName('data');
-    var link = document.getElementById('hideimages');
-    var i, j;
+    let data = document.getElementsByClassName('data');
+    let link = document.getElementById('hideimages');
+    let i, j;
 
     if (link.classList.contains('shown')) {
         for (i = 0; i < document.querySelectorAll('.data').length; i++) {

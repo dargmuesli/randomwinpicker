@@ -1,30 +1,30 @@
 export function saveSettingsWorker(form, value) {
-    var xmlhttp = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
 
-    xmlhttp.open('POST', 'savesettings.php?form=' + form, false);
-    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xmlhttp.onreadystatechange = function () {
-        if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+    xhr.open('POST', 'savesettings.php?form=' + form, false);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if ((xhr.readyState == 4) && (xhr.status == 200)) {
             postMessage('done');
         }
     };
 
     if (form == 'privacyForm') {
-        xmlhttp.send('privacy=' + value);
+        xhr.send('privacy=' + value);
     } else if (form == 'viewForm') {
-        xmlhttp.send('view=' + value);
+        xhr.send('view=' + value);
     } else if (form == 'storageForm') {
-        xmlhttp.send('storage=' + value);
+        xhr.send('storage=' + value);
     } else if (form == 'youtubeForm') {
-        xmlhttp.send('youtube=' + value);
+        xhr.send('youtube=' + value);
     } else if (form == 'encodingForm') {
-        xmlhttp.send('encoding=' + value);
+        xhr.send('encoding=' + value);
     } else if (form == 'priceForm') {
-        xmlhttp.send('prices=' + value);
+        xhr.send('prices=' + value);
     }
 }
 
 onmessage = function (event) {
-    var args = event.data.args;
+    let args = event.data.args;
     saveSettingsWorker(args[0], args[1]);
 };

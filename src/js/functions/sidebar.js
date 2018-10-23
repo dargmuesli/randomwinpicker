@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var sidebars = document.getElementsByClassName('sidebar');
+    let sidebars = document.getElementsByClassName('sidebar');
+
+    let state1, state2, state3;
 
     if (sidebars[0] != null) {
-        var rectBound = sidebars[0].getBoundingClientRect();
+        let rectBound = sidebars[0].getBoundingClientRect();
 
-        var state1 = rectBound.top / 3;
-        var state2 = 2 * rectBound.top / 3;
-        var state3 = rectBound.top;
+        state1 = rectBound.top / 3;
+        state2 = 2 * rectBound.top / 3;
+        state3 = rectBound.top;
 
         window.onscroll = scrollFun;
 

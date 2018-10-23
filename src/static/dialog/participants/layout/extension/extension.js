@@ -1,32 +1,32 @@
 // Make links clickable
 document.addEventListener('DOMContentLoaded', function () {
-    var spoiler = document.getElementById('spoiler');
+    let spoiler = document.getElementById('spoiler');
     if (spoiler != null) {
         spoiler.addEventListener('click', function () { Dargmuesli.Spoiler.showSpoiler(); });
     }
-    var add = document.getElementById('add');
+    let add = document.getElementById('add');
     if (add != null) {
         add.addEventListener('click', function () { Dargmuesli.Table.sendRow(2, [0], 'participants'); });
     }
-    var resetElement = document.getElementById('reset');
+    let resetElement = document.getElementById('reset');
     if (resetElement != null) {
         resetElement.addEventListener('click', function () { Dargmuesli.Table.reset(2, 'participants'); });
     }
-    var csvClick = document.getElementById('csvClick');
+    let csvClick = document.getElementById('csvClick');
     if (csvClick != null) {
         csvClick.addEventListener('click', function () { document.getElementById('csv-file').click(); });
     }
 
-    var i = 1;
-    var tr = document.getElementById('tr' + i);
+    let i = 1;
+    let tr = document.getElementById('tr' + i);
 
     while (tr != null) {
-        for (var j = 0; j < tr.childNodes.length; j++) {
-            var child = tr.childNodes[j];
+        for (let j = 0; j < tr.childNodes.length; j++) {
+            let child = tr.childNodes[j];
 
             if (child != null && child.nodeType != 3) {
                 (function () {
-                    var iCopy = i;
+                    let iCopy = i;
 
                     if (child.className == 'remove') {
                         Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', function () { Dargmuesli.Table.removeRow(iCopy, 2, 'participants'); });

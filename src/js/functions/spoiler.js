@@ -1,6 +1,6 @@
-var visible = false;
-var spoiler;
-var link;
+let visible = false;
+let spoiler;
+let link;
 
 document.addEventListener('DOMContentLoaded', function () {
     spoiler = document.getElementsByClassName('spoiler')[0];

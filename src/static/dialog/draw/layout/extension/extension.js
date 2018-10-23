@@ -1,14 +1,14 @@
-window.location = ''/*'<?php echo $_SERVER['SERVER_ROOT_URL']; ?>/dialog/items.php'*/;
+// window.location = '/dialog/items/';
 
-var round = 0; //<? php echo $quantity; ?>;
-var index = 0;
-var items = 0; //<? php echo $items ?>;
-var participants = 0; //<? php echo $participants ?>;
-var winners = {};
+let round = 0; //<? php echo $quantity; ?>;
+let index = 0;
+let items = 0; //<? php echo $items ?>;
+let participants = 0; //<? php echo $participants ?>;
+let winners = {};
 
 function draw() {
     if (round > 0) {
-        var go = document.getElementById('go');
+        let go = document.getElementById('go');
 
         document.getElementById('loading').style.display = '';
         document.getElementById('fader').style.display = 'none';
@@ -17,21 +17,22 @@ function draw() {
             go.remove();
         }
 
-        var content = document.getElementById('content');
-        var again = document.getElementById('fader');
-        var reveal = document.getElementById('reveal');
-        var priceNames = '';
+        let content = document.getElementById('content');
+        let again = document.getElementById('fader');
+        let reveal = document.getElementById('reveal');
+        let priceNames = '';
 
         index = 0;
 
-        if (typeof items[(round - 1)] != 'undefined') {
-            var item = items[(round - 1)]['column1'];
-            var names = [];
-            var qualities = [];
-            var images = [];
-            var win = '';
+        let imageStartIndices;
+        let names = [];
+        let qualities = [];
+        let images = [];
+        let win = '';
 
-            var name = item.replace(/<\/?[^>]+(>|$)/g, ' ');
+        if (typeof items[(round - 1)] != 'undefined') {
+            let item = items[(round - 1)]['column1'];
+            let name = item.replace(/<\/?[^>]+(>|$)/g, ' ');
 
             name = name.replace(/\s\s\s+/g, '<br>');
             name = name.replace(/\s\s+/g, ' ');
@@ -54,10 +55,10 @@ function draw() {
 
             priceNames = name.split('<br>');
 
-            var qualityStartIndices = getAllIndexes(item, 'item');
+            let qualityStartIndices = getAllIndexes(item, 'item');
 
-            for (var i = 0; i < qualityStartIndices.length; i++) {
-                var qualityEndIndex = item.indexOf('"', qualityStartIndices[i]);
+            for (let i = 0; i < qualityStartIndices.length; i++) {
+                let qualityEndIndex = item.indexOf('"', qualityStartIndices[i]);
                 if (qualityEndIndex - qualityStartIndices[i] != 4) {
                     qualities[i] = item.substring(qualityStartIndices[i] + 5, qualityEndIndex);
                 } else {
@@ -65,10 +66,10 @@ function draw() {
                 }
             }
 
-            var imageStartIndices = getAllIndexes(item, 'src');
-            var imageEndIndices = getAllIndexes(item, 'alt');
+            imageStartIndices = getAllIndexes(item, 'src');
+            let imageEndIndices = getAllIndexes(item, 'alt');
 
-            for (var i = 0; i < imageStartIndices.length; i++) {
+            for (let i = 0; i < imageStartIndices.length; i++) {
                 images[i] = item.substring(imageStartIndices[i] + 5, imageEndIndices[i] - 2);
             }
 
@@ -85,17 +86,17 @@ function draw() {
                 win = '<figure class="opensans win ' + qualities[0] + '" id="fig' + index + '"><img align="middle" alt="' + names[0] + '" src="' + images[0] + '" class="set"><br>' + names[0] + '</figure>';
             }
         } else {
-            var win = '---';
+            win = '---';
         }
 
         $('#content').prepend('<div class="wrap"><div id="place' + round + '" class="turn' + ((round > 3) ? ' places' : '') + '"><div class="ranking">' + ((Dargmuesli.Language.i18n.language == 'en') ? ordinal_suffix_of(round) : round + '.') + ' ' + Dargmuesli.Language.i18n.t('functions:extension.draw.place.ranking') + ': </div><div class="place">' + win + '</div><p>' + Dargmuesli.Language.i18n.t('functions:extension.draw.place.span') + ': <span id="round' + round + '" class="opensans"></span></p></div></div>');
 
         (function () {
-            var roundCopy = round;
+            let roundCopy = round;
             setTimeout(function () {
                 document.getElementById('place' + roundCopy).style.transform = 'rotateY(0deg)';
             }, 100);
-        }())
+        }());
 
         if (true
         /*<? php if ($prices) {
@@ -103,19 +104,19 @@ function draw() {
         } else {
             echo 'false';
         } ?>*/) {
-            var xmlhttp = new XMLHttpRequest();
+            let xhr = new XMLHttpRequest();
 
-            xmlhttp.open('GET', '../layout/scripts/cost.php?item=' + priceNames[0] + '&origin=place' + round + '-fig1', true);
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4) {
-                    var responseArray = xmlhttp.responseText.split('-');
-                    var origin = $('#' + responseArray[0]).find('#' + responseArray[1]);
+            xhr.open('GET', '../layout/scripts/cost.php?item=' + priceNames[0] + '&origin=place' + round + '-fig1', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    let responseArray = xhr.responseText.split('-');
+                    let origin = $('#' + responseArray[0]).find('#' + responseArray[1]);
 
                     origin.find('>:first-child').css('background', 'rgba(0, 0, 0, 0.5) none repeat scroll 0% 0%');
                     setTimeout(function () { addPrices(origin, responseArray[2]); }, 1000);
                 }
-            }
-            xmlhttp.send();
+            };
+            xhr.send();
         }
 
         if (imageStartIndices.length > 1) {
@@ -132,7 +133,7 @@ function draw() {
         round--;
 
         if (round == 0) {
-            var button = document.createElement('button');
+            let button = document.createElement('button');
             button.setAttribute('class', 'link');
             button.setAttribute('title', 'Draw again');
             button.setAttribute('id', 'reload');
@@ -147,8 +148,8 @@ function draw() {
 }
 
 function addRest(length, qualities, names, images, priceNames) {
-    var earlyPlace = $('.place:eq(0)');
-    var origin = earlyPlace.parent().attr('id') + '-fig' + (index + 1);
+    let earlyPlace = $('.place:eq(0)');
+    let origin = earlyPlace.parent().attr('id') + '-fig' + (index + 1);
 
     if (true
         /*<? php if ($prices) {
@@ -158,19 +159,19 @@ function addRest(length, qualities, names, images, priceNames) {
     } ?>*/) {
         earlyPlace.append('<figure class="opensans win ' + qualities[index] + '" id="fig' + (index + 1) + '"><div class="price"></div><img align="middle" alt="' + names[index] + '" src="' + images[index] + '" class="set"><br>' + names[index] + '</figure>');
 
-        var xmlhttp = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
 
-        xmlhttp.open('GET', '../layout/scripts/cost.php?item=' + priceNames[index] + '&origin=' + origin, true);
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == 4) {
-                var responseArray = xmlhttp.responseText.split('-');
-                var origin = $('#' + responseArray[0]).find('#' + responseArray[1]);
+        xhr.open('GET', '../layout/scripts/cost.php?item=' + priceNames[index] + '&origin=' + origin, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                let responseArray = xhr.responseText.split('-');
+                let origin = $('#' + responseArray[0]).find('#' + responseArray[1]);
 
                 origin.find('>:first-child').css('background', 'rgba(0, 0, 0, 0.5) none repeat scroll 0% 0%');
                 setTimeout(function () { addPrices(origin, responseArray[2]); }, 1000);
             }
-        }
-        xmlhttp.send();
+        };
+        xhr.send();
     } else {
         earlyPlace.append('<figure class="opensans win ' + qualities[index] + '" id="fig' + (index + 1) + '"><img align="middle" alt="' + names[index] + '" src="' + images[index] + '" class="set"><br>' + names[index] + '</figure>');
     }
@@ -187,8 +188,8 @@ function addPrices(element, price) {
 }
 
 function getAllIndexes(arr, val) {
-    var indices = []
-    var i = -1;
+    let indices = [];
+    let i = -1;
 
     while ((i = arr.indexOf(val, i + 1)) != -1) {
         indices.push(i);
@@ -200,37 +201,39 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('letsgo').addEventListener('click', function () { draw(); });
     document.getElementById('reveal').addEventListener('click', function () { draw(); });
 
-    var http = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
 
-    http.open('GET', '../layout/scripts/random.php?n=' + round, true);
-    http.onreadystatechange = function () {
-        if (http.readyState == 4) {
-            var json = JSON.parse(http.responseText);
-            var loading = document.getElementById('loading');
-            var go = document.getElementById('go');
+    xhr.open('GET', '../layout/scripts/random.php?n=' + round, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            let json = JSON.parse(xhr.responseText);
+            let loading = document.getElementById('loading');
+            let go = document.getElementById('go');
 
-            for (var r = 0; r < round; r++) {
-                var totalTickets = 0;
+            for (let r = 0; r < round; r++) {
+                let totalTickets = 0;
 
-                for (var p = 0; p < participants.length; p++) {
+                for (let p = 0; p < participants.length; p++) {
                     totalTickets += parseInt(participants[p]['column1']);
                 }
 
+                let randomNumber;
+
                 if (json.hasOwnProperty('error') || json.hasOwnProperty('code')) {
-                    var randomNumber = Math.random();
+                    randomNumber = Math.random();
                 } else {
-                    var randomNumber = json.result.random.data[r];
-                    var bitsLeftPercentage = json.result.bitsLeft * 100 / 250000;
-                    var requestsLeftPercentage = json.result.requestsLeft * 100 / 1000;
+                    randomNumber = json.result.random.data[r];
+                    let bitsLeftPercentage = json.result.bitsLeft * 100 / 250000;
+                    let requestsLeftPercentage = json.result.requestsLeft * 100 / 1000;
 
                     document.getElementById('percentageleft').innerHTML = (100 - ((bitsLeftPercentage < requestsLeftPercentage) ? bitsLeftPercentage : requestsLeftPercentage)).toFixed(1) + Dargmuesli.Language.i18n.t('functions:extension.draw.limit');
                 }
 
-                var q = 0;
-                var i = 0;
+                let q = 0;
+                let i = 0;
 
                 while (q < 1) {
-                    var probability = parseInt(participants[i]['column1']) / totalTickets;
+                    let probability = parseInt(participants[i]['column1']) / totalTickets;
 
                     q += probability;
 
@@ -248,12 +251,12 @@ document.addEventListener('DOMContentLoaded', function () {
             go.className = '';
             go.style.display = 'inline-block';
         }
-    }
-    http.send();
+    };
+    xhr.send();
 });
 
 function ordinal_suffix_of(i) {
-    var j = i % 10,
+    let j = i % 10,
         k = i % 100;
     if (j == 1 && k != 11) {
         return i + 'st';

@@ -1,7 +1,9 @@
+import Papa from 'papaparse';
+
 import { reset } from './table.js';
 
 export function handleFileSelect(evt, enc) {
-    var file = evt.target.files[0];
+    let file = evt.target.files[0];
 
     Papa.parse(file, {
         header: true,
@@ -15,7 +17,7 @@ export function handleFileSelect(evt, enc) {
             reset(2, 'participants');
             // editing = true;
 
-            for (var i = 0; i < results.data.length; i++) {
+            for (let i = 0; i < results.data.length; i++) {
                 if (i == results.data.length - 1) {
                     // editing = false;
                 }
@@ -29,7 +31,7 @@ export function handleFileSelect(evt, enc) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    var csvfile = document.getElementById('csv-file');
+    let csvfile = document.getElementById('csv-file');
     if (csvfile != null) {
         csvfile.onchange = function (event) { handleFileSelect(event, '<?php echo $encoding; ?>'); };
     }

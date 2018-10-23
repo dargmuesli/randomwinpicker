@@ -5,8 +5,8 @@ export class customAlert {
     constructor() { }
 
     render(heading, dialog, file, task) {
-        var dialogoverlay = document.getElementById('dialogoverlay');
-        var dialogbox = document.getElementById('dialogbox');
+        let dialogoverlay = document.getElementById('dialogoverlay');
+        let dialogbox = document.getElementById('dialogbox');
         dialogoverlay.style.display = 'block';
         dialogbox.style.display = 'inline';
         document.getElementById('dialogboxhead').innerHTML = '<h3>' + heading + '</h3>';
@@ -34,23 +34,25 @@ export class customAlert {
     }
 }
 
+export let alert = new customAlert();
+
 export function removeSelected() {
-    var selected = document.getElementById('selected');
-    var a = selected.parentNode;
-    var td = a.parentNode;
-    var localitems = td.getElementsByClassName('item');
-    var condition = document.getElementById('condition');
-    var index = parseInt(a.id.replace('sI(', '').replace(')', ''));
+    let selected = document.getElementById('selected');
+    let a = selected.parentNode;
+    let td = a.parentNode;
+    let localitems = td.getElementsByClassName('item');
+    let condition = document.getElementById('condition');
+    let index = parseInt(a.id.replace('sI(', '').replace(')', ''));
 
     if (localitems.length > 1) {
         // load = true;
         document.getElementById('selected').parentNode.parentNode.removeChild(document.getElementById('selected').parentNode);
         localitems[0].id = 'selected';
 
-        for (var i = index; i < document.querySelectorAll('.item').length; i++) {
+        for (let i = index; i < document.querySelectorAll('.item').length; i++) {
             (function () {
-                var iCopy = i;
-                var el = document.getElementsByClassName('item')[i].parentNode, elClone = el.cloneNode(true);
+                let iCopy = i;
+                let el = document.getElementsByClassName('item')[i].parentNode, elClone = el.cloneNode(true);
 
                 el.parentNode.replaceChild(elClone, el);
                 elClone.id = 'sI(' + i + ')'; //ID aufrücken

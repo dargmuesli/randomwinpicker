@@ -1,19 +1,19 @@
-import { customAlert } from './alert.js';
+import { alert } from './alert.js';
 import { assignSouvenir, assignStatTrak } from './filetree.js';
 import { changeLanguage } from './language.js';
 import { htmlspecialchars_decode } from './phpin.js';
 import { i18n } from './language.js';
 
 // Save the amount of tablerows
-var count;
-var editing = false;
-var resetting = false;
-var load = false;
+let count;
+let editing = false;
+let resetting = false;
+let load = false;
 
-var type = window.location.href.substring(0, window.location.href.length - 1);
+let type = window.location.href.substring(0, window.location.href.length - 1);
 type = type.substr(type.lastIndexOf('/') + 1);
 
-var xhr = new XMLHttpRequest();
+let xhr = new XMLHttpRequest();
 
 xhr.open('GET', '/resources/dargmuesli/table.php?type=' + type, true);
 xhr.onreadystatechange = function () {
@@ -25,9 +25,9 @@ xhr.send();
 
 
 export function sendRow(tableInputCount, uniques, type) {
-    var tableInputs = new Object();
+    let tableInputs = new Object();
 
-    for (var i = 0; i < tableInputCount; i++) {
+    for (let i = 0; i < tableInputCount; i++) {
         tableInputs['tableInput' + i] = document.getElementById('tableInput' + i).value;
     }
 
@@ -36,16 +36,16 @@ export function sendRow(tableInputCount, uniques, type) {
 
 export function addRow(tbody, data, uniques, tableInputs, type) {
     if ((tableInputs['tableInput0'] != '') && ((/^\d+$/.test(tableInputs['tableInput0'])) || (/^\d+$/.test(tableInputs['tableInput1'])))) { //Wenn Text und Nummer valide sind
-        var alreadyExisting = false;
-        var error;
-        var value;
+        let alreadyExisting = false;
+        let error;
+        let value;
 
         if (count == 0) { //Wenn keine Daten
             document.getElementById('tr0').remove(); //Platzhalter entfernen
         } else { //Wenn Daten vorhanden
             outer:
-            for (var i = 0; i < count; i++) {//Zeilen durchlaufen
-                for (var j = uniques[0]; j < Object.keys(tableInputs).length; j += uniques[j + 1] - uniques[j]) { //Spalten durchlaufen
+            for (let i = 0; i < count; i++) {//Zeilen durchlaufen
+                for (let j = uniques[0]; j < Object.keys(tableInputs).length; j += uniques[j + 1] - uniques[j]) { //Spalten durchlaufen
                     if (htmlspecialchars_decode(tableInputs['tableInput' + j]) == htmlspecialchars_decode(data[i * Object.keys(tableInputs).length + j].innerHTML)) {
                         //.replace(/(\r\n|\n|\r)/gm, ' ').replace(/\s+/g, ' ').trim()
                         alreadyExisting = true; //Vorkommnis merken
@@ -60,8 +60,8 @@ export function addRow(tbody, data, uniques, tableInputs, type) {
         if (alreadyExisting == false) { //Bei keinen Duplikaten
             count++; //Zähler erhöhen
 
-            var newElement = '';
-            // var oldElement = '';
+            let newElement = '';
+            // let oldElement = '';
 
             newElement += '<td class="data">';
             newElement += tableInputs['tableInput0'];
@@ -110,24 +110,24 @@ export function addRow(tbody, data, uniques, tableInputs, type) {
             newElement += '<td class="down">';
             newElement += '</td>';
 
-            var tr = document.createElement('tr');
+            let tr = document.createElement('tr');
             tr.id = 'tr' + count;
             tr.innerHTML = newElement;
             tbody.appendChild(tr); //Neues Element erstellen
 
             // Make links clickable
             (function () {
-                var tmp = count;
+                let tmp = count;
                 document.getElementById('rR(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { removeRow(tmp, Object.keys(tableInputs).length, type); }); //parseInt(this.id.substring(3, this.id.length - 7 - Object.keys(tableInputs).length.toString().length - type.length))
             }());
 
             if (count != 1) { //Wenn nicht erstes Element
                 (function () {
-                    var tmp = count;
+                    let tmp = count;
                     document.getElementById('mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { moveRowUp(tmp, Object.keys(tableInputs).length, type); });
                 }());
 
-                var button = document.createElement('button');
+                let button = document.createElement('button');
                 button.setAttribute('class', 'link');
                 button.setAttribute('title', 'Down');
                 button.setAttribute('id', 'mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')');
@@ -136,14 +136,14 @@ export function addRow(tbody, data, uniques, tableInputs, type) {
 
                 //document.getElementsByClassName('down')[count - 2].innerHTML += oldElement; //Vorherigem Element Steuerelement hinzufügen
                 (function () {
-                    var tmp = count;
+                    let tmp = count;
                     document.getElementById('mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { moveRowDown((tmp - 1), Object.keys(tableInputs).length, type); });
                 }());
             }
 
             if (checkAbsolute()) { //Bei generischer Tabelle
                 (function () {
-                    var tmp = document.getElementsByClassName('item').length - 1;
+                    let tmp = document.getElementsByClassName('item').length - 1;
                     document.getElementById('sI(' + tmp + ')').addEventListener('click', function () { selectItem(tmp); });
                 }());
                 document.getElementById('tableInput0').value = parseInt(document.getElementById('tableInput0').value) + 1; //Nummer erhöhen
@@ -168,7 +168,7 @@ export function addRow(tbody, data, uniques, tableInputs, type) {
 }
 
 export function removeRow(ID, tableInputs, type) {
-    var tbody = document.getElementsByTagName('tbody')[0];
+    let tbody = document.getElementsByTagName('tbody')[0];
 
     if (count > 1) { //Wenn mehr als ein Element
         if (ID == count) { //Wenn letztes Element
@@ -178,18 +178,18 @@ export function removeRow(ID, tableInputs, type) {
                 document.getElementsByClassName('up')[ID].innerHTML = ''; //Nächstes Up entfernen
             }
 
-            for (var j = ID + 1; j <= count; j++) { //Restliche Elemente durchlaufen
+            for (let j = ID + 1; j <= count; j++) { //Restliche Elemente durchlaufen
                 (function () {
-                    var jCopy = j;
-                    var currentElement = document.getElementById('tr' + jCopy);
-                    var el2 = getChildNode(getChildNode(currentElement, 2), 0), el2Clone = el2.cloneNode(true);
+                    let jCopy = j;
+                    let currentElement = document.getElementById('tr' + jCopy);
+                    let el2 = getChildNode(getChildNode(currentElement, 2), 0), el2Clone = el2.cloneNode(true);
 
                     el2.parentNode.replaceChild(el2Clone, el2);
                     el2Clone.id = 'rR(' + (jCopy - 1) + ', ' + tableInputs + ', \'' + type + '\')'; //ID aufrücken
                     el2Clone.addEventListener('click', function () { removeRow((jCopy - 1), tableInputs, type); }); //Eventlistener aufrücken
 
                     if (jCopy != 2) { //Wenn nicht zweites Element
-                        var el3 = getChildNode(getChildNode(currentElement, 3), 0), el3Clone = el3.cloneNode(true);
+                        let el3 = getChildNode(getChildNode(currentElement, 3), 0), el3Clone = el3.cloneNode(true);
 
                         el3.parentNode.replaceChild(el3Clone, el3);
                         el3Clone.id = 'mRU(' + (jCopy - 1) + ', ' + tableInputs + ', \'' + type + '\')'; //ID aufrücken
@@ -197,7 +197,7 @@ export function removeRow(ID, tableInputs, type) {
                     }
 
                     if (jCopy != count) { //Wenn nicht letztes Element
-                        var el4 = getChildNode(getChildNode(currentElement, 4), 0), el4Clone = el4.cloneNode(true);
+                        let el4 = getChildNode(getChildNode(currentElement, 4), 0), el4Clone = el4.cloneNode(true);
 
                         el4.parentNode.replaceChild(el4Clone, el4);
                         el4Clone.id = 'mRD(' + (jCopy - 1) + ', ' + tableInputs + ', \'' + type + '\')'; //ID aufrücken
@@ -219,12 +219,12 @@ export function removeRow(ID, tableInputs, type) {
     document.getElementById('tr' + ID).remove(); //Selbes Element entfernen
 
     if (checkAbsolute()) { //Bei generischer Tabelle
-        var items = document.getElementsByClassName('item');
+        let items = document.getElementsByClassName('item');
 
-        for (var i = 0; i < document.querySelectorAll('.item').length; i++) {
+        for (let i = 0; i < document.querySelectorAll('.item').length; i++) {
             (function () {
-                var iCopy = i;
-                var el = items[i].parentNode, elClone = el.cloneNode(true);
+                let iCopy = i;
+                let el = items[i].parentNode, elClone = el.cloneNode(true);
 
                 el.parentNode.replaceChild(elClone, el);
                 elClone.id = 'sI(' + i + ')'; //ID aufrücken
@@ -233,7 +233,7 @@ export function removeRow(ID, tableInputs, type) {
         }
 
         if (document.querySelectorAll('.item').length > 0) {
-            var selected = document.getElementById('selected');
+            let selected = document.getElementById('selected');
 
             if (selected != null) {
                 selected.id = '';
@@ -273,11 +273,11 @@ export function reset(tableInputs, type) {
 }
 
 export function moveRowDown(ID, tableInputs, type) {
-    var uppertableInput1, lowertableInput1;
+    let uppertableInput1, lowertableInput1;
 
     if (!checkAbsolute()) { //Bei nicht generischer Tabelle
-        var uppertableInput0 = getChildNode(document.getElementById('tr' + ID), 0).innerHTML;
-        var lowertableInput0 = getChildNode(document.getElementById('tr' + (ID + 1)), 0).innerHTML;
+        let uppertableInput0 = getChildNode(document.getElementById('tr' + ID), 0).innerHTML;
+        let lowertableInput0 = getChildNode(document.getElementById('tr' + (ID + 1)), 0).innerHTML;
 
         uppertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + ID), 1), 0).textContent;
         lowertableInput1 = getChildNode(getChildNode(document.getElementById('tr' + (ID + 1)), 1), 0).textContent;
@@ -299,7 +299,7 @@ export function moveRowDown(ID, tableInputs, type) {
 }
 
 export function moveRowUp(ID, tableInputs, type) {
-    var uppertableInput0, lowertableInput0, uppertableInput1, lowertableInput1;
+    let uppertableInput0, lowertableInput0, uppertableInput1, lowertableInput1;
 
     if (!checkAbsolute()) { //Bei nicht generischer Tabelle
         uppertableInput0 = getChildNode(document.getElementById('tr' + (ID - 1)), 0).innerHTML;
@@ -325,7 +325,7 @@ export function moveRowUp(ID, tableInputs, type) {
 }
 
 export function saveTableCreate(columnCount, type, object) {
-    var main = document.getElementsByTagName('main')[0];
+    let main = document.getElementsByTagName('main')[0];
 
     main.style.cursor = 'progress';
     object.style.opacity = '0.1';
@@ -334,12 +334,14 @@ export function saveTableCreate(columnCount, type, object) {
 }
 
 export function saveTableSend(columnCount, type, object, main) {
-    var content = [];
+    let content = [];
 
-    for (var i = 1; i <= count; i++) { //Zeilen durchlaufen
+    for (let i = 1; i <= count; i++) { //Zeilen durchlaufen
         content[i - 1] = new Object(); //Neues Objekt anlegen
 
-        for (var j = 0; j < columnCount; j++) { //Eigenschaften durchlaufen
+        let j;
+
+        for (j = 0; j < columnCount; j++) { //Eigenschaften durchlaufen
             content[i - 1]['column' + j] = getChildNode(document.getElementById('tr' + i), j).innerHTML.trim(); //Wert kopieren
         }
 
@@ -352,12 +354,12 @@ export function saveTableSend(columnCount, type, object, main) {
 
     content = encodeURIComponent(JSON.stringify(content)); //.replace('/&/g', '%26');
 
-    var xmlhttp = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
 
-    xmlhttp.open('POST', '/resources/dargmuesli/save.php', true);
-    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4) {
+    xhr.open('POST', '/resources/dargmuesli/save.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
             // if (languageChanging) {
             //     languageChanging = false;
 
@@ -365,7 +367,7 @@ export function saveTableSend(columnCount, type, object, main) {
             //     // changeLanguage('de');
             // }
 
-            if (xmlhttp.responseText == 'NULL\n' && resetting == false) {
+            if (xhr.responseText == 'NULL\n' && resetting == false) {
                 changeLanguage('de');
                 alert(i18n.t('functions:table.save.error'));
             }
@@ -376,16 +378,16 @@ export function saveTableSend(columnCount, type, object, main) {
             object.style.opacity = '1';
         }
     };
-    xmlhttp.send('content=' + content + '&type=' + type);
+    xhr.send('content=' + content + '&type=' + type);
 }
 
 export function selectItem(index) {
-    var selected = document.getElementById('selected');
+    let selected = document.getElementById('selected');
 
     if ((load == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
-        var file = selected.firstChild.className.substring(4);
+        let file = selected.firstChild.className.substring(4);
 
-        customAlert.render(i18n.t('functions:table.select.title'), i18n.t('functions:table.select.question'), file, 'delete');
+        alert.render(i18n.t('functions:table.select.title'), i18n.t('functions:table.select.question'), file, 'delete');
     } else {
         load = false;
 
@@ -393,10 +395,10 @@ export function selectItem(index) {
         document.getElementsByTagName('figure')[index].setAttribute('id', 'selected'); //Auswählen
         selected = document.getElementById('selected'); //Variable akualisieren
 
-        var span1 = selected.getElementsByTagName('span')[0];
-        var span2 = selected.getElementsByTagName('span')[1];
-        var condition = document.getElementById('condition');
-        var type = document.getElementById('chkType');
+        let span1 = selected.getElementsByTagName('span')[0];
+        let span2 = selected.getElementsByTagName('span')[1];
+        let condition = document.getElementById('condition');
+        let type = document.getElementById('chkType');
 
         if (type != null) {
             if (selected.innerHTML == '<img>---<br><figcaption><span></span><span></span></figcaption>') {
@@ -407,9 +409,9 @@ export function selectItem(index) {
             } else {
                 condition.disabled = false;
 
-                var notes = '';
+                let notes = '';
 
-                for (var i = 0; i < selected.childNodes[1].childNodes.length; i++) {
+                for (let i = 0; i < selected.childNodes[1].childNodes.length; i++) {
                     if (selected.childNodes[1].childNodes[i].className == 'Normal' || selected.childNodes[1].childNodes[i].className == 'StatTrak' || selected.childNodes[1].childNodes[i].className == 'Souvenir') {
                         notes = selected.childNodes[1].childNodes[i];
                         break;
@@ -478,7 +480,7 @@ export function checkAbsolute() {
 }
 
 export function getFirstChild(el) {
-    var firstChild = el.firstChild;
+    let firstChild = el.firstChild;
 
     while (firstChild != null && firstChild.nodeType == 3) {
         firstChild = firstChild.nextSibling;
@@ -488,7 +490,7 @@ export function getFirstChild(el) {
 }
 
 export function getLastChild(el) {
-    var lastChild = el.lastChild;
+    let lastChild = el.lastChild;
 
     while (lastChild != null && lastChild.nodeType == 3) {
         lastChild = lastChild.previousSibling;
@@ -498,8 +500,8 @@ export function getLastChild(el) {
 }
 
 export function getChildNode(el, i) {
-    var j = 0;
-    var childNode = el.childNodes[j];
+    let j = 0;
+    let childNode = el.childNodes[j];
 
     while (j <= i) {
         while (childNode != null && childNode.nodeType == 3 && !isNumeric(childNode.textContent)) {
