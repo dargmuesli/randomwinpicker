@@ -5,8 +5,7 @@ env:
   node: true
 extends: 'eslint:recommended'
 globals:
-  i18next: false
-  Papa: false
+  Dargmuesli: false
 parserOptions:
   sourceType: module
 rules:
