@@ -1,2 +1,8 @@
 <?php
-    $tableWhitelist = [];
+    $tableWhitelist = [
+        'accounts' => [
+            'id',
+            'mail',
+            'prices'
+        ]
+    ];

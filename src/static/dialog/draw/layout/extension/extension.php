@@ -46,6 +46,9 @@
         $quantity = $_SESSION['quantity'];
     }
 
+    // Initialize the required table
+    init_table($dbh, 'accounts');
+
     $stmt = $dbh->prepare('SELECT prices FROM accounts WHERE mail = :email');
     $stmt->bindParam(':email', $email);
 
