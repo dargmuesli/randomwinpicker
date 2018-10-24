@@ -4,6 +4,9 @@ let index = 0;
 let items, participants, prices, round; //<? php echo $quantity $items $participants ?>;
 let winners = {};
 
+let documentLoaded = false;
+let extensionXhrReturned = false;
+
 let xhr = new XMLHttpRequest();
 
 xhr.open('GET', 'layout/extension/extension.php', true);
@@ -15,6 +18,10 @@ xhr.onreadystatechange = function () {
         participants = json.participants;
         prices = json.prices;
         round = json.quantity;
+
+        extensionXhrReturned = true;
+
+        getRandom();
     }
 };
 xhr.send();
@@ -196,8 +203,18 @@ function getAllIndexes(arr, val) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    documentLoaded = true;
+
+    getRandom();
+
     document.getElementById('letsgo').addEventListener('click', function () { draw(); });
     document.getElementById('reveal').addEventListener('click', function () { draw(); });
+});
+
+function getRandom() {
+    if (!documentLoaded || !extensionXhrReturned) {
+        return;
+    }
 
     let xhr = new XMLHttpRequest();
 
@@ -251,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
     xhr.send();
-});
+}
 
 function ordinal_suffix_of(i) {
     let j = i % 10,
