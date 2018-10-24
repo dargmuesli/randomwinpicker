@@ -56,6 +56,8 @@ let buildInProgress = false;
 gGulp.src = gVfs.src;
 gGulp.dest = gVfs.dest;
 
+let sitemapExcludes = [];
+
 let symlinkArray = [
     {
         source: 'dist/randomwinpicker.de/server/layout/data/filetree/categories/en/CS_GO/Heavy',
@@ -98,12 +100,40 @@ let yarnArray = [
     }
 ];
 
-function distClean() {
-    // Delete all files from dist folder
-    return gDel([distFolder + '**', '!' + distFolder.replace(/\/$/, ''), path.dirname(distFolder) + '/' + pkg.name + '.zip']);
+function composerClean() {
+    // Delete all files from composer package resources dist folder
+    return gDel(distServResPackCompFolder + '*');
 }
 
-exports.distClean = distClean;
+exports.composerClean = composerClean;
+
+function composerSrc() {
+    // Copy all composer libraries to composer package resources dist folder
+    return gGulp.src(vendorGlob)
+        .pipe(gGulp.dest(distServResPackCompFolder));
+}
+
+exports.composerSrc = composerSrc;
+
+function composerUpdate() {
+    // Update composer
+    return gComposer('update', {
+        'async': false
+    });
+}
+
+exports.composerUpdate = composerUpdate;
+
+function composerWatch() {
+    // Watch for any changes in composer files to copy changes
+    gGulp.watch([vendorGlob, 'composer.json'])
+        .on('all', function () {
+            composerUpdate();
+            composerSrc();
+        });
+}
+
+exports.composerWatch = composerWatch;
 
 function credentials() {
     // Copy credentials to dist folder
@@ -124,180 +154,6 @@ function credentialsWatch() {
 }
 
 exports.credentialsWatch = credentialsWatch;
-
-function staticSrc() {
-    // Copy static files to dist folder
-    buildInProgress = true;
-
-    return new Promise(function (resolve, reject) {
-        gGulp.src(srcStaticGlob, { dot: true })
-            .pipe(gCached('staticSrc'))
-            .on('error', reject)
-            .pipe(gGulp.dest(distServFolder))
-            .on('end', resolve);
-    }).then(function () {
-        buildInProgress = false;
-    });
-}
-
-exports.staticSrc = staticSrc;
-
-function staticSrcWatch() {
-    // Watch for any changes in source files to copy changes
-    gGulp.watch(srcStaticGlob)
-        .on('all', function () {
-            staticSrc();
-        });
-}
-
-exports.staticSrcWatch = staticSrcWatch;
-
-function getChangeFreq(lastModification) {
-    let interval = new gDateDiff(new Date(), new Date(lastModification));
-
-    if (interval.years() < 5) {
-        if (interval.years() < 1) {
-            if (interval.months() < 1) {
-                if (interval.days() < 7) {
-                    if (interval.days() < 1) {
-                        return 'hourly';
-                    } else {
-                        return 'daily';
-                    }
-                } else {
-                    return 'weekly';
-                }
-            } else {
-                return 'monthly';
-            }
-        } else {
-            return 'yearly';
-        }
-    } else {
-        return 'never';
-    }
-}
-
-function sitemap() {
-    let sitemapPath = path.resolve(distServFolder + 'sitemap/sitemap.xml');
-    let targetPath = __dirname + '/' + srcStaticFolder;
-
-    path.dirname(sitemapPath)
-        .split(path.sep)
-        .reduce((currentPath, folder) => {
-            currentPath += folder + path.sep;
-
-            if (!fs.existsSync(currentPath)) {
-                fs.mkdirSync(currentPath);
-            }
-
-            return currentPath;
-        }, '');
-
-
-    fs.writeFile(sitemapPath, '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', (error) => { if (error) throw error; });
-
-    return gGulp.src(srcStaticFolder + '**/index.php')
-        .pipe(
-            gThrough.obj(function (file, enc, cb) {
-                if (!fs.existsSync(file.dirname + '/.hidden') && file.dirname.indexOf('migrations') == -1) {
-                    exec('git log -1 --format="%aI" -- ' + file.path, function (exec_error, stdout) {
-                        let loc = file.dirname.replace(path.resolve(targetPath), 'https://' + pkg.name).replace(/\\/g, '/').replace();
-                        let priority = (Math.round((1 - ((loc.match(/\//g) || []).length - 2) * 0.1) * 10) / 10).toFixed(1);
-                        let url = `
-    <url>
-        <loc>${loc}/</loc>
-        <lastmod>${stdout.trim()}</lastmod>
-        <changefreq>${getChangeFreq(stdout.trim())}</changefreq>
-        <priority>${priority > 0 ? priority : 0}</priority>
-    </url>`;
-
-                        fs.appendFile(sitemapPath, url, (error) => { if (error) throw error; cb(); });
-
-                        if (exec_error) {
-                            console.error(`exec error: ${exec_error}`);
-                            return;
-                        }
-                    });
-                } else {
-                    cb();
-                }
-
-                this.push(file);
-            })
-        )
-        .on('end', function () { fs.appendFile(sitemapPath, '\n</urlset>', (error) => { if (error) throw error; }); });
-}
-
-exports.sitemap = sitemap;
-
-function phpLint() {
-    return gGulp.src(srcFolder + '**/*.php')
-        // Lint and suppress output of valid files
-        .pipe(gPhplint('', { skipPassedFiles: true }))
-        // Fail on error
-        .pipe(gPhplint.reporter(function (file) {
-            let report = file.phplintReport || {};
-
-            if (report.error) {
-                throw new gPluginError('gulp-eslint', {
-                    plugin: 'PHPLintError',
-                    message: report.message + ' on line ' + report.line + ' of ' + report.filename
-                });
-            }
-        }));
-}
-
-exports.phpLint = phpLint;
-
-function jsLint() {
-    return gGulp.src(srcJsFolder + '**/*.js')
-        // Lint JavaScript
-        .pipe(gEslint())
-        // Output to console
-        .pipe(gEslint.format())
-        // Fail on error
-        .pipe(gEslint.failAfterError());
-}
-
-exports.jsLint = jsLint;
-
-function jsSrc() {
-    return gGulp.src(srcJsFolder + 'functions.js', { allowEmpty: true, read: false })
-        .pipe(gTap(function (file) {
-            file.contents = gBrowserify(file.path, { debug: true, standalone: 'Dargmuesli' }).transform('babelify', { presets: ['@babel/preset-env'] }).bundle();
-        }))
-        .pipe(gBuffer())
-        .pipe(gGulp.dest(distServResDargBaseFolder))
-        .pipe(gRename({
-            extname: '.min.js'
-        }))
-        .pipe(gBabelMinify())
-        .pipe(gGulp.dest(distServResDargBaseFolder));
-}
-
-exports.jsSrc = jsSrc;
-
-function jsSrcWatch() {
-    // Watch for any changes in source files to copy changes
-    gGulp.watch(srcJsFolder)
-        .on('all', function () {
-            jsSrc();
-        });
-}
-
-exports.jsSrcWatch = jsSrcWatch;
-
-function jsDoc() {
-    return gGulp.src(srcJsFolder + '**/*.js')
-        .pipe(gJsdoc2md())
-        .pipe(gRename(function (path) {
-            path.extname = '.md'
-        }))
-        .pipe(gGulp.dest('docs/js/'));
-}
-
-exports.jsDoc = jsDoc;
 
 function cssCompressed() {
     return gGulp.src(srcCssSassStyle + 'style.scss', { allowEmpty: true })
@@ -339,48 +195,209 @@ function cssSrcWatch() {
 
 exports.cssSrcWatch = cssSrcWatch;
 
-function composerUpdate() {
-    // Update composer
-    return gComposer('update', {
-        'async': false
-    });
+function distClean() {
+    // Delete all files from dist folder
+    return gDel([distFolder + '**', '!' + distFolder.replace(/\/$/, ''), path.dirname(distFolder) + '/' + pkg.name + '.zip']);
 }
 
-exports.composerUpdate = composerUpdate;
+exports.distClean = distClean;
 
-function composerClean() {
-    // Delete all files from composer package resources dist folder
-    return gDel(distServResPackCompFolder + '*');
+function getChangeFreq(lastModification) {
+    let interval = new gDateDiff(new Date(), new Date(lastModification));
+
+    if (interval.years() < 5) {
+        if (interval.years() < 1) {
+            if (interval.months() < 1) {
+                if (interval.days() < 7) {
+                    if (interval.days() < 1) {
+                        return 'hourly';
+                    } else {
+                        return 'daily';
+                    }
+                } else {
+                    return 'weekly';
+                }
+            } else {
+                return 'monthly';
+            }
+        } else {
+            return 'yearly';
+        }
+    } else {
+        return 'never';
+    }
 }
 
-exports.composerClean = composerClean;
-
-function composerSrc() {
-    // Copy all composer libraries to composer package resources dist folder
-    return gGulp.src(vendorGlob)
-        .pipe(gGulp.dest(distServResPackCompFolder));
+function jsDoc() {
+    return gGulp.src(srcJsFolder + '**/*.js')
+        .pipe(gJsdoc2md())
+        .pipe(gRename(function (path) {
+            path.extname = '.md'
+        }))
+        .pipe(gGulp.dest('docs/js/'));
 }
 
-exports.composerSrc = composerSrc;
+exports.jsDoc = jsDoc;
 
-function composerWatch() {
-    // Watch for any changes in composer files to copy changes
-    gGulp.watch([vendorGlob, 'composer.json'])
+function jsLint() {
+    return gGulp.src(srcJsFolder + '**/*.js')
+        // Lint JavaScript
+        .pipe(gEslint())
+        // Output to console
+        .pipe(gEslint.format())
+        // Fail on error
+        .pipe(gEslint.failAfterError());
+}
+
+exports.jsLint = jsLint;
+
+function jsSrc() {
+    return gGulp.src(srcJsFolder + 'functions.js', { allowEmpty: true, read: false })
+        .pipe(gTap(function (file) {
+            file.contents = gBrowserify(file.path, { debug: true, standalone: 'Dargmuesli' }).transform('babelify', { presets: ['@babel/preset-env'] }).bundle();
+        }))
+        .pipe(gBuffer())
+        .pipe(gGulp.dest(distServResDargBaseFolder))
+        .pipe(gRename({
+            extname: '.min.js'
+        }))
+        .pipe(gBabelMinify())
+        .pipe(gGulp.dest(distServResDargBaseFolder));
+}
+
+exports.jsSrc = jsSrc;
+
+function jsSrcWatch() {
+    // Watch for any changes in source files to copy changes
+    gGulp.watch(srcJsFolder)
         .on('all', function () {
-            composerUpdate();
-            composerSrc();
+            jsSrc();
         });
 }
 
-exports.composerWatch = composerWatch;
+exports.jsSrcWatch = jsSrcWatch;
 
-function yarnUpdate() {
-    // Update package dependencies
-    return gGulp.src('package.json')
-        .pipe(gYarn({ args: '--no-cache --frozen-lockfile' }));
+function phpLint() {
+    return gGulp.src(srcFolder + '**/*.php')
+        // Lint and suppress output of valid files
+        .pipe(gPhplint('', { skipPassedFiles: true }))
+        // Fail on error
+        .pipe(gPhplint.reporter(function (file) {
+            let report = file.phplintReport || {};
+
+            if (report.error) {
+                throw new gPluginError('gulp-eslint', {
+                    plugin: 'PHPLintError',
+                    message: report.message + ' on line ' + report.line + ' of ' + report.filename
+                });
+            }
+        }));
 }
 
-exports.yarnUpdate = yarnUpdate;
+exports.phpLint = phpLint;
+
+function sitemap() {
+    let sitemapPath = path.resolve(distServFolder + 'sitemap/sitemap.xml');
+    let targetPath = __dirname + '/' + srcStaticFolder;
+
+    path.dirname(sitemapPath)
+        .split(path.sep)
+        .reduce((currentPath, folder) => {
+            currentPath += folder + path.sep;
+
+            if (!fs.existsSync(currentPath)) {
+                fs.mkdirSync(currentPath);
+            }
+
+            return currentPath;
+        }, '');
+
+
+    fs.writeFile(sitemapPath, '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', (error) => { if (error) throw error; });
+
+    return gGulp.src([srcStaticFolder + '**/index.php'].concat(sitemapExcludes))
+        .pipe(
+            gThrough.obj(function (file, enc, cb) {
+                if (!fs.existsSync(file.dirname + '/.hidden') && file.dirname.indexOf('migrations') == -1) {
+                    exec('git log -1 --format="%aI" -- ' + file.path, function (exec_error, stdout) {
+                        let loc = file.dirname.replace(path.resolve(targetPath), 'https://' + pkg.name).replace(/\\/g, '/').replace();
+                        let priority = (Math.round((1 - ((loc.match(/\//g) || []).length - 2) * 0.1) * 10) / 10).toFixed(1);
+                        let url = `
+    <url>
+        <loc>${loc}/</loc>
+        <lastmod>${stdout.trim()}</lastmod>
+        <changefreq>${getChangeFreq(stdout.trim())}</changefreq>
+        <priority>${priority > 0 ? priority : 0}</priority>
+    </url>`;
+
+                        fs.appendFile(sitemapPath, url, (error) => { if (error) throw error; cb(); });
+
+                        if (exec_error) {
+                            console.error(`exec error: ${exec_error}`);
+                            return;
+                        }
+                    });
+                } else {
+                    cb();
+                }
+
+                this.push(file);
+            })
+        )
+        .on('end', function () { fs.appendFile(sitemapPath, '\n</urlset>', (error) => { if (error) throw error; }); });
+}
+
+exports.sitemap = sitemap;
+
+function staticSrc() {
+    // Copy static files to dist folder
+    buildInProgress = true;
+
+    return new Promise(function (resolve, reject) {
+        gGulp.src(srcStaticGlob, { dot: true })
+            .pipe(gCached('staticSrc'))
+            .on('error', reject)
+            .pipe(gGulp.dest(distServFolder))
+            .on('end', resolve);
+    }).then(function () {
+        buildInProgress = false;
+    });
+}
+
+exports.staticSrc = staticSrc;
+
+function staticSrcWatch() {
+    // Watch for any changes in source files to copy changes
+    gGulp.watch(srcStaticGlob)
+        .on('all', function () {
+            staticSrc();
+        });
+}
+
+exports.staticSrcWatch = staticSrcWatch;
+
+function symlinks(callback) {
+    // Create all necessary symlinks
+    // "gulp-symlink" is still required as Gulp's/Vinyl-fs's symlink function is incapable of changing the symlink's name
+    const streamArray = [];
+
+    if (typeof symlinkArray !== 'undefined' && symlinkArray) {
+        symlinkArray.forEach(element => {
+            streamArray.push(
+                gGulp.src(element.source)
+                    .pipe(gSymlink(element.target))
+            );
+        });
+    }
+
+    if (streamArray.length != 0) {
+        return gMergeStream(streamArray);
+    } else {
+        return callback();
+    }
+}
+
+exports.symlinks = symlinks;
 
 function yarnClean() {
     // Delete all files from yarn package resources dist folder
@@ -411,6 +428,14 @@ function yarnSrc(callback) {
 
 exports.yarnSrc = yarnSrc;
 
+function yarnUpdate() {
+    // Update package dependencies
+    return gGulp.src('package.json')
+        .pipe(gYarn({ args: '--no-cache --frozen-lockfile' }));
+}
+
+exports.yarnUpdate = yarnUpdate;
+
 function yarnWatch() {
     // Watch for any changes in yarn files to copy changes
     gGulp.watch(['package.json'])
@@ -421,29 +446,6 @@ function yarnWatch() {
 }
 
 exports.yarnWatch = yarnWatch;
-
-function symlinks(callback) {
-    // Create all necessary symlinks
-    // "gulp-symlink" is still required as Gulp's/Vinyl-fs's symlink function is incapable of changing the symlink's name
-    const streamArray = [];
-
-    if (typeof symlinkArray !== 'undefined' && symlinkArray) {
-        symlinkArray.forEach(element => {
-            streamArray.push(
-                gGulp.src(element.source)
-                    .pipe(gSymlink(element.target))
-            );
-        });
-    }
-
-    if (streamArray.length != 0) {
-        return gMergeStream(streamArray);
-    } else {
-        return callback();
-    }
-}
-
-exports.symlinks = symlinks;
 
 function zip() {
     // Build a zip file containing the dist folder
