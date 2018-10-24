@@ -1,5 +1,3 @@
-let count = 0;
-
 function importSession() {
     let xhr = new XMLHttpRequest();
 
@@ -23,7 +21,7 @@ function testGo() {
     }
 
     if (proceed) {
-        window.location = 'layout/extension/extension.php?quantity=' + count;
+        window.location = 'layout/extension/extension.php?quantity=' + Dargmuesli.Table.count;
     } else {
         alert(Dargmuesli.Language.i18n.t('functions:extension.items.warning'));
     }
@@ -56,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     Dargmuesli.Table.tableLoading = true;
 
-    document.getElementById('tableInput0').value = count + 1;
+    document.getElementById('tableInput0').value = Dargmuesli.Table.count + 1;
     document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">';
 
     Dargmuesli.Table.selectItem(document.querySelectorAll('.item').length - 1);

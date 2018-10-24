@@ -5,7 +5,7 @@ import { htmlspecialchars_decode } from './phpin';
 import { i18n } from './language';
 
 // Save the amount of tablerows
-let count;
+export let count;
 let editing = false;
 let resetting = false;
 export let tableLoading = false;
