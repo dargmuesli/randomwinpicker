@@ -74,6 +74,8 @@
             </div>
             <div id="content" class="data">
             </div>
+            <p id="percentageleft" class="seethrough">
+            </p>
         </main>'.get_footer();
 
     output_html($skeletonTitle, $skeletonDescription, $skeletonContent, $skeletonFeatures, $skeletonKeywords);

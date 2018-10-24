@@ -330,7 +330,8 @@ export function saveTableCreate(columnCount, type, object) {
     main.style.cursor = 'progress';
     object.style.opacity = '0.1';
 
-    saveTableSend(columnCount, type, object, main); //setTimeout(function() {saveTableSend(columnCount, type, object, main)}, 10);
+    // Workaround for CSV uploads
+    setTimeout(function () { saveTableSend(columnCount, type, object, main); }, 10);
 }
 
 export function saveTableSend(columnCount, type, object, main) {
