@@ -18,7 +18,7 @@ let xhr = new XMLHttpRequest();
 xhr.open('GET', '/resources/dargmuesli/table.php?type=' + type, true);
 xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
-        count = xhr.responseText;
+        count = parseInt(xhr.responseText);
     }
 };
 xhr.send();

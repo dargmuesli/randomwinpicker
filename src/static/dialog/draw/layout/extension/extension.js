@@ -1,7 +1,7 @@
 // window.location = '/dialog/items/';
 
 let index = 0;
-let items, participants, prices, round; //<? php echo $quantity $items $participants ?>;
+let items, participants, prices, round;
 let winners = {};
 
 let documentLoaded = false;
@@ -17,7 +17,7 @@ xhr.onreadystatechange = function () {
         items = json.items;
         participants = json.participants;
         prices = json.prices;
-        round = json.quantity;
+        round = parseInt(json.quantity);
 
         extensionXhrReturned = true;
 

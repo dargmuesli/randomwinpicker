@@ -1,18 +1,25 @@
 // Make links clickable
 document.addEventListener('DOMContentLoaded', function () {
     let spoiler = document.getElementById('spoiler');
+
     if (spoiler != null) {
         spoiler.addEventListener('click', function () { Dargmuesli.Spoiler.showSpoiler(); });
     }
+
     let add = document.getElementById('add');
+
     if (add != null) {
         add.addEventListener('click', function () { Dargmuesli.Table.sendRow(2, [0], 'participants'); });
     }
+
     let resetElement = document.getElementById('reset');
+
     if (resetElement != null) {
         resetElement.addEventListener('click', function () { Dargmuesli.Table.reset(2, 'participants'); });
     }
+
     let csvClick = document.getElementById('csvClick');
+
     if (csvClick != null) {
         csvClick.addEventListener('click', function () { document.getElementById('csv-file').click(); });
     }

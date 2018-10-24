@@ -40,16 +40,6 @@
         $_SESSION['error'] = translate('scripts.draw.error');
     }
 
-    // Process the data after comparing the array sizes
-
-    if (is_array($participants)) {
-        $participants = htmlspecialchars_decode(json_encode($participants), ENT_NOQUOTES);
-    }
-
-    if (is_array($items)) {
-        $items = htmlspecialchars_decode(json_encode($items), ENT_NOQUOTES);
-    }
-
     $quantity = -1;
 
     if (isset($_SESSION['quantity'])) {
@@ -66,9 +56,9 @@
     $pricesQuery = $stmt->fetch()[0];
     $prices = $pricesQuery[0][0];
 
-    echo json_encode([
+    echo htmlspecialchars_decode(json_encode([
         'items' => $items,
         'participants' => $participants,
         'prices' => $prices,
         'quantity' => $quantity
-    ]);
+    ]));
