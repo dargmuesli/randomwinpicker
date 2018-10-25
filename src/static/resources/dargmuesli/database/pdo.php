@@ -28,8 +28,15 @@
             case 'accounts':
                 $columnConfig = '
                     id serial PRIMARY KEY NOT NULL,
-                    mail character varying(75) NOT NULL,
-                    prices boolean DEFAULT true NOT NULL';
+                    mail character varying(50),
+                    hash character varying(100),
+                    code integer,
+                    privacy character varying(15) DEFAULT \'E-mail address\'::character varying,
+                    view character varying(15) DEFAULT \'Instructions\'::character varying,
+                    storage character varying(10) DEFAULT \'Session\'::character varying,
+                    youtube character varying(250),
+                    encoding character varying(15) DEFAULT \'UTF-8\'::character varying,
+                    prices boolean DEFAULT true';
                 break;
             default:
                 throw new Exception('"'.$tableName.'" has no deployable configuration!');
