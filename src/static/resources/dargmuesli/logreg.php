@@ -66,6 +66,9 @@
                     PASSWORD_ARGON2I
                 );
 
+                // Initialize the required table
+                init_table($dbh, 'accounts');
+
                 // Check if entry already exists
                 $stmt = $dbh->prepare('SELECT * FROM accounts WHERE mail = :email');
                 $stmt->bindParam(':email', $email);

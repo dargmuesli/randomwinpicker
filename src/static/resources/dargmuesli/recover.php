@@ -24,6 +24,9 @@
 
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // Initialize the required table
+    init_table($dbh, 'accounts');
+
     if ($task == 'recover') {
         $code = rand();
         $email = $_POST['email'];

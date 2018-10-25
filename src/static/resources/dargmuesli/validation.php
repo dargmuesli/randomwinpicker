@@ -25,6 +25,9 @@
     $task = $_GET['task'];
     $email = $_GET['email'];
 
+    // Initialize the required table
+    init_table($dbh, 'accounts');
+
     if ($task == 'resend') {
         $stmt = $dbh->prepare('SELECT code FROM accounts WHERE mail = :email');
         $stmt->bindParam(':email', $email);

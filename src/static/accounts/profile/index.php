@@ -21,6 +21,9 @@
         die(header('Location:../accounts/'));
     }
 
+    // Initialize the required table
+    init_table($dbh, 'accounts');
+
     $stmt_privacy = $dbh->prepare('SELECT privacy FROM accounts WHERE mail = :email');
     $stmt_privacy->bindParam(':email', $email);
     $stmt_view = $dbh->prepare('SELECT view FROM accounts WHERE mail = :email');

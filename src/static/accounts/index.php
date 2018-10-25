@@ -18,6 +18,9 @@
     $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
 
     if (isset($email)) {
+        // Initialize the required table
+        init_table($dbh, 'accounts');
+
         $stmt = $dbh->prepare('SELECT hash FROM accounts WHERE mail = :email');
         $stmt->bindParam(':email', $email);
 

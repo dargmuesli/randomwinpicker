@@ -4,6 +4,9 @@
 
     function get_mailer($address, $subject, $body, $altBody = "")
     {
+        // Load .env file
+        load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
+
         $mail = new PHPMailer;
 
         $mail->isSMTP();

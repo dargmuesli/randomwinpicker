@@ -10,6 +10,9 @@
     $encoding = 'UTF-8';
 
     if (isset($email)) {
+        // Initialize the required table
+        init_table($dbh, 'accounts');
+
         $stmt = $dbh->prepare('SELECT encoding FROM accounts WHERE mail = :email');
         $stmt->bindParam(':email', $email);
 

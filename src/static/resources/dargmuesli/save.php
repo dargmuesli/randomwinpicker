@@ -15,6 +15,10 @@
     $storage = 'Session';
 
     if (isset($_SESSION['email'])) {
+
+        // Initialize the required table
+        init_table($dbh, 'accounts');
+
         $stmt = $dbh->prepare('SELECT storage FROM accounts WHERE mail = :email');
         $stmt->bindParam(':email', $email);
 

@@ -14,6 +14,9 @@
 
     $user = $_GET['email'];
 
+    // Initialize the required table
+    init_table($dbh, 'accounts');
+
     $stmt = $dbh->prepare('SELECT privacy FROM accounts WHERE mail = :mail');
     $stmt->bindParam(':mail', $user);
 
