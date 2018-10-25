@@ -124,6 +124,34 @@
                         ]
                     ]
                 ],
+                'reset' => [
+                    'description' => [
+                        'de' => 'Gib ein neues Passwort ein, um Zugang zu deinem Konto zurückzuerlangen.',
+                        'en' => 'Enter your new password to regain access to your account.'
+                    ],
+                    'input' => [
+                        'change' => [
+                            'de' => 'Ändern',
+                            'en' => 'Change'
+                        ],
+                        'password' => [
+                            'placeholder' => [
+                                'de' => 'Passwort',
+                                'en' => 'password'
+                            ],
+                            'title' => [
+                                'de' => 'Mindestens 6 Zeichen: Zahlen sowie große und kleine Buchstaben.',
+                                'en' => 'At least 6 characters: numbers and small & large letters.'
+                            ]
+                        ]
+                    ],
+                    'title' => [
+                        'head' => [
+                            'de' => 'Passwort ändern',
+                            'en' => 'Change Password'
+                        ]
+                    ]
+                ],
                 'title' => [
                     'head' => [
                         'de' => 'Anmelden',
