@@ -41,6 +41,68 @@
             ]
         ],
         'pages' => [
+            'accounts' => [
+                'description' => [
+                    'details' => [
+                        'de' => 'Ich empfehle Passwort-Manager wie <a href="http://keepass.info/" title="KeePass Password-Manager" target="_blank">KeePass</a>!
+                                <br>
+                                Passwörter werden als <a href="https://de.wikipedia.org/wiki/Salt_%28Kryptologie%29" title="Salt (Kryptologie)" target="_blank">gesalzener</a> <a href="https://de.wikipedia.org/wiki/SHA-2" title="SHA-2" target="_blank">SHA256-Hash</a> gespeichert.
+                                <br>
+                                Wenn du "angemeldet bleiben" willst, werden deine Anmeldeinformationen in <a href="https://de.wikipedia.org/wiki/HTTP-Cookie" title="HTTP-Cookie">HTTP-Cookies</a> gespeichert. Schaue in das <a href="../imprint/#cookies" title="Impressum">Impressum</a> für weitere Erklärungen.',
+                        'en' => 'I recommend password manager like <a href="http://keepass.info/" title="KeePass Password-Manager" target="_blank">KeePass</a>!
+                                <br>
+                                Passwords are stored as <a href="https://en.wikipedia.org/wiki/Salt_%28cryptography%29" title="Salt (cryptography)" target="_blank">salted</a> <a href="https://en.wikipedia.org/wiki/SHA-2" title="SHA-2" target="_blank">SHA256-Hash</a>.
+                                <br>
+                                If you want to "stay logged in", your login information will be stored in <a href="https://en.wikipedia.org/wiki/HTTP_cookie" title="HTTP cookie">HTTP cookies</a>. Check the <a href="../imprint/#cookies" title="Imprint">imprint</a> for further explanation.'
+                    ],
+                    'short' => [
+                        'de' => 'Um auf alle Funktionen dieser Website zugreifen zu können, musst du dich anmelden oder dich registrieren!',
+                        'en' => 'To access all features on this website you need to login or create an account!'
+                    ]
+                ],
+                'input' => [
+                    'checkbox' => [
+                        'de' => 'Angemeldet bleiben',
+                        'en' => 'Stay logged in'
+                    ],
+                    'email' => [
+                        'placeholder' => [
+                            'de' => 'E-Mail-Adresse',
+                            'en' => 'e-mail address'
+                        ],
+                        'title' => [
+                            'de' => 'Ein valides E-Mail-Format',
+                            'en' => 'A valid email format.'
+                        ]
+                    ],
+                    'password' => [
+                        'placeholder' => [
+                            'de' => 'Passwort',
+                            'en' => 'passwort'
+                        ],
+                        'title' => [
+                            'de' => 'Mindestens 6 Zeichen: Zahlen sowie große und kleine Buchstaben.',
+                            'en' => 'At least 6 characters: numbers and small & large letters.'
+                        ]
+                    ]
+                ],
+                'link' => [
+                    'recovery' => [
+                        'de' => 'Password verloren?',
+                        'en' => 'Password lost?'
+                    ],
+                    'skip' => [
+                        'de' => 'Überspringen',
+                        'en' => 'Skip'
+                    ]
+                ],
+                'title' => [
+                    'head' => [
+                        'de' => 'Anmelden',
+                        'en' => 'Sign in / up'
+                    ]
+                ]
+            ],
             'error' => [
                 'content' => [
                     'de' => 'Schau was du angerichtet hast! Das ist eine Sonneneruption...',
