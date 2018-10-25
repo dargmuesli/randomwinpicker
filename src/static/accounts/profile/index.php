@@ -1,5 +1,12 @@
 <?php
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/cache/enabled.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/base/skeleton.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
+
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/account.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/sessioncookie.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/warning.php';
+
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
 
     // Load .env file
@@ -67,227 +74,212 @@
     $youtube = $stmt_youtube->fetch()[0];
     $encoding = $stmt_encoding->fetch()[0];
     $prices = $stmt_prices->fetch()[0];
-?>
-<!DOCTYPE html>
-<html lang="<?php echo $lang; ?>" dir="ltr" id="space">
-    <head>
-        <meta charset="UTF-8">
-        <title>
-<?php    switch ($lang) {
-case 'de':    ?>
-            Profil - RandomWinPicker
-<?php    break;
-default:    ?>
-            Profile - RandomWinPicker
-<?php    break;
-    }    ?>
-        </title>
-        <link rel="canonical" href="https://randomwinpicker.de/accounts/profile.php" />
-        <link rel="icon" href="/resources/dargmuesli/icons/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
-        <link rel="stylesheet" href="../layout/stylesheets/style.css">
-        <meta name="author" content="Jonas Thelemann" />
-        <meta name="description" content="View all settings of your personal account." />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="keywords" content="profile, settings, account, features, controls, instructions, set, display, file, encoding">
-        <meta property="og:description" content="Choose a random winner for case openings or similar raffles." />
-        <meta property="og:image" content="https://randomwinpicker.de/layout/icons/screenshots/welcome.jpg" />
-        <meta property="og:title" content="Welcome - RandomWinPicker" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://randomwinpicker.de/" />
-        <script src="/resources/dargmuesli/alert.php"></script>
-        <script src="/resources/dargmuesli/bugfeature.php"></script>
-        <script src="/resources/dargmuesli/js-profile.php"></script>
-        <script src="/resources/dargmuesli/language.php"></script>
-<?php    switch ($lang) {
-case 'de':    ?>
-        <script src='https://www.google.com/recaptcha/api.js?hl=de&amp;render=explicit' async defer></script>
-<?php    break;
-default:    ?>
-        <script src='https://www.google.com/recaptcha/api.js?hl=en&amp;render=explicit' async defer></script>
-<?php    break;
-    }    ?>
-    </head>
-    <body>
-        <noscript>
-            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T32JLW" height="0" width="0">
-            </iframe>
-        </noscript>
-        <script src="/resources/dargmuesli/tag.js"></script>
-        <div id="dialogoverlay"></div>
-        <div id="dialogbox">
-            <div>
-                <div id="dialogboxhead">
-                </div>
-                <div id="dialogboxbody">
-                </div>
-                <div id="dialogboxfoot">
-                </div>
-            </div>
-        </div>
-        <header>
-            <div id="saveStatus">
-                <img src="/resources/dargmuesli/icons/ajax-loader-arrows.gif" alt="Save Status">
-            </div>
-<?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/warning.php';
-    warning($success, $error, $lang, "\t\t\t");
-?>
-            <div>
-                <a href="../" title="Back" id="back">
-                    <img src="/resources/dargmuesli/icons/arrow.png" alt="Welcome" class="rotate"/>
-                </a>
+
+    last_modified(get_page_mod_time());
+
+    $skeletonTitle = translate('pages.accounts.profile.title.head');
+    $skeletonDescription = 'View all settings of your personal account.';
+    $skeletonFeatures = ['lcl/ext/css', 'lcl/ext/js'];
+    $skeletonKeywords = 'profile, settings, account, features, controls, instructions, set, display, file, encoding';
+    $skeletonContent = '
+        <header>'.get_warning_html($success, $error).'
+            <div id="back">
+                <a class="rotate" href="../" title="Back"></a>
             </div>
             <div id="account">
-<?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/account.php';
-    account('../', $email, $lang, "\t\t\t\t");
-?>
+                '.get_account_html($email).'
             </div>
         </header>
         <main>
-<?php    switch ($lang) {
-case 'de':    ?>
             <h1>
-                Profil
+                '.translate('pages.accounts.profile.title.head').'
             </h1>
             <div>
                 <section>
                     <h2>
-                        Information
+                        '.translate('pages.accounts.profile.information.title').'
                     </h2>
                     <p>
-                        Wie dein Passwort gespeichert wird: <span class="inconsolata"><?php echo $hash; ?></span>
+                        '.translate('pages.accounts.profile.information.description').': <span class="inconsolata">'.$hash.'</span>
                     </p>
                 </section>
             </div>
             <div>
                 <section>
                     <h2>
-                        Einstellungen
+                        '.translate('pages.accounts.profile.settings.title').'
                     </h2>
                     <section>
                         <h3>
-                            Preise
+                            '.translate('pages.accounts.profile.settings.prices.title').'
                         </h3>
                         <p>
-                            Möchtest du, dass ein Preisstempel auf allen gezogenen Gewinnen angezeigt wird?
+                            '.translate('pages.accounts.profile.settings.prices.description').'
                         </p>
                         <form id="priceForm">
                             <fieldset>
-                                <input type="radio" id="sS(priceForm, true)" name="prices" value="Yes" <?php if ($prices) {
-    echo 'checked';
-} ?>><label for="sS(priceForm, true)"> Ja</label>
+                                <input type="radio" id="sS(priceForm, true)" name="prices" value="Yes" ';
+    if ($prices) {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(priceForm, true)"> '.translate('pages.accounts.profile.settings.prices.yes').'</label>
                                 <br>
-                                <input type="radio" id="sS(priceForm, false)" name="prices" value="No" <?php if (!$prices) {
-    echo 'checked';
-} ?>><label for="sS(priceForm, false)"> Nein</label>
+                                <input type="radio" id="sS(priceForm, false)" name="prices" value="No" ';
+
+    if (!$prices) {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(priceForm, false)"> '.translate('pages.accounts.profile.settings.prices.no').'</label>
                             </fieldset>
                         </form>
                     </section>
                     <section>
                         <h3>
-                            Privatspähre
+                            '.translate('pages.accounts.profile.settings.privacy.title').'
                         </h3>
                         <p>
-                            Welcher Name soll in der oberen rechten Ecke der Website angezeigt werden?
-                            <br>
-                            Zum Beispiel möchten die meisten YouTuber nicht, dass ihre E-Mail-Adresse dort und dann in ihren Videos zu sehen ist.
+                            '.translate('pages.accounts.profile.settings.privacy.description').'
                         </p>
                         <form id="privacyForm">
                             <fieldset>
-                                <input type="radio" id="sS(privacyForm, E-mail address)" name="privacy" value="E-mail address" <?php if ($privacy == 'E-mail address') {
-    echo 'checked';
-} ?>><label for="sS(privacyForm, E-mail address)"> E-Mail-Adresse</label>
+                                <input type="radio" id="sS(privacyForm, E-mail address)" name="privacy" value="E-mail address" ';
+
+    if ($privacy == 'E-mail address') {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(privacyForm, E-mail address)"> '.translate('pages.accounts.profile.settings.privacy.input.email').'</label>
                                 <br>
-                                <input type="radio" id="sS(privacyForm, Member)" name="privacy" value="Member" <?php if ($privacy == 'Member') {
-    echo 'checked';
-} ?>><label for="sS(privacyForm, Member)"> Mitglied</label>
+                                <input type="radio" id="sS(privacyForm, Member)" name="privacy" value="Member" ';
+
+    if ($privacy == 'Member') {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(privacyForm, Member)"> '.translate('pages.accounts.profile.settings.privacy.input.member').'</label>
                                 <br>
-                                <input type="radio" id="sS(privacyForm, Custom)" name="privacy" value="Username" <?php if (($privacy != 'E-mail address') && ($privacy != 'Member')) {
-    echo 'checked';
-} ?>><label for="sS(privacyForm', Custom);"></label>
-                                <input type="text" name="privacy" id="sS(privacyForm, this.value)" size="15" maxlength="15" value="<?php if (($privacy != 'E-mail address') && ($privacy != 'Member')) {
-    echo $privacy;
-} else {
-    echo substr($email, 0, strrpos($email, '@'));
-} ?>">
+                                <input type="radio" id="sS(privacyForm, Custom)" name="privacy" value="Username" ';
+
+    if (($privacy != 'E-mail address') && ($privacy != 'Member')) {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(privacyForm, Custom);"></label>
+                                <input type="text" name="privacy" id="sS(privacyForm, this.value)" size="15" maxlength="15" value="';
+
+    if (($privacy != 'E-mail address') && ($privacy != 'Member')) {
+        $skeletonContent .= $privacy;
+    } else {
+        $skeletonContent .= substr($email, 0, strrpos($email, '@'));
+    }
+
+    $skeletonContent .= '">
                             </fieldset>
                         </form>
                     </section>
                     <section>
                         <h3>
-                            Codierung
+                            '.translate('pages.accounts.profile.settings.encoding.title').'
                         </h3>
                         <p>
-                            Falls komische Zeichen (&#xFFFD;) beim Hochladen einer .csv-Datei auftauchen, hilft meist eine andere Codierung.
+                            '.translate('pages.accounts.profile.settings.encoding.description').'
                         </p>
                         <form id="encodingForm">
                             <fieldset>
-                                <input type="radio" id="sS(encodingForm, UTF-8)" name="encoding" value="UTF-8" <?php if ($encoding == 'UTF-8') {
-    echo 'checked';
-} ?>><label for="sS(encodingForm, UTF-8)"> UTF-8</label>
+                                <input type="radio" id="sS(encodingForm, UTF-8)" name="encoding" value="UTF-8" ';
+
+    if ($encoding == 'UTF-8') {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(encodingForm, UTF-8)"> UTF-8</label>
                                 <br>
-                                <input type="radio" id="sS(encodingForm, ISO-8859-1)" name="encoding" value="ISO-8859-1" <?php if ($encoding == 'ISO-8859-1') {
-    echo 'checked';
-} ?>><label for="sS(encodingForm, ISO-8859-1)"> ISO-8859-1</label>
+                                <input type="radio" id="sS(encodingForm, ISO-8859-1)" name="encoding" value="ISO-8859-1" ';
+
+    if ($encoding == 'ISO-8859-1') {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(encodingForm, ISO-8859-1)"> ISO-8859-1</label>
                                 <br>
-                                <input type="radio" id="sS(encodingForm, Custom)" name="encoding" value="etcetera" <?php if (($encoding != 'UTF-8') && ($encoding != 'ISO-8859-1')) {
-    echo 'checked';
-} ?>><label for="sS(encodingForm', Custom);"></label>
-                                <input type="text" name="encoding" id="sS(encodingForm, this.value)" maxlength="15" size="15" value="<?php if (($encoding != 'UTF-8') && ($encoding != 'ISO-8859-1')) {
-    echo $encoding;
-} ?>">
+                                <input type="radio" id="sS(encodingForm, Custom)" name="encoding" value="etcetera" ';
+
+    if (($encoding != 'UTF-8') && ($encoding != 'ISO-8859-1')) {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(encodingForm, Custom);"></label>
+                                <input type="text" name="encoding" id="sS(encodingForm, this.value)" maxlength="15" size="15" value="';
+
+    if (($encoding != 'UTF-8') && ($encoding != 'ISO-8859-1')) {
+        echo $encoding;
+    }
+
+    $skeletonContent .= '">
                             </fieldset>
                         </form>
                     </section>
                     <section>
                         <h3>
-                            Ansicht
+                            '.translate('pages.accounts.profile.settings.view.title').'
                         </h3>
                         <p>
-                            Möchtest du dir auf jeder Seite die Erklärungen, nur die Steuerelemente oder nur die Daten anzeigen lassen?
-                            <br>
-                            Erfahrene Benutzer können die Erklärungen ausstellen, aber die Steuerelemente sichtbar lassen, um trotzdem Gewinnspiele erstellen zu können.
-                            <br>
-                            YouTuber können nach dem Erstellen eines Gewinnspiels alles abstellen, um eine aufgeräumte Oberfläche für ihre Videos zu erhalten.
+                            '.translate('pages.accounts.profile.settings.view.description').'
                         </p>
                         <form id="viewForm">
                             <fieldset>
-                                <input type="radio" id="sS(viewForm, Instructions)" name="view" value="Instructions" <?php if ($view == 'Instructions') {
-    echo 'checked';
-} ?>><label for="sS(viewForm, Instructions)"> Erklärungen</label>
+                                <input type="radio" id="sS(viewForm, Instructions)" name="view" value="Instructions" ';
+
+    if ($view == 'Instructions') {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(viewForm, Instructions)"> '.translate('pages.accounts.profile.settings.view.input.explanations').'</label>
                                 <br>
-                                <input type="radio" id="sS(viewForm, Controls)" name="view" value="Controls" <?php if ($view == 'Controls') {
-    echo 'checked';
-} ?>><label for="sS(viewForm, Controls)"> Steuerelemente</label>
+                                <input type="radio" id="sS(viewForm, Controls)" name="view" value="Controls" ';
+
+    if ($view == 'Controls') {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(viewForm, Controls)"> '.translate('pages.accounts.profile.settings.view.input.controls').'</label>
                                 <br>
-                                <input type="radio" id="sS(viewForm, Data)" name="view" value="Data" <?php if ($view == 'Data') {
-    echo 'checked';
-} ?>><label for="sS(viewForm, Data)"> Daten</label>
+                                <input type="radio" id="sS(viewForm, Data)" name="view" value="Data" ';
+
+    if ($view == 'Data') {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(viewForm, Data)"> Daten</label>
                             </fieldset>
                         </form>
                     </section>
                     <section>
                         <h3>
-                            Speichern der Daten
+                            '.translate('pages.accounts.profile.settings.storage.title').'
                         </h3>
                         <p>
-                            Du kannst auswählen, wie lange deine Daten gespeichert werden sollen.
-                            <br>
-                            Sie für eine kurze Zeit zu speichern bedeutet, dass die Daten beim Schließen des Browsers verloren gehen.
-                            <br>
-                            Um die Daten länger zu behalten, können <a href="../imprint.php#cookies" title="Imprint">Cookies</a> als Speichermethode benutzt werden. Solange du diese nicht gelöscht werden, kann das eine sehr lange Zeit sein.
+                            '.translate('pages.accounts.profile.settings.storage.description').'
                         </p>
                         <form id="storageForm">
                             <fieldset>
-                                <input type="radio" id="sS(storageForm, Session)" name="storage" value="Session" <?php if ($storage == 'Session') {
-    echo 'checked';
-} ?>><label for="sS(storageForm, Session)"> Sitzung</label>
+                                <input type="radio" id="sS(storageForm, Session)" name="storage" value="Session" ';
+
+    if ($storage == 'Session') {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(storageForm, Session)"> '.translate('pages.accounts.profile.settings.storage.input.session').'</label>
                                 <br>
-                                <input type="radio" id="sS(storageForm, Cookies)" name="storage" value="Cookies" <?php if ($storage == 'Cookies') {
-    echo 'checked';
-} ?>><label for="sS(storageForm, Cookies)"> Cookies [Beta]</label>
+                                <input type="radio" id="sS(storageForm, Cookies)" name="storage" value="Cookies" ';
+
+    if ($storage == 'Cookies') {
+        $skeletonContent .= 'checked';
+    }
+
+    $skeletonContent .= '><label for="sS(storageForm, Cookies)"> Cookies [Beta]</label>
                             </fieldset>
                         </form>
                     </section>
@@ -296,7 +288,7 @@ case 'de':    ?>
                             YouTube
                         </h3>
                         <p>
-                            Hast du ein YouTube-Konto? Zeige mir das: Ich bin sehr daran interessiert, zu sehen, dass meine Website genutzt wird!
+                            '.translate('pages.accounts.profile.settings.youtube.description').'
                         </p>
                         <form id="youtubeForm">
                             <input type="url" id="sS(youtubeForm, this.value)" name="youtube" pattern="https://www\.youtube\.com\/user\/(.+)" size="100" maxlength="250" placeholder="https://www.youtube.com/user/..." value="<?php echo $youtube; ?>">
@@ -304,207 +296,6 @@ case 'de':    ?>
                     </section>
                 </section>
             </div>
-<?php    break;
-default:    ?>
-            <h1>
-                Profile
-            </h1>
-            <div>
-                <section>
-                    <h2>
-                        Information
-                    </h2>
-                    <p>
-                        How your password is saved: <span class="inconsolata"><?php echo $hash; ?></span>
-                    </p>
-                </section>
-            </div>
-            <div>
-                <section>
-                    <h2>
-                        Settings
-                    </h2>
-                    <section>
-                        <h3>
-                            Prices
-                        </h3>
-                        <p>
-                            Do you want a price stamp displayed on all items when they are drawn?
-                        </p>
-                        <form id="priceForm">
-                            <fieldset>
-                                <input type="radio" id="sS(priceForm, true)" name="prices" value="Yes" <?php if ($prices) {
-    echo 'checked';
-} ?>><label for="sS(priceForm, true)"> Yes</label>
-                                <br>
-                                <input type="radio" id="sS(priceForm, false)" name="prices" value="No" <?php if (!$prices) {
-    echo 'checked';
-} ?>><label for="sS(priceForm, false)"> No</label>
-                            </fieldset>
-                        </form>
-                    </section>
-                    <section>
-                        <h3>
-                            Privacy
-                        </h3>
-                        <p>
-                            Which name do you want to display on the website's upper right corner?
-                            <br>
-                            For example, as a YouTuber you may want to show something else than your private e-mail address in your videos...
-                        </p>
-                        <form id="privacyForm">
-                            <fieldset>
-                                <input type="radio" id="sS(privacyForm, E-mail address)" name="privacy" value="E-mail address" <?php if ($privacy == 'E-mail address') {
-    echo 'checked';
-} ?>><label for="sS(privacyForm, E-mail address)"> E-mail address</label>
-                                <br>
-                                <input type="radio" id="sS(privacyForm, Member)" name="privacy" value="Member" <?php if ($privacy == 'Member') {
-    echo 'checked';
-} ?>><label for="sS(privacyForm, Member)"> Member</label>
-                                <br>
-                                <input type="radio" id="sS(privacyForm, Custom)" name="privacy" value="Username" <?php if (($privacy != 'E-mail address') && ($privacy != 'Member')) {
-    echo 'checked';
-} ?>><label for="sS(privacyForm', Custom);"></label>
-                                <input type="text" name="privacy" id="sS(privacyForm, this.value)" size="15" maxlength="15" value="<?php if (($privacy != 'E-mail address') && ($privacy != 'Member')) {
-    echo $privacy;
-} else {
-    echo substr($email, 0, strrpos($email, '@'));
-} ?>">
-                            </fieldset>
-                        </form>
-                    </section>
-                    <section>
-                        <h3>
-                            Encoding
-                        </h3>
-                        <p>
-                            If weird characters &#xFFFD; are showing up when you use the csv file upload, try a different encoding.
-                        </p>
-                        <form id="encodingForm">
-                            <fieldset>
-                                <input type="radio" id="sS(encodingForm, UTF-8)" name="encoding" value="UTF-8" <?php if ($encoding == 'UTF-8') {
-    echo 'checked';
-} ?>><label for="sS(encodingForm, UTF-8)"> UTF-8</label>
-                                <br>
-                                <input type="radio" id="sS(encodingForm, ISO-8859-1)" name="encoding" value="ISO-8859-1" <?php if ($encoding == 'ISO-8859-1') {
-    echo 'checked';
-} ?>><label for="sS(encodingForm, ISO-8859-1)"> ISO-8859-1</label>
-                                <br>
-                                <input type="radio" id="sS(encodingForm, Custom)" name="encoding" value="etcetera" <?php if (($encoding != 'UTF-8') && ($encoding != 'ISO-8859-1')) {
-    echo 'checked';
-} ?>><label for="sS(encodingForm', Custom);"></label>
-                                <input type="text" name="encoding" id="sS(encodingForm, this.value)" maxlength="15" size="15" value="<?php if (($encoding != 'UTF-8') && ($encoding != 'ISO-8859-1')) {
-    echo $encoding;
-} ?>">
-                            </fieldset>
-                        </form>
-                    </section>
-                    <section>
-                        <h3>
-                            View
-                        </h3>
-                        <p>
-                            Do you want to see the instructions, just the controls or only your data?
-                            <br>
-                            As a pro you might want to turn off the instructions, but keep the controls to be still able to set up your raffles.
-                            <br>
-                            YouTubers can turn off everything after the raffle is set up to get a clean look & feel for their videos.
-                        </p>
-                        <form id="viewForm">
-                            <fieldset>
-                                <input type="radio" id="sS(viewForm, Instructions)" name="view" value="Instructions" <?php if ($view == 'Instructions') {
-    echo 'checked';
-} ?>><label for="sS(viewForm, Instructions)"> Instructions</label>
-                                <br>
-                                <input type="radio" id="sS(viewForm, Controls)" name="view" value="Controls" <?php if ($view == 'Controls') {
-    echo 'checked';
-} ?>><label for="sS(viewForm, Controls)"> Controls</label>
-                                <br>
-                                <input type="radio" id="sS(viewForm, Data)" name="view" value="Data" <?php if ($view == 'Data') {
-    echo 'checked';
-} ?>><label for="sS(viewForm, Data)"> Data</label>
-                            </fieldset>
-                        </form>
-                    </section>
-                    <section>
-                        <h3>
-                            Storage of data
-                        </h3>
-                        <p>
-                            You can choose how long you want your data to be saved.
-                            <br>
-                            Storing it for a short time means that as soon as you close your browser the data will be lost.
-                            <br>
-                            To keep the data longer, <a href="../imprint.php#cookies" title="Imprint">cookies</a> are used as saving method. If you do not delete them this will be a long time.
-                        </p>
-                        <form id="storageForm">
-                            <fieldset>
-                                <input type="radio" id="sS(storageForm, Session)" name="storage" value="Session" <?php if ($storage == 'Session') {
-    echo 'checked';
-} ?>><label for="sS(storageForm, Session)"> Session</label>
-                                <br>
-                                <input type="radio" id="sS(storageForm, Cookies)" name="storage" value="Cookies" <?php if ($storage == 'Cookies') {
-    echo 'checked';
-} ?>><label for="sS(storageForm, Cookies)"> Cookies [Beta]</label>
-                            </fieldset>
-                        </form>
-                    </section>
-                    <section>
-                        <h3>
-                            YouTube
-                        </h3>
-                        <p>
-                            Do you have a YouTube account? Tell me about it: I'm very interested in seeing my website used!
-                        </p>
-                        <form id="youtubeForm">
-                            <input type="url" id="sS(youtubeForm, this.value)" name="youtube" pattern="https://www\.youtube\.com\/user\/(.+)" size="100" maxlength="250" placeholder="https://www.youtube.com/user/..." value="<?php echo $youtube; ?>">
-                        </form>
-                    </section>
-                </section>
-            </div>
-<?php    break;
-    }    ?>
-        </main>
-        <footer>
-            <p id="language">
-<?php    switch ($lang) {
-case 'de':    ?>
-                <button class="link en" id="lang" title="Switch to English">
-                    <img src="/resources/dargmuesli/icons/eng.png" alt="English Flag" id="flag">
-                </button>
-<?php    break;
-default:    ?>
-                <button class="link de" id="lang" title="Auf Deutsch wechseln">
-                    <img src="/resources/dargmuesli/icons/ger.png" alt="German Flag" id="flag">
-                </button>
-<?php    break;
-    }    ?>
-            </p>
-            <p class="seethrough">
-                -
-                <a href="../imprint" title="Imprint">
-<?php    switch ($lang) {
-case 'de':    ?>
-                    Impressum
-<?php    break;
-default:    ?>
-                    Imprint
-<?php    break;
-}    ?>
-                </a>
-                |
-                <button id="bug" class="link" title="Report a bug">
-<?php    switch ($lang) {
-case 'de':    ?>
-                    Fehlerbericht
-<?php    break;
-default:    ?>
-                    Bug Report
-<?php    break;
-}    ?>
-                </button>
-                -
-            </p>
-        </footer>
-    </body>
-</html>
+        </main>'.get_footer();
+
+    output_html($skeletonTitle, $skeletonDescription, $skeletonContent, $skeletonFeatures, $skeletonKeywords);

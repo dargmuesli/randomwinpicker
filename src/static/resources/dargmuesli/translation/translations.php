@@ -96,6 +96,140 @@
                         'en' => 'Skip'
                     ]
                 ],
+                'profile' => [
+                    'information' => [
+                        'description' => [
+                            'de' => 'Wie dein Passwort gespeichert wird',
+                            'en' => 'How your password is saved'
+                        ],
+                        'title' => [
+                            'de' => 'Information',
+                            'en' => 'Information'
+                        ]
+                    ],
+                    'settings' => [
+                        'encoding' => [
+                            'description' => [
+                                'de' => 'Falls komische Zeichen (&#xFFFD;) beim Hochladen einer .csv-Datei auftauchen, hilft meist eine andere Codierung.',
+                                'en' => 'If weird characters &#xFFFD; are showing up when you use the csv file upload, try a different encoding.'
+                            ],
+                            'title' => [
+                                'de' => 'Codierung',
+                                'en' => 'Encoding'
+                            ]
+                        ],
+                        'prices' => [
+                            'description' => [
+                                'de' => 'Möchtest du, dass ein Preisstempel auf allen gezogenen Gewinnen angezeigt wird?',
+                                'en' => 'Do you want a price stamp displayed on all items when they are drawn?'
+                            ],
+                            'no' => [
+                                'de' => 'Nein',
+                                'en' => 'No'
+                            ],
+                            'title' => [
+                                'de' => 'Preise',
+                                'en' => 'Prices'
+                            ],
+                            'yes' => [
+                                'de' => 'Ja',
+                                'en' => 'Yes'
+                            ]
+                        ],
+                        'privacy' => [
+                            'description' => [
+                                'de' => 'Welcher Name soll in der oberen rechten Ecke der Website angezeigt werden?
+                                        <br>
+                                        Zum Beispiel möchten die meisten YouTuber nicht, dass ihre E-Mail-Adresse dort und dann in ihren Videos zu sehen ist.',
+                                'en' => 'Which name do you want to display on the website\'s upper right corner?
+                                        <br>
+                                        For example, as a YouTuber you may want to show something else than your private e-mail address in your videos...'
+                            ],
+                            'input' => [
+                                'email' => [
+                                    'de' => 'E-Mail-Adresse',
+                                    'en' => 'E-mail address'
+                                ],
+                                'member' => [
+                                    'de' => 'Mitglied',
+                                    'en' => 'Member'
+                                ]
+                            ],
+                            'title' => [
+                                'de' => 'Privatsphäre',
+                                'en' => 'Privacy'
+                            ]
+                        ],
+                        'storage' => [
+                            'description' => [
+                                'de' => 'Du kannst auswählen, wie lange deine Daten gespeichert werden sollen.
+                                        <br>
+                                        Sie für eine kurze Zeit zu speichern bedeutet, dass die Daten beim Schließen des Browsers verloren gehen.
+                                        <br>
+                                        Um die Daten länger zu behalten, können <a href="../imprint.php#cookies" title="Imprint">Cookies</a> als Speichermethode benutzt werden. Solange du diese nicht gelöscht werden, kann das eine sehr lange Zeit sein.',
+                                'en' => 'You can choose how long you want your data to be saved.
+                                        <br>
+                                        Storing it for a short time means that as soon as you close your browser the data will be lost.
+                                        <br>
+                                        To keep the data longer, <a href="../imprint.php#cookies" title="Imprint">cookies</a> are used as saving method. If you do not delete them this will be a long time.'
+                            ],
+                            'input' => [
+                                'session' => [
+                                    'de' => 'Sitzung',
+                                    'en' => 'Session'
+                                ]
+                            ],
+                            'title' => [
+                                'de' => 'Speichern der Daten',
+                                'en' => 'Storage of data'
+                            ]
+                        ],
+                        'title' => [
+                            'de' => 'Einstellungen',
+                            'en' => 'Settings'
+                        ],
+                        'view' => [
+                            'description' => [
+                                'de' => 'Möchtest du dir auf jeder Seite die Erklärungen, nur die Steuerelemente oder nur die Daten anzeigen lassen?
+                                        <br>
+                                        Erfahrene Benutzer können die Erklärungen ausstellen, aber die Steuerelemente sichtbar lassen, um trotzdem Gewinnspiele erstellen zu können.
+                                        <br>
+                                        YouTuber können nach dem Erstellen eines Gewinnspiels alles abstellen, um eine aufgeräumte Oberfläche für ihre Videos zu erhalten.',
+                                'en' => 'Do you want to see the instructions, just the controls or only your data?
+                                        <br>
+                                        As a pro you might want to turn off the instructions, but keep the controls to be still able to set up your raffles.
+                                        <br>
+                                        YouTubers can turn off everything after the raffle is set up to get a clean look & feel for their videos.'
+                            ],
+                            'input' => [
+                                'controls' => [
+                                    'de' => 'Steuerelemente',
+                                    'en' => 'Controls'
+                                ],
+                                'explanation' => [
+                                    'de' => 'Erklärungen',
+                                    'en' => 'Instructions'
+                                ]
+                            ],
+                            'title' => [
+                                'de' => 'Ansicht',
+                                'en' => 'View'
+                            ]
+                        ],
+                        'youtube' => [
+                            'description' => [
+                                'de' => 'Hast du ein YouTube-Konto? Zeige mir das: Ich bin sehr daran interessiert, zu sehen, dass meine Website genutzt wird!',
+                                'en' => 'Do you have a YouTube account? Tell me about it: I\'m very interested in seeing my website used!'
+                            ]
+                        ]
+                    ],
+                    'title' => [
+                        'head' => [
+                            'de' => 'Profil',
+                            'en' => 'Profile'
+                        ]
+                    ]
+                ],
                 'recovery' => [
                     'description' => [
                         'de' => 'Wenn du dein Passwort verloren haben solltest, kannst du unten einfach deine E-Mail-Adresse eingeben und dir wird ein Link zum Zurücksetzen zugeschickt.',
