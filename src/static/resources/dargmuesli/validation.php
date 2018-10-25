@@ -45,10 +45,10 @@
 
             switch ($lang) {
                 case 'de':
-                    $file = file_get_contents('..//resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_de.html');
+                    $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_de.html');
                     break;
                 default:
-                    $file = file_get_contents('..//resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_en.html');
+                    $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_en.html');
                     break;
             }
 
