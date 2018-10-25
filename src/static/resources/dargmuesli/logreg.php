@@ -21,12 +21,14 @@
     } else {
         $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
     }
+
     $task = $_GET['task'];
+    $dieLocation = '';
 
     if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '' && $_SERVER['HTTP_REFERER'] != $_SERVER['SERVER_ROOT_URL'].'/accounts/profile.php') {
         $dieLocation = $_SERVER['HTTP_REFERER'];
     } else {
-        $dieLocation = '../../accounts/';
+        $dieLocation = '/accounts/';
     }
 
     if ($task == 'out') {
@@ -83,7 +85,7 @@
                 if (!$row) {
                     // Entry doesn't exist
                     $code = rand();
-                    $link = $_SERVER['SERVER_ROOT_URL'].'/resources/dargmuesli/validation.php?task=validate&email=' . $email . '&code=' . $code;
+                    $link = $_SERVER['SERVER_ROOT_URL'].'resources/dargmuesli/validation.php?task=validate&email=' . $email . '&code=' . $code;
 
                     switch ($lang) {
                         case 'de':
