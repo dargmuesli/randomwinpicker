@@ -96,6 +96,34 @@
                         'en' => 'Skip'
                     ]
                 ],
+                'recovery' => [
+                    'description' => [
+                        'de' => 'Wenn du dein Passwort verloren haben solltest, kannst du unten einfach deine E-Mail-Adresse eingeben und dir wird ein Link zum Zurücksetzen zugeschickt.',
+                        'en' => 'If you lost your password, enter your e-mail address and a reset link will be sent to it.'
+                    ],
+                    'input' => [
+                        'email' => [
+                            'placeholder' => [
+                                'de' => 'E-Mail-Adresse',
+                                'en' => 'e-mail address'
+                            ],
+                            'title' => [
+                                'de' => 'Ein valides E-Mail-Format',
+                                'en' => 'A valid email format.'
+                            ]
+                        ],
+                        'send' => [
+                            'de' => 'Senden',
+                            'en' => 'Send'
+                        ]
+                    ],
+                    'title' => [
+                        'head' => [
+                            'de' => 'Passwort-Wiederherstellung',
+                            'en' => 'Password recovery'
+                        ]
+                    ]
+                ],
                 'title' => [
                     'head' => [
                         'de' => 'Anmelden',
