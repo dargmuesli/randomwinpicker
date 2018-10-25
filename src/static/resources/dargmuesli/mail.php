@@ -17,7 +17,7 @@
         $mail->SMTPSecure = 'ssl';
         $mail->Username = $_ENV['MAIL_USERNAME'];
         $mail->Password = $_ENV['MAIL_PASSWORD'];
-        $mail->From = 'e-mail@randomwinpicker.de';
+        $mail->From = $_ENV['MAIL_USERNAME'];
         $mail->FromName = 'RandomWinPicker';
         $mail->isHTML();
         $mail->addAddress($address);
