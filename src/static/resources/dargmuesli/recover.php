@@ -18,7 +18,7 @@
 
     // Get database handle
     $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
-    $dieLocation = '../../accounts/recovery.php';
+    $dieLocation = '/accounts/recovery/';
 
     // Get the URL parameters
     $task = $_GET['task'];
@@ -31,7 +31,7 @@
     if ($task == 'recover') {
         $code = rand();
         $email = $_POST['email'];
-        $link = $_SERVER['SERVER_ROOT_URL'].'/accounts/reset.php?email=' . $email . '&code=' . $code;
+        $link = $_SERVER['SERVER_ROOT_URL'].'accounts/reset/?email=' . $email . '&amp;code=' . $code;
 
         switch ($lang) {
             case 'de':

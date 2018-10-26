@@ -31,18 +31,18 @@
             <p>
                 '.translate('pages.accounts.reset.description').'
             </p>
-            <form method="post" action="/resources/dargmuesli/recover.php?task=reset&email=';
+            <form method="post" action="/resources/dargmuesli/recover.php?task=reset&amp;email=';
 
     if (isset($_GET['email']) && isset($_GET['code'])) {
         $email = $_GET['email'];
         $code = $_GET['code'];
 
-        $skeletonContent .= $email.'&code='.$code;
+        $skeletonContent .= $email.'&amp;code='.$code;
     } else {
         die(header('Location:/accounts/'));
     }
 
-    $skeletonContent .= '
+    $skeletonContent .= '">
                 <p>
                     <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required size="25" title="'.translate('pages.accounts.reset.input.password.title').'" type="password" name="password" placeholder="'.translate('pages.accounts.reset.input.password.placeholder').'" id="password">
                 </p>
