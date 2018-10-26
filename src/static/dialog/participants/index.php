@@ -21,7 +21,7 @@
     }
 
     $skeletonTitle = translate('pages.participants.title.head');
-    $skeletonDescription = 'Enter all participants\' names and their chance of winning.';
+    $skeletonDescription = 'Enter all participants\' names and their chance of winning';
     $skeletonFeatures = ['lcl/ext/css', 'lcl/ext/js'];
     $skeletonKeywords = 'participants, chance, random, win, picker';
     $skeletonContent = '

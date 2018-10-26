@@ -12,7 +12,7 @@
     last_modified(get_page_mod_time());
 
     $skeletonTitle = translate('pages.accounts.recovery.title.head');
-    $skeletonDescription = 'If you lost your password you can recover it right here!';
+    $skeletonDescription = 'If you lost your password you can recover it right here';
     $skeletonFeatures = ['lcl/ext/css'];
     $skeletonKeywords = 'password, recovery, lost, enter, address, reset, link, sent';
     $skeletonContent = '

@@ -6,7 +6,7 @@
     last_modified(get_page_mod_time());
 
     $skeletonTitle = translate('pages.error.title.head').' '.$_GET['code'];
-    $skeletonDescription = '';
+    $skeletonDescription = 'Something went wrong';
     $skeletonFeatures = ['lcl/ext/css'];
     $skeletonKeywords = '';
     $skeletonContent = '

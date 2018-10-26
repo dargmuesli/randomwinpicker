@@ -21,7 +21,7 @@
     }
 
     $skeletonTitle = translate('pages.items.title.head');
-    $skeletonDescription = 'Specify all items that can be won by all participants.';
+    $skeletonDescription = 'Specify all items that can be won by all participants';
     $skeletonFeatures = ['lcl/ext/css', 'lcl/ext/js', 'pkg/jqft/mcss'];
     $skeletonKeywords = 'participants, chance, random, win, picker';
     $skeletonContent = '

@@ -41,7 +41,7 @@
     }
 
     $skeletonTitle = translate('pages.accounts.title.head');
-    $skeletonDescription = 'Login to or register for RandomWinPicker to gain access to all features.';
+    $skeletonDescription = 'Login to or register for RandomWinPicker to gain access to all features';
     $skeletonFeatures = ['lcl/ext/css'];
     $skeletonKeywords = 'login, register, signin, signup, login, account, password, features, password, access';
     $skeletonContent = '

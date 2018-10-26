@@ -12,7 +12,7 @@
     last_modified(get_page_mod_time());
 
     $skeletonTitle = translate('pages.accounts.reset.title.head');
-    $skeletonDescription = 'Enter your new password here to regain access to your account.';
+    $skeletonDescription = 'Enter your new password here to regain access to your account';
     $skeletonFeatures = ['lcl/ext/css'];
     $skeletonKeywords = 'password, change, enter, new, regain, access, account';
     $skeletonContent = '

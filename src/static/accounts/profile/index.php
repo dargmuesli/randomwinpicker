@@ -78,7 +78,7 @@
     last_modified(get_page_mod_time());
 
     $skeletonTitle = translate('pages.accounts.profile.title.head');
-    $skeletonDescription = 'View all settings of your personal account.';
+    $skeletonDescription = 'View all settings of your personal account';
     $skeletonFeatures = ['lcl/ext/css', 'lcl/ext/js'];
     $skeletonKeywords = 'profile, settings, account, features, controls, instructions, set, display, file, encoding';
     $skeletonContent = '

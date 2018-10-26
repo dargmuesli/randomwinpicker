@@ -47,7 +47,7 @@
         die(header('Location: ../items/'));
     }
     $skeletonTitle = translate('pages.draw.title.head');
-    $skeletonDescription = 'A random winner is chosen based on your inputs.';
+    $skeletonDescription = 'A random winner is chosen based on your inputs';
     $skeletonFeatures = ['lcl/ext/css', 'lcl/ext/js'];
     $skeletonKeywords = 'random, winner, choose, input, animation';
     $skeletonContent = '
