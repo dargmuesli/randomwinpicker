@@ -56,7 +56,9 @@ let buildInProgress = false;
 gGulp.src = gVfs.src;
 gGulp.dest = gVfs.dest;
 
-let sitemapExcludes = [];
+let sitemapExcludes = [
+    '!' + srcStaticFolder + 'tools/**/index.php'
+];
 
 let symlinkArray = [
     {
