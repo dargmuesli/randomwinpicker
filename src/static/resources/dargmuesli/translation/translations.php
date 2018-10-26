@@ -206,7 +206,7 @@
                                     'de' => 'Steuerelemente',
                                     'en' => 'Controls'
                                 ],
-                                'explanation' => [
+                                'explanations' => [
                                     'de' => 'Erklärungen',
                                     'en' => 'Instructions'
                                 ]

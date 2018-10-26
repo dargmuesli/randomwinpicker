@@ -31,7 +31,7 @@
         $row = $stmt->fetch()[0];
 
         if ($hash == $row) {
-            $dieLocation = '../dialog/participants.php';
+            $dieLocation = '/dialog/participants/';
         }
     }
 

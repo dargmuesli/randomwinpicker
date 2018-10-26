@@ -48,7 +48,9 @@
         if (!$stmt->execute()) {
             throw new PDOException($stmt->errorInfo()[2]);
         }
+
         $_SESSION['view'] = $_POST['view'];
+
         if ($storage == 'Cookies') {
             setcookie('view', $_POST['view'], time() + (60 * 60 * 24 * 365), '/');
         }
@@ -91,6 +93,5 @@
             if (!$stmt->execute()) {
                 throw new PDOException($stmt->errorInfo()[2]);
             }
-            var_dump($_SESSION);
         }
     }

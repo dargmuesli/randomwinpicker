@@ -83,6 +83,9 @@
     $skeletonKeywords = 'profile, settings, account, features, controls, instructions, set, display, file, encoding';
     $skeletonContent = '
         <header>'.get_warning_html($success, $error).'
+            <div id="saveStatus">
+                <img src="/resources/dargmuesli/icons/ajax-loader-arrows.gif" alt="Save Status">
+            </div>
             <div id="back">
                 <a class="rotate" href="../" title="Back"></a>
             </div>
@@ -291,7 +294,7 @@
                             '.translate('pages.accounts.profile.settings.youtube.description').'
                         </p>
                         <form id="youtubeForm">
-                            <input type="url" id="sS(youtubeForm, this.value)" name="youtube" pattern="https://www\.youtube\.com\/user\/(.+)" size="100" maxlength="250" placeholder="https://www.youtube.com/user/..." value="<?php echo $youtube; ?>">
+                            <input type="url" id="sS(youtubeForm, this.value)" name="youtube" pattern="https://www\.youtube\.com\/user\/(.+)" size="100" maxlength="250" placeholder="https://www.youtube.com/user/..." value="'.$youtube.'">
                         </form>
                     </section>
                 </section>

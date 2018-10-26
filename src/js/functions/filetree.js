@@ -15,7 +15,7 @@ export function openFile(file) {
     let name = nameparts[0] + ', ' + nameparts[1];
 
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/layout/data/filetree/categories/' + i18n.language + file + '?' + new Date().getTime(), true); //<?php echo $_SERVER['SERVER_ROOT_URL']; ?> <?php echo $lang; ?>
+    xhr.open('GET', '/layout/data/filetree/categories/' + i18n.language + file + '?' + new Date().getTime(), true);
     xhr.onreadystatechange = function () {
         if ((xhr.readyState == 4) && (xhr.status == 200)) {
             let json = JSON.parse(xhr.responseText);

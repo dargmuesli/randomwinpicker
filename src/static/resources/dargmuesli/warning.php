@@ -22,7 +22,7 @@
             $warning_html .= '
                 <div class="note">
                     <p>
-                        $success
+                        '.$success.'
                     </p>
                 </div>';
         }
