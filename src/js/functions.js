@@ -6,7 +6,6 @@ import * as FileTree from './functions/filetree';
 import * as Keypress from './functions/keypress';
 import * as Language from './functions/language';
 import * as Phpin from './functions/phpin';
-import * as SaveSettings from './functions/savesettings';
 import * as Send from './functions/send';
 import * as SideBar from './functions/sidebar';
 import * as Spoiler from './functions/spoiler';
@@ -21,7 +20,6 @@ module.exports = {
     Keypress,
     Language,
     Phpin,
-    SaveSettings,
     Send,
     SideBar,
     Spoiler,

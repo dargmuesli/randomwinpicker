@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 let pendingRequests = 0;
 let w;
 
-export function stopEnterKey(evt) {
+function stopEnterKey(evt) {
     evt = (evt) ? evt : ((event) ? event : null);
     // let node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
     if (evt.keyCode == 13) { evt.preventDefault(); document.activeElement.blur(); }
@@ -29,7 +29,7 @@ export function stopEnterKey(evt) {
 
 document.onkeypress = stopEnterKey;
 
-export function saveSettings(form, value) {
+function saveSettings(form, value) {
     pendingRequests++;
 
     if (pendingRequests == 1) {
@@ -39,12 +39,11 @@ export function saveSettings(form, value) {
     startWorker(form, value);
 }
 
-export function startWorker(form, value) {
+function startWorker(form, value) {
     if (typeof (w) == 'undefined') {
-        w = new Worker('/resources/dargmuesli/savesettings.js');
+        w = new Worker('./layout/extension/worker.js');
     }
 
-    w.postMessage({ 'args': [form, value] });
     w.onmessage = function (event) {
         if (event.data == 'done') {
             pendingRequests--;
@@ -54,9 +53,10 @@ export function startWorker(form, value) {
             }
         }
     };
+    w.postMessage({ 'args': [form, value] });
 }
 
-export function stopWorker() {
+function stopWorker() {
     w.terminate();
     w = undefined;
 }
