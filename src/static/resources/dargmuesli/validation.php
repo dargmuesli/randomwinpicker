@@ -3,16 +3,11 @@
         session_start();
     }
 
-    if (isset($_SESSION['lang'])) {
-        $lang = $_SESSION['lang'];
-    } else {
-        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-    }
-
     // References
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/database/pdo.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/mail.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
     // Load .env file
     load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
@@ -43,14 +38,7 @@
         if ($code != -1) { // && ($code != -2) {
             $link = $_SERVER['SERVER_ROOT_URL'].'resources/dargmuesli/validation.php?task=validate&email='.$email.'&code='.$code;
 
-            switch ($lang) {
-                case 'de':
-                    $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_de.html');
-                    break;
-                default:
-                    $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_en.html');
-                    break;
-            }
+            $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_'.get_language().'.html');
 
             $string_processed = preg_replace_callback('~\{\$(.*?)\}~si', function ($match) use ($email, $link) {
                 return eval('return $' . $match[1] . ';');
@@ -65,23 +53,10 @@
             );
 
             // Set the redirect
-            switch ($lang) {
-                case 'de':
-                    if (!$mail->send()) {
-                        $_SESSION['error'] = 'E-Mail konnte nicht versendet werden!';
-                    } else {
-                        $_SESSION['success'] = 'E-Mail wurde erfolgreich versendet.';
-                    }
-
-                    break;
-                default:
-                    if (!$mail->send()) {
-                        $_SESSION['error'] = 'Email could not be sent!';
-                    } else {
-                        $_SESSION['success'] = 'Email sent successfully.';
-                    }
-
-                    break;
+            if ($mail->send()) {
+                $_SESSION['success'] = translate('scripts.validation.resend.success');
+            } else {
+                $_SESSION['error'] = translate('scripts.validation.resend.error');
             }
         }
     } elseif ($task == 'delete') {
@@ -93,14 +68,7 @@
             throw new PDOException($stmt->errorInfo()[2]);
         }
 
-        switch ($lang) {
-            case 'de':
-                $_SESSION['success'] = 'Anfrage erfolgreich gelöscht.';
-                break;
-            default:
-                $_SESSION['success'] = 'Request successfully deleted.';
-                break;
-        }
+        $_SESSION['success'] = translate('scripts.validation.delete.success');
     } elseif ($task == 'validate') {
         $code = $_GET['code'];
 
@@ -123,37 +91,15 @@
             if (!$stmt->execute()) {
                 throw new PDOException($stmt->errorInfo()[2]);
             }
-
-            switch ($lang) {
-                case 'de':
-                    $_SESSION['success'] = 'Bestätigung erfolgreich.';
-                    break;
-                default:
-                    $_SESSION['success'] = 'Validation successful.';
-                    break;
-            }
+            $_SESSION['success'] = translate('scripts.validation.validate.success');
 
             $code = 0;
         } elseif ($row == null) {
-            switch ($lang) {
-                case 'de':
-                    $_SESSION['error'] = 'Bestätigung fehlgeschlagen! Benutzer existiert nicht.';
-                    break;
-                default:
-                    $_SESSION['error'] = 'Validation went wrong! User does not exist.';
-                    break;
-            }
+            $_SESSION['error'] = translate('scripts.validation.validate.error.inexistent');
         } else {
-            switch ($lang) {
-                case 'de':
-                    $_SESSION['error'] = 'Bestätigung fehlgeschlagen! <a href="/resources/dargmuesli/validation.php?task=resend&email=' . $email . '" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Diese Anfrage löschen">diese Anfrage löschen</a>.';
-                    break;
-                default:
-                    $_SESSION['error'] = 'Validation went wrong! <a href="/resources/dargmuesli/validation.php?task=resend&email=' . $email . '" title="Resend the validation email">Resend the email</a> or <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Delete this request">delete this request</a>.';
-                    break;
-            }
+            $_SESSION['error'] = strtr(translate('scripts.validation.validate.error.general'), array('%email' => $email));
 
-            $dieLocation = '../../accounts/?email=' . $email;
+            $dieLocation = '/accounts/?email=' . $email;
 
             $code = 0;
         }

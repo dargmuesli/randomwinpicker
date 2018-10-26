@@ -4,12 +4,7 @@
     }
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/recaptcha.php';
-
-    if (isset($_SESSION['lang'])) {
-        $lang = $_SESSION['lang'];
-    } else {
-        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-    }
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
     $response = null;
     $type = null;
@@ -28,22 +23,8 @@
 
     if ($response != null && $response->isSuccess()) {
         if ($type == 'bug') {
-            switch ($lang) {
-                case 'de':
-                    echo 'mailto:e-mail@jonas-thelemann.de?subject=Fehlermeldung';
-                break;
-                default:
-                    echo 'mailto:e-mail@jonas-thelemann.de?subject=Bug%20Report';
-                break;
-            }
+            echo 'mailto:e-mail@jonas-thelemann.de?subject='.translate('scripts.suggest.bug');
         } elseif ($type == 'feature') {
-            switch ($lang) {
-                case 'de':
-                    echo 'mailto:e-mail@jonas-thelemann.de?subject=Neuer%20Vorschlag%20für%20Gewinne';
-                break;
-                default:
-                    echo 'mailto:e-mail@jonas-thelemann.de?subject=New%20Item%20Suggestion';
-                break;
-            }
+            echo 'mailto:e-mail@jonas-thelemann.de?subject='.translate('scripts.suggest.feature');
         }
     }

@@ -29,6 +29,130 @@
                     'en' => 'Too many items for too few participants! Who shall win all that?!'
                 ]
             ],
+            'logreg' => [
+                'in' => [
+                    'captcha' => [
+                        'error' => [
+                            'de' => 'Captcha falsch!',
+                            'en' => 'Captcha incorrect!'
+                        ]
+                    ],
+                    'email' => [
+                        'error' => [
+                            'de' => 'E-Mail konnte nicht versendet werden!',
+                            'en' => 'Email could not be send!'
+                        ],
+                        'success' => [
+                            'de' => 'Erfolgreich registriert.',
+                            'en' => 'Registered successfully.'
+                        ],
+                        'success-error' => [
+                            'de' => 'Du musst noch deine E-Mail-Adresse bestätigen!',
+                            'en' => 'You still need to validate your email address!'
+                        ]
+                    ],
+                    'incomplete' => [
+                        'error' => [
+                            'de' => 'Bestätigung unvollständig! <a href="/resources/dargmuesli/validation.php?task=resend&email=%email" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Diese Anfrage löschen">diese Anfrage löschen</a>.',
+                            'en' => 'Validation incomplete! <a href="/resources/dargmuesli/validation.php?task=resend&email=%email" title="Resend the validation email">Resend the email</a> or <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Delete this request">delete this request</a>.'
+                        ]
+                    ],
+                    'password' => [
+                        'error' => [
+                            'de' => 'Falsches Passwort!',
+                            'en' => 'Wrong Password!'
+                        ]
+                    ],
+                    'success' => [
+                        'de' => 'Erfolgreich angemeldet.',
+                        'en' => 'Login successful.'
+                    ]
+                ],
+                'out' => [
+                    'success' => [
+                        'de' => 'Erfolgreich abgemeldet.',
+                        'en' => 'Logout successful.'
+                    ]
+                ]
+            ],
+            'recover' => [
+                'activation' => [
+                    'error' => [
+                        'de' => 'Account wurde noch nicht aktiviert! <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Diese Anfrage löschen">Diese Anfrage löschen</a>.',
+                        'en' => 'Account was not activated yet! <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Delete this request">delete this request</a>.'
+                    ],
+                ],
+                'email' => [
+                    'error' => [
+                        'de' => 'E-Mail konnte nicht versendet werden!',
+                        'en' => 'Email could not be sent!'
+                    ],
+                    'success' => [
+                        'de' => 'E-Mail wurde erfolgreich versendet.',
+                        'en' => 'Email sent successfully.'
+                    ]
+                ],
+                'existence' => [
+                    'error' => [
+                        'de' => 'Benutzer existiert nicht!',
+                        'en' => 'User does not exist!'
+                    ]
+                ],
+                'reset' => [
+                    'error' => [
+                        'de' => 'Passwort konnte nicht geändert werden!',
+                        'en' => 'Password could not be changed!'
+                    ],
+                    'success' => [
+                        'de' => 'Passwort erfolgreich geändert.',
+                        'en' => 'Password changed successfully.'
+                    ]
+                ]
+            ],
+            'suggest' => [
+                'bug' => [
+                    'de' => 'Fehlermeldung',
+                    'en' => 'Bug%20Report'
+                ],
+                'feature' => [
+                    'de' => 'Neuer%20Vorschlag%20für%20Gewinne',
+                    'en' => 'New%20Item%20Suggestion'
+                ]
+            ],
+            'validation' => [
+                'delete' => [
+                    'success' => [
+                        'de' => 'Anfrage erfolgreich gelöscht.',
+                        'en' => 'Request successfully deleted.'
+                    ]
+                ],
+                'resend' => [
+                    'error' => [
+                        'de' => 'E-Mail konnte nicht versendet werden!',
+                        'en' => 'Email could not be sent!'
+                    ],
+                    'success' => [
+                        'de' => 'E-Mail wurde erfolgreich versendet.',
+                        'en' => 'Email sent successfully.'
+                    ]
+                ],
+                'validate' => [
+                    'error' => [
+                        'general' => [
+                            'de' => 'Bestätigung fehlgeschlagen! <a href="/resources/dargmuesli/validation.php?task=resend&email=%email" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Diese Anfrage löschen">diese Anfrage löschen</a>.',
+                            'en' => 'Validation went wrong! <a href="/resources/dargmuesli/validation.php?task=resend&email=%email" title="Resend the validation email">Resend the email</a> or <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Delete this request">delete this request</a>.'
+                        ],
+                        'inexistent' => [
+                            'de' => 'Bestätigung fehlgeschlagen! Benutzer existiert nicht.',
+                            'en' => 'Validation went wrong! User does not exist.'
+                        ]
+                    ],
+                    'success' => [
+                        'de' => 'Bestätigung erfolgreich.',
+                        'en' => 'Validation successful.'
+                    ]
+                ]
+            ],
             'warning' => [
                 'construction' => [
                     'de' => 'Manche Funktionen dieser Website funktionieren momentan nicht, aber es arbeitet jemand daran!',
@@ -97,6 +221,10 @@
                     ]
                 ],
                 'profile' => [
+                    'error' => [
+                        'de' => 'Du bist nicht angemeldet!',
+                        'en' => 'You are not logged in!'
+                    ],
                     'information' => [
                         'description' => [
                             'de' => 'Wie dein Passwort gespeichert wird',

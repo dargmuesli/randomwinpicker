@@ -7,6 +7,7 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/database/pdo.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/mail.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
     // Load .env file
     load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
@@ -15,12 +16,6 @@
     $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
 
     $securimage = new Securimage();
-
-    if (isset($_SESSION['lang'])) {
-        $lang = $_SESSION['lang'];
-    } else {
-        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-    }
 
     $task = $_GET['task'];
     $dieLocation = '';
@@ -38,25 +33,11 @@
         setcookie('email', '', time() - 3600, '/');
         setcookie('hash', '', time() - 3600, '/');
 
-        switch ($lang) {
-            case 'de':
-                $_SESSION['success'] = 'Erfolgreich abgemeldet.';
-                break;
-            default:
-                $_SESSION['success'] = 'Logout successful.';
-                break;
-        }
+        $_SESSION['success'] = translate('scripts.logreg.out.success');
     } elseif ($task == 'in') {
         if (isset($_POST['captcha_code']) && $securimage->check($_POST['captcha_code']) == false) {
             // Print error message
-            switch ($lang) {
-                case 'de':
-                    $_SESSION['error'] = 'Captcha falsch!';
-                    break;
-                default:
-                    $_SESSION['error'] = 'Captcha incorrect!';
-                    break;
-            }
+            $_SESSION['error'] = translate('scripts.logreg.in.captcha.error');
         } else {
             // Create variables for each form item
             $email = $_POST['email'];
@@ -87,14 +68,7 @@
                     $code = rand();
                     $link = $_SERVER['SERVER_ROOT_URL'].'resources/dargmuesli/validation.php?task=validate&email=' . $email . '&code=' . $code;
 
-                    switch ($lang) {
-                        case 'de':
-                            $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_de.html');
-                            break;
-                        default:
-                            $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_en.html');
-                            break;
-                    }
+                    $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_'.get_language().'.html');
 
                     $string_processed = preg_replace_callback('~\{\$(.*?)\}~si', function ($match) use ($email, $link) {
                         return eval('return $' . $match[1] . ';');
@@ -120,25 +94,10 @@
 
                     // Send the mail
                     if (!$mail->send()) {
-                        switch ($lang) {
-                            case 'de':
-                                $_SESSION['error'] = 'E-Mail konnte nicht versendet werden!';
-                                break;
-                            default:
-                                $_SESSION['error'] = 'Email could not be send!';
-                                break;
-                        }
+                        $_SESSION['error'] = translate('scripts.logreg.in.email.error');
                     } else {
-                        switch ($lang) {
-                            case 'de':
-                                $_SESSION['success'] = 'Erfolgreich registriert.';
-                                $_SESSION['error'] = 'Du musst noch deine E-Mail-Adresse bestätigen!';
-                                break;
-                            default:
-                                $_SESSION['success'] = 'Registered successfully.';
-                                $_SESSION['error'] = 'You still need to validate your email address!';
-                                break;
-                        }
+                        $_SESSION['success'] = translate('scripts.logreg.in.email.success');
+                        $_SESSION['error'] = translate('scripts.logreg.in.email.success-error');
 
                         // Send an email for confirmation
                         $mailDev = get_mailer(
@@ -162,14 +121,7 @@
 
                     // Check if password is correct
                     if (password_verify($password, $hash) == false) {
-                        switch ($lang) {
-                            case 'de':
-                                $_SESSION['error'] = 'Falsches Passwort!';
-                                break;
-                            default:
-                                $_SESSION['error'] = 'Wrong Password!';
-                                break;
-                        }
+                        $_SESSION['error'] = translate('scripts.logreg.in.password.error');
                     } else {
                         $stmt = $dbh->prepare('SELECT code FROM accounts WHERE mail = :email');
                         $stmt->bindParam(':email', $email);
@@ -200,23 +152,9 @@
                                 setcookie('view', $view, time() + (60 * 60 * 24 * 365), '/');
                             }
 
-                            switch ($lang) {
-                                case 'de':
-                                    $_SESSION['success'] = 'Erfolgreich angemeldet.';
-                                    break;
-                                default:
-                                    $_SESSION['success'] = 'Login successful.';
-                                    break;
-                            }
+                            $_SESSION['success'] = translate('scripts.logreg.in.success');
                         } else {
-                            switch ($lang) {
-                                case 'de':
-                            $_SESSION['error'] = 'Bestätigung unvollständig! <a href="/resources/dargmuesli/validation.php?task=resend&email=' . $email . '" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Diese Anfrage löschen">diese Anfrage löschen</a>.';
-                                    break;
-                                default:
-                            $_SESSION['error'] = 'Validation incomplete! <a href="/resources/dargmuesli/validation.php?task=resend&email=' . $email . '" title="Resend the validation email">Resend the email</a> or <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Delete this request">delete this request</a>.';
-                                    break;
-                            }
+                            $_SESSION['error'] = strtr(translate('scripts.logreg.in.incomplete.error'), array('%email' => $email));
                         }
                     }
                 }

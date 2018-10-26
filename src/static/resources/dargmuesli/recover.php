@@ -6,12 +6,7 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/database/pdo.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/mail.php';
-
-    if (isset($_SESSION['lang'])) {
-        $lang = $_SESSION['lang'];
-    } else {
-        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-    }
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
     // Load .env file
     load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
@@ -33,14 +28,7 @@
         $email = $_POST['email'];
         $link = $_SERVER['SERVER_ROOT_URL'].'accounts/reset/?email=' . $email . '&amp;code=' . $code;
 
-        switch ($lang) {
-            case 'de':
-                $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/reset_de.html');
-                break;
-            default:
-                $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/reset_en.html');
-                break;
-        }
+        $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/reset_'.get_language().'.html');
 
         $string_processed = preg_replace_callback('~\{\$(.*?)\}~si', function ($match) use ($email, $link) {
             return eval('return $' . $match[1] . ';');
@@ -58,14 +46,7 @@
 
         if (!$row) {
             // User doesn't exist
-            switch ($lang) {
-                case 'de':
-                    $_SESSION['error'] = 'Benutzer existiert nicht!';
-                    break;
-                default:
-                    $_SESSION['error'] = 'User does not exist!';
-                    break;
-            }
+            $_SESSION['error'] = translate('scripts.recover.existence.error');
         } elseif ($row == -1) {
             // Send an email for confirmation
             $mail = get_mailer(
@@ -77,14 +58,7 @@
 
             // Set the redirect
             if (!$mail->send()) {
-                switch ($lang) {
-                    case 'de':
-                        $_SESSION['error'] = 'E-Mail konnte nicht versendet werden!';
-                        break;
-                    default:
-                        $_SESSION['error'] = 'Email could not be sent!';
-                        break;
-                }
+                $_SESSION['error'] = translate('scripts.recover.email.error');
             } else {
                 // Mark the user as invalid
                 $stmt = $dbh->prepare('UPDATE accounts SET code = :code WHERE mail = :email');
@@ -95,24 +69,10 @@
                     throw new PDOException($stmt->errorInfo()[2]);
                 }
 
-                switch ($lang) {
-                    case 'de':
-                        $_SESSION['success'] = 'E-Mail wurde erfolgreich versendet.';
-                        break;
-                    default:
-                        $_SESSION['success'] = 'Email sent successfully.';
-                        break;
-                }
+                $_SESSION['success'] = translate('scripts.recover.email.success');
             }
         } else {
-            switch ($lang) {
-                case 'de':
-                    $_SESSION['error'] = 'Account wurde noch nicht aktiviert! <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Diese Anfrage löschen">Diese Anfrage löschen</a>.';
-                    break;
-                default:
-                    $_SESSION['error'] = 'Accuont was not activated yet! <a href="/resources/dargmuesli/validation.php?task=delete&email=' . $email . '" title="Delete this request">delete this request</a>.';
-                    break;
-            }
+            $_SESSION['error'] = strtr(translate('scripts.recover.activation.error'), array('%email' => $email));
         }
     } elseif ($task == 'reset') {
         // Get the URL parameters
@@ -156,25 +116,11 @@
                 throw new PDOException($stmt->errorInfo()[2]);
             }
 
-            switch ($lang) {
-                case 'de':
-                    $_SESSION['success'] = 'Passwort erfolgreich geändert.';
-                    break;
-                default:
-                    $_SESSION['success'] = 'Password changed successfully.';
-                    break;
-            }
+            $_SESSION['success'] = translate('scripts.recover.reset.success');
 
             $dieLocation = '../../accounts/';
         } else {
-            switch ($lang) {
-                case 'de':
-                    $_SESSION['error'] = 'Passwort konnte nicht geändert werden!';
-                    break;
-                default:
-                    $_SESSION['error'] = 'Password could not be changed!';
-                    break;
-            }
+            $_SESSION['error'] = translate('scripts.recover.reset.error');
         }
     }
 

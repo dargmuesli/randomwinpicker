@@ -16,14 +16,7 @@
     $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
 
     if ($email == null || $hash == null) {
-        switch ($lang) {
-            case 'de':
-                $_SESSION['error'] = 'Du bist nicht angemeldet!';
-                break;
-            default:
-                $_SESSION['error'] = 'You are not logged in!';
-                break;
-        }
+        $_SESSION['error'] = translate('pages.accounts.profile.error');
 
         die(header('Location:../accounts/'));
     }
