@@ -10,9 +10,9 @@
         $featureTranslation = get_feature_translation($features);
         $baseUrl = getenv('BASE_URL');
 
-        if (isset($_GET['code'])) {
-            $title = $_GET['code'];
-            $titleShy = $_GET['code'];
+        if (isset($_GET['errorCode'])) {
+            $title = $_GET['errorCode'];
+            $titleShy = $_GET['errorCode'];
         }
 
         $html = '
@@ -25,7 +25,7 @@
                     </title>
                     <base href="'.$baseUrl;
 
-        if (isset($_GET['code'])) {
+        if (isset($_GET['errorCode'])) {
             $html .= '/error/';
         }
 

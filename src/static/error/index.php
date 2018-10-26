@@ -5,7 +5,7 @@
 
     last_modified(get_page_mod_time());
 
-    $skeletonTitle = translate('pages.error.title.head').' '.$_GET['code'];
+    $skeletonTitle = translate('pages.error.title.head').' '.$_GET['errorCode'];
     $skeletonDescription = 'Something went wrong';
     $skeletonFeatures = ['lcl/ext/css'];
     $skeletonKeywords = '';
@@ -24,7 +24,7 @@
         <main>
             <div>
                 <h1>
-                    Error '.$_GET['code'].'
+                    Error '.$_GET['errorCode'].'
                 </h1>
                 <p>
                     '.translate('pages.error.content').'
