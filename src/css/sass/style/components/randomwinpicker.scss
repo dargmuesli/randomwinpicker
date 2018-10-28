@@ -7,7 +7,7 @@
 #again button{font-size:3vmin;}
 #again button, #go button{color:white;font-family:'bangers';text-shadow:inherit;}
 #back{float:left;}
-#back > a{background-image:url('/resources/dargmuesli/icons/arrow.png');background-position:center center;background-repeat:no-repeat;background-size:cover;display:block;height:3vw;margin:4vh 0 0 1.5vw;width:10vw;}
+#back > a{background-image:url('../icons/arrow.png');background-position:center center;background-repeat:no-repeat;background-size:cover;display:block;height:3vw;margin:4vh 0 0 1.5vw;width:10vw;}
 #content{font-size:1.5vmin;margin-top:5vh;text-align:left;}
 #content p, #content div{font-family:'bangers';font-size:125%;text-align:left;}
 #content .places{border-bottom:2px solid #000;border-top:2px solid #000;}
@@ -121,7 +121,7 @@ form table tbody tr td{margin:0;padding:1vmin;}
 h1{font-family:"neorf";font-size:8vmin;padding-bottom:5vmin;text-shadow:0 -1px #999999, 1px 0 #999999, 0 1px #999999, -1px 0 #999999;}
 h2{font-family:"neorf";font-size:3vmin;margin:5vh 0 2.5vh;}
 h3{font-family:"neorf";font-size:3vmin;padding:2.5vh 0 1vh 0;}
-html{background:#050505;font-size:2vmin;min-height:100%;text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;}
+html{background-color:#000005;background-position:center center;background-repeat:no-repeat;background-size:cover;font-size:2vmin;min-height:100%;text-shadow:-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;}
 input[type="email"], input[type="password"]{font-size:2vmin;}
 li{padding:10px;}
 main{margin:auto;padding:0 5vw 5vh;text-align:center;}
