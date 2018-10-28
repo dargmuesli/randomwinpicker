@@ -35,7 +35,7 @@
      */
     //$root = null;
 
-    $root = $_SERVER['DOCUMENT_ROOT'] . '/layout/data/filetree/categories/' . get_language() . '/';
+    $root = $_SERVER['DOCUMENT_ROOT'] . '/dialog/items/layout/data/filetree/categories/' . get_language() . '/';
     if (!$root) {
         exit('ERROR: Root filesystem directory not set in jqueryFileTree.php');
     }
