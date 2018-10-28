@@ -18,9 +18,8 @@ export class customAlert {
 
     ok(file, task) {
         document.body.style.overflow = '';
-        if (task == 'contribute') {
-            window.location.href = 'contribute.php?file=' + file;
-        } else if (task == 'delete') {
+
+        if (task == 'delete') {
             removeSelected();
         } else if (task == '') {
             this.cancel();

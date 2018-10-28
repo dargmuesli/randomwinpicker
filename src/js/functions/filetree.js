@@ -117,8 +117,6 @@ export function openFile(file) {
                 document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + i + ')">';
 
                 saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
-            } else {
-                alert.render(i18n.t('functions:filetree.contribute.title'), i18n.t('functions:filetree.contribute.question'), file, 'contribute');
             }
         }
     };

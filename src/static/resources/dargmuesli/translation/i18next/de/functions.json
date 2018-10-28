@@ -24,10 +24,6 @@
             "ww": "[AG]",
             "bs": "[KS]"
         },
-        "contribute": {
-            "title": "Keine validen Daten!",
-            "question": "Möchtest du diesen Gewinn editieren?"
-        },
         "images": {
             "hide": "Verstecke alle Bilder'",
             "show": "Zeige alle Bilder"

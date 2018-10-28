@@ -24,10 +24,6 @@
             "ww": "[WW]",
             "bs": "[BS]"
         },
-        "contribute": {
-            "title": "No valid data!",
-            "question": "Do you want to edit this item?"
-        },
         "images": {
             "hide": "Hide all images",
             "show": "Show all images"
