@@ -69,6 +69,7 @@
                     $link = $_SERVER['SERVER_ROOT_URL'].'resources/dargmuesli/validation.php?task=validate&email=' . $email . '&code=' . $code;
 
                     $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_'.get_language().'.html');
+                    $serverRootUrl = $_SERVER['SERVER_ROOT_URL'];
 
                     $string_processed = preg_replace_callback('~\{\$(.*?)\}~si', function ($match) use ($email, $link, $serverRootUrl) {
                         return eval('return $' . $match[1] . ';');
