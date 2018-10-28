@@ -31,7 +31,7 @@
             <p>
                 '.translate('pages.accounts.recovery.description').'
             </p>
-            <form method="post" action="/resources/dargmuesli/recover.php?task=recover">
+            <form method="post" action="'.getenv('BASE_URL').'/resources/dargmuesli/recover.php?task=recover">
                 <p>
                     <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required size="25" title="'.translate('pages.accounts.recovery.input.email.title').'" type="email" name="email" placeholder="'.translate('pages.accounts.recovery.input.email.placeholder').'" id="email">
                 </p>

@@ -15,7 +15,7 @@ type = type.substr(type.lastIndexOf('/') + 1);
 
 let xhr = new XMLHttpRequest();
 
-xhr.open('GET', '/resources/dargmuesli/table.php?type=' + type, true);
+xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/table.php?type=' + type, true);
 xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
         count = parseInt(xhr.responseText);
@@ -357,7 +357,7 @@ export function saveTableSend(columnCount, type, object, main) {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open('POST', '/resources/dargmuesli/save.php', true);
+    xhr.open('POST', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/save.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {

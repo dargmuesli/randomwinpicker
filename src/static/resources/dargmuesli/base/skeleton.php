@@ -8,7 +8,6 @@
         global $directoryName;
 
         $featureTranslation = get_feature_translation($features);
-        $baseUrl = getenv('BASE_URL');
 
         if (isset($_GET['errorCode'])) {
             $title = $_GET['errorCode'];
@@ -23,15 +22,16 @@
                     <title>
                         '.$title.' - RandomWinPicker
                     </title>
-                    <base href="'.$baseUrl;
+                    <base href="';
 
         if (isset($_GET['errorCode'])) {
-            $html .= '/error/';
+            $html .= getenv('BASE_URL').'/error/';
         }
 
         $html .= '">
                 <link href="'.$_SERVER['REQUEST_URI'].'" rel="canonical">
-                <link href="/resources/dargmuesli/icons/favicon.ico" rel="icon" type="image/x-icon">
+                <link href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/favicon.ico" rel="icon" type="image/x-icon">
+                <meta name="HTTP_X_FORWARDED_PREFIX" content="'.getenv('BASE_URL').'">
                 <meta name="author" content="Jonas Thelemann" />
                 <meta name="description" content="'.$description.'" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -80,12 +80,12 @@
             case 'de':
                 $footer .= '
                     <button class="link en" id="lang" title="Switch to English">
-                        <img src="/resources/dargmuesli/icons/en.png" alt="English Flag" id="flag">';
+                        <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/en.png" alt="English Flag" id="flag">';
                 break;
             default:
                 $footer .= '
                     <button class="link de" id="lang" title="Switch to German">
-                        <img src="/resources/dargmuesli/icons/de.png" alt="German Flag" id="flag">';
+                        <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/de.png" alt="German Flag" id="flag">';
         }
 
         $footer .= '
@@ -93,7 +93,7 @@
                 </p>
                 <p class="seethrough">
                     -
-                    <a href="/imprint/" title="Imprint">
+                    <a href="'.getenv('BASE_URL').'/imprint/" title="Imprint">
                         '.translate('pages.general.footer.imprint').'
                     </a>
                     |

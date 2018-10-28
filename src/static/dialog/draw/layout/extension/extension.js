@@ -116,7 +116,7 @@ function draw() {
         if (prices) {
             let xhr = new XMLHttpRequest();
 
-            xhr.open('GET', '/resources/dargmuesli/cost.php?item=' + priceNames[0] + '&origin=place' + round + '-fig1', true);
+            xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/cost.php?item=' + priceNames[0] + '&origin=place' + round + '-fig1', true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     let responseArray = xhr.responseText.split('-');
@@ -166,7 +166,7 @@ function addRest(length, qualities, names, images, priceNames) {
 
         let xhr = new XMLHttpRequest();
 
-        xhr.open('GET', '/resources/dargmuesli/cost.php?item=' + priceNames[index] + '&origin=' + origin, true);
+        xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/cost.php?item=' + priceNames[index] + '&origin=' + origin, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4) {
                 let responseArray = xhr.responseText.split('-');
@@ -218,7 +218,7 @@ function getRandom() {
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open('GET', '/resources/dargmuesli/random.php?n=' + round, true);
+    xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/random.php?n=' + round, true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             let json = JSON.parse(xhr.responseText);

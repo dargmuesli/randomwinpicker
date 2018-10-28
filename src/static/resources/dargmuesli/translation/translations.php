@@ -53,8 +53,8 @@
                     ],
                     'incomplete' => [
                         'error' => [
-                            'de' => 'Bestätigung unvollständig! <a href="/resources/dargmuesli/validation.php?task=resend&email=%email" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Diese Anfrage löschen">diese Anfrage löschen</a>.',
-                            'en' => 'Validation incomplete! <a href="/resources/dargmuesli/validation.php?task=resend&email=%email" title="Resend the validation email">Resend the email</a> or <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Delete this request">delete this request</a>.'
+                            'de' => 'Bestätigung unvollständig! <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=resend&email=%email" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=delete&email=%email" title="Diese Anfrage löschen">diese Anfrage löschen</a>.',
+                            'en' => 'Validation incomplete! <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=resend&email=%email" title="Resend the validation email">Resend the email</a> or <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=delete&email=%email" title="Delete this request">delete this request</a>.'
                         ]
                     ],
                     'password' => [
@@ -78,8 +78,8 @@
             'recover' => [
                 'activation' => [
                     'error' => [
-                        'de' => 'Account wurde noch nicht aktiviert! <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Diese Anfrage löschen">Diese Anfrage löschen</a>.',
-                        'en' => 'Account was not activated yet! <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Delete this request">delete this request</a>.'
+                        'de' => 'Account wurde noch nicht aktiviert! <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=delete&email=%email" title="Diese Anfrage löschen">Diese Anfrage löschen</a>.',
+                        'en' => 'Account was not activated yet! <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=delete&email=%email" title="Delete this request">delete this request</a>.'
                     ],
                 ],
                 'email' => [
@@ -139,8 +139,8 @@
                 'validate' => [
                     'error' => [
                         'general' => [
-                            'de' => 'Bestätigung fehlgeschlagen! <a href="/resources/dargmuesli/validation.php?task=resend&email=%email" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Diese Anfrage löschen">diese Anfrage löschen</a>.',
-                            'en' => 'Validation went wrong! <a href="/resources/dargmuesli/validation.php?task=resend&email=%email" title="Resend the validation email">Resend the email</a> or <a href="/resources/dargmuesli/validation.php?task=delete&email=%email" title="Delete this request">delete this request</a>.'
+                            'de' => 'Bestätigung fehlgeschlagen! <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=resend&email=%email" title="Bestätigungsmail neu versenden">E-Mail neu versenden</a> oder <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=delete&email=%email" title="Diese Anfrage löschen">diese Anfrage löschen</a>.',
+                            'en' => 'Validation went wrong! <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=resend&email=%email" title="Resend the validation email">Resend the email</a> or <a href="'.getenv('BASE_URL').'/resources/dargmuesli/validation.php?task=delete&email=%email" title="Delete this request">delete this request</a>.'
                         ],
                         'inexistent' => [
                             'de' => 'Bestätigung fehlgeschlagen! Benutzer existiert nicht.',

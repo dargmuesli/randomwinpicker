@@ -23,7 +23,7 @@
     if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '' && $_SERVER['HTTP_REFERER'] != $_SERVER['SERVER_ROOT_URL'].'accounts/profile/') {
         $dieLocation = $_SERVER['HTTP_REFERER'];
     } else {
-        $dieLocation = '/accounts/';
+        $dieLocation = getenv('BASE_URL').'/accounts/';
     }
 
     if ($task == 'out') {

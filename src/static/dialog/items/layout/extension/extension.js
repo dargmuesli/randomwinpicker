@@ -1,7 +1,7 @@
 function importSession() {
     let xhr = new XMLHttpRequest();
 
-    xhr.open('GET', '/resources/dargmuesli/sessioncookie.php?task=importSession', true);
+    xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/sessioncookie.php?task=importSession', true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             location.reload();

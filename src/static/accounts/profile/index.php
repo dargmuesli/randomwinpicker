@@ -77,7 +77,7 @@
     $skeletonContent = '
         <header>'.get_warning_html($success, $error).'
             <div id="saveStatus">
-                <img src="/resources/dargmuesli/icons/ajax-loader-arrows.gif" alt="Save Status">
+                <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/ajax-loader-arrows.gif" alt="Save Status">
             </div>
             <div id="back">
                 <a class="rotate" href="../" title="Back"></a>

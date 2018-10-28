@@ -27,7 +27,7 @@
     $skeletonContent = '
         <header>'.get_warning_html($success, $error).'
             <div id="back">
-                <a class="rotate" href="/" title="Back"></a>
+                <a class="rotate" href="'.getenv('BASE_URL').'/" title="Back"></a>
             </div>
             <div id="account">
                 '.get_account_html($email).'
@@ -128,7 +128,7 @@
     $skeletonContent .= '
                 <p>
                     <a href="../items/" title="Items">
-                        <img src="/resources/dargmuesli/icons/arrow.png" alt="Items" class="next"/>
+                        <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/arrow.png" alt="Items" class="next">
                     </a>
                 </p>
             </div>

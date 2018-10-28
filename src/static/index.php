@@ -30,7 +30,7 @@
                 </div>
                 <div id="top">
                     <a href="dialog/participants/" title="Start">
-                        <img src="/resources/dargmuesli/icons/arrow.png" alt="Participants" class="next">
+                        <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/arrow.png" alt="Participants" class="next">
                     </a>
                     <p class="hint">
                         '.translate('pages.start.hint').'
@@ -80,8 +80,8 @@
                                 '.translate('pages.start.overview.content.suffix').'
                             </p>
                         </section>
-                        <a href="/dialog/participants/" title="Start">
-                            <img src="/resources/dargmuesli/icons/arrow.png" alt="Participants" class="next"/>
+                        <a href="'.getenv('BASE_URL').'/dialog/participants/" title="Start">
+                            <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/arrow.png" alt="Participants" class="next">
                         </a>
                     </main>'.get_footer().'
                 </div>

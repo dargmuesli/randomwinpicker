@@ -27,7 +27,7 @@
     $skeletonContent = '
         <header>'.get_warning_html($success, $error).'
             <div id="back">
-                <a class="rotate" href="/dialog/participants/" title="Back"></a>
+                <a class="rotate" href="'.getenv('BASE_URL').'/dialog/participants/" title="Back"></a>
             </div>
             <div id="account">
                 '.get_account_html($email).'
@@ -205,7 +205,7 @@
     $skeletonContent .= '
             <div class="alone">
                 <button class="link" title="Draw" id="testGo">
-                    <img src="/resources/dargmuesli/icons/arrow.png" alt="Draw" class="next"/>
+                    <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/arrow.png" alt="Draw" class="next">
                 </button>
             </div>
         </main>'.get_footer();

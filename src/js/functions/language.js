@@ -13,7 +13,7 @@ export let i18n = i18next
         ns: ['functions'],
         defaultNS: 'functions',
         backend: {
-            loadPath: '/resources/dargmuesli/translation/i18next/{{lng}}/{{ns}}.json'
+            loadPath: document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/translation/i18next/{{lng}}/{{ns}}.json'
         }
     }, function () {
     });
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 export function changeLanguage(lang) {
     let xhr = new XMLHttpRequest();
 
-    xhr.open('POST', '/resources/dargmuesli/language.php', true);
+    xhr.open('POST', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/language.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {

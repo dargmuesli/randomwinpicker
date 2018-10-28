@@ -1,7 +1,7 @@
 function saveSettingsWorker(form, value) {
     let xhr = new XMLHttpRequest();
 
-    xhr.open('POST', '/resources/dargmuesli/savesettings.php?form=' + form, false);
+    xhr.open('POST', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/savesettings.php?form=' + form, false);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if ((xhr.readyState == 4) && (xhr.status == 200)) {

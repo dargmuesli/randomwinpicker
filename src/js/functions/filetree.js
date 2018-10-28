@@ -3,7 +3,7 @@ import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './tabl
 import { i18n } from './language';
 
 $(document).ready(function () {
-    $('.filetree').fileTree({ root: '/', script: '/resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function (file) {
+    $('.filetree').fileTree({ root: '/', script: document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function (file) {
         openFile(file);
     });
 });
@@ -15,7 +15,8 @@ export function openFile(file) {
     let name = nameparts[0] + ', ' + nameparts[1];
 
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/dialog/items/layout/data/filetree/categories/' + i18n.language + file + '?' + new Date().getTime(), true);
+
+    xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/dialog/items/layout/data/filetree/categories/' + i18n.language + file + '?' + new Date().getTime(), true);
     xhr.onreadystatechange = function () {
         if ((xhr.readyState == 4) && (xhr.status == 200)) {
             let json = JSON.parse(xhr.responseText);

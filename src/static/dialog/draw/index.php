@@ -69,7 +69,7 @@
             </div>
             <div>
                 <p id="loading">
-                    <img src="/resources/dargmuesli/icons/ajax-loader.gif" alt="Loading"/>
+                    <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/ajax-loader.gif" alt="Loading">
                 </p>
             </div>
             <div id="content" class="data">

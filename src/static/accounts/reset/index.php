@@ -31,7 +31,7 @@
             <p>
                 '.translate('pages.accounts.reset.description').'
             </p>
-            <form method="post" action="/resources/dargmuesli/recover.php?task=reset&amp;email=';
+            <form method="post" action="'.getenv('BASE_URL').'/resources/dargmuesli/recover.php?task=reset&amp;email=';
 
     if (isset($_GET['email']) && isset($_GET['code'])) {
         $email = $_GET['email'];

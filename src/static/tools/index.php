@@ -8,8 +8,8 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="../layout/stylesheets/loading.css">
         <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
-        <link rel="icon" href="/resources/dargmuesli/icons/favicon.ico" type="image/x-icon" />
-        <script src="/resources/dargmuesli/helper.php"></script>
+        <link rel="icon" href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/favicon.ico" type="image/x-icon" />
+        <script src="'.getenv('BASE_URL').'/resources/dargmuesli/helper.php"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     </head>
     <body>

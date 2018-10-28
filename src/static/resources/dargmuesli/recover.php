@@ -13,7 +13,7 @@
 
     // Get database handle
     $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
-    $dieLocation = '/accounts/recovery/';
+    $dieLocation = getenv('BASE_URL').'/accounts/recovery/';
 
     // Get the URL parameters
     $task = $_GET['task'];

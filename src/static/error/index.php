@@ -16,7 +16,7 @@
     if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '') {
         $skeletonContent .= $_SERVER['HTTP_REFERER'];
     } else {
-        $skeletonContent .= '/index.php';
+        $skeletonContent .= getenv('BASE_URL').'/index.php';
     }
 
     $skeletonContent .= '" title="Back" id="back"></a>

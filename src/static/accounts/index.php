@@ -31,7 +31,7 @@
         $row = $stmt->fetch()[0];
 
         if ($hash == $row) {
-            $dieLocation = '/dialog/participants/';
+            $dieLocation = getenv('BASE_URL').'/dialog/participants/';
         }
     }
 
@@ -60,7 +60,7 @@
             <p>
                 '.translate('pages.accounts.description.details').'
             </p>
-            <form method="post" action="/resources/dargmuesli/logreg.php?task=in';
+            <form method="post" action="'.getenv('BASE_URL').'/resources/dargmuesli/logreg.php?task=in';
 
     if (isset($_GET['file'])) {
         $skeletonContent .= '&file=' . $_GET['file'];
@@ -84,7 +84,7 @@
         if ($timespan < 5) {
             $skeletonContent .= '
                 <p>
-                    <img id="captcha" alt="CAPTCHA Image" src="/resources/packages/composer/dapphp/securimage/securimage_show.php"></img>
+                    <img id="captcha" alt="CAPTCHA Image" src="'.getenv('BASE_URL').'/resources/packages/composer/dapphp/securimage/securimage_show.php"></img>
                     <br>
                     <input type="text" title="6 characters and numbers." pattern=".{6,}" required size="6" name="captcha_code" placeholder="captcha" size="10" maxlength="6" />
                 </p>';
@@ -107,7 +107,7 @@
             </a>
         </p>
         <p>
-            <a href="/dialog/participants/" title="Skip">
+            <a href="'.getenv('BASE_URL').'/dialog/participants/" title="Skip">
                 '.translate('pages.accounts.link.skip').'
             </a>
         </p>

@@ -28,13 +28,13 @@
         }
 
         if (!isset($privacy)) {
-            $accountHtml = translate('scripts.account.guest').' | <a href="/accounts/" title="'.translate('scripts.account.login').'">'.translate('scripts.account.login').'</a>';
+            $accountHtml = translate('scripts.account.guest').' | <a href="'.getenv('BASE_URL').'/accounts/" title="'.translate('scripts.account.login').'">'.translate('scripts.account.login').'</a>';
         } elseif (($privacy == 'E-mail address') && isset($email)) {
-            $accountHtml = '<a href="/accounts/profile/" title="'.translate('scripts.account.profile').'">' . $email . ' &#x2261;</a> | <a href="/resources/dargmuesli/logreg.php?task=out" title="'.translate('scripts.account.logout').'">'.translate('scripts.account.logout').'</a>';
+            $accountHtml = '<a href="'.getenv('BASE_URL').'/accounts/profile/" title="'.translate('scripts.account.profile').'">' . $email . ' &#x2261;</a> | <a href="'.getenv('BASE_URL').'/resources/dargmuesli/logreg.php?task=out" title="'.translate('scripts.account.logout').'">'.translate('scripts.account.logout').'</a>';
         } elseif ($privacy == 'Member') {
-            $accountHtml = '<a href="/accounts/profile/" title="'.translate('scripts.account.profile').'">'.translate('scripts.account.member').' &#x2261;</a> | <a href="/resources/dargmuesli/logreg.php?task=out" title="'.translate('scripts.account.logout').'">'.translate('scripts.account.logout').'</a>';
+            $accountHtml = '<a href="'.getenv('BASE_URL').'/accounts/profile/" title="'.translate('scripts.account.profile').'">'.translate('scripts.account.member').' &#x2261;</a> | <a href="'.getenv('BASE_URL').'/resources/dargmuesli/logreg.php?task=out" title="'.translate('scripts.account.logout').'">'.translate('scripts.account.logout').'</a>';
         } elseif (($privacy != 'E-mail address') && ($privacy != 'Member')) {
-            $accountHtml = '<a href="/accounts/profile/" title="'.translate('scripts.account.profile').'">' . $privacy . ' &#x2261;</a> | <a href="/resources/dargmuesli/logreg.php?task=out" title="'.translate('scripts.account.logout').'">'.translate('scripts.account.logout').'</a>';
+            $accountHtml = '<a href="'.getenv('BASE_URL').'/accounts/profile/" title="'.translate('scripts.account.profile').'">' . $privacy . ' &#x2261;</a> | <a href="'.getenv('BASE_URL').'/resources/dargmuesli/logreg.php?task=out" title="'.translate('scripts.account.logout').'">'.translate('scripts.account.logout').'</a>';
         }
 
         return $accountHtml;

@@ -103,7 +103,7 @@
                                                     Sombrero_Galaxy_in_infrared_light_(Hubble_Space_Telescope_and_Spitzer_Space_Telescope).jpg
                                                 </a>
                                                 &#8594;
-                                                <a href="/resources/dargmuesli/icons/sombrero.jpg" target="_blank" title="Sombrero '.translate('pages.imprint.sources.images.galaxy').' ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/sombrero.jpg" target="_blank" title="Sombrero '.translate('pages.imprint.sources.images.galaxy').' ('.translate('pages.imprint.sources.images.local').')">
                                                     sombrero.jpg
                                                 </a>
                                             </li>
@@ -123,7 +123,7 @@
                                                     Center_of_the_Milky_Way_Galaxy_IV_–_Composite.jpg
                                                 </a>
                                                 &#8594;
-                                                <a href="/resources/dargmuesli/icons/milkyway.jpg" target="_blank" title="'.translate('pages.imprint.sources.images.milkyway').' ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/milkyway.jpg" target="_blank" title="'.translate('pages.imprint.sources.images.milkyway').' ('.translate('pages.imprint.sources.images.local').')">
                                                     milkyway.jpg
                                                 </a>
                                             </li>
@@ -143,7 +143,7 @@
                                                     NGC_2818_by_the_Hubble_Space_Telescope.jpg
                                                 </a>
                                                 &#8594;
-                                                <a href="/resources/dargmuesli/icons/hubble.jpg" target="_blank" title="NGC 2818 ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/hubble.jpg" target="_blank" title="NGC 2818 ('.translate('pages.imprint.sources.images.local').')">
                                                     hubble.jpg
                                                 </a>
                                             </li>
@@ -163,7 +163,7 @@
                                                     800px-Magnificent_CME_Erupts_on_the_Sun_-_August_31.jpg
                                                 </a>
                                                 &#8594;
-                                                <a href="/resources/dargmuesli/icons/eruption.jpg" target="_blank" title="'.translate('pages.imprint.sources.images.sun-eruption').' ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/eruption.jpg" target="_blank" title="'.translate('pages.imprint.sources.images.sun-eruption').' ('.translate('pages.imprint.sources.images.local').')">
                                                     eruption.jpg
                                                 </a>
                                             </li>
@@ -186,7 +186,7 @@
                                                     sky-night-space-galaxy.jpeg
                                                 </a>
                                                 &#8594;
-                                                <a href="/resources/dargmuesli/icons/galaxy.jpg" target="_blank" title="'.translate('pages.imprint.sources.images.galaxy').' ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/galaxy.jpg" target="_blank" title="'.translate('pages.imprint.sources.images.galaxy').' ('.translate('pages.imprint.sources.images.local').')">
                                                     galaxy.png
                                                 </a>
                                             </li>

@@ -1,7 +1,7 @@
 <?php
     $lclPath = 'layout/extension';
-    $drgPath = '/resources/dargmuesli';
-    $pkgPath = '/resources/packages/yarn';
+    $drgPath = getenv('BASE_URL').'/resources/dargmuesli';
+    $pkgPath = getenv('BASE_URL').'/resources/packages/yarn';
     $featureTranslations = array(
         'lcl' => array(
             'ext' => array(

@@ -99,7 +99,7 @@
         } else {
             $_SESSION['error'] = strtr(translate('scripts.validation.validate.error.general'), array('%email' => $email));
 
-            $dieLocation = '/accounts/?email=' . $email;
+            $dieLocation = getenv('BASE_URL').'/accounts/?email=' . $email;
 
             $code = 0;
         }
