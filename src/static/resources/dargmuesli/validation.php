@@ -40,7 +40,7 @@
 
             $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_'.get_language().'.html');
 
-            $string_processed = preg_replace_callback('~\{\$(.*?)\}~si', function ($match) use ($email, $link) {
+            $string_processed = preg_replace_callback('~\{\$(.*?)\}~si', function ($match) use ($email, $link, $serverRootUrl) {
                 return eval('return $' . $match[1] . ';');
             }, $file);
 
