@@ -1,4 +1,3 @@
-import { alert } from './alert';
 import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './table';
 import { i18n } from './language';
 
