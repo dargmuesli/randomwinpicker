@@ -1,9 +1,6 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/cache/enabled.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/base/skeleton.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
-
-    last_modified(get_page_mod_time());
 
     $skeletonTitle = translate('pages.error.title.head').' '.$_GET['errorCode'];
     $skeletonDescription = 'Something went wrong';

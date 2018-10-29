@@ -1,5 +1,4 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/cache/enabled.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/base/skeleton.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
@@ -8,8 +7,6 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/warning.php';
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
-
-    last_modified(get_page_mod_time());
 
     $skeletonTitle = translate('pages.accounts.reset.title.head');
     $skeletonDescription = 'Enter your new password here to regain access to your account';

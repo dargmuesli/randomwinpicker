@@ -1,5 +1,4 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/cache/enabled.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/base/skeleton.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
@@ -67,8 +66,6 @@
     $youtube = $stmt_youtube->fetch()[0];
     $encoding = $stmt_encoding->fetch()[0];
     $prices = $stmt_prices->fetch()[0];
-
-    last_modified(get_page_mod_time());
 
     $skeletonTitle = translate('pages.accounts.profile.title.head');
     $skeletonDescription = 'View all settings of your personal account';

@@ -1,6 +1,5 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/packages/composer/autoload.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/cache/enabled.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/base/skeleton.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/recaptcha.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/sessioncookie.php';
@@ -8,8 +7,6 @@
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/account.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/warning.php';
-
-    last_modified(get_page_mod_time());
 
     $response = null;
 

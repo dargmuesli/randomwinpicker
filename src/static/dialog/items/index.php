@@ -1,5 +1,4 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/cache/enabled.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/base/skeleton.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
@@ -8,8 +7,6 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/warning.php';
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/tableload.php';
-
-    last_modified(get_page_mod_time());
 
     if (isset($_COOKIE['view'])) {
         $view = $_COOKIE['view'];
