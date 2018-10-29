@@ -29,7 +29,7 @@
         }
 
         $html .= '">
-                <link href="'.$_SERVER['REQUEST_URI'].'" rel="canonical">
+                <link href="'.$_SERVER['SERVER_ROOT_URL'].$_SERVER['REQUEST_URI'].'" rel="canonical">
                 <link href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/favicon.ico" rel="icon" type="image/x-icon">
                 <meta name="HTTP_X_FORWARDED_PREFIX" content="'.getenv('BASE_URL').'">
                 <meta name="author" content="Jonas Thelemann" />
