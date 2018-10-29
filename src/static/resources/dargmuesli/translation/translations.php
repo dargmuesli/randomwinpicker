@@ -168,14 +168,14 @@
             'accounts' => [
                 'description' => [
                     'details' => [
-                        'de' => 'Ich empfehle Passwort-Manager wie <a href="http://keepass.info/" title="KeePass Password-Manager" target="_blank">KeePass</a>!
+                        'de' => 'Ich empfehle Passwort-Manager wie <a href="http://keepass.info/" title="KeePass Password-Manager" rel="noopener" target="_blank">KeePass</a>!
                                 <br>
-                                Passwörter werden als <a href="https://de.wikipedia.org/wiki/Salt_%28Kryptologie%29" title="Salt (Kryptologie)" target="_blank">gesalzener</a> <a href="https://de.wikipedia.org/wiki/SHA-2" title="SHA-2" target="_blank">SHA256-Hash</a> gespeichert.
+                                Passwörter werden als <a href="https://de.wikipedia.org/wiki/Salt_%28Kryptologie%29" title="Salt (Kryptologie)" rel="noopener" target="_blank">gesalzener</a> <a href="https://de.wikipedia.org/wiki/SHA-2" title="SHA-2" rel="noopener" target="_blank">SHA256-Hash</a> gespeichert.
                                 <br>
                                 Wenn du "angemeldet bleiben" willst, werden deine Anmeldeinformationen in <a href="https://de.wikipedia.org/wiki/HTTP-Cookie" title="HTTP-Cookie">HTTP-Cookies</a> gespeichert. Schaue in das <a href="../imprint/#cookies" title="Impressum">Impressum</a> für weitere Erklärungen.',
-                        'en' => 'I recommend password manager like <a href="http://keepass.info/" title="KeePass Password-Manager" target="_blank">KeePass</a>!
+                        'en' => 'I recommend password manager like <a href="http://keepass.info/" title="KeePass Password-Manager" rel="noopener" target="_blank">KeePass</a>!
                                 <br>
-                                Passwords are stored as <a href="https://en.wikipedia.org/wiki/Salt_%28cryptography%29" title="Salt (cryptography)" target="_blank">salted</a> <a href="https://en.wikipedia.org/wiki/SHA-2" title="SHA-2" target="_blank">SHA256-Hash</a>.
+                                Passwords are stored as <a href="https://en.wikipedia.org/wiki/Salt_%28cryptography%29" title="Salt (cryptography)" rel="noopener" target="_blank">salted</a> <a href="https://en.wikipedia.org/wiki/SHA-2" title="SHA-2" rel="noopener" target="_blank">SHA256-Hash</a>.
                                 <br>
                                 If you want to "stay logged in", your login information will be stored in <a href="https://en.wikipedia.org/wiki/HTTP_cookie" title="HTTP cookie">HTTP cookies</a>. Check the <a href="../imprint/#cookies" title="Imprint">imprint</a> for further explanation.'
                     ],
@@ -786,19 +786,19 @@
                         'en' => 'Tutorial: How to build this file (correctly)'
                     ],
                     'content' => [
-                        'de' => 'Du kannst auch eine <a href="https://de.wikipedia.org/wiki/CSV_%28Dateiformat%29" title="CSV (Dateiformat)" target="_blank">.csv</a>-Datei hochladen, um die Tabelle zu füllen.
+                        'de' => 'Du kannst auch eine <a href="https://de.wikipedia.org/wiki/CSV_%28Dateiformat%29" title="CSV (Dateiformat)" rel="noopener" target="_blank">.csv</a>-Datei hochladen, um die Tabelle zu füllen.
                                 <br>
                                 Warnung: Die Tabelle wird beim Hochladen einer Datei zurückgesetzt!',
-                        'en' => 'You can also upload a <a href="https://en.wikipedia.org/wiki/Comma-separated_values" title="Comma-separated values" target="_blank">.csv</a> file to fill the table below.
+                        'en' => 'You can also upload a <a href="https://en.wikipedia.org/wiki/Comma-separated_values" title="Comma-separated values" rel="noopener" target="_blank">.csv</a> file to fill the table below.
                                 <br>
                                 Warning: The table resets when you load a file!'
                     ],
                     'spoiler' => [
-                        'de' => 'Um diese Datei zu erhalten, klicke auf "Speichern unter" in <a href="https://www.openoffice.org/de/" title="Apache OpenOffice" target="_blank">OpenOffice Calc</a> oder "Exportieren" in <a href="https://products.office.com/de-DE/home" title="Microsoft Office" target="_blank">Microsoft Office Excel</a>.
+                        'de' => 'Um diese Datei zu erhalten, klicke auf "Speichern unter" in <a href="https://www.openoffice.org/de/" title="Apache OpenOffice" rel="noopener" target="_blank">OpenOffice Calc</a> oder "Exportieren" in <a href="https://products.office.com/de-DE/home" title="Microsoft Office" rel="noopener" target="_blank">Microsoft Office Excel</a>.
                                 Dann wähle eine semikolongetrennte .csv-Datei mit den Titeln "username" und "quantity". Gehe sicher, dass die Codierung auf UTF-8 gestellt ist!
                                 <br>
                                 Lasse deinen Mauszeiger über diesem Text schweben, um ein Formatbeispiel zu sehen.',
-                        'en' => 'To get this file use "save as" in <a href="https://www.openoffice.org/" title="Apache OpenOffice" target="_blank">OpenOffice Calc</a> or "export" in <a href="https://products.office.com/en/home" title="Microsoft Office" target="_blank">Microsoft Office Excel</a>.
+                        'en' => 'To get this file use "save as" in <a href="https://www.openoffice.org/" title="Apache OpenOffice" rel="noopener" target="_blank">OpenOffice Calc</a> or "export" in <a href="https://products.office.com/en/home" title="Microsoft Office" rel="noopener" target="_blank">Microsoft Office Excel</a>.
                                 Then choose a semicolon seperated .csv-file that has the headlines "username" and "quantity". Make sure that encoding is set to UTF-8!
                                 <br>
                                 Let your cursor hover over this text to see a format example.'
@@ -928,16 +928,16 @@
                 ],
                 'randomness' => [
                     'content' => [
-                        'de' => 'RandomWinPicker benutzt die <a href="https://www.random.org/" title="RANDOM.ORG" target="_blank">Random.org</a> <a href="https://api.random.org/json-rpc/1/" title="JSON-RPC API – Release 1" target="_blank">API</a>, um einen Gewinner mit der Zufälligkeit von atmospherischem Rauschen zu bestimmen.
+                        'de' => 'RandomWinPicker benutzt die <a href="https://www.random.org/" title="RANDOM.ORG" rel="noopener" target="_blank">Random.org</a> <a href="https://api.random.org/json-rpc/1/" title="JSON-RPC API – Release 1" rel="noopener" target="_blank">API</a>, um einen Gewinner mit der Zufälligkeit von atmospherischem Rauschen zu bestimmen.
                                 <br>
                                 Das ist einer der besten Wege, wenn nicht der beste Weg, zufällige Daten zu erzeugen. <cite title="https://www.random.org/">Besser als die pseudo-zufälligen Zahlenalgorithmen, die typischerweise in Computerprogrammen benutzt werden</cite>.
                                 <br>
-                                Aber es gibt eine Begrenzung: Jeden Tag können nur 1.000 Anfragen zu random.org gesendet werden und 250.000 Bits können in den angefragten Antworten von random.org sein. Danach wird die Javascriptfunktion <a href="https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Math/math.random" title="Math.random()" target="_blank">Math.random()</a> des Browsers benutzt.',
-                        'en' => 'RandomWinPicker uses the <a href="https://www.random.org/" title="RANDOM.ORG" target="_blank">Random.org</a> <a href="https://api.random.org/json-rpc/1/" title="JSON-RPC API – Release 1" target="_blank">API</a> to choose a winner based on the randomness of atmospheric noise.
+                                Aber es gibt eine Begrenzung: Jeden Tag können nur 1.000 Anfragen zu random.org gesendet werden und 250.000 Bits können in den angefragten Antworten von random.org sein. Danach wird die Javascriptfunktion <a href="https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Math/math.random" title="Math.random()" rel="noopener" target="_blank">Math.random()</a> des Browsers benutzt.',
+                        'en' => 'RandomWinPicker uses the <a href="https://www.random.org/" title="RANDOM.ORG" rel="noopener" target="_blank">Random.org</a> <a href="https://api.random.org/json-rpc/1/" title="JSON-RPC API – Release 1" rel="noopener" target="_blank">API</a> to choose a winner based on the randomness of atmospheric noise.
                                 <br>
                                 This is one of the best - if not the best - way to generate random data. It is <cite title="https://www.random.org/">better than the pseudo-random number algorithms typically used in computer programs</cite>.
                                 <br>
-                                But there is one limit: Every day only 1,000 requests can be sent to random.org and 250,000 bits can be in the requested answers from random.org. After that the Javascript function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random" title="Math.random()" target="_blank">Math.random()</a> of your Browser is used.'
+                                But there is one limit: Every day only 1,000 requests can be sent to random.org and 250,000 bits can be in the requested answers from random.org. After that the Javascript function <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random" title="Math.random()" rel="noopener" target="_blank">Math.random()</a> of your Browser is used.'
                     ],
                     'title' => [
                         'de' => 'Ein "wahrer" Gewinner?',

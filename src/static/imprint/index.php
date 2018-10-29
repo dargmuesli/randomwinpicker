@@ -85,85 +85,85 @@
                         </p>
                         <ul>
                             <li>
-                                <a href="https://commons.wikimedia.org/wiki/Main_Page?uselang='.get_language().'" target="_blank" title="Wikimedia">
+                                <a href="https://commons.wikimedia.org/wiki/Main_Page?uselang='.get_language().'" rel="noopener" target="_blank" title="Wikimedia">
                                     https://commons.wikimedia.org/
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="https://commons.wikimedia.org/wiki/User:Tryphon?uselang='.get_language().'" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Tryphon">
+                                        <a href="https://commons.wikimedia.org/wiki/User:Tryphon?uselang='.get_language().'" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Tryphon">
                                             Tryphon
                                         </a>
                                         /
-                                        <a href="https://www.spacetelescope.org/" target="_blank" title="spacetelescope.org">
+                                        <a href="https://www.spacetelescope.org/" rel="noopener" target="_blank" title="spacetelescope.org">
                                             NASA/JPL-Caltech and The Hubble Heritage Team (STScI/AURA)
                                         </a>
                                         <ul>
                                             <li>
-                                                <a href="https://commons.wikimedia.org/wiki/File:Sombrero_Galaxy_in_infrared_light_%28Hubble_Space_Telescope_and_Spitzer_Space_Telescope%29.jpg?uselang='.get_language().'" target="_blank" title="Sombrero Galaxie (Original)">
+                                                <a href="https://commons.wikimedia.org/wiki/File:Sombrero_Galaxy_in_infrared_light_%28Hubble_Space_Telescope_and_Spitzer_Space_Telescope%29.jpg?uselang='.get_language().'" rel="noopener" target="_blank" title="Sombrero Galaxie (Original)">
                                                     Sombrero_Galaxy_in_infrared_light_(Hubble_Space_Telescope_and_Spitzer_Space_Telescope).jpg
                                                 </a>
                                                 &#8594;
-                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/sombrero.jpg" target="_blank" title="Sombrero '.translate('pages.imprint.sources.images.galaxy').' ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/sombrero.jpg" rel="noopener" target="_blank" title="Sombrero '.translate('pages.imprint.sources.images.galaxy').' ('.translate('pages.imprint.sources.images.local').')">
                                                     sombrero.jpg
                                                 </a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="https://commons.wikimedia.org/wiki/User:Keraunoscopia?uselang='.get_language().'" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Keraunoscopia">
+                                        <a href="https://commons.wikimedia.org/wiki/User:Keraunoscopia?uselang='.get_language().'" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Keraunoscopia">
                                             Keraunoscopia
                                         </a>
                                         /
-                                        <a href="https://www.spacetelescope.org/" target="_blank" title="spacetelescope.org">
+                                        <a href="https://www.spacetelescope.org/" rel="noopener" target="_blank" title="spacetelescope.org">
                                             NASA/JPL-Caltech/ESA/CXC/STScI
                                         </a>
                                         <ul>
                                             <li>
-                                                <a href="https://commons.wikimedia.org/wiki/File:Center_of_the_Milky_Way_Galaxy_IV_%E2%80%93_Composite.jpg?uselang='.get_language().'" target="_blank" title="'.translate('pages.imprint.sources.images.milkyway').' (Original)">
+                                                <a href="https://commons.wikimedia.org/wiki/File:Center_of_the_Milky_Way_Galaxy_IV_%E2%80%93_Composite.jpg?uselang='.get_language().'" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.milkyway').' (Original)">
                                                     Center_of_the_Milky_Way_Galaxy_IV_–_Composite.jpg
                                                 </a>
                                                 &#8594;
-                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/milkyway.jpg" target="_blank" title="'.translate('pages.imprint.sources.images.milkyway').' ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/milkyway.jpg" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.milkyway').' ('.translate('pages.imprint.sources.images.local').')">
                                                     milkyway.jpg
                                                 </a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="https://commons.wikimedia.org/wiki/User:Njardarlogar?uselang='.get_language().'" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Njardarlogar">
+                                        <a href="https://commons.wikimedia.org/wiki/User:Njardarlogar?uselang='.get_language().'" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Njardarlogar">
                                             Njardarlogar
                                         </a>
                                         /
-                                        <a href="https://www.spacetelescope.org/" target="_blank" title="spacetelescope.org">
+                                        <a href="https://www.spacetelescope.org/" rel="noopener" target="_blank" title="spacetelescope.org">
                                             NASA, ESA, and the Hubble Heritage Team (STScI/AURA)
                                         </a>
                                         <ul>
                                             <li>
-                                                <a href="https://commons.wikimedia.org/wiki/File:NGC_2818_by_the_Hubble_Space_Telescope.jpg?uselang='.get_language().'" target="_blank" title="NGC 2818 (Original)">
+                                                <a href="https://commons.wikimedia.org/wiki/File:NGC_2818_by_the_Hubble_Space_Telescope.jpg?uselang='.get_language().'" rel="noopener" target="_blank" title="NGC 2818 (Original)">
                                                     NGC_2818_by_the_Hubble_Space_Telescope.jpg
                                                 </a>
                                                 &#8594;
-                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/hubble.jpg" target="_blank" title="NGC 2818 ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/hubble.jpg" rel="noopener" target="_blank" title="NGC 2818 ('.translate('pages.imprint.sources.images.local').')">
                                                     hubble.jpg
                                                 </a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="https://commons.wikimedia.org/wiki/User:Flickr_upload_bot?uselang='.get_language().'" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Flickr_upload_bot">
+                                        <a href="https://commons.wikimedia.org/wiki/User:Flickr_upload_bot?uselang='.get_language().'" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Flickr_upload_bot">
                                             Flickr_upload_bot
                                         </a>
                                         /
-                                        <a href="https://www.nasa.gov/centers/goddard/home/index.html" target="_blank" title="flickr.com">
+                                        <a href="https://www.nasa.gov/centers/goddard/home/index.html" rel="noopener" target="_blank" title="flickr.com">
                                             NASA Goddard Space Flight Center
                                         </a>
                                         <ul>
                                             <li>
-                                                <a href="https://commons.wikimedia.org/wiki/File:Magnificent_CME_Erupts_on_the_Sun_-_August_31.jpg?uselang='.get_language().'" target="_blank" title="'.translate('pages.imprint.sources.images.sun-eruption').' (Original)">
+                                                <a href="https://commons.wikimedia.org/wiki/File:Magnificent_CME_Erupts_on_the_Sun_-_August_31.jpg?uselang='.get_language().'" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.sun-eruption').' (Original)">
                                                     800px-Magnificent_CME_Erupts_on_the_Sun_-_August_31.jpg
                                                 </a>
                                                 &#8594;
-                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/eruption.jpg" target="_blank" title="'.translate('pages.imprint.sources.images.sun-eruption').' ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/eruption.jpg" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.sun-eruption').' ('.translate('pages.imprint.sources.images.local').')">
                                                     eruption.jpg
                                                 </a>
                                             </li>
@@ -172,21 +172,21 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="https://www.pexels.com/" target="_blank" title="Pexels">
+                                <a href="https://www.pexels.com/" rel="noopener" target="_blank" title="Pexels">
                                     https://www.pexels.com/
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="https://unsplash.com/ahmadreza_sajadi" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Ahmadreza Sajadi">
+                                        <a href="https://unsplash.com/ahmadreza_sajadi" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.user').': Ahmadreza Sajadi">
                                             Ahmadreza Sajadi
                                         </a>
                                         <ul>
                                             <li>
-                                                <a href="https://www.pexels.com/photo/sky-night-space-galaxy-6547/" target="_blank" title="'.translate('pages.imprint.sources.images.galaxy').' (Original)">
+                                                <a href="https://www.pexels.com/photo/sky-night-space-galaxy-6547/" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.galaxy').' (Original)">
                                                     sky-night-space-galaxy.jpeg
                                                 </a>
                                                 &#8594;
-                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/galaxy.jpg" target="_blank" title="'.translate('pages.imprint.sources.images.galaxy').' ('.translate('pages.imprint.sources.images.local').')">
+                                                <a href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/galaxy.jpg" rel="noopener" target="_blank" title="'.translate('pages.imprint.sources.images.galaxy').' ('.translate('pages.imprint.sources.images.local').')">
                                                     galaxy.png
                                                 </a>
                                             </li>
