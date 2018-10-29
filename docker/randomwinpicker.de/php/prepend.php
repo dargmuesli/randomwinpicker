@@ -11,8 +11,12 @@
     $_SERVER['SERVER_ROOT'] = dirname($_SERVER['DOCUMENT_ROOT']);
     $_SERVER['SERVER_ROOT_URL'] = $protocol.$_SERVER['HTTP_HOST'];
 
-    if (in_array('HTTP_X_FORWARDED_PREFIX', $_SERVER)) {
+    if (array_key_exists('HTTP_X_FORWARDED_PREFIX', $_SERVER)) {
         $_SERVER['SERVER_ROOT_URL'] .= $_SERVER['HTTP_X_FORWARDED_PREFIX'];
+    }
+
+    if (substr($_SERVER['SERVER_ROOT_URL'], -1) == '/') {
+        $_SERVER['SERVER_ROOT_URL'] = substr($_SERVER['SERVER_ROOT_URL'], 0, -1);
     }
 
     function error_handler($errorLevel, $errorMessage, $errorFile, $errorLine, $errorContext)
@@ -51,6 +55,8 @@
     function exception_handler(Exception $exception)
     {
         global $simpleLogging;
+
+        http_response_code(500);
 
         $errorOutput = $exception->getMessage();
 
