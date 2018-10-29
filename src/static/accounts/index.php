@@ -81,6 +81,7 @@
         $interval = $then->diff($now);
         $timespan = $interval->format('%s');
         $_SESSION['time'] = serialize($now);
+
         if ($timespan < 5) {
             $skeletonContent .= '
                 <p>

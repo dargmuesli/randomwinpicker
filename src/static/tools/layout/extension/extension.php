@@ -1,11 +1,4 @@
 <?php
-    header('Content-Type: application/javascript');
-    header('Expires: 0');
-    header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-    header('Cache-Control: no-store, no-cache, must-revalidate');
-    header('Cache-Control: post-check=0, pre-check=0', false);
-    header('Pragma: no-cache');
-
     function get_title($url)
     {
         $str = file_get_contents($url);
