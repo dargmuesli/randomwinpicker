@@ -15,8 +15,8 @@
         $_SERVER['SERVER_ROOT_URL'] .= $_SERVER['HTTP_X_FORWARDED_PREFIX'];
     }
 
-    if (substr($_SERVER['SERVER_ROOT_URL'], -1) != '/') {
-        $_SERVER['SERVER_ROOT_URL'] .= '/';
+    if (substr($_SERVER['SERVER_ROOT_URL'], -1) == '/') {
+        $_SERVER['SERVER_ROOT_URL'] = substr($_SERVER['SERVER_ROOT_URL'], 0, -1);
     }
 
     function error_handler($errorLevel, $errorMessage, $errorFile, $errorLine, $errorContext)

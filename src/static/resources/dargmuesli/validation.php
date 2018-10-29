@@ -36,7 +36,7 @@
         $code = $stmt->fetch()[0];
 
         if ($code != -1) { // && ($code != -2) {
-            $link = $_SERVER['SERVER_ROOT_URL'].'resources/dargmuesli/validation.php?task=validate&email='.$email.'&code='.$code;
+            $link = $_SERVER['SERVER_ROOT_URL'].'/resources/dargmuesli/validation.php?task=validate&email='.$email.'&code='.$code;
 
             $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_'.get_language().'.html');
             $serverRootUrl = $_SERVER['SERVER_ROOT_URL'];

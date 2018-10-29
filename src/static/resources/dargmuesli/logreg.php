@@ -20,7 +20,7 @@
     $task = $_GET['task'];
     $dieLocation = '';
 
-    if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '' && $_SERVER['HTTP_REFERER'] != $_SERVER['SERVER_ROOT_URL'].'accounts/profile/') {
+    if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] != '' && $_SERVER['HTTP_REFERER'] != $_SERVER['SERVER_ROOT_URL'].'/accounts/profile/') {
         $dieLocation = $_SERVER['HTTP_REFERER'];
     } else {
         $dieLocation = getenv('BASE_URL').'/accounts/';
@@ -66,7 +66,7 @@
                 if (!$row) {
                     // Entry doesn't exist
                     $code = rand();
-                    $link = $_SERVER['SERVER_ROOT_URL'].'resources/dargmuesli/validation.php?task=validate&email=' . $email . '&code=' . $code;
+                    $link = $_SERVER['SERVER_ROOT_URL'].'/resources/dargmuesli/validation.php?task=validate&email=' . $email . '&code=' . $code;
 
                     $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_'.get_language().'.html');
                     $serverRootUrl = $_SERVER['SERVER_ROOT_URL'];

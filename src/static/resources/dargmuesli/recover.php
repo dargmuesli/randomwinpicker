@@ -26,7 +26,7 @@
     if ($task == 'recover') {
         $code = rand();
         $email = $_POST['email'];
-        $link = $_SERVER['SERVER_ROOT_URL'].'accounts/reset/?email=' . $email . '&amp;code=' . $code;
+        $link = $_SERVER['SERVER_ROOT_URL'].'/accounts/reset/?email=' . $email . '&amp;code=' . $code;
 
         $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/reset_'.get_language().'.html');
         $serverRootUrl = $_SERVER['SERVER_ROOT_URL'];
