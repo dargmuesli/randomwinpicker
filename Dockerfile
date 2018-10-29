@@ -31,8 +31,13 @@ ENV PHP_INI_DIR /usr/local/etc/php
 # Enable extensions
 RUN apt-get update \
     && apt-get install -y \
+    libfreetype6-dev \
+    libpng-dev \
     libpq-dev \
+    && docker-php-ext-configure \
+    gd --with-freetype-dir=/usr/include/ \
     && docker-php-ext-install \
+    gd \
     pdo_pgsql
 
 # Create Apache directory and copy the files

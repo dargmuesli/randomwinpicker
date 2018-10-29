@@ -1,0 +1,44 @@
+{
+    "alert": {
+        "cancel": "Abbrechen"
+    },
+    "extension": {
+        "draw": {
+            "button": "Nochmal ziehen!",
+            "limit": "% der täglich möglichen Anfragen an random.org wurden genutzt.",
+            "place": {
+                "ranking": "Platz",
+                "span": "Der Gewinner ist"
+            },
+            "reveal": "Zeige den {{round}}. Gewinner"
+        },
+        "items": {
+            "warning": "Nicht alle Gewinnen wurde ein Zustand zugewiesen. Bitte ändern!"
+        }
+    },
+    "filetree": {
+        "conditions": {
+            "fn": "[FN]",
+            "mw": "[MG]",
+            "ft": "[EE]",
+            "ww": "[AG]",
+            "bs": "[KS]"
+        },
+        "images": {
+            "hide": "Verstecke alle Bilder'",
+            "show": "Zeige alle Bilder"
+        }
+    },
+    "table": {
+        "add": {
+            "duplicate": "Wert '{{value}}' existiert schon @ '{{error}}'!"
+        },
+        "save": {
+            "error": "Speichern fehlgeschlagen: Überprüfe deine Datei oder sende weniger Anfragen!"
+        },
+        "select": {
+            "question": "Möchtest du diesen Gewinn löschen?",
+            "title": "Löschen"
+        }
+    }
+}

@@ -1,11 +1,19 @@
 env:
+  browser: true
   es6: true
+  jquery: true
   node: true
 extends: 'eslint:recommended'
+globals:
+  Dargmuesli: false
+  grecaptcha: false
+parserOptions:
+  sourceType: module
 rules:
   indent:
      - error
      - 4
+     - SwitchCase: 1
   linebreak-style:
     - error
     - unix

@@ -1,0 +1,44 @@
+{
+    "alert": {
+        "cancel": "Cancel"
+    },
+    "extension": {
+        "draw": {
+            "button": "Draw again!",
+            "limit": "% of the daily possible requests to random.org were used.",
+            "place": {
+                "ranking": "place",
+                "span": "The winner is"
+            },
+            "reveal": "Reveal the {{round}}. winner"
+        },
+        "items": {
+            "warning": "Not all items have a condition assigned, please change!"
+        }
+    },
+    "filetree": {
+        "conditions": {
+            "fn": "[FN]",
+            "mw": "[MW]",
+            "ft": "[FT]",
+            "ww": "[WW]",
+            "bs": "[BS]"
+        },
+        "images": {
+            "hide": "Hide all images",
+            "show": "Show all images"
+        }
+    },
+    "table": {
+        "add": {
+            "duplicate": "Value '{{value}}' already exists @ '{{error}}'!"
+        },
+        "save": {
+            "error": "Saving failed: Check your file or send less requests!"
+        },
+        "select": {
+            "question": "Do you want to remove this item?",
+            "title": "Delete"
+        }
+    }
+}
