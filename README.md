@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/Dargmuesli/randomwinpicker.de.svg?branch=master)](https://travis-ci.org/Dargmuesli/randomwinpicker.de)
-[![Known Vulnerabilities](https://snyk.io/test/github/dargmuesli/randomwinpicker.de/badge.svg)](https://snyk.io/test/github/dargmuesli/randomwinpicker.de)
-[![Greenkeeper Badge](https://badges.greenkeeper.io/Dargmuesli/randomwinpicker.de.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/Dargmuesli/randomwinpicker.svg?branch=master)](https://travis-ci.org/Dargmuesli/randomwinpicker)
+[![Known Vulnerabilities](https://snyk.io/test/github/dargmuesli/randomwinpicker/badge.svg)](https://snyk.io/test/github/dargmuesli/randomwinpicker)
+[![Greenkeeper Badge](https://badges.greenkeeper.io/Dargmuesli/randomwinpicker.svg)](https://greenkeeper.io/)
 
-# randomwinpicker.de
+# randomwinpicker
 This website chooses a "true" random winner for CS:GO case openings.
 
 ![Welcome](images/welcome.jpg "Welcome to RandomWinPicker")
@@ -149,7 +149,7 @@ The given `dockerfile` enables you to build a PHP/Apache-Server with the configu
 To generate a development version of this file you can use [PS-Docker-Management](https://github.com/dargmuesli/ps-docker-management). It simplifies development of Docker projects like this one. To setup this project's full Docker stack locally just run this command:
 
 ```PowerShell
-./Invoke-PSDockerManagement.ps1 -ProjectPath ../randomwinpicker.de/
+./Invoke-PSDockerManagement.ps1 -ProjectPath ../randomwinpicker/
 ```
 
 #### Production

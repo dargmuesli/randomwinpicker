@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>
-            Helper - RandomWinPicker.de
+            Helper - RandomWinPicker
         </title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="../layout/stylesheets/loading.css">

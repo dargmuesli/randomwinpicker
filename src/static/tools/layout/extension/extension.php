@@ -53,10 +53,10 @@
                     $type = 'Normal';
                 }
 
-                $root = array_diff(scandir('/var/www/randomwinpicker.de/resources/dargmuesli/filetree/categories/en/CS:GO/'), array('..', '.'));
+                $root = array_diff(scandir('/var/www/randomwinpicker/resources/dargmuesli/filetree/categories/en/CS:GO/'), array('..', '.'));
 
                 for ($i = 0; $i < sizeof($root); ++$i) {
-                    $category = array_diff(scandir('/var/www/randomwinpicker.de/resources/dargmuesli/filetree/categories/en/CS:GO/'.$root[$i + 2]), array('..', '.'));
+                    $category = array_diff(scandir('/var/www/randomwinpicker/resources/dargmuesli/filetree/categories/en/CS:GO/'.$root[$i + 2]), array('..', '.'));
 
                     if (in_array(substr($name, 0, strpos($name, ',')), $category)) {
                         $category = $root[$i + 2];
@@ -66,14 +66,14 @@
 
                 if (strpos($title[1], 'CS:GO Stash - Browse all skins, stickers and items') === false) {
                     $link = $url.'/'.preg_replace('/\s/', '-', str_replace(' | ', '-', str_replace(' - CS:GO Stash', '', $title[1])));
-                    $csgostash = '/var/www/randomwinpicker.de/resources/dargmuesli/csgostash.txt';
+                    $csgostash = '/var/www/randomwinpicker/resources/dargmuesli/csgostash.txt';
                     $lines = file($csgostash);
                     array_push($lines, $link."\r\n");
                     $lines = array_unique($lines);
                     sort($lines, SORT_NATURAL);
                     file_put_contents($csgostash, implode($lines));
 
-                    $categoryPath = '/var/www/randomwinpicker.de/resources/dargmuesli/filetree/categories/en/CS:GO/'.$category.'/'.substr($name, 0, strpos($name, ',')).'/'.substr($name, strpos($name, ',') + 2, strlen($name));
+                    $categoryPath = '/var/www/randomwinpicker/resources/dargmuesli/filetree/categories/en/CS:GO/'.$category.'/'.substr($name, 0, strpos($name, ',')).'/'.substr($name, strpos($name, ',') + 2, strlen($name));
                     $categoryFile = fopen($categoryPath, 'w') or die('Unable to write category file!<br>');
                     fwrite($categoryFile, '{'."\n\t".'"name": "'.$name.'",'."\n\t".'"url": "https://csgostash.com/img/skins/'.$img.'.png",'."\n\t".'"quality": "'.$quality.'",'."\n\t".'"type": "'.$type.'"'."\n".'}');
                     fclose($categoryFile);
