@@ -1,29 +1,19 @@
-# OpenSSL configuration for end-entity cert
-
-[ req ]
-
+[req]
 prompt             = no
 string_mask        = default
-
-# The size of the keys in bits:
 default_bits       = 2048
 distinguished_name = req_distinguished_name
 x509_extensions    = x509_ext
 
-[ req_distinguished_name ]
-
-# Note that the following are in 'reverse order' to what you'd expect to see.
-
+[req_distinguished_name]
 countryName = de
 organizationName = Development
 commonName = localhost
 
-[ x509_ext ]
-
-keyUsage=critical,digitalSignature,keyAgreement
+[x509_ext]
+keyUsage=critical,digitalSignature,keyEncipherment
 subjectAltName = @alt_names
 
-# Multiple Alternate Names are possible
 [alt_names]
 DNS.1 = randomwinpicker.test
 DNS.2 = adminer.randomwinpicker.test
