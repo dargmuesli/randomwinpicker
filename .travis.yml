@@ -10,7 +10,7 @@ env:
   - secure: kszsIrMO1AmLLvBjx31A9ugUdt0bF1FfrTxRsDePvirbp+j+8BdE0jbpQr13D3FP5GM3d2IMrNAkP5Qzmuz0J5Kvkq4PQMrKqy4D6cQ7wlnEg/+F3JXxsafG4lgqHihhNBbYnFr71ATWq87v1DyDGBeJn23Zai03UPES7964GRAGnYNxy3LXXvZ82mwiqS++fG12o46j5aDlgMeMOamxUHCS3WL3Fc9nWJ1X9nWA82/T0KITL+KhKPX2tMM5LthykHsYiE4ggbjsGh8ZifLaP9mATYSxUb1oT+E8rMEqQCn3S4fD28/vDvqb31fqIpr6/3q8iPqGtQYb39lu86iJs/3VYXAPTJUHbBVG810o+tqOSy9qMmj16OkOxtdcbViyvWQRME45kuM0QiJUe5W9deSFdNcsd2uYlaFh13iXlCrOvgSlDoLYjND7aF2lDySLMd6zojnVkJZKgqYhgAP41oKrzrqrWaLDHy45sSIUwplQgpPu3CIBcv1yIxNcBMPFNmmL4V6cKDtBP0UkvHmzmIiTG8exeeWe+Zm0ixPs/vlnjbBPUcjQtbpdspkkbHxaq/UaBevjYHaNVIip7t2vBmh7On+OVjSDTpoERGMEb3BPGG3vdK6Mbf6pOLlzzsebsDfmgiSBnipjYcsaG/JsbRpr0hEirYlYCItj+tG6HwA= #DOCKER_PASS
   - secure: Aovm+GWNrX+XGgShuL9klOOXTjrsyVbKrx1v2XlEqWkwNZIqIFojAdx2vdzDGvAOuD6YxQFk7kGksOfoLRLCViXOYtcCc+j6WB1yjce+4r1vRBRTzHIZBhIatwVNGgFMwPp34FWimYIUrVH2CavD/LtXkCf1wDSh+PKJdwpfR0lTvZF6Ouj6iwkOWU7O2CLlF0fvRTKsruwMlnlM3AjgPyPe97UlJ28eoDQuuQClbkMAIePlRJdkQx0bLdEQphpyfgU8d1Bbp8X56JnwxbdvuZrLIT3HqSNzO5fDniKklUj2HMwMaVZ9NyU5fMl/M6StCSn4wuJfSwVz4gnb3vpJ+S6paG+Ws3LdXAKxXRn86BLD9uQ8PtTCYJgZmVEdcQXjljZgsl9ChrG3/bXTHjmTinb1Fc2zxRJNk2dEQD7J8srscJcUwgRxzaRRWaUa5lwgYbK8ObWGNC/IqT1QnrCj46Hy1u0IWeamN6kPMCtcaWrF4uiSDIQZ8ys1MxlPE0z0TbqJoxisSjX5ShDutvrXRsOcKRNpbVVJeCI24Zu9JTCS4Pw1PX71NrnHAL/UQP/P0stPMYbYufu774qZG9Ei744Oo5EZADifWVF27yAiwKJf1chxxk65RGlLIA7/QIDfO4F79xMAFwJg3i2i6aPCTkbU2xfPZq9lf4jm6bLj4zs= #GH_TOKEN
   - COMMIT=${TRAVIS_COMMIT::8}
-  - REPO=dargmuesli/randomwinpicker.de
+  - REPO=dargmuesli/randomwinpicker
   - DOCKER_BUILDKIT=1
 addons:
   apt:
@@ -25,7 +25,7 @@ before_script:
 script:
 - docker build -t stage_node --target stage_node .
 - docker container create --name extract stage_node
-- docker container cp extract:/app/dist/randomwinpicker.de.zip .
+- docker container cp extract:/app/dist/randomwinpicker.zip .
 - docker container rm -f extract
 - docker build -t $REPO:$COMMIT .
 after_script:
@@ -40,11 +40,11 @@ deploy:
   provider: releases
   api_key:
     secure: EdfSGYyvg4buTArqqKBZVmdBc+7x5TG4IHe23SXw8X/fIg47z8rNhD42qa707ItpxZqESbJRVgW/9ki+e1X3231I/twEAGwxRLskUUL+BzMrWcuwBJYHCbuF0juCnyI+GmvWiwVqTsREx68xy+AgtBNvzlopqT0617r1OfA7Nq9A7TA0qH8V00o3CwPJY35xL1iG+oSHQBwJ18YEjxKigZ5IRsH+TKacfvJL7hje/ngt9MraOU85CIsMIDHr+i7jsGyOwcqEnUDHwwZCkQcWYlwd90DP4FRGZ/jsiNN5/bxSGLkGYRbrNt9kboviXtLiNmy3xoyIYQR4dKeWEUixI8P6Pe5dykJ94xljlXqHt3l3r6cuIR08QFpwqTJkDrQ/A43/A9WF4V3VH7YfExbvQdhOz7Ie8RFiEp+fsRwXpaG/PBpJMVubx3hRVqAqSIuTICDqCw6lqTK1M92uKbmRoXcXoGvgC7BToSTqHmn90seN1NmMMtPCZRl3adugwdo3VH5ZTwZgAr15+0pGKbwF8dmqwuzvk/8Ss6r9wWhSgFLCVFW348Y118tCf/0lWMQvE90uadz+0zExn1hdAkLtEV2Jy/yYzeCVYAmWNfIfL6f7jEAgMifWrbjHydlBBKRJi9HzFDUeJrZnZQoaYbXx5uwi1nNiqaWvXNkHUzdCevY=
-  file: randomwinpicker.de.zip
+  file: randomwinpicker.zip
   skip_cleanup: true
   on:
     tags: true
-    repo: Dargmuesli/randomwinpicker.de
+    repo: Dargmuesli/randomwinpicker
 notifications:
   email:
     on_success: change

@@ -1,5 +1,5 @@
 {
-    "name": "randomwinpicker.de",
+    "name": "randomwinpicker",
     "description": "A website that chooses a \"true\" random winner for CS:GO case openings.",
     "author": {
         "name": "Jonas Thelemann",
@@ -24,10 +24,10 @@
     "license": "GPL-3.0",
     "repository": {
         "type": "git",
-        "url": "git://github.com/Dargmuesli/randomwinpicker.de.git"
+        "url": "git://github.com/Dargmuesli/randomwinpicker.git"
     },
     "bugs": {
-        "url": "https://github.com/Dargmuesli/randomwinpicker.de/issues"
+        "url": "https://github.com/Dargmuesli/randomwinpicker/issues"
     },
     "dependencies": {
         "i18next": "^11.10.0",

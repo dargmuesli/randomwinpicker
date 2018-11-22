@@ -10,7 +10,7 @@ services:
       - "traefik.port=8080"
     volumes:
     - "./adminer/adminer.css:/var/www/html/adminer.css"
-  randomwinpicker.de:
+  randomwinpicker:
     image: "dargmuesli/${STACK_DOMAIN}:${STACK_VERSION}"
     deploy:
       labels:

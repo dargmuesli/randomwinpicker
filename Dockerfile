@@ -20,7 +20,7 @@ RUN gulp build
 FROM php:apache AS stage_apache
 
 # Project variables
-ENV PROJECT_NAME randomwinpicker.de
+ENV PROJECT_NAME randomwinpicker
 ENV PROJECT_MODS headers macro rewrite ssl
 
 # Apache & PHP variables
