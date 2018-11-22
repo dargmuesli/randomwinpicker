@@ -62,24 +62,24 @@ let sitemapExcludes = [
 
 let symlinkArray = [
     {
-        source: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/en/CS_GO/Heavy',
-        target: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/de/CS_GO/Schwer'
+        source: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/en/CS_GO/Heavy',
+        target: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/de/CS_GO/Schwer'
     },
     {
-        source: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/en/CS_GO/Knifes',
-        target: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/de/CS_GO/Messer'
+        source: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/en/CS_GO/Knifes',
+        target: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/de/CS_GO/Messer'
     },
     {
-        source: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/en/CS_GO/Pistols',
-        target: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/de/CS_GO/Pistolen'
+        source: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/en/CS_GO/Pistols',
+        target: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/de/CS_GO/Pistolen'
     },
     {
-        source: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/en/CS_GO/Rifles',
-        target: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/de/CS_GO/Gewehre'
+        source: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/en/CS_GO/Rifles',
+        target: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/de/CS_GO/Gewehre'
     },
     {
-        source: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/en/CS_GO/SMGs',
-        target: 'dist/randomwinpicker.de/server/dialog/items/layout/data/filetree/categories/de/CS_GO/MPs'
+        source: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/en/CS_GO/SMGs',
+        target: 'dist/randomwinpicker/server/dialog/items/layout/data/filetree/categories/de/CS_GO/MPs'
     }
 ];
 

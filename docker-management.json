@@ -24,7 +24,7 @@
                     ]
                 },
                 "randomwinpicker-de": {
-                    "image": "localhost:5000/dargmuesli/randomwinpicker.de",
+                    "image": "localhost:5000/dargmuesli/randomwinpicker",
                     "deploy": {
                         "labels": [
                             "traefik.enable=true",
@@ -34,8 +34,8 @@
                         ]
                     },
                     "volumes": [
-                        "./dist/randomwinpicker.de:/var/www/randomwinpicker.de",
-                        "./docker/randomwinpicker.de/certificates:/etc/ssl/certificates"
+                        "./dist/randomwinpicker:/var/www/randomwinpicker",
+                        "./docker/randomwinpicker/certificates:/etc/ssl/certificates"
                     ]
                 },
                 "postgres": {
@@ -92,12 +92,12 @@
                         "--docker.exposedByDefault=false",
                         "--docker.swarmMode=true",
                         "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https",
-                        "--entryPoints=Name:https Address::443 TLS:/etc/ssl/certificates/randomwinpicker.de.crt,/etc/ssl/certificates/randomwinpicker.de.key Compress:true",
+                        "--entryPoints=Name:https Address::443 TLS:/etc/ssl/certificates/randomwinpicker.crt,/etc/ssl/certificates/randomwinpicker.key Compress:true",
                         "--insecureSkipVerify=true"
                     ],
                     "volumes": [
                         "/var/run/docker.sock:/var/run/docker.sock",
-                        "./docker/randomwinpicker.de/certificates:/etc/ssl/certificates"
+                        "./docker/randomwinpicker/certificates:/etc/ssl/certificates"
                     ]
                 }
             },
