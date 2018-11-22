@@ -37,10 +37,10 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta content="'.$keywords.'" name="keywords">
                 <meta property="og:description" content="'.$description.'" />
-                <meta property="og:image" content="https://randomwinpicker.de/layout/icons/screenshots/welcome.jpg" />
+                <meta property="og:image" content="'.$_SERVER['SERVER_ROOT_URL'].'/resources/dargmuesli/icons/screenshots/welcome.jpg" />
                 <meta property="og:title" content="'.$title.' - RandomWinPicker" />
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://randomwinpicker.de/" />
+                <meta property="og:url" content="'.$_SERVER['SERVER_ROOT_URL'].'" />
                 <script src="https://www.google.com/recaptcha/api.js?hl='.get_language().'&amp;render=explicit" async defer></script>
                 '.get_feature_translation(['drg/base/stl.mcss']).'
             </head>';
