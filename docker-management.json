@@ -88,7 +88,6 @@
                         "--api",
                         "--defaultentrypoints=http,https",
                         "--docker",
-                        "--docker.domain=randomwinpicker.de",
                         "--docker.exposedByDefault=false",
                         "--docker.swarmMode=true",
                         "--entryPoints=Name:http Address::80 Redirect.EntryPoint:https",
