@@ -17,8 +17,7 @@
             "url": "https://jonas-thelemann.de/"
         }
     ],
-    "url": "https://jonas-thelemann.de/randomwinpicker.de",
-    "homepage": "https://randomwinpicker.de/randomwinpicker",
+    "homepage": "https://randomwinpicker.jonas-thelemann.de/",
     "version": "2.0.2",
     "private": true,
     "license": "GPL-3.0",
