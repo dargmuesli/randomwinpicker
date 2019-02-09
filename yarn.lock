@@ -488,6 +488,13 @@
     js-levenshtein "^1.1.3"
     semver "^5.3.0"
 
+"@babel/runtime@^7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.1.tgz#574b03e8e8a9898eaf4a872a92ea20b7846f6f2a"
+  integrity sha512-7jGW8ppV0ant637pIqAcFfQDDH1orEPGJb8aXfUozuCU3QqX7rX4DA8iwrbPrR1hcH0FTTHz47yQnk+bl5xHQA==
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@^7.1.0", "@babel/template@^7.1.2":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.1.2.tgz#090484a574fef5a2d2d7726a674eceda5c5b5644"
@@ -3091,10 +3098,12 @@ i18next-xhr-backend@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/i18next-xhr-backend/-/i18next-xhr-backend-1.5.1.tgz#50282610780c6a696d880dfa7f4ac1d01e8c3ad5"
 
-i18next@^14.1.0:
-  version "14.1.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-14.1.0.tgz#416b3f6c3cdd74753d6ec0c0ab1878fbfd0c0ab1"
-  integrity sha512-amuigdImvJvnRMY3WMhARPGE8/whMbFiOCqhDSRUYZcxKLVCjiVt6fLLJIqTdDJbOItBNX0tc8Yzr5g2Buqs2Q==
+i18next@^15.0.0:
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-15.0.0.tgz#26faacb69949c71328e10bcdb51afc7d7a1e326c"
+  integrity sha512-wcfFJC4pLDGhDMWaaInkyAWhVC8WEQERWJzB61Ai+9fkZ4CqeOKC9qIE5wjJnQmcWIAjJfyck5EGkitPkEcLGQ==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
 
 iconv-lite@^0.4.24, iconv-lite@^0.4.4:
   version "0.4.24"
@@ -4820,6 +4829,11 @@ regenerator-runtime@^0.10.5:
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+
+regenerator-runtime@^0.12.0:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
+  integrity sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
 
 regenerator-transform@^0.13.3:
   version "0.13.3"
