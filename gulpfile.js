@@ -14,7 +14,7 @@ const gDateDiff = require('date-diff');
 const gDel = require('del');
 const gEslint = require('gulp-eslint');
 const gGulp = require('gulp');
-const gJsdoc2md = require('gulp-jsdoc-to-markdown');
+const gJsdoc2md = require('jsdoc-to-markdown');
 const gMergeStream = require('merge-stream');
 const gSymlink = require('gulp-symlink');
 const gPhplint = require('gulp-phplint');
@@ -232,11 +232,10 @@ function getChangeFreq(lastModification) {
 
 function jsDoc() {
     return gGulp.src(srcJsFolder + '**/*.js')
-        .pipe(gJsdoc2md())
-        .pipe(gRename(function (path) {
-            path.extname = '.md'
-        }))
-        .pipe(gGulp.dest('docs/js/'));
+        .pipe(gTap(function (file) {
+            file.base = srcJsFolder;
+            gJsdoc2md.render({ files: file.path }).then(output => fs.writeFileSync('docs/js/' + file.relative.replace('.js', '.md'), output));
+        }));
 }
 
 exports.jsDoc = jsDoc;

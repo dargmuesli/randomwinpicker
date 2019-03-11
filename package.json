@@ -34,6 +34,7 @@
         "i18next-xhr-backend": "^2.0.0",
         "jquery": "^3.3.1",
         "jqueryfiletree": "^2.1.4",
+        "jsdoc-to-markdown": "^4.0.1",
         "papaparse": "^4.6.0",
         "reset-css": "^4.0.1"
     },
@@ -52,7 +53,6 @@
         "gulp-cached": "^1.1.1",
         "gulp-composer": "^0.4.5",
         "gulp-eslint": "^5.0.0",
-        "gulp-jsdoc-to-markdown": "^1.2.2",
         "gulp-phplint": "^0.9.0",
         "gulp-rename": "^1.4.0",
         "gulp-sass": "^4.0.1",
