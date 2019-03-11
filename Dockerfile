@@ -17,7 +17,7 @@ RUN yarn add gulp@4 -D
 RUN gulp build
 
 # Base image
-FROM php:apache AS stage_apache
+FROM php:7.3-apache AS stage_apache
 
 # Project variables
 ENV PROJECT_NAME randomwinpicker
