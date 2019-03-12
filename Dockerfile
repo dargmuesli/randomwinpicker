@@ -58,5 +58,8 @@ RUN a2enconf $PROJECT_NAME
 RUN a2dissite *
 RUN a2ensite $PROJECT_NAME
 
+# Declare environment variable file as mount point
+VOLUME $APACHE_DIR/credentials/$PROJECT_NAME.env
+
 # Update workdir to server files' location
 WORKDIR $APACHE_DIR/server
