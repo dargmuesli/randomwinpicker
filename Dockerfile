@@ -48,7 +48,6 @@ COPY --from=stage_node /app/dist/$PROJECT_NAME $APACHE_DIR/
 RUN chown www-data:www-data -R $APACHE_DIR/server
 
 # Copy Apache and PHP config files
-COPY docker/certificates/* /etc/ssl/certificates/
 COPY docker/apache/conf/* $APACHE_CONFDIR/conf-available/
 COPY docker/apache/site/* $APACHE_CONFDIR/sites-available/
 COPY docker/php/* $PHP_INI_DIR/
