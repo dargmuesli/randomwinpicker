@@ -17,7 +17,7 @@ RUN yarn add gulp@4 -D
 RUN gulp build
 
 # Base image
-FROM php:apache AS stage_apache
+FROM php:7.3-apache AS stage_apache
 
 # Project variables
 ENV PROJECT_NAME randomwinpicker
@@ -48,9 +48,9 @@ COPY --from=stage_node /app/dist/$PROJECT_NAME $APACHE_DIR/
 RUN chown www-data:www-data -R $APACHE_DIR/server
 
 # Copy Apache and PHP config files
-COPY docker/$PROJECT_NAME/apache/conf/* $APACHE_CONFDIR/conf-available/
-COPY docker/$PROJECT_NAME/apache/site/* $APACHE_CONFDIR/sites-available/
-COPY docker/$PROJECT_NAME/php/* $PHP_INI_DIR/
+COPY docker/apache/conf/* $APACHE_CONFDIR/conf-available/
+COPY docker/apache/site/* $APACHE_CONFDIR/sites-available/
+COPY docker/php/* $PHP_INI_DIR/
 
 # Enable mods, config and site
 RUN a2enmod $PROJECT_MODS

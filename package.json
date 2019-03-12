@@ -18,7 +18,7 @@
         }
     ],
     "homepage": "https://randomwinpicker.jonas-thelemann.de/",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "private": true,
     "license": "GPL-3.0",
     "repository": {
@@ -29,22 +29,23 @@
         "url": "https://github.com/Dargmuesli/randomwinpicker/issues"
     },
     "dependencies": {
-        "i18next": "^11.10.0",
-        "i18next-browser-languagedetector": "^2.2.3",
-        "i18next-xhr-backend": "^1.5.1",
+        "i18next": "^15.0.6",
+        "i18next-browser-languagedetector": "^3.0.1",
+        "i18next-xhr-backend": "^2.0.1",
         "jquery": "^3.3.1",
         "jqueryfiletree": "^2.1.4",
-        "papaparse": "^4.6.0",
+        "jsdoc-to-markdown": "^4.0.1",
+        "papaparse": "^4.6.3",
         "reset-css": "^4.0.1"
     },
     "devDependencies": {
-        "@babel/core": "^7.1.2",
-        "@babel/preset-env": "^7.1.0",
+        "@babel/core": "^7.3.4",
+        "@babel/preset-env": "^7.3.4",
         "babelify": "^10.0.0",
         "browserify": "^16.2.3",
         "date-diff": "^0.2.1",
-        "del": "^3.0.0",
-        "eslint": "^5.6.0",
+        "del": "^4.0.0",
+        "eslint": "^5.15.1",
         "gulp": "^4.0.0",
         "gulp-autoprefixer": "^6.0.0",
         "gulp-babel-minify": "^0.5.0",
@@ -52,17 +53,16 @@
         "gulp-cached": "^1.1.1",
         "gulp-composer": "^0.4.5",
         "gulp-eslint": "^5.0.0",
-        "gulp-jsdoc-to-markdown": "^1.2.2",
         "gulp-phplint": "^0.9.0",
         "gulp-rename": "^1.4.0",
-        "gulp-sass": "^4.0.1",
-        "gulp-sourcemaps": "^2.6.4",
+        "gulp-sass": "^4.0.2",
+        "gulp-sourcemaps": "^2.6.5",
         "gulp-symlink": "^2.1.4",
         "gulp-tap": "^1.0.1",
         "gulp-yarn": "^2.0.0",
         "gulp-zip": "^4.2.0",
         "merge-stream": "^1.0.1",
         "plugin-error": "^1.0.1",
-        "through2": "^3.0.0"
+        "through2": "^3.0.1"
     }
 }

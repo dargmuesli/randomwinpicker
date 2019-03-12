@@ -14,7 +14,7 @@ const gDateDiff = require('date-diff');
 const gDel = require('del');
 const gEslint = require('gulp-eslint');
 const gGulp = require('gulp');
-const gJsdoc2md = require('gulp-jsdoc-to-markdown');
+const gJsdoc2md = require('jsdoc-to-markdown');
 const gMergeStream = require('merge-stream');
 const gSymlink = require('gulp-symlink');
 const gPhplint = require('gulp-phplint');
@@ -40,13 +40,12 @@ const distServResFolder = distServFolder + 'resources/';
 const distServResDargBaseFolder = distServResFolder + 'dargmuesli/base/';
 const distServResPackCompFolder = distServResFolder + 'packages/composer/';
 const distServResPackYarnFolder = distServResFolder + 'packages/yarn/';
-const productionFolder = 'production/';
 const srcFolder = 'src/';
 const srcStaticFolder = srcFolder + 'static/';
 const srcJsFolder = srcFolder + 'js/';
 const srcCssSassStyle = srcFolder + 'css/sass/style/';
 
-const prodCredsGlob = productionFolder + pkg.name + '/credentials/**';
+const prodCredsGlob = 'credentials/**';
 const srcStaticGlob = srcStaticFolder + '**';
 const vendorGlob = 'vendor/**';
 const distGlob = distFolder + '**';
@@ -139,7 +138,7 @@ exports.composerWatch = composerWatch;
 
 function credentials() {
     // Copy credentials to dist folder
-    return gGulp.src(prodCredsGlob, { dot: true })
+    return gGulp.src(prodCredsGlob)
         .pipe(gCached('credentials'))
         .pipe(gGulp.dest(distCredsFolder));
 }
@@ -232,11 +231,10 @@ function getChangeFreq(lastModification) {
 
 function jsDoc() {
     return gGulp.src(srcJsFolder + '**/*.js')
-        .pipe(gJsdoc2md())
-        .pipe(gRename(function (path) {
-            path.extname = '.md'
-        }))
-        .pipe(gGulp.dest('docs/js/'));
+        .pipe(gTap(function (file) {
+            file.base = srcJsFolder;
+            gJsdoc2md.render({ files: file.path }).then(output => fs.writeFileSync('docs/js/' + file.relative.replace('.js', '.md'), output));
+        }));
 }
 
 exports.jsDoc = jsDoc;
