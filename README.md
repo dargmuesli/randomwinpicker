@@ -16,19 +16,11 @@ This website chooses a "true" random winner for CS:GO case openings.
     - **[History](#history)**
     - **[Status](#status)**
 
-<a name="development"></a>
-
 ## Development
-
-<a name="deployment"></a>
 
 ### Deployment
 
 This topic has its own repository: [Dargmuesli/randomwinpicker_stack](https://github.com/Dargmuesli/randomwinpicker_stack).
-
-<a name="description"></a>
-
-<a name="context"></a>
 
 ## Context
 
@@ -52,8 +44,6 @@ All the information RandomWinPicker needs is given in 2 simple steps:
    Maybe a knife skin can be won on the first place.
 
 That's it!
-
-<a name="history"></a>
 
 ### History
 One day a YouTuber, [Megaquest](https://www.youtube.com/user/dragonflygames), who I was subscribed to, asked in one of his CS:GO case opening videos if a subscriber of his channel could create a way for him to improve the way he draws the case opening's winner. Until then he made lists and used random.org to pick a winner manually from the list. This method was relatively unoptimized visually as well as methodically. I decided to jump in, contact him and create a website for that purpose.
