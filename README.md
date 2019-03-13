@@ -9,18 +9,12 @@ This website chooses a "true" random winner for CS:GO case openings.
 ![Welcome](images/welcome.jpg "Welcome to RandomWinPicker")
 
 ## Table of Contents
-1. **[Development](#development)**
-    - **[Deployment](#deployment)**
 1. **[Context](#context)**
     - **[Description](#description)**
     - **[History](#history)**
     - **[Status](#status)**
-
-## Development
-
-### Deployment
-
-This topic has its own repository: [Dargmuesli/randomwinpicker_stack](https://github.com/Dargmuesli/randomwinpicker_stack).
+1. **[Development](#development)**
+    - **[Deployment](#deployment)**
 
 ## Context
 
@@ -58,3 +52,43 @@ Well, one way or another, the website found its use in some of Megaquests videos
 This website is not available at the original domain anymore. It is now available at [randomwinpicker.jonas-thelemann.de](https://randomwinpicker.jonas-thelemann.de/), a subdomain of my personal website.
 
 The original creation of this website consumed way too many hours of my free time to let it vanish somewhere on my harddrive. Thus, I decided to publish the source code to GitHub. Creating this repository from the legacy code I initially wrote was time consuming too, but I learned to use tools like Gulp, Yarn, Docker, Composer, environment variables and a reverse proxy, which moves me one step closer to publishing the source code of my main website. I learned many best practises on how to create a website repository and about state of the art web technologies (which this website does *not* but *could* include). Over the next months I hope that I'll find time to improve the source code to meet my own quality requirements. But until then I hope someone else finds this repository useful. Be it that you want to create your own website or try to hack mine ;)
+
+## Development
+This project is deployed within the [randomwinpicker_stack](https://github.com/Dargmuesli/randomwinpicker_stack/) in accordance to the [DargStack template](https://github.com/Dargmuesli/dargstack-template/) to make deployment a breeze.
+
+The provided `Dockerfile` lets you build an Apache-PHP server image with the configuration files in the `docker` folder. Build it with the following command:
+
+```bash
+docker build -t dargmuesli/randomwinpicker .
+```
+
+The following information is therefore only useful if you decide to deploy this project containerless.
+
+### Build
+
+#### Yarn
+All required [Node.js](https://nodejs.org/) dependencies can be installed using [Yarn](https://yarnpkg.com/). By default the `yarn` command utilizes the `package.json` file to automatically install the dependencies to a local `node_modules` folder. Instructions on how to install Yarn can be found [here](https://yarnpkg.com/lang/en/docs/install/).
+
+#### Gulp
+This repository contains all scripts required to build this project. The `gulpfile.js` automatically manages tasks like cleaning the build (`dist`) folder, copying files to it, managing dependencies with composer and yarn, creating symlinks and a zip file and, finally, watching for changes too.
+
+By default the `gulp` command executes all necessary functions to build the website. If the [gulp-cli](https://yarnpkg.com/en/package/gulp-cli/) is not installed globally, you need to run `yarn global add gulp-cli` first.
+
+### Deployment
+
+#### Environment Variables
+Create the `credentials/randomwinpicker.env` file using the provided template to enable complete functionality.
+
+#### PHP
+[PHP](https://php.net/) needs to be installed for the Gulp `composerUpdate` task to be executed. Make sure that the following settings are set in your `php.ini`:
+
+```PHP
+# Linux
+date.timezone = UTC
+extension=gd
+
+# Windows
+date.timezone = UTC
+extension=gd2
+extension_dir = "ext"
+```
