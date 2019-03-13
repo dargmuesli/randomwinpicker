@@ -8,32 +8,28 @@ This website chooses a "true" random winner for CS:GO case openings.
 
 ![Welcome](images/welcome.jpg "Welcome to RandomWinPicker")
 
-## Table of contents
-1. **[Description](#Description)**
-1. **[History](#History)**
-1. **[Configuration](#Configuration)**
-1. **[Build & Deploy](#Build-Deploy)**
-1. **[Usage](#Usage)**
-1. **[Status](#Status)**
+## Table of Contents
+1. **[Context](#context)**
+    - **[Description](#description)**
+    - **[History](#history)**
+    - **[Status](#status)**
+1. **[Development](#development)**
+    - **[Deployment](#deployment)**
 
-<a name="Description"></a>
+## Context
 
-## Description
+### Description
 
-### What is this website for?
-
+#### What is this website for?
 This website chooses a "true" random winner for any type of raffle.
 It's made especially for CS:GO Case openings.
 
-### A "true" random winner?
-
+#### A "true" random winner?
 RandomWinPicker uses the [random.org](https://www.random.org/) API to choose a winner based on the randomness of atmospheric noise.
 This is one of the best - if not the best - way to generate random data. It is better than the pseudo-random number algorithms typically used in computer programs.
 But there is one limit: Every day only 1,000 requests can be sent to random.org and 250,000 bits can be in the requested answers from random.org. After that the Javascript function Math.random() of your Browser is used.
 
-
-### How do I start?
-
+#### How do I start?
 All the information RandomWinPicker needs is given in 2 simple steps:
 
 1. Tell RandomWinPicker who participates in your raffle and how great the chance of winning for each user is.
@@ -43,10 +39,7 @@ All the information RandomWinPicker needs is given in 2 simple steps:
 
 That's it!
 
-<a name="History"></a>
-
-## History
-
+### History
 One day a YouTuber, [Megaquest](https://www.youtube.com/user/dragonflygames), who I was subscribed to, asked in one of his CS:GO case opening videos if a subscriber of his channel could create a way for him to improve the way he draws the case opening's winner. Until then he made lists and used random.org to pick a winner manually from the list. This method was relatively unoptimized visually as well as methodically. I decided to jump in, contact him and create a website for that purpose.
 
 This website was not my absolutely first one to create, but the first one to finish. I stopped working on other projects and focused on finishing this one. I was by no way a professional in creating websites and thus the original code contains many flaws. Another step I skipped was building and deploying. I had no idea that tools like [Gulp](https://gulpjs.com/) or [Travis](https://travis-ci.org/) existed. Therefore there was only *production* mode: I developed the live site. On one hand the site was up as fast as possible, on the other hand it contained many bugs. Those can be seen in Megaquest's first videos, in which he used my website for his case openings.
@@ -55,152 +48,47 @@ Regarding hosting and availability I completely relied on my Raspberry Pi at hom
 
 Well, one way or another, the website found its use in some of Megaquests videos. Unfortunately not for a long time. Pretty soon new case opening videos became less and less until he created no new ones any more. I can't tell whether he was completely satisfied with my website. He made the impression that he liked this new and comfortable way to arrange his case opening videos, but did not like it when he found bugs ... of course. Sadly he stopped making those videos and, as far as I can tell, noone else used my site as extensively as he did. I decided to stop paying for the domain [randomwinpicker.de](https://randomwinpicker.de/) in mid-2017. Megaquest stopped uploading videos in January 2018.
 
-<a name="Configuration"></a>
+### Status
+This website is not available at the original domain anymore. It is now available at [randomwinpicker.jonas-thelemann.de](https://randomwinpicker.jonas-thelemann.de/), a subdomain of my personal website.
 
-## Configuration
+The original creation of this website consumed way too many hours of my free time to let it vanish somewhere on my harddrive. Thus, I decided to publish the source code to GitHub. Creating this repository from the legacy code I initially wrote was time consuming too, but I learned to use tools like Gulp, Yarn, Docker, Composer, environment variables and a reverse proxy, which moves me one step closer to publishing the source code of my main website. I learned many best practises on how to create a website repository and about state of the art web technologies (which this website does *not* but *could* include). Over the next months I hope that I'll find time to improve the source code to meet my own quality requirements. But until then I hope someone else finds this repository useful. Be it that you want to create your own website or try to hack mine ;)
 
-### Certificates
-HTTPs/SSL encryption requires certificates. Those can easily be generated using the [new-certificates.sh](https://gist.github.com/Dargmuesli/538a2c382c009f4620803679c8172c9d) script. The root certificate needs to be imported in your browser.
+## Development
+This project is deployed within the [randomwinpicker_stack](https://github.com/Dargmuesli/randomwinpicker_stack/) in accordance to the [DargStack template](https://github.com/Dargmuesli/dargstack-template/) to make deployment a breeze.
 
-### Docker Secrets
-To keep confidential data, like usernames and passwords, out of the source code they need to be accessible as [Docker secrets](https://docs.docker.com/engine/swarm/secrets/). Under `docker/secrets/` these files, which contain the passwords' values, need to exist:
-- postgres_password
-- postgres_db
-- postgres_user
+The provided `Dockerfile` lets you build an Apache-PHP server image with the configuration files in the `docker` folder. Build it with the following command:
 
-Don't use password files for production though. Use the `docker secret create` command instead. PowerShell on Windows may add a carriage return at the end of strings piped to the command. A workaround can be that you create secrets from temporary files that do not contain a trailing newline. They can be written using:
-
-```PowerShell
-"secret data" | Out-File secret_name -NoNewline
+```bash
+docker build -t dargmuesli/randomwinpicker .
 ```
 
-When done, shred those files!
+The following information is therefore only useful if you decide to deploy this project containerless.
 
-### DNS
-The default configuration assumes that the local development is done on `randomwinpicker.test`. Therefore one needs to configure the local DNS resolution to make this address resolvable. This can either be done by simply adding this domain and all subdomains to the operation system's hosts file or by settings up a local DNS server. An advantage of the latter method is that subdomain wildcards can be used and thus not every subdomain needs to be defined separately.
+### Build
 
-Here is an example configuration for [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq) on [Arch Linux](https://www.archlinux.org/) that uses the local DNS server on top of the router's advertised DNS server:
+#### Yarn
+All required [Node.js](https://nodejs.org/) dependencies can be installed using [Yarn](https://yarnpkg.com/). By default the `yarn` command utilizes the `package.json` file to automatically install the dependencies to a local `node_modules` folder. Instructions on how to install Yarn can be found [here](https://yarnpkg.com/lang/en/docs/install/).
 
-`/etc/dnsmasq.conf`
-```Conf
-# Use NetworkManager's resolv.conf
-resolv-file=/run/NetworkManager/resolv.conf
+#### Gulp
+This repository contains all scripts required to build this project. The `gulpfile.js` automatically manages tasks like cleaning the build (`dist`) folder, copying files to it, managing dependencies with composer and yarn, creating symlinks and a zip file and, finally, watching for changes too.
 
-# Limit to machine-wide requests
-listen-address=127.0.0.1
+By default the `gulp` command executes all necessary functions to build the website. If the [gulp-cli](https://yarnpkg.com/en/package/gulp-cli/) is not installed globally, you need to run `yarn global add gulp-cli` first.
 
-# Wildcard DNS
-address=/randomwinpicker.test/127.0.0.1
+### Deployment
 
-# Enable logging (systemctl status dnsmasq)
-#log-queries
-```
+#### Environment Variables
+Create the `credentials/randomwinpicker.env` file using the provided template to enable complete functionality.
 
-`/etc/NetworkManager/NetworkManager.conf`
-```Conf
-[main]
-
-# Don't touch /etc/resolv.conf
-rc-manager=unmanaged
-```
-
-### Environment Variables
-Remember to create the `credentials/.env` file using the provided template to enable complete functionality.
-
-### PHP
-For the `Composer` task to be executed you need to have [PHP](http://php.net/) installed. Make sure that the following settings are made in your `php.ini`:
-
-#### Linux
+#### PHP
+[PHP](https://php.net/) needs to be installed for the Gulp `composerUpdate` task to be executed. Make sure that the following settings are set in your `php.ini`:
 
 ```PHP
+# Linux
 date.timezone = UTC
 extension=gd
-```
 
-#### Windows
-
-```PHP
+# Windows
 date.timezone = UTC
 extension=gd2
 extension_dir = "ext"
 ```
-
-<a name="Build-Deploy"></a>
-
-## Build & Deploy
-
-### Yarn
-
-All required Node.js dependencies can be installed using [Yarn](https://yarnpkg.com/). By default the `yarn` command utilizes the `package.json` file to automatically install the dependencies to a local `node_modules` folder. Instructions on how to install Yarn can be found [here](https://yarnpkg.com/lang/en/docs/install/).
-
-### Gulp
-
-This repository contains all scripts needed to build this project. The `gulpfile.js` automatically manages tasks like cleaning the build (`dist`) folder, copying files to it, managing dependencies with composer and yarn, creating symlinks and a zip file and finally watching for any changes.
-
-By default the `gulp` command executes all necessary functions to build the website. If the [gulp-cli](https://yarnpkg.com/en/package/gulp-cli) is not installed globally, you need to run `yarn global add gulp-cli` first.
-
-### Docker
-
-How you choose to integrate the built project is up to you. A `dockerfile` and a `stack.yml` template are provided to make deployment a breeze.
-
-The given `dockerfile` enables you to build a PHP/Apache-Server with the configuration files in the `docker` folder. It can be run as a Docker container just as you wish, but this alone makes the site not fully functional. Additional services like [a reverse proxy](https://traefik.io/) are needed. Those can be defined in the `stack.yml` file, which describes a [stack that can be deployed on a swarm](https://docs.docker.com/engine/reference/commandline/stack_deploy/). With this file the deployment is complete.
-
-#### Development
-
-To generate a development version of this file you can use [PS-Docker-Management](https://github.com/dargmuesli/ps-docker-management). It simplifies development of Docker projects like this one. To setup this project's full Docker stack locally just run this command:
-
-```PowerShell
-./Invoke-PSDockerManagement.ps1 -ProjectPath ../randomwinpicker/
-```
-
-#### Production
-
-Utilize [deploy.sh](https://gist.github.com/Dargmuesli/6f303f4550b8ff241897dbda30a49cb3) for automatic deployment.
-
-<details>
-    <summary>Details</summary>
-
-Use the `production/stack.yml` file to deploy the predefined stack on a server. You need to specify environment variables as outlined in the `production/*.env` files.
-
-`.env` contains environment variables for the stack file itself. Use a command similar to this for deployment where `-E` indicates preserved environment variables for `sudo` use:
-
-```Bash
-sudo -E docker stack deploy -c stack.yml randomwinpicker-de
-```
-
-`traefik.env` sets provider credentials for DNS authentication as environment variables for the traefik service.
-</details>
-
-<a name="Usage"></a>
-
-## Usage
-
-### Adminer / PostgreSQL
-
-Connect to the PostgreSQL instance via [Adminer](https://www.adminer.org/) locally on [adminer.randomwinpicker.test](https://adminer.randomwinpicker.test) using:
-
-|          |                     |
-| -------- | ------------------- |
-| System   | PostgreSQL          |
-| Server   | postgres            |
-| Username | [postgres_user]     |
-| Password | [postgres_password] |
-| Database | [postgres_db]       |
-
-Values in square brackets are Docker secrets.
-
-### Apache
-
-You can access the main website locally at [randomwinpicker.test](https://randomwinpicker.test).
-
-### Traefik
-
-You can access the reverse proxy's dashboard locally at [traefik.randomwinpicker.test](https://traefik.randomwinpicker.test).
-
-<a name="Status"></a>
-
-## Status
-
-This website is currently not reachable through an own domain. My plan is to migrate the website to a subsite of my website [jonas-thelemann.de](https://jonas-thelemann.de/) to keep it available. The original creation of this website consumed way too many hours of my free time to let it vanish somewhere on my harddrive. Thus, I decided to publish the source code to GitHub.
-
-Creating this repository from the legacy code I initially wrote was time consuming too, but I learned to use tools like Gulp, Yarn, Docker, Composer, environment variables and a reverse proxy, which moves me one step closer to publishing the source code of my main website. I learned many best practises on how to create a website repository and about state of the art web technologies (which this website does *not* but *could* include). Over the next months I hope that I'll find time to improve the source code to meet my own quality requirements. But until then I hope someone else finds this repository useful. Be it that you want to create your own website or try to hack mine ;)
