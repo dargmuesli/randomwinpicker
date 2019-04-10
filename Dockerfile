@@ -40,12 +40,9 @@ RUN apt-get update \
     gd \
     pdo_pgsql
 
-# Create Apache directory and copy the files
+# Create Apache directory and copy the files, changing the server files' owner
 RUN mkdir -p $APACHE_DIR
-COPY --from=stage_node /app/dist/$PROJECT_NAME $APACHE_DIR/
-
-# Change server files' owner
-RUN chown www-data:www-data -R $APACHE_DIR/server
+COPY --from=stage_node --chown=www-data:www-data /app/dist/$PROJECT_NAME $APACHE_DIR/
 
 # Copy Apache and PHP config files
 COPY docker/apache/conf/* $APACHE_CONFDIR/conf-available/
