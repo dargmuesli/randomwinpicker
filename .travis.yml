@@ -44,7 +44,7 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    repo: Dargmuesli/randomwinpicker
+    repo: dargmuesli/randomwinpicker
 notifications:
   email:
     on_success: change

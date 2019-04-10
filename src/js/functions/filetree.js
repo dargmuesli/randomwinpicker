@@ -141,20 +141,21 @@ export function assignCondition() {
     let selected = document.getElementById('selected');
     let span = selected.getElementsByTagName('span')[0];
 
-    if (condition.options[0].selected) {
-        span.innerHTML = '';
-    } else if (condition.options[1].selected) {
-        span.innerHTML = i18n.t('functions:filetree.conditions.fn');
-    } else if (condition.options[2].selected) {
-        span.innerHTML = i18n.t('functions:filetree.conditions.mw');
-    } else if (condition.options[3].selected) {
-        span.innerHTML = i18n.t('functions:filetree.conditions.ft');
-    } else if (condition.options[4].selected) {
-        span.innerHTML = i18n.t('functions:filetree.conditions.ww');
-    } else if (condition.options[5].selected) {
-        span.innerHTML = i18n.t('functions:filetree.conditions.bs');
-    }
-
+    i18n.then(function(t) {
+        if (condition.options[0].selected) {
+            span.innerHTML = '';
+        } else if (condition.options[1].selected) {
+            span.innerHTML = t('functions:filetree.conditions.fn');
+        } else if (condition.options[2].selected) {
+            span.innerHTML = t('functions:filetree.conditions.mw');
+        } else if (condition.options[3].selected) {
+            span.innerHTML = t('functions:filetree.conditions.ft');
+        } else if (condition.options[4].selected) {
+            span.innerHTML = t('functions:filetree.conditions.ww');
+        } else if (condition.options[5].selected) {
+            span.innerHTML = t('functions:filetree.conditions.bs');
+        }
+    });
     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }
 
@@ -191,27 +192,29 @@ export function hideImages() {
     let link = document.getElementById('hideimages');
     let i, j;
 
-    if (link.classList.contains('shown')) {
-        for (i = 0; i < document.querySelectorAll('.data').length; i++) {
-            for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
-                data[i].getElementsByTagName('img')[j].style.display = 'none';
+    i18n.then(function(t) {
+        if (link.classList.contains('shown')) {
+            for (i = 0; i < document.querySelectorAll('.data').length; i++) {
+                for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
+                    data[i].getElementsByTagName('img')[j].style.display = 'none';
+                }
             }
-        }
 
-        link.innerHTML = i18n.t('functions:filetree.images.show');
-        link.classList.add('hidden');
-        link.classList.remove('shown');
-    } else {
-        for (i = 0; i < document.querySelectorAll('.data').length; i++) {
-            for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
-                data[i].getElementsByTagName('img')[j].style.display = 'inline';
+            link.innerHTML = t('functions:filetree.images.show');
+            link.classList.add('hidden');
+            link.classList.remove('shown');
+        } else {
+            for (i = 0; i < document.querySelectorAll('.data').length; i++) {
+                for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
+                    data[i].getElementsByTagName('img')[j].style.display = 'inline';
+                }
             }
-        }
 
-        link.innerHTML = i18n.t('functions:filetree.images.hide');
-        link.classList.add('shown');
-        link.classList.remove('hidden');
-    }
+            link.innerHTML = t('functions:filetree.images.hide');
+            link.classList.add('shown');
+            link.classList.remove('hidden');
+        }
+    });
 
     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }

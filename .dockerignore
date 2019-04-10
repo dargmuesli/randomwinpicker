@@ -1,5 +1,9 @@
 .vscode
-dist
-node_modules
-vendor
+/dist/
+/node_modules/
+/vendor/
 **/*.zip
+*.crt
+*.csr
+*.env
+*.key

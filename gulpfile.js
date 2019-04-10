@@ -379,6 +379,7 @@ exports.staticSrcWatch = staticSrcWatch;
 function symlinks(callback) {
     // Create all necessary symlinks
     // "gulp-symlink" is still required as Gulp's/Vinyl-fs's symlink function is incapable of changing the symlink's name
+    // https://github.com/gulpjs/vinyl-fs/issues/303
     const streamArray = [];
 
     if (typeof symlinkArray !== 'undefined' && symlinkArray) {
