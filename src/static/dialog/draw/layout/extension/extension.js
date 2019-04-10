@@ -104,7 +104,9 @@ function draw() {
             win = '---';
         }
 
-        $('#content').prepend('<div class="wrap"><div id="place' + round + '" class="turn' + ((round > 3) ? ' places' : '') + '"><div class="ranking">' + ((Dargmuesli.Language.i18n.language == 'en') ? ordinal_suffix_of(round) : round + '.') + ' ' + Dargmuesli.Language.i18n.t('functions:extension.draw.place.ranking') + ': </div><div class="place">' + win + '</div><p>' + Dargmuesli.Language.i18n.t('functions:extension.draw.place.span') + ': <span id="round' + round + '" class="opensans"></span></p></div></div>');
+        Dargmuesli.Language.i18n.then(function(t) {
+            $('#content').prepend('<div class="wrap"><div id="place' + round + '" class="turn' + ((round > 3) ? ' places' : '') + '"><div class="ranking">' + ((Dargmuesli.Language.i18n.language == 'en') ? ordinal_suffix_of(round) : round + '.') + ' ' + t('functions:extension.draw.place.ranking') + ': </div><div class="place">' + win + '</div><p>' + t('functions:extension.draw.place.span') + ': <span id="round' + round + '" class="opensans"></span></p></div></div>');
+        });
 
         (function () {
             let roundCopy = round;
@@ -142,18 +144,20 @@ function draw() {
 
         round--;
 
-        if (round == 0) {
-            let button = document.createElement('button');
-            button.setAttribute('class', 'link');
-            button.setAttribute('title', 'Draw again');
-            button.setAttribute('id', 'reload');
-            button.innerHTML = Dargmuesli.Language.i18n.t('functions:extension.draw.button');
-            reveal.parentNode.replaceChild(button, reveal); //Reveal durch Reload ersetzen
+        i18n.then(function(t) {
+            if (round == 0) {
+                let button = document.createElement('button');
+                button.setAttribute('class', 'link');
+                button.setAttribute('title', 'Draw again');
+                button.setAttribute('id', 'reload');
+                button.innerHTML = t('functions:extension.draw.button');
+                reveal.parentNode.replaceChild(button, reveal); //Reveal durch Reload ersetzen
 
-            document.getElementById('reload').addEventListener('click', function () { location.reload(); });
-        } else {
-            reveal.innerHTML = Dargmuesli.Language.i18n.t('functions:extension.draw.reveal', round);
-        }
+                document.getElementById('reload').addEventListener('click', function () { location.reload(); });
+            } else {
+                reveal.innerHTML = t('functions:extension.draw.reveal', round);
+            }
+        });
     }
 }
 
@@ -241,7 +245,9 @@ function getRandom() {
                     let bitsLeftPercentage = json.result.bitsLeft * 100 / 250000;
                     let requestsLeftPercentage = json.result.requestsLeft * 100 / 1000;
 
-                    document.getElementById('percentageleft').innerHTML = (100 - ((bitsLeftPercentage < requestsLeftPercentage) ? bitsLeftPercentage : requestsLeftPercentage)).toFixed(1) + Dargmuesli.Language.i18n.t('functions:extension.draw.limit');
+                    i18n.then(function(t) {
+                        document.getElementById('percentageleft').innerHTML = (100 - ((bitsLeftPercentage < requestsLeftPercentage) ? bitsLeftPercentage : requestsLeftPercentage)).toFixed(1) + t('functions:extension.draw.limit');
+                    });
                 }
 
                 let q = 0;

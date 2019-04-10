@@ -23,7 +23,9 @@ function testGo() {
     if (proceed) {
         window.location = 'layout/extension/extension.php?quantity=' + Dargmuesli.Table.count;
     } else {
-        alert(Dargmuesli.Language.i18n.t('functions:extension.items.warning'));
+        Dargmuesli.Language.i18n.then(function(t) {
+            alert(t('functions:extension.items.warning'));
+        });
     }
 }
 

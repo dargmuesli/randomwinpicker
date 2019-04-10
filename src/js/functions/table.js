@@ -158,7 +158,9 @@ export function addRow(tbody, data, uniques, tableInputs, type) {
                 document.getElementById('tableInput0').focus(); //Eingabefeld selektieren
             }
         } else { //Bei Duplikat
-            alert(i18n.t('functions:table.add.duplicate', { value: value, error: error })); //Fehler ausgeben
+            i18n.then(function(t) {
+                alert(t('functions:table.add.duplicate', { value: value, error: error })); //Fehler ausgeben
+            });
         }
 
         if (!editing) {
@@ -370,7 +372,9 @@ export function saveTableSend(columnCount, type, object, main) {
 
             if (xhr.responseText == 'NULL\n' && resetting == false) {
                 changeLanguage('de');
-                alert(i18n.t('functions:table.save.error'));
+                i18n.then(function(t) {
+                    alert(t('functions:table.save.error'));
+                });
             }
 
             resetting = false;
@@ -388,7 +392,9 @@ export function selectItem(index) {
     if ((tableLoading == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
         let file = selected.firstChild.className.substring(4);
 
-        alert.render(i18n.t('functions:table.select.title'), i18n.t('functions:table.select.question'), file, 'delete');
+        i18n.then(function(t) {
+            alert.render(t('functions:table.select.title'), t('functions:table.select.question'), file, 'delete');
+        });
     } else {
         tableLoading = false;
 

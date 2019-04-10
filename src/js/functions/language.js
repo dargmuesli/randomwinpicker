@@ -15,7 +15,6 @@ export let i18n = i18next
         backend: {
             loadPath: document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/translation/i18next/{{lng}}/{{ns}}.json'
         }
-    }, function () {
     });
 
 document.addEventListener('DOMContentLoaded', function () {
