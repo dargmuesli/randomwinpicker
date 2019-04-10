@@ -1,4 +1,4 @@
-[![build status](https://travis-ci.org/Dargmuesli/randomwinpicker.svg?branch=develop)](https://travis-ci.org/Dargmuesli/randomwinpicker "build status")
+[![build status](https://travis-ci.org/dargmuesli/randomwinpicker.svg?branch=develop)](https://travis-ci.org/dargmuesli/randomwinpicker "build status")
 [![Docker layer size & count](https://images.microbadger.com/badges/image/dargmuesli/randomwinpicker.svg)](https://microbadger.com/images/dargmuesli/randomwinpicker "Docker layer size & count")
 [![known vulnerabilities](https://snyk.io/test/github/dargmuesli/randomwinpicker/badge.svg)](https://snyk.io/test/github/dargmuesli/randomwinpicker "known vulnerabilities")
 [![Greenkeeper](https://badges.greenkeeper.io/Dargmuesli/randomwinpicker.svg)](https://greenkeeper.io/ "Greenkeeper")
