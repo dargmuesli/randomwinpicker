@@ -27,7 +27,11 @@ xhr.onreadystatechange = function () {
 xhr.send();
 
 function draw() {
-    if (round > 0) {
+    Dargmuesli.Language.i18n.then(function (t) {
+        if (round <= 0) {
+            return;
+        }
+
         let go = document.getElementById('go');
 
         document.getElementById('loading').style.display = '';
@@ -104,9 +108,7 @@ function draw() {
             win = '---';
         }
 
-        Dargmuesli.Language.i18n.then(function(t) {
-            $('#content').prepend('<div class="wrap"><div id="place' + round + '" class="turn' + ((round > 3) ? ' places' : '') + '"><div class="ranking">' + ((Dargmuesli.Language.i18n.language == 'en') ? ordinal_suffix_of(round) : round + '.') + ' ' + t('functions:extension.draw.place.ranking') + ': </div><div class="place">' + win + '</div><p>' + t('functions:extension.draw.place.span') + ': <span id="round' + round + '" class="opensans"></span></p></div></div>');
-        });
+        $('#content').prepend('<div class="wrap"><div id="place' + round + '" class="turn' + ((round > 3) ? ' places' : '') + '"><div class="ranking">' + ((Dargmuesli.Language.i18next.language == 'en') ? ordinal_suffix_of(round) : round + '.') + ' ' + t('functions:extension.draw.place.ranking') + ': </div><div class="place">' + win + '</div><p>' + t('functions:extension.draw.place.span') + ': <span id="round' + round + '" class="opensans"></span></p></div></div>');
 
         (function () {
             let roundCopy = round;
@@ -144,21 +146,19 @@ function draw() {
 
         round--;
 
-        i18n.then(function(t) {
-            if (round == 0) {
-                let button = document.createElement('button');
-                button.setAttribute('class', 'link');
-                button.setAttribute('title', 'Draw again');
-                button.setAttribute('id', 'reload');
-                button.innerHTML = t('functions:extension.draw.button');
-                reveal.parentNode.replaceChild(button, reveal); //Reveal durch Reload ersetzen
+        if (round == 0) {
+            let button = document.createElement('button');
+            button.setAttribute('class', 'link');
+            button.setAttribute('title', 'Draw again');
+            button.setAttribute('id', 'reload');
+            button.innerHTML = t('functions:extension.draw.button');
+            reveal.parentNode.replaceChild(button, reveal); //Reveal durch Reload ersetzen
 
-                document.getElementById('reload').addEventListener('click', function () { location.reload(); });
-            } else {
-                reveal.innerHTML = t('functions:extension.draw.reveal', round);
-            }
-        });
-    }
+            document.getElementById('reload').addEventListener('click', function () { location.reload(); });
+        } else {
+            reveal.innerHTML = t('functions:extension.draw.reveal', round);
+        }
+    });
 }
 
 function addRest(length, qualities, names, images, priceNames) {
@@ -225,52 +225,52 @@ function getRandom() {
     xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/random.php?n=' + round, true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            let json = JSON.parse(xhr.responseText);
-            let loading = document.getElementById('loading');
-            let go = document.getElementById('go');
+            Dargmuesli.Language.i18n.then(function (t) {
+                let json = JSON.parse(xhr.responseText);
+                let loading = document.getElementById('loading');
+                let go = document.getElementById('go');
 
-            for (let r = 0; r < round; r++) {
-                let totalTickets = 0;
+                for (let r = 0; r < round; r++) {
+                    let totalTickets = 0;
 
-                for (let p = 0; p < participants.length; p++) {
-                    totalTickets += parseInt(participants[p]['column1']);
-                }
-
-                let randomNumber;
-
-                if (json.hasOwnProperty('error') || json.hasOwnProperty('code')) {
-                    randomNumber = Math.random();
-                } else {
-                    randomNumber = json.result.random.data[r];
-                    let bitsLeftPercentage = json.result.bitsLeft * 100 / 250000;
-                    let requestsLeftPercentage = json.result.requestsLeft * 100 / 1000;
-
-                    i18n.then(function(t) {
-                        document.getElementById('percentageleft').innerHTML = (100 - ((bitsLeftPercentage < requestsLeftPercentage) ? bitsLeftPercentage : requestsLeftPercentage)).toFixed(1) + t('functions:extension.draw.limit');
-                    });
-                }
-
-                let q = 0;
-                let i = 0;
-
-                while (q < 1) {
-                    let probability = parseInt(participants[i]['column1']) / totalTickets;
-
-                    q += probability;
-
-                    if (q >= randomNumber) {
-                        winners[r + 1] = participants[i]['column0'];
-                        participants.splice(participants.indexOf(participants[i]), 1);
-                        break;
+                    for (let p = 0; p < participants.length; p++) {
+                        totalTickets += parseInt(participants[p]['column1']);
                     }
 
-                    i++;
-                }
-            }
+                    let randomNumber;
 
-            loading.className = 'hide';
-            go.className = '';
-            go.style.display = 'inline-block';
+                    if (json.hasOwnProperty('error') || json.hasOwnProperty('code')) {
+                        randomNumber = Math.random();
+                    } else {
+                        randomNumber = json.result.random.data[r];
+                        let bitsLeftPercentage = json.result.bitsLeft * 100 / 250000;
+                        let requestsLeftPercentage = json.result.requestsLeft * 100 / 1000;
+
+                        document.getElementById('percentageleft').innerHTML = (100 - ((bitsLeftPercentage < requestsLeftPercentage) ? bitsLeftPercentage : requestsLeftPercentage)).toFixed(1) + t('functions:extension.draw.limit');
+                    }
+
+                    let q = 0;
+                    let i = 0;
+
+                    while (q < 1) {
+                        let probability = parseInt(participants[i]['column1']) / totalTickets;
+
+                        q += probability;
+
+                        if (q >= randomNumber) {
+                            winners[r + 1] = participants[i]['column0'];
+                            participants.splice(participants.indexOf(participants[i]), 1);
+                            break;
+                        }
+
+                        i++;
+                    }
+                }
+
+                loading.className = 'hide';
+                go.className = '';
+                go.style.display = 'inline-block';
+            });
         }
     };
     xhr.send();

@@ -11,22 +11,22 @@ function importSession() {
 }
 
 function testGo() {
-    let proceed = true;
-    let items = document.getElementsByClassName('item');
+    Dargmuesli.Language.i18n.then(function (t) {
+        let proceed = true;
+        let items = document.getElementsByClassName('item');
 
-    for (let i = 0; i < items.length; i++) {
-        if (items[i].childNodes[1].childNodes[2] == null || items[i].childNodes[1].childNodes[2].innerHTML == '') {
-            proceed = false;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].childNodes[1].childNodes[2] == null || items[i].childNodes[1].childNodes[2].innerHTML == '') {
+                proceed = false;
+            }
         }
-    }
 
-    if (proceed) {
-        window.location = 'layout/extension/extension.php?quantity=' + Dargmuesli.Table.count;
-    } else {
-        Dargmuesli.Language.i18n.then(function(t) {
+        if (proceed) {
+            window.location = 'layout/extension/extension.php?quantity=' + Dargmuesli.Table.count;
+        } else {
             alert(t('functions:extension.items.warning'));
-        });
-    }
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
