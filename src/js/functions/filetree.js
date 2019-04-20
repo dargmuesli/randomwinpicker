@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './table';
 import { i18n } from './language';
 
@@ -8,118 +9,120 @@ $(document).ready(function () {
 });
 
 export function openFile(file) {
-    let nameparts = file;
-    nameparts = nameparts.split('/');
-    nameparts = nameparts.splice(3, 2);
-    let name = nameparts[0] + ', ' + nameparts[1];
+    i18n.then(function () {
+        let nameparts = file;
+        nameparts = nameparts.split('/');
+        nameparts = nameparts.splice(3, 2);
+        let name = nameparts[0] + ', ' + nameparts[1];
 
-    let xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
 
-    xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/dialog/items/layout/data/filetree/categories/' + i18n.language + file + '?' + new Date().getTime(), true);
-    xhr.onreadystatechange = function () {
-        if ((xhr.readyState == 4) && (xhr.status == 200)) {
-            let json = JSON.parse(xhr.responseText);
+        xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/dialog/items/layout/data/filetree/categories/' + i18next.language + file + '?' + new Date().getTime(), true);
+        xhr.onreadystatechange = function () {
+            if ((xhr.readyState == 4) && (xhr.status == 200)) {
+                let json = JSON.parse(xhr.responseText);
 
-            if ((json != false) && ((json.name != '') || (json.url != ''))) {
-                let selected = document.getElementById('selected');
-                let btn = selected.parentNode;
-                let td = btn.parentNode;
-                let type = document.getElementById('chkType');
+                if ((json != false) && ((json.name != '') || (json.url != ''))) {
+                    let selected = document.getElementById('selected');
+                    let btn = selected.parentNode;
+                    let td = btn.parentNode;
+                    let type = document.getElementById('chkType');
 
-                if (getFirstChild(getLastChild(td)).id != 'selected') {
-                    td.lastChild.click();
-                    selected = document.getElementById('selected');
-                    btn = selected.parentNode;
-                    td = btn.parentNode;
-                }
+                    if (getFirstChild(getLastChild(td)).id != 'selected') {
+                        td.lastChild.click();
+                        selected = document.getElementById('selected');
+                        btn = selected.parentNode;
+                        td = btn.parentNode;
+                    }
 
-                let index = parseInt(btn.id.replace('sI(', '').replace(')', '')) + 1;
+                    let index = parseInt(btn.id.replace('sI(', '').replace(')', '')) + 1;
 
-                if (selected.innerHTML.indexOf('---') != -1) {
-                    td.removeChild(selected.parentNode);
-                    index--;
-                } else {
-                    selected.removeAttribute('id');
-                }
+                    if (selected.innerHTML.indexOf('---') != -1) {
+                        td.removeChild(selected.parentNode);
+                        index--;
+                    } else {
+                        selected.removeAttribute('id');
+                    }
 
-                let quality = '';
+                    let quality = '';
 
-                if (json.quality == 'Consumer Grade') {
-                    quality = ' consumergrade';
-                } else if (json.quality == 'Industrial Grade') {
-                    quality = ' industrialgrade';
-                } else if (json.quality == 'Mil-Spec') {
-                    quality = ' mil-spec';
-                } else if (json.quality == 'Restricted') {
-                    quality = ' restricted';
-                } else if (json.quality == 'Classified') {
-                    quality = ' classified';
-                } else if (json.quality == 'Covert') {
-                    quality = ' covert';
-                }
+                    if (json.quality == 'Consumer Grade') {
+                        quality = ' consumergrade';
+                    } else if (json.quality == 'Industrial Grade') {
+                        quality = ' industrialgrade';
+                    } else if (json.quality == 'Mil-Spec') {
+                        quality = ' mil-spec';
+                    } else if (json.quality == 'Restricted') {
+                        quality = ' restricted';
+                    } else if (json.quality == 'Classified') {
+                        quality = ' classified';
+                    } else if (json.quality == 'Covert') {
+                        quality = ' covert';
+                    }
 
-                let newElement = '<figure class="item' + quality;
+                    let newElement = '<figure class="item' + quality;
 
-                if (document.getElementById('hideimages').classList.contains('hidden')) {
-                    newElement += ' hide';
-                }
+                    if (document.getElementById('hideimages').classList.contains('hidden')) {
+                        newElement += ' hide';
+                    }
 
-                newElement += '" id="selected"><img src="' + json.url + '" alt="' + name + '" class="set ' + file + '"><figcaption>' + name + '<br><span></span><span class="' + json.type + '"></span></figcaption></figure>';
+                    newElement += '" id="selected"><img src="' + json.url + '" alt="' + name + '" class="set ' + file + '"><figcaption>' + name + '<br><span></span><span class="' + json.type + '"></span></figcaption></figure>';
 
-                let button = document.createElement('button');
-                button.setAttribute('class', 'link');
-                button.setAttribute('title', 'Win');
-                button.setAttribute('id', 'sI(' + index + ')');
-                button.innerHTML = newElement;
-                td.appendChild(button);
+                    let button = document.createElement('button');
+                    button.setAttribute('class', 'link');
+                    button.setAttribute('title', 'Win');
+                    button.setAttribute('id', 'sI(' + index + ')');
+                    button.innerHTML = newElement;
+                    td.appendChild(button);
 
-                (function () {
-                    let iCopy = index;
-                    document.getElementById('sI(' + iCopy + ')').addEventListener('click', function () { selectItem(iCopy); });
-                }());
-
-                let condition = document.getElementById('condition');
-
-                condition.disabled = false;
-                condition.selectedIndex = 0;
-
-                if (json.type == 'StatTrak') {
-                    document.getElementById('hType').style.display = 'block';
-                    type.parentNode.style.display = 'initial';
-                    type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;';
-                    document.getElementById('chkType').addEventListener('click', function () { assignStatTrak(); });
-                    type = document.getElementById('chkType');
-                } else if (json.type == 'Souvenir') {
-                    document.getElementById('hType').style.display = 'block';
-                    type.parentNode.style.display = 'initial';
-                    type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir';
-                    document.getElementById('chkType').addEventListener('click', function () { assignSouvenir(); });
-                    type = document.getElementById('chkType');
-                } else {
-                    type.parentNode.style.display = 'none';
-                    document.getElementById('hType').style.display = 'none';
-                }
-
-                let i;
-
-                for (i = (index + 1); i < document.querySelectorAll('.item').length; i++) {
                     (function () {
-                        let el = document.getElementsByClassName('item')[i].parentNode, elClone = el.cloneNode(true);
-                        let iCopy = i;
-
-                        el.parentNode.replaceChild(elClone, el);
-                        elClone.id = 'sI(' + iCopy + ')';
-                        elClone.addEventListener('click', function () { selectItem(iCopy); });
+                        let iCopy = index;
+                        document.getElementById('sI(' + iCopy + ')').addEventListener('click', function () { selectItem(iCopy); });
                     }());
+
+                    let condition = document.getElementById('condition');
+
+                    condition.disabled = false;
+                    condition.selectedIndex = 0;
+
+                    if (json.type == 'StatTrak') {
+                        document.getElementById('hType').style.display = 'block';
+                        type.parentNode.style.display = 'initial';
+                        type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;';
+                        document.getElementById('chkType').addEventListener('click', function () { assignStatTrak(); });
+                        type = document.getElementById('chkType');
+                    } else if (json.type == 'Souvenir') {
+                        document.getElementById('hType').style.display = 'block';
+                        type.parentNode.style.display = 'initial';
+                        type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir';
+                        document.getElementById('chkType').addEventListener('click', function () { assignSouvenir(); });
+                        type = document.getElementById('chkType');
+                    } else {
+                        type.parentNode.style.display = 'none';
+                        document.getElementById('hType').style.display = 'none';
+                    }
+
+                    let i;
+
+                    for (i = (index + 1); i < document.querySelectorAll('.item').length; i++) {
+                        (function () {
+                            let el = document.getElementsByClassName('item')[i].parentNode, elClone = el.cloneNode(true);
+                            let iCopy = i;
+
+                            el.parentNode.replaceChild(elClone, el);
+                            elClone.id = 'sI(' + iCopy + ')';
+                            elClone.addEventListener('click', function () { selectItem(iCopy); });
+                        }());
+                    }
+
+                    document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + i + ')">';
+
+                    saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
                 }
-
-                document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + i + ')">';
-
-                saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
             }
-        }
-    };
-    xhr.send();
+        };
+        xhr.send();
+    });
 }
 
 // export function tryGetJson(str) {
@@ -137,11 +140,11 @@ export function openFile(file) {
 // }
 
 export function assignCondition() {
-    let condition = document.getElementById('condition');
-    let selected = document.getElementById('selected');
-    let span = selected.getElementsByTagName('span')[0];
+    i18n.then(function (t) {
+        let condition = document.getElementById('condition');
+        let selected = document.getElementById('selected');
+        let span = selected.getElementsByTagName('span')[0];
 
-    i18n.then(function(t) {
         if (condition.options[0].selected) {
             span.innerHTML = '';
         } else if (condition.options[1].selected) {
@@ -155,8 +158,9 @@ export function assignCondition() {
         } else if (condition.options[5].selected) {
             span.innerHTML = t('functions:filetree.conditions.bs');
         }
+
+        saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
     });
-    saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }
 
 export function assignStatTrak() {
@@ -188,11 +192,11 @@ export function assignSouvenir() {
 }
 
 export function hideImages() {
-    let data = document.getElementsByClassName('data');
-    let link = document.getElementById('hideimages');
-    let i, j;
+    i18n.then(function (t) {
+        let data = document.getElementsByClassName('data');
+        let link = document.getElementById('hideimages');
+        let i, j;
 
-    i18n.then(function(t) {
         if (link.classList.contains('shown')) {
             for (i = 0; i < document.querySelectorAll('.data').length; i++) {
                 for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
@@ -214,7 +218,7 @@ export function hideImages() {
             link.classList.add('shown');
             link.classList.remove('hidden');
         }
-    });
 
-    saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
+        saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
+    });
 }

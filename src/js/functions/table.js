@@ -35,138 +35,138 @@ export function sendRow(tableInputCount, uniques, type) {
 }
 
 export function addRow(tbody, data, uniques, tableInputs, type) {
-    if ((tableInputs['tableInput0'] != '') && ((/^\d+$/.test(tableInputs['tableInput0'])) || (/^\d+$/.test(tableInputs['tableInput1'])))) { //Wenn Text und Nummer valide sind
-        let alreadyExisting = false;
-        let error;
-        let value;
+    i18n.then(function (t) {
+        if ((tableInputs['tableInput0'] != '') && ((/^\d+$/.test(tableInputs['tableInput0'])) || (/^\d+$/.test(tableInputs['tableInput1'])))) { //Wenn Text und Nummer valide sind
+            let alreadyExisting = false;
+            let error;
+            let value;
 
-        if (count == 0) { //Wenn keine Daten
-            document.getElementById('tr0').remove(); //Platzhalter entfernen
-        } else { //Wenn Daten vorhanden
-            outer:
-            for (let i = 0; i < count; i++) {//Zeilen durchlaufen
-                for (let j = uniques[0]; j < Object.keys(tableInputs).length; j += uniques[j + 1] - uniques[j]) { //Spalten durchlaufen
-                    if (htmlspecialchars_decode(tableInputs['tableInput' + j]) == htmlspecialchars_decode(data[i * Object.keys(tableInputs).length + j].innerHTML)) {
-                        //.replace(/(\r\n|\n|\r)/gm, ' ').replace(/\s+/g, ' ').trim()
-                        alreadyExisting = true; //Vorkommnis merken
-                        error = (i + 1) + '|' + (j + 1); //Vorkommnis markieren
-                        value = tableInputs['tableInput' + j]; //Vorkommnis speichern
-                        break outer; //Abbrechen
+            if (count == 0) { //Wenn keine Daten
+                document.getElementById('tr0').remove(); //Platzhalter entfernen
+            } else { //Wenn Daten vorhanden
+                outer:
+                for (let i = 0; i < count; i++) {//Zeilen durchlaufen
+                    for (let j = uniques[0]; j < Object.keys(tableInputs).length; j += uniques[j + 1] - uniques[j]) { //Spalten durchlaufen
+                        if (htmlspecialchars_decode(tableInputs['tableInput' + j]) == htmlspecialchars_decode(data[i * Object.keys(tableInputs).length + j].innerHTML)) {
+                            //.replace(/(\r\n|\n|\r)/gm, ' ').replace(/\s+/g, ' ').trim()
+                            alreadyExisting = true; //Vorkommnis merken
+                            error = (i + 1) + '|' + (j + 1); //Vorkommnis markieren
+                            value = tableInputs['tableInput' + j]; //Vorkommnis speichern
+                            break outer; //Abbrechen
+                        }
                     }
                 }
             }
-        }
 
-        if (alreadyExisting == false) { //Bei keinen Duplikaten
-            count++; //Zähler erhöhen
+            if (alreadyExisting == false) { //Bei keinen Duplikaten
+                count++; //Zähler erhöhen
 
-            let newElement = '';
-            // let oldElement = '';
+                let newElement = '';
+                // let oldElement = '';
 
-            newElement += '<td class="data">';
-            newElement += tableInputs['tableInput0'];
-            newElement += '</td>';
-            newElement += '<td class="data">';
+                newElement += '<td class="data">';
+                newElement += tableInputs['tableInput0'];
+                newElement += '</td>';
+                newElement += '<td class="data">';
 
-            if (checkAbsolute()) { //Bei generischer Tabelle
-                newElement += tableInputs['tableInput1'];
-                if (count == 1) { //Bei erstem Element
-                    newElement += '<figure class="item" id="selected">';
-                } else { //Wenn nicht erstes Element
-                    newElement += '<figure class="item">';
+                if (checkAbsolute()) { //Bei generischer Tabelle
+                    newElement += tableInputs['tableInput1'];
+                    if (count == 1) { //Bei erstem Element
+                        newElement += '<figure class="item" id="selected">';
+                    } else { //Wenn nicht erstes Element
+                        newElement += '<figure class="item">';
+                    }
+                    newElement += '<img>';
+                    newElement += '---';
+                    newElement += '<br>';
+                    newElement += '<figcaption>';
+                    newElement += '<span>';
+                    newElement += '</span>';
+                    newElement += '<span>';
+                    newElement += '</span>';
+                    newElement += '</figcaption>';
+                    newElement += '</figure>';
+                    newElement += '</a>';
+                } else {
+                    //newElement += '<span>';
+                    newElement += tableInputs['tableInput1'];
+                    //newElement += '</span>';
                 }
-                newElement += '<img>';
-                newElement += '---';
-                newElement += '<br>';
-                newElement += '<figcaption>';
-                newElement += '<span>';
-                newElement += '</span>';
-                newElement += '<span>';
-                newElement += '</span>';
-                newElement += '</figcaption>';
-                newElement += '</figure>';
-                newElement += '</a>';
-            } else {
-                //newElement += '<span>';
-                newElement += tableInputs['tableInput1'];
-                //newElement += '</span>';
-            }
 
-            newElement += '</td>';
-            newElement += '<td class="remove">';
-            newElement += '<button class="link" title="Remove" id="rR(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')">'; // onclick="removeRow(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')"
-            newElement += 'X';
-            newElement += '</button>';
-            newElement += '</td>';
-            newElement += '<td class="up">';
-
-            if (count != 1) { //Wenn nicht erstes Element
-                newElement += '<button class="link" title="Up" id="mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')">'; // onclick="moveRowUp(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')"
-                newElement += '&#x25B2;';
+                newElement += '</td>';
+                newElement += '<td class="remove">';
+                newElement += '<button class="link" title="Remove" id="rR(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')">'; // onclick="removeRow(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')"
+                newElement += 'X';
                 newElement += '</button>';
-            }
+                newElement += '</td>';
+                newElement += '<td class="up">';
 
-            newElement += '</td>';
-            newElement += '<td class="down">';
-            newElement += '</td>';
-
-            let tr = document.createElement('tr');
-            tr.id = 'tr' + count;
-            tr.innerHTML = newElement;
-            tbody.appendChild(tr); //Neues Element erstellen
-
-            // Make links clickable
-            (function () {
-                let tmp = count;
-                document.getElementById('rR(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { removeRow(tmp, Object.keys(tableInputs).length, type); }); //parseInt(this.id.substring(3, this.id.length - 7 - Object.keys(tableInputs).length.toString().length - type.length))
-            }());
-
-            if (count != 1) { //Wenn nicht erstes Element
-                (function () {
-                    let tmp = count;
-                    document.getElementById('mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { moveRowUp(tmp, Object.keys(tableInputs).length, type); });
-                }());
-
-                let button = document.createElement('button');
-                button.setAttribute('class', 'link');
-                button.setAttribute('title', 'Down');
-                button.setAttribute('id', 'mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')');
-                button.innerHTML = '&#x25BC;';
-                document.getElementsByClassName('down')[count - 2].appendChild(button); //Vorherigem Element Steuerelement hinzufügen
-
-                //document.getElementsByClassName('down')[count - 2].innerHTML += oldElement; //Vorherigem Element Steuerelement hinzufügen
-                (function () {
-                    let tmp = count;
-                    document.getElementById('mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { moveRowDown((tmp - 1), Object.keys(tableInputs).length, type); });
-                }());
-            }
-
-            if (checkAbsolute()) { //Bei generischer Tabelle
-                (function () {
-                    let tmp = document.getElementsByClassName('item').length - 1;
-                    document.getElementById('sI(' + tmp + ')').addEventListener('click', function () { selectItem(tmp); });
-                }());
-                document.getElementById('tableInput0').value = parseInt(document.getElementById('tableInput0').value) + 1; //Nummer erhöhen
-                document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren  onclick="selectItem(' + document.getElementsByClassName('item').length + ')"
-
-                if (count != 1) {
-                    selectItem(document.querySelectorAll('.item').length - 1); //Neues Element auswählen
+                if (count != 1) { //Wenn nicht erstes Element
+                    newElement += '<button class="link" title="Up" id="mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')">'; // onclick="moveRowUp(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')"
+                    newElement += '&#x25B2;';
+                    newElement += '</button>';
                 }
-            } else { //Bei benutzerdefinierter Tabelle
-                document.getElementById('tableInput0').value = ''; //Eingabefeld zurücksetzen
-                document.getElementById('tableInput1').value = 1; //Eingabefeld zurücksetzen
-                document.getElementById('tableInput0').focus(); //Eingabefeld selektieren
-            }
-        } else { //Bei Duplikat
-            i18n.then(function(t) {
-                alert(t('functions:table.add.duplicate', { value: value, error: error })); //Fehler ausgeben
-            });
-        }
 
-        if (!editing) {
-            saveTableCreate(Object.keys(tableInputs).length, type, tbody); //Speichern
+                newElement += '</td>';
+                newElement += '<td class="down">';
+                newElement += '</td>';
+
+                let tr = document.createElement('tr');
+                tr.id = 'tr' + count;
+                tr.innerHTML = newElement;
+                tbody.appendChild(tr); //Neues Element erstellen
+
+                // Make links clickable
+                (function () {
+                    let tmp = count;
+                    document.getElementById('rR(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { removeRow(tmp, Object.keys(tableInputs).length, type); }); //parseInt(this.id.substring(3, this.id.length - 7 - Object.keys(tableInputs).length.toString().length - type.length))
+                }());
+
+                if (count != 1) { //Wenn nicht erstes Element
+                    (function () {
+                        let tmp = count;
+                        document.getElementById('mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { moveRowUp(tmp, Object.keys(tableInputs).length, type); });
+                    }());
+
+                    let button = document.createElement('button');
+                    button.setAttribute('class', 'link');
+                    button.setAttribute('title', 'Down');
+                    button.setAttribute('id', 'mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')');
+                    button.innerHTML = '&#x25BC;';
+                    document.getElementsByClassName('down')[count - 2].appendChild(button); //Vorherigem Element Steuerelement hinzufügen
+
+                    //document.getElementsByClassName('down')[count - 2].innerHTML += oldElement; //Vorherigem Element Steuerelement hinzufügen
+                    (function () {
+                        let tmp = count;
+                        document.getElementById('mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', function () { moveRowDown((tmp - 1), Object.keys(tableInputs).length, type); });
+                    }());
+                }
+
+                if (checkAbsolute()) { //Bei generischer Tabelle
+                    (function () {
+                        let tmp = document.getElementsByClassName('item').length - 1;
+                        document.getElementById('sI(' + tmp + ')').addEventListener('click', function () { selectItem(tmp); });
+                    }());
+                    document.getElementById('tableInput0').value = parseInt(document.getElementById('tableInput0').value) + 1; //Nummer erhöhen
+                    document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren  onclick="selectItem(' + document.getElementsByClassName('item').length + ')"
+
+                    if (count != 1) {
+                        selectItem(document.querySelectorAll('.item').length - 1); //Neues Element auswählen
+                    }
+                } else { //Bei benutzerdefinierter Tabelle
+                    document.getElementById('tableInput0').value = ''; //Eingabefeld zurücksetzen
+                    document.getElementById('tableInput1').value = 1; //Eingabefeld zurücksetzen
+                    document.getElementById('tableInput0').focus(); //Eingabefeld selektieren
+                }
+            } else { //Bei Duplikat
+                alert(t('functions:table.add.duplicate', { value: value, error: error })); //Fehler ausgeben
+            }
+
+            if (!editing) {
+                saveTableCreate(Object.keys(tableInputs).length, type, tbody); //Speichern
+            }
         }
-    }
+    });
 }
 
 export function removeRow(ID, tableInputs, type) {
@@ -363,119 +363,119 @@ export function saveTableSend(columnCount, type, object, main) {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            // if (languageChanging) {
-            //     languageChanging = false;
+            i18n.then(function (t) {
+                // if (languageChanging) {
+                //     languageChanging = false;
 
-            //     changeLanguage('en');
-            //     // changeLanguage('de');
-            // }
+                //     changeLanguage('en');
+                //     // changeLanguage('de');
+                // }
 
-            if (xhr.responseText == 'NULL\n' && resetting == false) {
-                changeLanguage('de');
-                i18n.then(function(t) {
+                if (xhr.responseText == 'NULL\n' && resetting == false) {
+                    changeLanguage('de');
                     alert(t('functions:table.save.error'));
-                });
-            }
+                }
 
-            resetting = false;
+                resetting = false;
 
-            main.style.cursor = 'auto';
-            object.style.opacity = '1';
+                main.style.cursor = 'auto';
+                object.style.opacity = '1';
+            });
         }
     };
     xhr.send('content=' + content + '&type=' + type);
 }
 
 export function selectItem(index) {
-    let selected = document.getElementById('selected');
+    i18n.then(function (t) {
+        let selected = document.getElementById('selected');
 
-    if ((tableLoading == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
-        let file = selected.firstChild.className.substring(4);
+        if ((tableLoading == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
+            let file = selected.firstChild.className.substring(4);
 
-        i18n.then(function(t) {
             alert.render(t('functions:table.select.title'), t('functions:table.select.question'), file, 'delete');
-        });
-    } else {
-        tableLoading = false;
+        } else {
+            tableLoading = false;
 
-        selected.removeAttribute('id'); //Auswahl entfernen
-        document.getElementsByTagName('figure')[index].setAttribute('id', 'selected'); //Auswählen
-        selected = document.getElementById('selected'); //Variable akualisieren
+            selected.removeAttribute('id'); //Auswahl entfernen
+            document.getElementsByTagName('figure')[index].setAttribute('id', 'selected'); //Auswählen
+            selected = document.getElementById('selected'); //Variable akualisieren
 
-        let span1 = selected.getElementsByTagName('span')[0];
-        let span2 = selected.getElementsByTagName('span')[1];
-        let condition = document.getElementById('condition');
-        let type = document.getElementById('chkType');
+            let span1 = selected.getElementsByTagName('span')[0];
+            let span2 = selected.getElementsByTagName('span')[1];
+            let condition = document.getElementById('condition');
+            let type = document.getElementById('chkType');
 
-        if (type != null) {
-            if (selected.innerHTML == '<img>---<br><figcaption><span></span><span></span></figcaption>') {
-                condition.selectedIndex = 0; //'---' auswählen
-                condition.disabled = true;
-                type.parentNode.style.display = 'none';
-                document.getElementById('hType').style.display = 'none';
-            } else {
-                condition.disabled = false;
-
-                let notes = '';
-
-                for (let i = 0; i < selected.childNodes[1].childNodes.length; i++) {
-                    if (selected.childNodes[1].childNodes[i].className == 'Normal' || selected.childNodes[1].childNodes[i].className == 'StatTrak' || selected.childNodes[1].childNodes[i].className == 'Souvenir') {
-                        notes = selected.childNodes[1].childNodes[i];
-                        break;
-                    }
-                }
-
-                if (notes.className == 'StatTrak') {
-                    document.getElementById('hType').style.display = 'block';
-                    type.parentNode.style.display = 'initial';
-                    type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;'; // onclick="assignStatTrak();"
-                    document.getElementById('chkType').addEventListener('click', function () { assignStatTrak(); });
-                    type = document.getElementById('chkType');
-                } else if (notes.className == 'Souvenir') {
-                    document.getElementById('hType').style.display = 'block';
-                    type.parentNode.style.display = 'initial';
-                    type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir'; // onclick="assignSouvenir();"
-                    document.getElementById('chkType').addEventListener('click', function () { assignSouvenir(); });
-                    type = document.getElementById('chkType');
-                } else {
+            if (type != null) {
+                if (selected.innerHTML == '<img>---<br><figcaption><span></span><span></span></figcaption>') {
+                    condition.selectedIndex = 0; //'---' auswählen
+                    condition.disabled = true;
                     type.parentNode.style.display = 'none';
                     document.getElementById('hType').style.display = 'none';
-                }
-
-                if (span1.innerHTML == '') {
-                    //Wenn kein Tag
-                    condition.selectedIndex = 0; //'---' auswählen
-                } else if (span1.innerHTML == '[FN]') {
-                    //Wenn Tag 'Factory New'
-                    condition.selectedIndex = 1; //'Factory New' auswählen
-                } else if (span1.innerHTML == '[MG]' || span1.innerHTML == '[MW]') {
-                    //Wenn Tag 'Minimal Wear'
-                    condition.selectedIndex = 2; //'Minimal Wear' auswählen
-                } else if (span1.innerHTML == '[EE]' || span1.innerHTML == '[FT]') {
-                    //Wenn Tag 'Field-Tested'
-                    condition.selectedIndex = 3; //'Field-Tested' auswählen
-                } else if (span1.innerHTML == '[AG]' || span1.innerHTML == '[WW]') {
-                    //Wenn Tag 'Well-Worn'
-                    condition.selectedIndex = 4; //'Well-Worn' auswählen
-                } else if (span1.innerHTML == '[KS]' || span1.innerHTML == '[BS]') {
-                    //Wenn Tag 'Battle-Scarred'
-                    condition.selectedIndex = 5; //'Battle-Scarred' auswählen
-                }
-
-                if (span2.innerHTML == '') {
-                    //Wenn kein Tag
-                    type.checked = false; //Haken entfernen
                 } else {
-                    //Wenn Tag 'StatTrak' oder 'Souvenir'
-                    type.checked = true; //Haken setzen
+                    condition.disabled = false;
+
+                    let notes = '';
+
+                    for (let i = 0; i < selected.childNodes[1].childNodes.length; i++) {
+                        if (selected.childNodes[1].childNodes[i].className == 'Normal' || selected.childNodes[1].childNodes[i].className == 'StatTrak' || selected.childNodes[1].childNodes[i].className == 'Souvenir') {
+                            notes = selected.childNodes[1].childNodes[i];
+                            break;
+                        }
+                    }
+
+                    if (notes.className == 'StatTrak') {
+                        document.getElementById('hType').style.display = 'block';
+                        type.parentNode.style.display = 'initial';
+                        type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;'; // onclick="assignStatTrak();"
+                        document.getElementById('chkType').addEventListener('click', function () { assignStatTrak(); });
+                        type = document.getElementById('chkType');
+                    } else if (notes.className == 'Souvenir') {
+                        document.getElementById('hType').style.display = 'block';
+                        type.parentNode.style.display = 'initial';
+                        type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir'; // onclick="assignSouvenir();"
+                        document.getElementById('chkType').addEventListener('click', function () { assignSouvenir(); });
+                        type = document.getElementById('chkType');
+                    } else {
+                        type.parentNode.style.display = 'none';
+                        document.getElementById('hType').style.display = 'none';
+                    }
+
+                    if (span1.innerHTML == '') {
+                        //Wenn kein Tag
+                        condition.selectedIndex = 0; //'---' auswählen
+                    } else if (span1.innerHTML == '[FN]') {
+                        //Wenn Tag 'Factory New'
+                        condition.selectedIndex = 1; //'Factory New' auswählen
+                    } else if (span1.innerHTML == '[MG]' || span1.innerHTML == '[MW]') {
+                        //Wenn Tag 'Minimal Wear'
+                        condition.selectedIndex = 2; //'Minimal Wear' auswählen
+                    } else if (span1.innerHTML == '[EE]' || span1.innerHTML == '[FT]') {
+                        //Wenn Tag 'Field-Tested'
+                        condition.selectedIndex = 3; //'Field-Tested' auswählen
+                    } else if (span1.innerHTML == '[AG]' || span1.innerHTML == '[WW]') {
+                        //Wenn Tag 'Well-Worn'
+                        condition.selectedIndex = 4; //'Well-Worn' auswählen
+                    } else if (span1.innerHTML == '[KS]' || span1.innerHTML == '[BS]') {
+                        //Wenn Tag 'Battle-Scarred'
+                        condition.selectedIndex = 5; //'Battle-Scarred' auswählen
+                    }
+
+                    if (span2.innerHTML == '') {
+                        //Wenn kein Tag
+                        type.checked = false; //Haken entfernen
+                    } else {
+                        //Wenn Tag 'StatTrak' oder 'Souvenir'
+                        type.checked = true; //Haken setzen
+                    }
                 }
             }
-        }
 
-        if (selected.firstChild.style.display == 'none') {
-            document.getElementById('hideimages').innerHTML = 'Show all images';
+            if (selected.firstChild.style.display == 'none') {
+                document.getElementById('hideimages').innerHTML = 'Show all images';
+            }
         }
-    }
+    });
 }
 
 export function checkAbsolute() {
