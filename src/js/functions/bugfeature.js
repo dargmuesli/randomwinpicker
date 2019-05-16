@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         bug.addEventListener('click', function () {
             document.body.scrollTop = 0;
             document.body.style.overflow = 'hidden';
-            alert.render('', '<div id="captcha_container"></div>', '', '');
+            alert.render('', '<div id="captcha_container"></div>', '');
             grecaptcha.render('captcha_container', {
                 'sitekey': recaptchaSitekey, 'theme': 'dark', 'callback': function (response) {
                     validateResponse(response, 'bug');
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         feature.addEventListener('click', function () {
             document.body.scrollTop = 0;
             document.body.style.overflow = 'hidden';
-            alert.render('', '<div id="captcha_container"></div>', '', '');
+            alert.render('', '<div id="captcha_container"></div>', '');
             grecaptcha.render('captcha_container', {
                 'sitekey': recaptchaSitekey, 'theme': 'dark', 'callback': function (response) {
                     validateResponse(response, 'feature');

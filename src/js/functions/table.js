@@ -391,9 +391,7 @@ export function selectItem(index) {
         let selected = document.getElementById('selected');
 
         if ((tableLoading == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
-            let file = selected.firstChild.className.substring(4);
-
-            alert.render(t('functions:table.select.title'), t('functions:table.select.question'), file, 'delete');
+            alert.render(t('functions:table.select.title'), t('functions:table.select.question'), 'delete');
         } else {
             tableLoading = false;
 

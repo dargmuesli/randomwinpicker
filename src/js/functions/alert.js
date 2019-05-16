@@ -4,8 +4,8 @@ import { i18n } from './language';
 export class customAlert {
     constructor() { }
 
-    render(heading, dialog, file, task) {
-        i18n.then(function(t) {
+    render(heading, dialog, task) {
+        i18n.then(function (t) {
             let dialogoverlay = document.getElementById('dialogoverlay');
             let dialogbox = document.getElementById('dialogbox');
             dialogoverlay.style.display = 'block';
@@ -13,12 +13,12 @@ export class customAlert {
             document.getElementById('dialogboxhead').innerHTML = '<h3>' + heading + '</h3>';
             document.getElementById('dialogboxbody').innerHTML = dialog;
             document.getElementById('dialogboxfoot').innerHTML = '<button id="ok">OK</button><button id="cancel">' + t('functions:alert.cancel') + '</button>';
-            document.getElementById('ok').addEventListener('click', () => this.ok(file, task));
+            document.getElementById('ok').addEventListener('click', () => this.ok(task));
             document.getElementById('cancel').addEventListener('click', () => this.cancel());
         }.bind(this));
     }
 
-    ok(file, task) {
+    ok(task) {
         document.body.style.overflow = '';
 
         if (task == 'delete') {
