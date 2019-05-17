@@ -5,7 +5,7 @@ export class customAlert {
     constructor() { }
 
     render(heading, dialog, task) {
-        i18n.then(function (t) {
+        return i18n.then(function (t) {
             let dialogoverlay = document.getElementById('dialogoverlay');
             let dialogbox = document.getElementById('dialogbox');
             dialogoverlay.style.display = 'block';
