@@ -3,7 +3,7 @@ import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './tabl
 import { i18n } from './language';
 
 $(document).ready(function () {
-    $('.filetree').fileTree({ root: '/', script: document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function (file) {
+    $('.filetree').fileTree({ root: '/', script: document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false }, function (file) {
         openFile(file);
     });
 });
