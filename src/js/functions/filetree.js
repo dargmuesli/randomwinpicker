@@ -17,7 +17,7 @@ export function openFile(file) {
 
         let xhr = new XMLHttpRequest();
 
-        xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/dialog/items/layout/data/filetree/categories/' + i18next.language + file + '?' + new Date().getTime(), true);
+        xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/dialog/items/layout/data/filetree/categories/' + i18next.language + file, true); // + '?' + new Date().getTime()
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == 4) && (xhr.status == 200)) {
                 let json = JSON.parse(xhr.responseText);
