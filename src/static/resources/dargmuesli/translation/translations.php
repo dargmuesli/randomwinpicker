@@ -928,12 +928,12 @@
                 ],
                 'randomness' => [
                     'content' => [
-                        'de' => 'RandomWinPicker benutzt die <a href="https://www.random.org/" title="RANDOM.ORG" rel="noopener" target="_blank">Random.org</a> <a href="https://api.random.org/json-rpc/2"<!-- breaks with trailing slash --> title="JSON-RPC API – Release 1" rel="noopener" target="_blank">API</a>, um einen Gewinner mit der Zufälligkeit von atmospherischem Rauschen zu bestimmen.
+                        'de' => 'RandomWinPicker benutzt die <a href="https://www.random.org/" title="RANDOM.ORG" rel="noopener" target="_blank">Random.org</a> <a href="https://api.random.org/json-rpc/2" title="JSON-RPC API – Release 1" rel="noopener" target="_blank"><!-- breaks with trailing slash -->API</a>, um einen Gewinner mit der Zufälligkeit von atmospherischem Rauschen zu bestimmen.
                                 <br>
                                 Das ist einer der besten Wege, wenn nicht der beste Weg, zufällige Daten zu erzeugen. <cite title="https://www.random.org/">Besser als die pseudo-zufälligen Zahlenalgorithmen, die typischerweise in Computerprogrammen benutzt werden</cite>.
                                 <br>
                                 Aber es gibt eine Begrenzung: Jeden Tag können nur 1.000 Anfragen zu random.org gesendet werden und 250.000 Bits können in den angefragten Antworten von random.org sein. Danach wird die Javascriptfunktion <a href="https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Math/math.random" title="Math.random()" rel="noopener" target="_blank">Math.random()</a> des Browsers benutzt.',
-                        'en' => 'RandomWinPicker uses the <a href="https://www.random.org/" title="RANDOM.ORG" rel="noopener" target="_blank">Random.org</a> <a href="https://api.random.org/json-rpc/2"<!-- breaks with trailing slash --> title="JSON-RPC API – Release 1" rel="noopener" target="_blank">API</a> to choose a winner based on the randomness of atmospheric noise.
+                        'en' => 'RandomWinPicker uses the <a href="https://www.random.org/" title="RANDOM.ORG" rel="noopener" target="_blank">Random.org</a> <a href="https://api.random.org/json-rpc/2" title="JSON-RPC API – Release 1" rel="noopener" target="_blank"><!-- breaks with trailing slash -->API</a> to choose a winner based on the randomness of atmospheric noise.
                                 <br>
                                 This is one of the best - if not the best - way to generate random data. It is <cite title="https://www.random.org/">better than the pseudo-random number algorithms typically used in computer programs</cite>.
                                 <br>
