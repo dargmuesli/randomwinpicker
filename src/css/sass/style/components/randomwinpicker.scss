@@ -21,7 +21,7 @@
 #dropzone{margin:auto;padding:2.5vmin;text-align:center;width:25vw;}
 #flag{width:4vmin;}
 #galaxy{background:linear-gradient(rgba(0, 0, 0, 0.75),rgba(0, 0, 0, 0.75)), url("../icons/galaxy.jpg");background-color:#000005;background-position:center center;background-repeat:no-repeat;background-size:cover;}
-#go{display:inline-block;font-family:'bangers';margin:12.5vh 0px;padding-right:5vmin;}
+#go{font-family:'bangers';margin:12.5vh 0px;padding-right:5vmin;}
 #go button{font-size:25vmin;}
 #group1{z-index:1;}
 #group1 .parallax__layer--base{background-position:center center;background-repeat:no-repeat;background-size:cover;}
@@ -58,6 +58,7 @@
 .dataview{float:none;width:auto;}
 .disabled{background:#550000;opacity:0.1;}
 .disabled:before{content:" --- disabled --- ";}
+.display_inline-block{display:inline-block;}
 .double{float:left;margin-left:initial;width:50%;}
 .filetree{float:left;font-family:Open Sans;height:50vh;overflow:auto;text-align:left;width:20vw;}
 .filetree ul:first-child{padding:2.5vmin;}

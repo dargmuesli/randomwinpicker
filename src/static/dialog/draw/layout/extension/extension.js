@@ -124,7 +124,7 @@ async function draw() {
                 let origin = $('#' + responseArray[0]).find('#' + responseArray[1]);
 
                 origin.find('>:first-child').css('background', 'rgba(0, 0, 0, 0.5) none repeat scroll 0% 0%');
-                setTimeout(() => { addPrices(origin, responseArray[2]);}, 1000);
+                setTimeout(() => { addPrices(origin, responseArray[2]); }, 1000);
             }
         };
         xhr.send();
@@ -132,7 +132,7 @@ async function draw() {
 
     if (imageStartIndices.length > 1) {
         index = 1;
-        setTimeout(() => { addRest(imageStartIndices.length, qualities, names, images, priceNames);}, 250);
+        setTimeout(() => { addRest(imageStartIndices.length, qualities, names, images, priceNames); }, 250);
     }
 
     document.getElementById('loading').style.display = 'none';
@@ -151,7 +151,7 @@ async function draw() {
         button.innerHTML = t('functions:extension.draw.button');
         reveal.parentNode.replaceChild(button, reveal); //Reveal durch Reload ersetzen
 
-        document.getElementById('reload').addEventListener('click', () => { location.reload();});
+        document.getElementById('reload').addEventListener('click', () => { location.reload(); });
     } else {
         reveal.innerHTML = t('functions:extension.draw.reveal', xhrJson.round);
     }
@@ -173,7 +173,7 @@ function addRest(length, qualities, names, images, priceNames) {
                 let origin = $('#' + responseArray[0]).find('#' + responseArray[1]);
 
                 origin.find('>:first-child').css('background', 'rgba(0, 0, 0, 0.5) none repeat scroll 0% 0%');
-                setTimeout(() => { addPrices(origin, responseArray[2]);}, 1000);
+                setTimeout(() => { addPrices(origin, responseArray[2]); }, 1000);
             }
         };
         xhr.send();
@@ -184,7 +184,7 @@ function addRest(length, qualities, names, images, priceNames) {
     index++;
 
     if (index < length) {
-        setTimeout(() => { addRest(length, qualities, names, images, priceNames);}, 250);
+        setTimeout(() => { addRest(length, qualities, names, images, priceNames); }, 250);
     }
 }
 
@@ -206,6 +206,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     documentLoaded = true;
 
     document.getElementById('letsgo').addEventListener('click', async () => {
+        document.getElementById('loading').className = '';
+        document.getElementById('go').className = 'hide';
+
         await getRandom();
         await draw();
     });
@@ -224,8 +227,6 @@ async function getRandom() {
             if (xhr.status >= 200 && xhr.status < 300) {
                 let t = await Dargmuesli.Language.i18n;
                 let json = JSON.parse(xhr.responseText);
-                let loading = document.getElementById('loading');
-                let go = document.getElementById('go');
 
                 await xhrPromise;
 
@@ -265,9 +266,6 @@ async function getRandom() {
                         i++;
                     }
                 }
-
-                loading.className = 'hide';
-                go.className = '';
                 resolve();
             } else {
                 reject({

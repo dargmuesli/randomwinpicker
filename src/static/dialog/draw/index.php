@@ -56,7 +56,7 @@
             <h1>
                 '.translate('pages.draw.title.head').'
             </h1>
-            <p id="go">
+            <p class="display_inline-block" id="go">
                 <button class="link" id="letsgo" title="Go!">
                     '.translate('pages.draw.button').'
                 </button>
@@ -68,8 +68,8 @@
                     </button>
                 </p>
             </div>
-            <div class="hide">
-                <p id="loading">
+            <div>
+                <p id="loading" class="hide">
                     <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/ajax-loader.gif" alt="Loading">
                 </p>
             </div>
