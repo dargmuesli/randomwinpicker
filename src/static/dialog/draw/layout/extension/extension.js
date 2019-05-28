@@ -150,7 +150,7 @@ async function draw() {
     }
 
     document.getElementById('loading').style.display = 'none';
-    $('#round' + xhrJson.round).airport([winners[xhrJson.round]]);
+    Dargmuesli.Airport.airport(document.getElementById('round' + xhrJson.round), [winners[xhrJson.round]]);
     content.insertBefore(document.getElementById('loading'), content.firstChild);
     again.style.display = 'inline-block';
     again.style.opacity = '0';
