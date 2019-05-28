@@ -254,7 +254,7 @@ exports.jsLint = jsLint;
 function jsSrc() {
     return gGulp.src(srcJsFolder + 'functions.js', { allowEmpty: true, read: false })
         .pipe(gTap(function (file) {
-            file.contents = gBrowserify(file.path, { debug: true, standalone: 'Dargmuesli' }).transform('babelify', { presets: ['@babel/preset-env'] }).bundle();
+            file.contents = gBrowserify(file.path, { debug: true, standalone: 'Dargmuesli' }).transform('babelify', { presets: ['@babel/preset-env'], plugins: ['@babel/transform-runtime'] }).bundle();
         }))
         .pipe(gBuffer())
         .pipe(gGulp.dest(distServResDargBaseFolder))
