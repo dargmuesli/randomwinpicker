@@ -94,12 +94,12 @@ export async function openFile(file) {
                         document.getElementById('hType').style.display = 'block';
                         type.parentNode.style.display = 'initial';
                         type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;';
-                        type.addEventListener('click', () => { assignStatTrak();});
+                        type.addEventListener('click', () => { assignStatTrak(); });
                     } else if (json.type == 'Souvenir') {
                         document.getElementById('hType').style.display = 'block';
                         type.parentNode.style.display = 'initial';
                         type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir';
-                        type.addEventListener('click', () => { assignSouvenir();});
+                        type.addEventListener('click', () => { assignSouvenir(); });
                     } else {
                         type.parentNode.style.display = 'none';
                         document.getElementById('hType').style.display = 'none';

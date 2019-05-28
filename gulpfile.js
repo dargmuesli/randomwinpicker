@@ -344,7 +344,7 @@ function sitemap() {
                 this.push(file);
             })
         )
-        .on('end', () => { fs.appendFile(sitemapPath, '\n</urlset>', (error) => { if (error) throw error; });});
+        .on('end', () => { fs.appendFile(sitemapPath, '\n</urlset>', (error) => { if (error) throw error; }); });
 }
 
 exports.sitemap = sitemap;
