@@ -134,7 +134,7 @@ export async function addRow(tbody, data, uniques, tableInputs, type) {
             if (count != 1) { //Wenn nicht erstes Element
                 (function () {
                     let tmp = count;
-                    document.getElementById('mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', () => { moveRowUp(tmp, Object.keys(tableInputs).length, type);});
+                    document.getElementById('mRU(' + count + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', () => { moveRowUp(tmp, Object.keys(tableInputs).length, type); });
                 }());
 
                 let button = document.createElement('button');
@@ -147,7 +147,7 @@ export async function addRow(tbody, data, uniques, tableInputs, type) {
                 //document.getElementsByClassName('down')[count - 2].innerHTML += oldElement; //Vorherigem Element Steuerelement hinzufügen
                 (function () {
                     let tmp = count;
-                    document.getElementById('mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', () => { moveRowDown((tmp - 1), Object.keys(tableInputs).length, type);});
+                    document.getElementById('mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', () => { moveRowDown((tmp - 1), Object.keys(tableInputs).length, type); });
                 }());
             }
 
@@ -168,7 +168,7 @@ export async function addRow(tbody, data, uniques, tableInputs, type) {
                 document.getElementById('tableInput0').focus(); //Eingabefeld selektieren
             }
         } else { //Bei Duplikat
-            alert(t('functions:table.add.duplicate', { value: value, error: error })); //Fehler ausgeben
+            alert.render('', t('functions:table.add.duplicate', { value: value, error: error }), ''); //Fehler ausgeben
         }
 
         if (!editing) {
@@ -205,7 +205,7 @@ export async function removeRow(ID, tableInputs, type) {
 
                         el3.parentNode.replaceChild(el3Clone, el3);
                         el3Clone.id = 'mRU(' + (jCopy - 1) + ', ' + tableInputs + ', \'' + type + '\')'; //ID aufrücken
-                        el3Clone.addEventListener('click', () => { moveRowUp((jCopy - 1), tableInputs, type);}); //Eventlistener aufrücken
+                        el3Clone.addEventListener('click', () => { moveRowUp((jCopy - 1), tableInputs, type); }); //Eventlistener aufrücken
                     }
 
                     if (jCopy != count) { //Wenn nicht letztes Element
@@ -213,7 +213,7 @@ export async function removeRow(ID, tableInputs, type) {
 
                         el4.parentNode.replaceChild(el4Clone, el4);
                         el4Clone.id = 'mRD(' + (jCopy - 1) + ', ' + tableInputs + ', \'' + type + '\')'; //ID aufrücken
-                        el4Clone.addEventListener('click', () => { moveRowDown((jCopy - 1), tableInputs, type);}); //Eventlistener aufrücken
+                        el4Clone.addEventListener('click', () => { moveRowDown((jCopy - 1), tableInputs, type); }); //Eventlistener aufrücken
                     }
 
                     document.getElementById('tr' + jCopy).id = 'tr' + (jCopy - 1); //ID aufrücken
@@ -388,7 +388,7 @@ export async function saveTableSend(columnCount, type, object, main) {
 
                 if (xhr.responseText == 'NULL\n' && resetting == false) {
                     changeLanguage('de');
-                    alert(t('functions:table.save.error'));
+                    alert.render('', t('functions:table.save.error'), '');
                 }
 
                 resetting = false;
@@ -447,13 +447,13 @@ export async function selectItem(index) {
                     document.getElementById('hType').style.display = 'block';
                     type.parentNode.style.display = 'initial';
                     type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;'; // onclick="assignStatTrak();"
-                    document.getElementById('chkType').addEventListener('click', () => { assignStatTrak();});
+                    document.getElementById('chkType').addEventListener('click', () => { assignStatTrak(); });
                     type = document.getElementById('chkType');
                 } else if (notes.className == 'Souvenir') {
                     document.getElementById('hType').style.display = 'block';
                     type.parentNode.style.display = 'initial';
                     type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir'; // onclick="assignSouvenir();"
-                    document.getElementById('chkType').addEventListener('click', () => { assignSouvenir();});
+                    document.getElementById('chkType').addEventListener('click', () => { assignSouvenir(); });
                     type = document.getElementById('chkType');
                 } else {
                     type.parentNode.style.display = 'none';
