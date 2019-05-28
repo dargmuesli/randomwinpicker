@@ -22,8 +22,22 @@ let xhrPromise = new Promise(function (resolve, reject) {
     xhr.send();
 });
 
+document.addEventListener('DOMContentLoaded', async () => {
+    documentLoaded = true;
+
+    document.getElementById('letsgo').addEventListener('click', async () => {
+        document.getElementById('loading').className = '';
+        document.getElementById('go').className = 'hide';
+
+        await getRandom();
+        await draw();
+    });
+    document.getElementById('reveal').addEventListener('click', async () => await draw());
+});
+
 async function draw() {
     let t = await Dargmuesli.Language.i18n;
+    await xhrPromise;
 
     if (xhrJson.round <= 0) {
         return;
@@ -132,7 +146,7 @@ async function draw() {
 
     if (imageStartIndices.length > 1) {
         index = 1;
-        setTimeout(() => { addRest(imageStartIndices.length, qualities, names, images, priceNames); }, 250);
+        setTimeout(async () => { await addRest(imageStartIndices.length, qualities, names, images, priceNames); }, 250);
     }
 
     document.getElementById('loading').style.display = 'none';
@@ -153,13 +167,15 @@ async function draw() {
 
         document.getElementById('reload').addEventListener('click', () => { location.reload(); });
     } else {
-        reveal.innerHTML = t('functions:extension.draw.reveal', xhrJson.round);
+        reveal.innerHTML = t('functions:extension.draw.reveal', { round: xhrJson.round });
     }
 }
 
-function addRest(length, qualities, names, images, priceNames) {
+async function addRest(length, qualities, names, images, priceNames) {
     let earlyPlace = $('.place:eq(0)');
     let origin = earlyPlace.parent().attr('id') + '-fig' + (index + 1);
+
+    await xhrPromise;
 
     if (xhrJson.prices) {
         earlyPlace.append('<figure class="opensans win ' + qualities[index] + '" id="fig' + (index + 1) + '"><div class="price"></div><img align="middle" alt="' + names[index] + '" src="' + images[index] + '" class="set"><br>' + names[index] + '</figure>');
@@ -184,7 +200,7 @@ function addRest(length, qualities, names, images, priceNames) {
     index++;
 
     if (index < length) {
-        setTimeout(() => { addRest(length, qualities, names, images, priceNames); }, 250);
+        setTimeout(async () => { await addRest(length, qualities, names, images, priceNames); }, 250);
     }
 }
 
@@ -201,19 +217,6 @@ function getAllIndexes(arr, val) {
     }
     return indices;
 }
-
-document.addEventListener('DOMContentLoaded', async () => {
-    documentLoaded = true;
-
-    document.getElementById('letsgo').addEventListener('click', async () => {
-        document.getElementById('loading').className = '';
-        document.getElementById('go').className = 'hide';
-
-        await getRandom();
-        await draw();
-    });
-    document.getElementById('reveal').addEventListener('click', async () => await draw());
-});
 
 async function getRandom() {
     if (!documentLoaded) {
