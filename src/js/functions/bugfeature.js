@@ -4,29 +4,27 @@ import { recaptchaSitekey } from './globals';
 document.addEventListener('DOMContentLoaded', function () {
     let bug = document.getElementById('bug');
     if (typeof (bug) != 'undefined' && bug != null) {
-        bug.addEventListener('click', function () {
+        bug.addEventListener('click', async () => {
             document.body.scrollTop = 0;
             document.body.style.overflow = 'hidden';
-            alert.render('', '<div id="captcha_container"></div>', '').then(function () {
-                grecaptcha.render('captcha_container', {
-                    'sitekey': recaptchaSitekey, 'theme': 'dark', 'callback': function (response) {
-                        validateResponse(response, 'bug');
-                    }
-                });
+            await alert.render('', '<div id="captcha_container"></div>', '');
+            grecaptcha.render('captcha_container', {
+                'sitekey': recaptchaSitekey, 'theme': 'dark', 'callback': function (response) {
+                    validateResponse(response, 'bug');
+                }
             });
         });
     }
     let feature = document.getElementById('feature');
     if (typeof (feature) != 'undefined' && feature != null) {
-        feature.addEventListener('click', function () {
+        feature.addEventListener('click', async () => {
             document.body.scrollTop = 0;
             document.body.style.overflow = 'hidden';
-            alert.render('', '<div id="captcha_container"></div>', '').then(function () {
-                grecaptcha.render('captcha_container', {
-                    'sitekey': recaptchaSitekey, 'theme': 'dark', 'callback': function (response) {
-                        validateResponse(response, 'feature');
-                    }
-                });
+            await alert.render('', '<div id="captcha_container"></div>', '');
+            grecaptcha.render('captcha_container', {
+                'sitekey': recaptchaSitekey, 'theme': 'dark', 'callback': function (response) {
+                    validateResponse(response, 'feature');
+                }
             });
         });
     }

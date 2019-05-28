@@ -9,12 +9,12 @@ export function handleFileSelect(evt, enc) {
         header: true,
         dynamicTyping: true,
         encoding: enc,
-        complete: function (results) {
+        complete: async (results) => {
             if (results.errors[0] != null) {
                 alert(results.errors[0].message);
             }
 
-            reset(2, 'participants');
+            await reset(2, 'participants');
             // editing = true;
 
             for (let i = 0; i < results.data.length; i++) {

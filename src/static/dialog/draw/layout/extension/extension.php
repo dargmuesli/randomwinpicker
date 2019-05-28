@@ -5,6 +5,7 @@
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/database/pdo.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
 
     // Load .env file
     load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
@@ -63,5 +64,5 @@
         'items' => $items,
         'participants' => $participants,
         'prices' => $prices,
-        'quantity' => $quantity
+        'round' => $quantity
     ]));

@@ -21,7 +21,7 @@
 #dropzone{margin:auto;padding:2.5vmin;text-align:center;width:25vw;}
 #flag{width:4vmin;}
 #galaxy{background:linear-gradient(rgba(0, 0, 0, 0.75),rgba(0, 0, 0, 0.75)), url("../icons/galaxy.jpg");background-color:#000005;background-position:center center;background-repeat:no-repeat;background-size:cover;}
-#go{font-family:'bangers';margin:12.5vh 0px;padding-right:5vmin;}
+#go{display:inline-block;font-family:'bangers';margin:12.5vh 0px;padding-right:5vmin;}
 #go button{font-size:25vmin;}
 #group1{z-index:1;}
 #group1 .parallax__layer--base{background-position:center center;background-repeat:no-repeat;background-size:cover;}

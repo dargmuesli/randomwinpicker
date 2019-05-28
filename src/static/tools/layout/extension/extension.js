@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             reader.readAsText(file, 'ISO-8859-1');
             reader.onload = function (evt) {
                 download('utf-8.csv', evt.target.result);
-            }
+            };
         }
     };
 });
@@ -100,7 +100,7 @@ function retrieveTitleData() {
                     document.getElementById('title').innerHTML = document.getElementById('title').innerHTML.replace('Running', '');
                 }
             }
-        }
+        };
         xhr.send();
     }, 1);
 }
@@ -123,7 +123,7 @@ function retrieveJsonData() {
                     jsonNode.innerHTML = jsonNode.innerHTML.replace('Running', '');
                 }
             }
-        }
+        };
         xhr.send();
     }, 1);
 }

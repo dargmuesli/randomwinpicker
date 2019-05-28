@@ -5,8 +5,11 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/account.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/sessioncookie.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/warning.php';
-
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/tableload.php';
+
+    if ($error != null) {
+        die(header('Location: ../items/'));
+    }
 
     if (isset($email) && isset($_COOKIE['participants'])) {
         if (count($_COOKIE['participants']) == 0) {
@@ -52,7 +55,7 @@
             <h1>
                 '.translate('pages.draw.title.head').'
             </h1>
-            <p id="go" class="hide">
+            <p id="go">
                 <button class="link" id="letsgo" title="Go!">
                     '.translate('pages.draw.button').'
                 </button>
@@ -64,7 +67,7 @@
                     </button>
                 </p>
             </div>
-            <div>
+            <div class="hide">
                 <p id="loading">
                     <img src="'.getenv('BASE_URL').'/resources/dargmuesli/icons/ajax-loader.gif" alt="Loading">
                 </p>

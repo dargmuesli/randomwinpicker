@@ -4,18 +4,18 @@ import { i18n } from './language';
 export class customAlert {
     constructor() { }
 
-    render(heading, dialog, task) {
-        return i18n.then(function (t) {
-            let dialogoverlay = document.getElementById('dialogoverlay');
-            let dialogbox = document.getElementById('dialogbox');
-            dialogoverlay.style.display = 'block';
-            dialogbox.style.display = 'inline';
-            document.getElementById('dialogboxhead').innerHTML = '<h3>' + heading + '</h3>';
-            document.getElementById('dialogboxbody').innerHTML = dialog;
-            document.getElementById('dialogboxfoot').innerHTML = '<button id="ok">OK</button><button id="cancel">' + t('functions:alert.cancel') + '</button>';
-            document.getElementById('ok').addEventListener('click', () => this.ok(task));
-            document.getElementById('cancel').addEventListener('click', () => this.cancel());
-        }.bind(this));
+    async render(heading, dialog, task) {
+        let t = await i18n;
+
+        let dialogoverlay = document.getElementById('dialogoverlay');
+        let dialogbox = document.getElementById('dialogbox');
+        dialogoverlay.style.display = 'block';
+        dialogbox.style.display = 'inline';
+        document.getElementById('dialogboxhead').innerHTML = '<h3>' + heading + '</h3>';
+        document.getElementById('dialogboxbody').innerHTML = dialog;
+        document.getElementById('dialogboxfoot').innerHTML = '<button id="ok">OK</button><button id="cancel">' + t('functions:alert.cancel') + '</button>';
+        document.getElementById('ok').addEventListener('click', () => this.ok(task));
+        document.getElementById('cancel').addEventListener('click', () => this.cancel());
     }
 
     ok(task) {
@@ -46,7 +46,6 @@ export function removeSelected() {
     let index = parseInt(a.id.replace('sI(', '').replace(')', ''));
 
     if (localitems.length > 1) {
-        // load = true;
         document.getElementById('selected').parentNode.parentNode.removeChild(document.getElementById('selected').parentNode);
         localitems[0].id = 'selected';
 
@@ -57,7 +56,7 @@ export function removeSelected() {
 
                 el.parentNode.replaceChild(elClone, el);
                 elClone.id = 'sI(' + i + ')'; //ID aufrücken
-                elClone.addEventListener('click', function () { selectItem(iCopy); }); //Eventlistener aufrücken
+                elClone.addEventListener('click', async () => await selectItem(iCopy)); //Eventlistener aufrücken
             }());
         }
 
@@ -70,7 +69,7 @@ export function removeSelected() {
 
     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 
-    /*!*/    document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren  onclick="selectItem(' + document.getElementsByClassName('item').length + ')"
+    /*!*/    document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren
 
     alert.cancel();
 }
