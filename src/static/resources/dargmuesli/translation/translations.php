@@ -438,6 +438,16 @@
                     'de' => 'Los!',
                     'en' => 'Go!'
                 ],
+                'error' => [
+                    'items' => [
+                        'de' => 'Keine Gewinne definiert!',
+                        'en' => 'No items defined!'
+                    ],
+                    'participants' => [
+                        'de' => 'Keine Teilnehmer definiert!',
+                        'en' => 'No participants defined!'
+                    ]
+                ],
                 'next' => [
                     'de' => 'Zeige den nächsten Gewinner!',
                     'en' => 'Reveal the next winner!'

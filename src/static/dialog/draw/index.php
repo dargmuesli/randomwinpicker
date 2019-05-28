@@ -37,15 +37,16 @@
 
     function participants_error()
     {
-        $_SESSION['error'] = 'No participants defined!';
+        $_SESSION['error'] = translate('pages.draw.error.participants');
         die(header('Location: ../participants/'));
     }
 
     function items_error()
     {
-        $_SESSION['error'] = 'No items defined!';
+        $_SESSION['error'] = translate('pages.draw.error.items');
         die(header('Location: ../items/'));
     }
+
     $skeletonTitle = translate('pages.draw.title.head');
     $skeletonDescription = 'A random winner is chosen based on your inputs';
     $skeletonFeatures = ['lcl/ext/css', 'lcl/ext/js'];
