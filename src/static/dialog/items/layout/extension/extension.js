@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     //             let type = elements[0].parentNode.lastChild.getElementsByTagName('span')[1].innerHTML;
 
     //             await Dargmuesli.Table.selectItem(parseInt(/sI\((.+)\)/.exec(elements[0].parentNode.parentNode.id)[1]));
-    //             Dargmuesli.Alert.removeSelected();
+    //             Dargmuesli.Table.removeSelected();
     //             await Dargmuesli.FileTree.openFile(link);
 
     //             let selected = document.getElementById('selected');
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         let element = document.getElementById('importSession');
 
         if (typeof (element) != 'undefined' && element != null) {
-            element.addEventListener('click', () => { importSession();});
+            element.addEventListener('click', () => { importSession(); });
         }
 
         let testGoElement = document.getElementById('testGo');
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         let chkType = document.getElementById('chkType');
 
         if (typeof (chkType) != 'undefined' && chkType != null) {
-            chkType.addEventListener('click', () => { Dargmuesli.FileTree.assignStatTrak();});
+            chkType.addEventListener('click', () => { Dargmuesli.FileTree.assignStatTrak(); });
         }
 
         let condition = document.getElementById('condition');
@@ -140,9 +140,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                         if (child.className == 'remove') {
                             Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', async () => await Dargmuesli.Table.removeRow(iCopy, 2, 'items'));
                         } else if (child.className == 'up' && child.childNodes[1] != null) {
-                            Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', () => { Dargmuesli.Table.moveRowUp(iCopy, 2, 'items');});
+                            Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', () => { Dargmuesli.Table.moveRowUp(iCopy, 2, 'items'); });
                         } else if (child.className == 'down' && child.childNodes[1] != null) {
-                            Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', () => { Dargmuesli.Table.moveRowDown(iCopy, 2, 'items');});
+                            Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', () => { Dargmuesli.Table.moveRowDown(iCopy, 2, 'items'); });
                         }
                     }());
                 }

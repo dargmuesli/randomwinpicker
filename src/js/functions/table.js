@@ -31,6 +31,10 @@ let editing = false;
 let resetting = false;
 export let tableLoading = false;
 
+export function setEditing(newEditing) {
+    return editing = newEditing;
+}
+
 export async function sendRow(tableInputCount, uniques, type) {
     let tableInputs = new Object();
 
@@ -494,6 +498,43 @@ export async function selectItem(index) {
             document.getElementById('hideimages').innerHTML = 'Show all images';
         }
     }
+}
+
+export function removeSelected() {
+    let selected = document.getElementById('selected');
+    let a = selected.parentNode;
+    let td = a.parentNode;
+    let localitems = td.getElementsByClassName('item');
+    let condition = document.getElementById('condition');
+    let index = parseInt(a.id.replace('sI(', '').replace(')', ''));
+
+    if (localitems.length > 1) {
+        document.getElementById('selected').parentNode.parentNode.removeChild(document.getElementById('selected').parentNode);
+        localitems[0].id = 'selected';
+
+        for (let i = index; i < document.querySelectorAll('.item').length; i++) {
+            (function () {
+                let iCopy = i;
+                let el = document.getElementsByClassName('item')[i].parentNode, elClone = el.cloneNode(true);
+
+                el.parentNode.replaceChild(elClone, el);
+                elClone.id = 'sI(' + i + ')'; //ID aufrücken
+                elClone.addEventListener('click', async () => await selectItem(iCopy)); //Eventlistener aufrücken
+            }());
+        }
+
+    } else {
+        document.getElementById('selected').innerHTML = '<img>---<br><figcaption><span></span><span></span></figcaption>';
+        selected.className = 'item';
+
+        condition.disabled = true;
+    }
+
+    saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
+
+    document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren
+
+    alert.cancel();
 }
 
 export function checkAbsolute() {

@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 
-import { reset } from './table';
+import { reset, setEditing } from './table';
 
 let csvEncodingPromise = new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
@@ -44,11 +44,11 @@ export function handleFileSelect(evt, enc) {
             }
 
             await reset(2, 'participants');
-            // editing = true;
+            setEditing(true);
 
             for (let i = 0; i < results.data.length; i++) {
                 if (i == results.data.length - 1) {
-                    // editing = false;
+                    setEditing(false);
                 }
 
                 document.getElementById('tableInput0').value = results.data[i].username;
