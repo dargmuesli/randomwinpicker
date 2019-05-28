@@ -23,3 +23,5 @@
 
         $encoding = $stmt->fetch()[0];
     }
+
+    echo $encoding;

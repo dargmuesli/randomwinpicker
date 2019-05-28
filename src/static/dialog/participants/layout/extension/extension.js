@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let spoiler = document.getElementById('spoiler');
 
     if (spoiler != null) {
-        spoiler.addEventListener('click', () => { Dargmuesli.Spoiler.showSpoiler();});
+        spoiler.addEventListener('click', () => { Dargmuesli.Spoiler.showSpoiler(); });
     }
 
     let add = document.getElementById('add');
@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
         resetElement.addEventListener('click', async () => await Dargmuesli.Table.reset(2, 'participants'));
     }
 
-    let csvClick = document.getElementById('csvClick');
+    let csvClick = document.getElementById('csv-click');
 
     if (csvClick != null) {
-        csvClick.addEventListener('click', () => { document.getElementById('csv-file').click();});
+        csvClick.addEventListener('click', () => { document.getElementById('csv-file').click(); });
     }
 
     let i = 1;
@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (child.className == 'remove') {
                         Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', async () => await Dargmuesli.Table.removeRow(iCopy, 2, 'participants'));
                     } else if (child.className == 'up' && child.childNodes[1] != null) {
-                        Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', () => { Dargmuesli.Table.moveRowUp(iCopy, 2, 'participants');});
+                        Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', () => { Dargmuesli.Table.moveRowUp(iCopy, 2, 'participants'); });
                     } else if (child.className == 'down' && child.childNodes[1] != null) {
-                        Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', () => { Dargmuesli.Table.moveRowDown(iCopy, 2, 'participants');});
+                        Dargmuesli.Table.getChildNode(child, 0).addEventListener('click', () => { Dargmuesli.Table.moveRowDown(iCopy, 2, 'participants'); });
                     }
                 }());
             }

@@ -2,6 +2,35 @@ import Papa from 'papaparse';
 
 import { reset } from './table';
 
+let csvEncodingPromise = new Promise((resolve, reject) => {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(xhr.responseText);
+        } else {
+            reject({
+                status: xhr.status,
+                statusText: xhr.statusText
+            });
+        }
+    };
+    xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/csv-encoding.php', true);
+    xhr.send();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    let csvClick = document.getElementById('csv-click');
+    let csvFile = document.getElementById('csv-file');
+
+    if (csvFile != null) {
+        csvEncodingPromise.then((csvEncoding) => {
+            csvClick.disabled = false;
+            csvFile.onchange = (event) => handleFileSelect(event, csvEncoding);
+        });
+    }
+});
+
 export function handleFileSelect(evt, enc) {
     let file = evt.target.files[0];
 
@@ -29,10 +58,3 @@ export function handleFileSelect(evt, enc) {
         }
     });
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    let csvfile = document.getElementById('csv-file');
-    if (csvfile != null) {
-        csvfile.onchange = function (event) { handleFileSelect(event, '<?php echo $encoding; ?>'); };
-    }
-});
