@@ -8,6 +8,7 @@ globals:
   Dargmuesli: false
   grecaptcha: false
 parserOptions:
+  ecmaVersion: 8
   sourceType: module
 rules:
   indent:

@@ -3,33 +3,36 @@ import { getFirstChild, getLastChild, saveTableCreate, selectItem } from './tabl
 import { i18n } from './language';
 
 $(document).ready(function () {
-    $('.filetree').fileTree({ root: '/', script: document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php', multiFolder: false, expanded: '/CS:GO/' }, function (file) {
-        openFile(file);
-    });
+    $('.filetree').fileTree({
+        root: '/',
+        script: document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/packages/yarn/jqueryfiletree/connectors/jqueryFileTree.php',
+        multiFolder: false
+    }, async (file) => await openFile(file));
 });
 
-export function openFile(file) {
-    i18n.then(function () {
-        let nameparts = file;
-        nameparts = nameparts.split('/');
-        nameparts = nameparts.splice(3, 2);
-        let name = nameparts[0] + ', ' + nameparts[1];
+export async function openFile(file) {
+    await i18n;
 
+    let nameparts = file;
+    nameparts = nameparts.split('/');
+    nameparts = nameparts.splice(3, 2);
+    let name = nameparts[0] + ', ' + nameparts[1];
+
+    return new Promise(function (resolve, reject) {
         let xhr = new XMLHttpRequest();
-
-        xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/dialog/items/layout/data/filetree/categories/' + i18next.language + file + '?' + new Date().getTime(), true);
-        xhr.onreadystatechange = function () {
-            if ((xhr.readyState == 4) && (xhr.status == 200)) {
+        xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/dialog/items/layout/data/filetree/categories/' + i18next.language + file, true); // + '?' + new Date().getTime()
+        xhr.onreadystatechange = async () => {
+            if (xhr.readyState !== 4) return;
+            if (xhr.status >= 200 && xhr.status < 300) {
                 let json = JSON.parse(xhr.responseText);
 
                 if ((json != false) && ((json.name != '') || (json.url != ''))) {
                     let selected = document.getElementById('selected');
                     let btn = selected.parentNode;
                     let td = btn.parentNode;
-                    let type = document.getElementById('chkType');
 
                     if (getFirstChild(getLastChild(td)).id != 'selected') {
-                        td.lastChild.click();
+                        await Dargmuesli.Table.selectItem(parseInt(/sI\((.+)\)/.exec(getLastChild(td).id)[1]));
                         selected = document.getElementById('selected');
                         btn = selected.parentNode;
                         td = btn.parentNode;
@@ -77,7 +80,7 @@ export function openFile(file) {
 
                     (function () {
                         let iCopy = index;
-                        document.getElementById('sI(' + iCopy + ')').addEventListener('click', function () { selectItem(iCopy); });
+                        document.getElementById('sI(' + iCopy + ')').addEventListener('click', async () => await selectItem(iCopy));
                     }());
 
                     let condition = document.getElementById('condition');
@@ -85,18 +88,18 @@ export function openFile(file) {
                     condition.disabled = false;
                     condition.selectedIndex = 0;
 
+                    let type = document.getElementById('chkType');
+
                     if (json.type == 'StatTrak') {
                         document.getElementById('hType').style.display = 'block';
                         type.parentNode.style.display = 'initial';
                         type.parentNode.innerHTML = '<input type="checkbox" name="type" value="StatTrak&trade;" id="chkType"> StatTrak&trade;';
-                        document.getElementById('chkType').addEventListener('click', function () { assignStatTrak(); });
-                        type = document.getElementById('chkType');
+                        type.addEventListener('click', () => { assignStatTrak(); });
                     } else if (json.type == 'Souvenir') {
                         document.getElementById('hType').style.display = 'block';
                         type.parentNode.style.display = 'initial';
                         type.parentNode.innerHTML = '<input type="checkbox" name="type" value="Souvenir" id="chkType"> Souvenir';
-                        document.getElementById('chkType').addEventListener('click', function () { assignSouvenir(); });
-                        type = document.getElementById('chkType');
+                        type.addEventListener('click', () => { assignSouvenir(); });
                     } else {
                         type.parentNode.style.display = 'none';
                         document.getElementById('hType').style.display = 'none';
@@ -111,7 +114,7 @@ export function openFile(file) {
 
                             el.parentNode.replaceChild(elClone, el);
                             elClone.id = 'sI(' + iCopy + ')';
-                            elClone.addEventListener('click', function () { selectItem(iCopy); });
+                            elClone.addEventListener('click', async () => await selectItem(iCopy));
                         }());
                     }
 
@@ -119,48 +122,40 @@ export function openFile(file) {
 
                     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
                 }
+
+                resolve();
+            } else {
+                reject({
+                    status: xhr.status,
+                    statusText: xhr.statusText
+                });
             }
         };
         xhr.send();
     });
 }
 
-// export function tryGetJson(str) {
-//     try {
-//         let json = JSON.parse(str);
+export async function assignCondition() {
+    let t = await i18n;
+    let condition = document.getElementById('condition');
+    let selected = document.getElementById('selected');
+    let span = selected.getElementsByTagName('span')[0];
 
-//         if (json && typeof json === 'object' && json !== null) {
-//             return json;
-//         }
-//     } catch (e) {
-//         console.log('Cannot parse JSON from "' + str + '"!');
-//     }
+    if (condition.options[0].selected) {
+        span.innerHTML = '';
+    } else if (condition.options[1].selected) {
+        span.innerHTML = t('functions:filetree.conditions.fn');
+    } else if (condition.options[2].selected) {
+        span.innerHTML = t('functions:filetree.conditions.mw');
+    } else if (condition.options[3].selected) {
+        span.innerHTML = t('functions:filetree.conditions.ft');
+    } else if (condition.options[4].selected) {
+        span.innerHTML = t('functions:filetree.conditions.ww');
+    } else if (condition.options[5].selected) {
+        span.innerHTML = t('functions:filetree.conditions.bs');
+    }
 
-//     return false;
-// }
-
-export function assignCondition() {
-    i18n.then(function (t) {
-        let condition = document.getElementById('condition');
-        let selected = document.getElementById('selected');
-        let span = selected.getElementsByTagName('span')[0];
-
-        if (condition.options[0].selected) {
-            span.innerHTML = '';
-        } else if (condition.options[1].selected) {
-            span.innerHTML = t('functions:filetree.conditions.fn');
-        } else if (condition.options[2].selected) {
-            span.innerHTML = t('functions:filetree.conditions.mw');
-        } else if (condition.options[3].selected) {
-            span.innerHTML = t('functions:filetree.conditions.ft');
-        } else if (condition.options[4].selected) {
-            span.innerHTML = t('functions:filetree.conditions.ww');
-        } else if (condition.options[5].selected) {
-            span.innerHTML = t('functions:filetree.conditions.bs');
-        }
-
-        saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
-    });
+    saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }
 
 export function assignStatTrak() {
@@ -191,34 +186,33 @@ export function assignSouvenir() {
     saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }
 
-export function hideImages() {
-    i18n.then(function (t) {
-        let data = document.getElementsByClassName('data');
-        let link = document.getElementById('hideimages');
-        let i, j;
+export async function hideImages() {
+    let t = await i18n;
+    let data = document.getElementsByClassName('data');
+    let link = document.getElementById('hideimages');
+    let i, j;
 
-        if (link.classList.contains('shown')) {
-            for (i = 0; i < document.querySelectorAll('.data').length; i++) {
-                for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
-                    data[i].getElementsByTagName('img')[j].style.display = 'none';
-                }
+    if (link.classList.contains('shown')) {
+        for (i = 0; i < document.querySelectorAll('.data').length; i++) {
+            for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
+                data[i].getElementsByTagName('img')[j].style.display = 'none';
             }
-
-            link.innerHTML = t('functions:filetree.images.show');
-            link.classList.add('hidden');
-            link.classList.remove('shown');
-        } else {
-            for (i = 0; i < document.querySelectorAll('.data').length; i++) {
-                for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
-                    data[i].getElementsByTagName('img')[j].style.display = 'inline';
-                }
-            }
-
-            link.innerHTML = t('functions:filetree.images.hide');
-            link.classList.add('shown');
-            link.classList.remove('hidden');
         }
 
-        saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
-    });
+        link.innerHTML = t('functions:filetree.images.show');
+        link.classList.add('hidden');
+        link.classList.remove('shown');
+    } else {
+        for (i = 0; i < document.querySelectorAll('.data').length; i++) {
+            for (j = 0; j < data[i].querySelectorAll('.set').length; j++) {
+                data[i].getElementsByTagName('img')[j].style.display = 'inline';
+            }
+        }
+
+        link.innerHTML = t('functions:filetree.images.hide');
+        link.classList.add('shown');
+        link.classList.remove('hidden');
+    }
+
+    saveTableCreate(2, 'items', document.getElementById('categories').parentNode);
 }

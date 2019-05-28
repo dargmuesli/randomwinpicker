@@ -127,7 +127,7 @@ exports.composerUpdate = composerUpdate;
 
 function composerWatch() {
     // Watch for any changes in composer files to copy changes
-    gGulp.watch([vendorGlob, 'composer.json'])
+    gGulp.watch('composer.json')
         .on('all', function () {
             composerUpdate();
             composerSrc();
@@ -254,7 +254,7 @@ exports.jsLint = jsLint;
 function jsSrc() {
     return gGulp.src(srcJsFolder + 'functions.js', { allowEmpty: true, read: false })
         .pipe(gTap(function (file) {
-            file.contents = gBrowserify(file.path, { debug: true, standalone: 'Dargmuesli' }).transform('babelify', { presets: ['@babel/preset-env'] }).bundle();
+            file.contents = gBrowserify(file.path, { debug: true, standalone: 'Dargmuesli' }).transform('babelify', { presets: ['@babel/preset-env'], plugins: ['@babel/transform-runtime'] }).bundle();
         }))
         .pipe(gBuffer())
         .pipe(gGulp.dest(distServResDargBaseFolder))
@@ -344,7 +344,7 @@ function sitemap() {
                 this.push(file);
             })
         )
-        .on('end', function () { fs.appendFile(sitemapPath, '\n</urlset>', (error) => { if (error) throw error; }); });
+        .on('end', () => { fs.appendFile(sitemapPath, '\n</urlset>', (error) => { if (error) throw error; }); });
 }
 
 exports.sitemap = sitemap;

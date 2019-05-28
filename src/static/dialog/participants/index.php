@@ -115,7 +115,7 @@
                 </button>
             </p>
             <p>
-                <button id="csvClick">
+                <button disabled id="csv-click">
                     '.translate('pages.participants.form.upload').'
                 </button>
                 <input type="file" accept=".csv" id="csv-file" name="files" class="hide" />

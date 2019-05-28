@@ -3,6 +3,7 @@ import * as Alert from './functions/alert';
 import * as BugFeature from './functions/bugfeature';
 import * as Csv from './functions/csv';
 import * as FileTree from './functions/filetree';
+import * as Globals from './functions/globals';
 import * as Keypress from './functions/keypress';
 import * as Language from './functions/language';
 import * as Phpin from './functions/phpin';
@@ -16,6 +17,7 @@ module.exports = {
     BugFeature,
     Csv,
     FileTree,
+    Globals,
     Keypress,
     Language,
     Phpin,
