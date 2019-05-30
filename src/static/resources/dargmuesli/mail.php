@@ -7,7 +7,7 @@
         // Load .env file
         load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
 
-        $mail = new PHPMailer;
+        $mail = new PHPMailer\PHPMailer\PHPMailer;
 
         $mail->isSMTP();
         $mail->CharSet = 'UTF-8';
