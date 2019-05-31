@@ -207,7 +207,7 @@
                                 <input type="text" name="encoding" id="sS(encodingForm, this.value)" maxlength="15" size="15" value="';
 
     if (($encoding != 'UTF-8') && ($encoding != 'ISO-8859-1')) {
-        echo $encoding;
+        $skeletonContent .= $encoding;
     }
 
     $skeletonContent .= '">
