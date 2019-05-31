@@ -1,7 +1,7 @@
-function saveSettingsWorker(form, value) {
+function saveSettingsWorker(form, value, http_x_forwarded_prefix) {
     let xhr = new XMLHttpRequest();
 
-    xhr.open('POST', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/savesettings.php?form=' + form, false);
+    xhr.open('POST', http_x_forwarded_prefix + '/resources/dargmuesli/savesettings.php?form=' + form, false);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if ((xhr.readyState == 4) && (xhr.status == 200)) {
@@ -26,8 +26,15 @@ function saveSettingsWorker(form, value) {
 
 onmessage = function (event) {
     let args = event.data.args;
+    let http_x_forwarded_prefix = event.data.http_x_forwarded_prefix;
 
-    if (args) {
-        saveSettingsWorker(args[0], args[1]);
+    if (typeof args === undefined) {
+        console.error('Event does not contain data "args"!');
     }
+
+    if (typeof http_x_forwarded_prefix === undefined) {
+        console.error('Event does not contain data "http_x_forwarded_prefix"!');
+    }
+
+    saveSettingsWorker(args[0], args[1], http_x_forwarded_prefix);
 };

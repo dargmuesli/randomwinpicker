@@ -5,17 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('sS(privacyForm, E-mail address)').addEventListener('click', () => { saveSettings('privacyForm', 'E-mail address'); });
     document.getElementById('sS(privacyForm, Member)').addEventListener('click', () => { saveSettings('privacyForm', 'Member'); });
     document.getElementById('sS(privacyForm, Custom)').addEventListener('click', () => { saveSettings('privacyForm', document.getElementById('sS(privacyForm, this.value)').value); });
-    document.getElementById('sS(privacyForm, this.value)').addEventListener('change', () => { saveSettings('privacyForm', this.value); });
+    document.getElementById('sS(privacyForm, this.value)').addEventListener('change', () => { saveSettings('privacyForm', document.getElementById('sS(privacyForm, this.value)').value); });
     document.getElementById('sS(encodingForm, UTF-8)').addEventListener('click', () => { saveSettings('encodingForm', 'UTF-8'); });
     document.getElementById('sS(encodingForm, ISO-8859-1)').addEventListener('click', () => { saveSettings('encodingForm', 'ISO-8859-1'); });
     document.getElementById('sS(encodingForm, Custom)').addEventListener('click', () => { saveSettings('encodingForm', document.getElementById('sS(encodingForm, this.value)').value); });
-    document.getElementById('sS(encodingForm, this.value)').addEventListener('change', () => { saveSettings('encodingForm', this.value); });
+    document.getElementById('sS(encodingForm, this.value)').addEventListener('change', () => { saveSettings('encodingForm', document.getElementById('sS(encodingForm, this.value)').value); });
     document.getElementById('sS(viewForm, Instructions)').addEventListener('click', () => { saveSettings('viewForm', 'Instructions'); });
     document.getElementById('sS(viewForm, Controls)').addEventListener('click', () => { saveSettings('viewForm', 'Controls'); });
     document.getElementById('sS(viewForm, Data)').addEventListener('click', () => { saveSettings('viewForm', 'Data'); });
     document.getElementById('sS(storageForm, Session)').addEventListener('click', () => { saveSettings('storageForm', 'Session'); });
     document.getElementById('sS(storageForm, Cookies)').addEventListener('click', () => { saveSettings('storageForm', 'Cookies'); });
-    document.getElementById('sS(youtubeForm, this.value)').addEventListener('change', () => { saveSettings('youtubeForm', this.value); });
+    document.getElementById('sS(youtubeForm, this.value)').addEventListener('change', () => { saveSettings('youtubeForm', document.getElementById('sS(youtubeForm, this.value)').value); });
 });
 
 let pendingRequests = 0;
@@ -53,7 +53,7 @@ function startWorker(form, value) {
             }
         }
     };
-    w.postMessage({ 'args': [form, value] });
+    w.postMessage({ 'args': [form, value], 'http_x_forwarded_prefix': document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content });
 }
 
 // function stopWorker() {
