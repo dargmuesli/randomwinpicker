@@ -61,9 +61,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">';
 
         // Choose the last item in the last row
-        if (document.getElementsByClassName('item')[document.querySelectorAll('.item').length - 1].id != 'selected') {
-            await Dargmuesli.Table.selectItem(document.querySelectorAll('.item').length - 1);
-        }
+        document.getElementById('selected').removeAttribute('id');
+        await Dargmuesli.Table.selectItem(document.querySelectorAll('.item').length - 1);
 
         if (document.getElementsByClassName('item')[document.querySelectorAll('.item').length - 1].className == 'item meleeweapons') {
             document.getElementById('quality').className = 'meleeweapons';

@@ -61,7 +61,6 @@ export async function addRow(tbody, data, uniques, tableInputs, type) {
             for (let i = 0; i < count; i++) {//Zeilen durchlaufen
                 for (let j = uniques[0]; j < Object.keys(tableInputs).length; j += uniques[j + 1] - uniques[j]) { //Spalten durchlaufen
                     if (htmlspecialchars_decode(tableInputs['tableInput' + j]) == htmlspecialchars_decode(data[i * Object.keys(tableInputs).length + j].innerHTML)) {
-                        //.replace(/(\r\n|\n|\r)/gm, ' ').replace(/\s+/g, ' ').trim()
                         alreadyExisting = true; //Vorkommnis merken
                         error = (i + 1) + '|' + (j + 1); //Vorkommnis markieren
                         value = tableInputs['tableInput' + j]; //Vorkommnis speichern
@@ -75,7 +74,6 @@ export async function addRow(tbody, data, uniques, tableInputs, type) {
             count++; //Zähler erhöhen
 
             let newElement = '';
-            // let oldElement = '';
 
             newElement += '<td class="data">';
             newElement += tableInputs['tableInput0'];
@@ -84,11 +82,7 @@ export async function addRow(tbody, data, uniques, tableInputs, type) {
 
             if (checkAbsolute()) { //Bei generischer Tabelle
                 newElement += tableInputs['tableInput1'];
-                if (count == 1) { //Bei erstem Element
-                    newElement += '<figure class="item" id="selected">';
-                } else { //Wenn nicht erstes Element
-                    newElement += '<figure class="item">';
-                }
+                newElement += '<figure class="item">';
                 newElement += '<img>';
                 newElement += '---';
                 newElement += '<br>';
@@ -101,9 +95,7 @@ export async function addRow(tbody, data, uniques, tableInputs, type) {
                 newElement += '</figure>';
                 newElement += '</a>';
             } else {
-                //newElement += '<span>';
                 newElement += tableInputs['tableInput1'];
-                //newElement += '</span>';
             }
 
             newElement += '</td>';
@@ -148,7 +140,6 @@ export async function addRow(tbody, data, uniques, tableInputs, type) {
                 button.innerHTML = '&#x25BC;';
                 document.getElementsByClassName('down')[count - 2].appendChild(button); //Vorherigem Element Steuerelement hinzufügen
 
-                //document.getElementsByClassName('down')[count - 2].innerHTML += oldElement; //Vorherigem Element Steuerelement hinzufügen
                 (function () {
                     let tmp = count;
                     document.getElementById('mRD(' + (count - 1) + ', ' + Object.keys(tableInputs).length + ', \'' + type + '\')').addEventListener('click', () => { moveRowDown((tmp - 1), Object.keys(tableInputs).length, type); });
@@ -163,9 +154,7 @@ export async function addRow(tbody, data, uniques, tableInputs, type) {
                 document.getElementById('tableInput0').value = parseInt(document.getElementById('tableInput0').value) + 1; //Nummer erhöhen
                 document.getElementById('tableInput1').value = '<button class="link" title="Win" id="sI(' + document.getElementsByClassName('item').length + ')">'; //Event aktualisieren
 
-                if (count != 1) {
-                    await selectItem(document.querySelectorAll('.item').length - 1); //Neues Element auswählen
-                }
+                await selectItem(document.querySelectorAll('.item').length - 1); //Neues Element auswählen
             } else { //Bei benutzerdefinierter Tabelle
                 document.getElementById('tableInput0').value = ''; //Eingabefeld zurücksetzen
                 document.getElementById('tableInput1').value = 1; //Eingabefeld zurücksetzen
@@ -415,12 +404,15 @@ export async function selectItem(index) {
     let t = await i18n;
     let selected = document.getElementById('selected');
 
-    if ((tableLoading == false) && (selected.parentNode.id == 'sI(' + index + ')') && (selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>')) { //Wenn selbes Element
+    if (tableLoading == false && selected != null && selected.parentNode.id == 'sI(' + index + ')' && selected.innerHTML != '<img>---<br><figcaption><span></span><span></span></figcaption>') { //Wenn selbes Element
         alert.render(t('functions:table.select.title'), t('functions:table.select.question'), 'delete');
     } else {
         tableLoading = false;
 
-        selected.removeAttribute('id'); //Auswahl entfernen
+        if (selected != null) {
+            selected.removeAttribute('id'); //Auswahl entfernen
+        }
+
         document.getElementsByTagName('figure')[index].setAttribute('id', 'selected'); //Auswählen
         selected = document.getElementById('selected'); //Variable akualisieren
 

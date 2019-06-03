@@ -102,7 +102,10 @@ export function airport(element, array) {
                         d = longest;
                     }
                 }
-                init(a + 1, 0, c, d + 1);
+
+                if (a + 1 < word_len) {
+                    init(a + 1, 0, c, d + 1);
+                }
             }
         }, 10);
         // }

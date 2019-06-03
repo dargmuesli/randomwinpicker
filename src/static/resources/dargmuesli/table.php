@@ -1,7 +1,5 @@
 <?php
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/sessioncookie.php';
 
     if (!isset($_GET['type'])) {
         return http_response_code(400);
