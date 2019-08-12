@@ -15,10 +15,10 @@
         "issues": "https://github.com/Dargmuesli/randomwinpicker/issues"
     },
     "require": {
-        "dapphp/securimage": "^4.0",
-        "google/recaptcha": "^1.2",
-        "phpmailer/phpmailer": "^6.0",
-        "vlucas/phpdotenv": "^3.3",
+        "dapphp/securimage": "4.0.1",
+        "google/recaptcha": "1.2.2",
+        "phpmailer/phpmailer": "6.0.7",
+        "vlucas/phpdotenv": "3.3.3",
         "wukka/nonce": "dev-master"
     }
 }
