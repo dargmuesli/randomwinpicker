@@ -46,7 +46,7 @@
         "browserify": "16.5.0",
         "date-diff": "0.2.1",
         "del": "5.0.0",
-        "eslint": "6.1.0",
+        "eslint": "6.2.0",
         "gulp": "4.0.2",
         "gulp-autoprefixer": "7.0.0",
         "gulp-babel-minify": "0.5.1",
