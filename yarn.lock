@@ -3437,12 +3437,12 @@ gulp-symlink@2.1.4:
     mkdirp "~0.5.1"
     through2 "~2.0.0"
 
-gulp-tap@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/gulp-tap/-/gulp-tap-1.0.1.tgz#e671124e1259b4cea219ed1ca97b7f585c334690"
-  integrity sha1-5nESThJZtM6iGe0cqXt/WFwzRpA=
+gulp-tap@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/gulp-tap/-/gulp-tap-2.0.0.tgz#6f66b79870dcbfc364cf4ebe0735b6008473200f"
+  integrity sha512-U5/v1bTozx672QHzrvzPe6fPl2io7Wqyrx2y30AG53eMU/idH4BrY/b2yikOkdyhjDqGgPoMUMnpBg9e9LK8Nw==
   dependencies:
-    through2 "^2.0.3"
+    through2 "^3.0.1"
 
 gulp-util@~3.0.6:
   version "3.0.8"

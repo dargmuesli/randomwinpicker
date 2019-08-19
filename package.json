@@ -59,7 +59,7 @@
         "gulp-sass": "4.0.2",
         "gulp-sourcemaps": "2.6.5",
         "gulp-symlink": "2.1.4",
-        "gulp-tap": "1.0.1",
+        "gulp-tap": "2.0.0",
         "gulp-yarn": "2.0.0",
         "gulp-zip": "5.0.0",
         "merge-stream": "2.0.0",
