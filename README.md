@@ -1,8 +1,8 @@
 [![build status](https://travis-ci.org/dargmuesli/randomwinpicker.svg?branch=develop)](https://travis-ci.org/dargmuesli/randomwinpicker "build status")
 [![Docker layer size & count](https://images.microbadger.com/badges/image/dargmuesli/randomwinpicker.svg)](https://microbadger.com/images/dargmuesli/randomwinpicker "Docker layer size & count")
 [![known vulnerabilities](https://snyk.io/test/github/dargmuesli/randomwinpicker/badge.svg)](https://snyk.io/test/github/dargmuesli/randomwinpicker "known vulnerabilities")
-[![Greenkeeper](https://badges.greenkeeper.io/Dargmuesli/randomwinpicker.svg)](https://greenkeeper.io/ "Greenkeeper")
-[![website uptime monitoring](https://app.statuscake.com/button/index.php?Track=VRBItScv8j&Days=1000&Design=3)](https://www.statuscake.com "website uptime monitoring") <!-- randomwinpicker.jonas-thelemann.de -->
+[![Renovate](https://badges.renovateapi.com/github/dargmuesli/randomwinpicker)](https://renovatebot.com/"Renovate")
+[![website uptime monitoring](https://app.statuscake.com/button/index.php?Track=VRBItScv8j&Days=1000&Design=3)](https://www.statuscake.com "website uptime monitoring")
 
 # randomwinpicker
 This website chooses a "true" random winner for CS:GO case openings.

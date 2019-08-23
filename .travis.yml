@@ -17,19 +17,14 @@ addons:
     packages:
       - docker-ce
 before_install:
-- yarn global add greenkeeper-lockfile@1
 - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
 - sudo service docker restart
-before_script:
-- greenkeeper-lockfile-update
 script:
 - docker build -t stage_node --target stage_node .
 - docker container create --name extract stage_node
 - docker container cp extract:/app/dist/randomwinpicker.zip .
 - docker container rm -f extract
 - docker build -t $REPO:$COMMIT .
-after_script:
-- greenkeeper-lockfile-upload
 after_success:
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $(echo $TRAVIS_BRANCH | tr / _); fi`
