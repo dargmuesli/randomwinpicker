@@ -29,7 +29,7 @@
         "url": "https://github.com/Dargmuesli/randomwinpicker/issues"
     },
     "dependencies": {
-        "i18next": "17.0.15",
+        "i18next": "17.0.16",
         "i18next-browser-languagedetector": "3.0.3",
         "i18next-xhr-backend": "3.1.2",
         "jquery": "3.4.1",
