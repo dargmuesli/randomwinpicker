@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e34dde57aed71ce54efa15d35878413c",
+    "content-hash": "261a4a69ba3d1754c13446b2749296b9",
     "packages": [
         {
             "name": "dapphp/securimage",
@@ -107,16 +107,16 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.1.0",
+            "version": "v6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "689d243f94f5bc66616d8a319e600e086c987446"
+                "reference": "26bd96350b0b2fcbf0ef4e6f0f9cf3528302a9d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/689d243f94f5bc66616d8a319e600e086c987446",
-                "reference": "689d243f94f5bc66616d8a319e600e086c987446",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/26bd96350b0b2fcbf0ef4e6f0f9cf3528302a9d8",
+                "reference": "26bd96350b0b2fcbf0ef4e6f0f9cf3528302a9d8",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +169,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2019-09-27T17:15:39+00:00"
+            "time": "2019-09-27T21:33:43+00:00"
         },
         {
             "name": "phpoption/phpoption",
