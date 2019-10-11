@@ -34,7 +34,7 @@
         "i18next-xhr-backend": "3.2.0",
         "jquery": "3.4.1",
         "jqueryfiletree": "2.1.4",
-        "jsdoc-to-markdown": "5.0.1",
+        "jsdoc-to-markdown": "5.0.2",
         "papaparse": "5.1.0",
         "reset-css": "4.0.1"
     },
