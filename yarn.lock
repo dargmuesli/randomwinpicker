@@ -3246,7 +3246,7 @@ gulp-cached@1.1.1:
     lodash.defaults "^4.2.0"
     through2 "^2.0.1"
 
-gulp-chown@^2.0.0:
+gulp-chown@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/gulp-chown/-/gulp-chown-2.0.0.tgz#bff56f4e4e4b3b5f7f4205d1b6e60aa20e65428c"
   integrity sha512-CHXpEFHto5LAl4F93MDb3vI9aTsbLMzz46Lo+6UW2sWgXljm4DnK6I7HPfHPtG6qqkC8O+30jSrWNp4RnvB1jw==

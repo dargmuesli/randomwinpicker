@@ -52,7 +52,7 @@
         "gulp-babel-minify": "0.5.1",
         "gulp-buffer": "0.0.2",
         "gulp-cached": "1.1.1",
-        "gulp-chown": "^2.0.0",
+        "gulp-chown": "2.0.0",
         "gulp-composer": "0.4.5",
         "gulp-eslint": "6.0.0",
         "gulp-phplint": "0.9.0",
