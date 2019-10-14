@@ -1,3 +1,4 @@
+dist: bionic
 language: node_js
 node_js:
 - lts/*
@@ -6,30 +7,28 @@ services:
 - docker
 env:
   global:
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - DOCKER_CLI_EXPERIMENTAL=enabled
+  - REPO=dargmuesli/randomwinpicker
   - secure: IjLdGfhJAefWkUTFBdKbiz4uJJ0lO29O8EAKPFEHOurOdUc95PjJu+B1PgaGqmfqrSfkY6IqaVZmhiYscTHl6CdKVIOGIs45ARyuMNjUXOVIuG5SJ6+FcM+rGRsqH1XOuDbU9vPdwMSXX5HjuARZqiWgq9V9V9cWMYIFz2UpZs/0mxt/3RXsN7JVp/UTA9ikhCJoiBNKkojfCkz6furgjbc4Y9s1TK00rV4LSRXNDWKbwI941fUHsxY6oIb33WH9j/bmpb/eJalQy2uFtguleVR9cLEDZWqsLH/QD2jChSPRsKdUPgpm9hzt4VdfsFHVMqr+VzR/VC9cOpNMWMGBP5IMAm/stAr3NJJRholT9hhRcx0NYP1C+n2t/xmPVBDJ4u2FVvXzK2GNVaQ1yPxXW68dYXvzhlZITg8TEgP8be3VgwTvjJCOAD7/kvEOJy2nRBrPh0chKa37XoOphzZP6Np5qU64vHSpxiZG99Zg0KdeT8ZS2KNnJecjdqksWFu4d3d6FxxzYEJrlBZjN4YmpL9QHdfDGpPmCjj3WhCg3lYWzz7aeap3ixbEBsVd+Nt/1ACzR+ZVgSMcZzsUOG+5nRL1WnOk8cCXNnofR8Y7hT0Dx5IW3IlLihI8ZKBnlNXzQmiSAuuokP6cnZVZb85FaHtByUi6T8S85Wg4H9RHt3Q= #DOCKER_USER
   - secure: jXh7rjSkR9Fpuq3qCFFeXDNIUrrPd9AOIlqKErUWWdgHrr6VVr2mZ3GzNFSkmgILCtFsJblByYdjCbZlsuoVV/I8eWmP1VDAmUlI8JSgRTxxrfzTcorgKe0kNp8zUMwt9pIB+WWSSprKld7bceNTGE2ckv1+KtRNZ8GGhUnEU0PKjM+wBRPiCLBDrylRVXy6boBuw4+HiASN3dLU/d+IwlhxnfzNkZ3XSlmrajuE+M/LUrsSukZ+zhWoWcNnWJWXeHhIxkrAdvj9UwM+mmXuuFU1Yf41tMaiTp0ur2S3H3iUXn7ZoGRfnlGVY0GU2OW9c+ZX82TBl+SreEIgsVUIFkRWDJjRk+sr3mOD0WEnjJPfPS7kgt+dWC3sM4KMy/JO2AbuYCcOY+p1jHFWP1vr+z+WU36lFMK9Rc/9iX7kYZgElgK0chtxi75KdjMltcoXsaGQz6Mlr7zkKrqxdlMv2loVVpbE3EalxJ1w1jMAFnM/VQdXMAvrlMLDuQmoqaZSJ5SAzXA9sK3OxDB6+aMMWAXwqSao+nc+sy20w2cLZ2X4mapil+7Asd8KcMx4iWAU83ch1ovcwVmTd2DbJrDsSIMoa87iS//gXm5pOd1bBM5uEidKqAXrCmxbuoq1vK1I4lSX5jbbMFdXN++if+HDi0wPBQCKXtR5GCkPveEOaoE= #DOCKER_PASS
-  - secure: Aovm+GWNrX+XGgShuL9klOOXTjrsyVbKrx1v2XlEqWkwNZIqIFojAdx2vdzDGvAOuD6YxQFk7kGksOfoLRLCViXOYtcCc+j6WB1yjce+4r1vRBRTzHIZBhIatwVNGgFMwPp34FWimYIUrVH2CavD/LtXkCf1wDSh+PKJdwpfR0lTvZF6Ouj6iwkOWU7O2CLlF0fvRTKsruwMlnlM3AjgPyPe97UlJ28eoDQuuQClbkMAIePlRJdkQx0bLdEQphpyfgU8d1Bbp8X56JnwxbdvuZrLIT3HqSNzO5fDniKklUj2HMwMaVZ9NyU5fMl/M6StCSn4wuJfSwVz4gnb3vpJ+S6paG+Ws3LdXAKxXRn86BLD9uQ8PtTCYJgZmVEdcQXjljZgsl9ChrG3/bXTHjmTinb1Fc2zxRJNk2dEQD7J8srscJcUwgRxzaRRWaUa5lwgYbK8ObWGNC/IqT1QnrCj46Hy1u0IWeamN6kPMCtcaWrF4uiSDIQZ8ys1MxlPE0z0TbqJoxisSjX5ShDutvrXRsOcKRNpbVVJeCI24Zu9JTCS4Pw1PX71NrnHAL/UQP/P0stPMYbYufu774qZG9Ei744Oo5EZADifWVF27yAiwKJf1chxxk65RGlLIA7/QIDfO4F79xMAFwJg3i2i6aPCTkbU2xfPZq9lf4jm6bLj4zs= #GH_TOKEN
-  - COMMIT=${TRAVIS_COMMIT::8}
-  - REPO=dargmuesli/randomwinpicker
-addons:
-  apt:
-    packages:
-      - docker-ce
 before_install:
-- echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
-- sudo service docker restart
+- echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $(echo $TRAVIS_BRANCH | tr / _); fi`
+- |
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    sudo apt-get update
+    sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+- |
+    docker buildx create --name travis-builder --use
+    docker buildx inspect --bootstrap
 script:
-- docker build -t stage_node --target stage_node .
-- docker container create --name extract stage_node
+- docker build -t stage_build --target stage_build .
+- docker container create --name extract stage_build
 - docker container cp extract:/app/dist/randomwinpicker.zip .
 - docker container rm -f extract
-- docker build -t $REPO:$COMMIT .
-after_success:
-- docker login -u $DOCKER_USER -p $DOCKER_PASS
-- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $(echo $TRAVIS_BRANCH | tr / _); fi`
-- docker tag $REPO:$COMMIT $REPO:$TAG
-- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-- docker push $REPO
+- docker buildx build --cache-from=$REPO:cache --cache-to=$REPO:cache --push -t $REPO:$COMMIT -t $REPO:$TAG .
 deploy:
   provider: releases
   api_key:
@@ -39,7 +38,3 @@ deploy:
   on:
     tags: true
     repo: dargmuesli/randomwinpicker
-notifications:
-  email:
-    on_success: change
-    on_failure: change
