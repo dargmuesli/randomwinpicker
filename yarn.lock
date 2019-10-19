@@ -5766,10 +5766,10 @@ requizzle@^0.2.3:
   dependencies:
     lodash "^4.17.14"
 
-reset-css@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/reset-css/-/reset-css-5.0.0.tgz#33dda57f9bcf16e660c3c3f5dcd77d8cf4991b5f"
-  integrity sha512-4OogzolJOsyupXkvmfc5xs3LhiFxKpsabivXo/qpyxX3XbEPyxUpYz0iLrWGo+YbhmW0Pqdg+YeK+sxaOBfDdw==
+reset-css@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/reset-css/-/reset-css-5.0.1.tgz#1ced0604fdb6836567e40d82de3537afaf3bb4c8"
+  integrity sha512-VyuJdNFfp5x/W6e5wauJM59C02Vs0P22sxzZGhQMPaqu/NGTeFxlBFOOw3eq9vQd19gIDdZp7zi89ylyKOJ33Q==
 
 resolve-dir@^1.0.0, resolve-dir@^1.0.1:
   version "1.0.1"
