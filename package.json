@@ -31,7 +31,7 @@
     "dependencies": {
         "i18next": "19.0.0",
         "i18next-browser-languagedetector": "4.0.1",
-        "i18next-xhr-backend": "3.2.0",
+        "i18next-xhr-backend": "3.2.1",
         "jquery": "3.4.1",
         "jqueryfiletree": "2.1.4",
         "jsdoc-to-markdown": "5.0.2",
