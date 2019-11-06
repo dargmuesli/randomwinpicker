@@ -1,5 +1,5 @@
 # Base image
-FROM node:buster-slim AS stage_build
+FROM node:buster AS stage_build
 
 # Update and install build dependencies
 RUN \
