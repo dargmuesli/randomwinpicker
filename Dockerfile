@@ -16,7 +16,7 @@ RUN yarn add gulp@4 -D
 RUN sg www-data "gulp build"
 
 # Base image
-FROM php:7.3-fpm-alpine AS stage_serve
+FROM php:7.3-fpm-alpine@sha256:bdd5fd3c39fdd9189f5e89fd83f83dfc9827ea1840a140ef2efbbc496405d692 AS stage_serve
 
 # Environment variables
 ENV PHP_INI_DIR /usr/local/etc/php
