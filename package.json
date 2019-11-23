@@ -39,9 +39,9 @@
         "reset-css": "5.0.1"
     },
     "devDependencies": {
-        "@babel/core": "7.7.2",
-        "@babel/plugin-transform-runtime": "7.6.2",
-        "@babel/preset-env": "7.7.1",
+        "@babel/core": "7.7.4",
+        "@babel/plugin-transform-runtime": "7.7.4",
+        "@babel/preset-env": "7.7.4",
         "babelify": "10.0.0",
         "browserify": "16.5.0",
         "date-diff": "0.2.1",
