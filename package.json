@@ -40,8 +40,8 @@
     },
     "devDependencies": {
         "@babel/core": "7.7.5",
-        "@babel/plugin-transform-runtime": "7.7.5",
-        "@babel/preset-env": "7.7.5",
+        "@babel/plugin-transform-runtime": "7.7.6",
+        "@babel/preset-env": "7.7.6",
         "babelify": "10.0.0",
         "browserify": "16.5.0",
         "date-diff": "0.2.1",
