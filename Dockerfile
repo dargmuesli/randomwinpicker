@@ -1,5 +1,5 @@
 # Base image
-FROM node:buster@sha256:e3d6fded1691dd96fe9097071fce91a2d1ba5c675092cc04b81745e9a6b9ccdc AS stage_build
+FROM node:buster@sha256:2a21bd068656240d6b9ce9c9802b17148b53fdcdce60864661239301bfeccfef AS stage_build
 
 # Update and install build dependencies
 RUN \
