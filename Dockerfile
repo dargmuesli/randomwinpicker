@@ -29,7 +29,7 @@ RUN apk add --no-cache \
     libpng-dev \
     postgresql-dev \
     && docker-php-ext-configure \
-    gd --with-freetype-dir=/usr/include/ \
+    gd --with-freetype=/usr/include/ \
     && docker-php-ext-install \
     gd \
     pdo_pgsql
