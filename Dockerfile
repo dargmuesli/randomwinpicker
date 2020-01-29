@@ -41,7 +41,7 @@ COPY --chown=www-data:www-data --from=stage_build /app/dist/$PROJECT_NAME/ /var/
 COPY --chown=www-data:www-data ./docker/php/* $PHP_INI_DIR/
 
 # Declare required mount points
-VOLUME /var/www/credentials/$PROJECT_NAME.env
+VOLUME /var/www/$PROJECT_NAME/credentials/$PROJECT_NAME.env
 
 # Update workdir to server files' location
 WORKDIR /var/www/$PROJECT_NAME/
