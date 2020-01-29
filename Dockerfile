@@ -38,8 +38,7 @@ RUN apk add --no-cache \
 COPY --chown=www-data:www-data --from=stage_build /app/dist/$PROJECT_NAME/ /var/www/$PROJECT_NAME/
 
 # Copy PHP configuration files
-COPY ./docker/php/php.ini $PHP_INI_DIR/
-COPY --chown=www-data:www-data ./docker/php/prepend.php $PHP_INI_DIR/
+COPY --chown=www-data:www-data ./docker/php/* $PHP_INI_DIR/
 
 # Declare required mount points
 VOLUME /var/www/credentials/$PROJECT_NAME.env
