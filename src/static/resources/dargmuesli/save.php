@@ -30,6 +30,10 @@
         $storage = $stmt->fetch()[0];
     }
 
+    if (empty($_POST['type'])) {
+        exit;
+    }
+
     if ($_POST['type'] == 'participants') {
         if ($storage == 'Session') {
             $_SESSION['participants'] = json_decode($_POST['content'], true);
