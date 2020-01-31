@@ -47,3 +47,5 @@
             setcookie('items', $_POST['content'], time() + (60 * 60 * 24 * 365), '/');
         }
     }
+
+    http_response_code(204);
