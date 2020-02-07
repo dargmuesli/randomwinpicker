@@ -1,6 +1,18 @@
 <?php
+    function get_http_response_code($url)
+    {
+        $headers = get_headers($url);
+        return substr($headers[0], 9, 3);
+    }
+
     function get_title($url)
     {
+        if(get_http_response_code($url) != "200") {
+            // Send `204 No Content` status code
+            http_response_code(204);
+            return;
+        }
+
         $str = file_get_contents($url);
 
         if (strlen($str) > 0) {
@@ -12,6 +24,12 @@
 
     function write_json($url)
     {
+        if (get_http_response_code($url) != "200") {
+            // Send `204 No Content` status code
+            http_response_code(204);
+            return;
+        }
+
         $str = file_get_contents($url);
 
         if (strlen($str) > 0) {

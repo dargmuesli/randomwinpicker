@@ -14,6 +14,8 @@
     // Get database handle
     $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
 
+    $arrayToReturn = [];
+
     $participants = null;
 
     if (isset($email) && isset($_COOKIE['participants'])) {
@@ -26,6 +28,7 @@
         }
     }
 
+    $arrayToReturn['participants'] = $participants;
     $items = null;
 
     if (isset($email) && isset($_COOKIE['items'])) {
@@ -38,6 +41,8 @@
         }
     }
 
+    $arrayToReturn['items'] = $items;
+
     if (sizeof($participants) < sizeof($items)) {
         $_SESSION['error'] = translate('scripts.draw.error');
     }
@@ -48,22 +53,22 @@
         $quantity = $_SESSION['quantity'];
     }
 
-    // Initialize the required table
-    init_table($dbh, 'accounts');
+    $arrayToReturn['round'] = $quantity;
 
-    $stmt = $dbh->prepare('SELECT prices FROM accounts WHERE mail = :email');
-    $stmt->bindParam(':email', $email);
+    if (!empty($email)) {
 
-    if (!$stmt->execute()) {
-        throw new PDOException($stmt->errorInfo()[2]);
+        // Initialize the required table
+        init_table($dbh, 'accounts');
+
+        $stmt = $dbh->prepare('SELECT prices FROM accounts WHERE mail = :email');
+        $stmt->bindParam(':email', $email);
+
+        if (!$stmt->execute()) {
+            throw new PDOException($stmt->errorInfo()[2]);
+        }
+
+        $pricesQuery = $stmt->fetch()[0];
+        $arrayToReturn['prices'] = $pricesQuery;
     }
 
-    $pricesQuery = $stmt->fetch()[0];
-    $prices = $pricesQuery[0][0];
-
-    echo htmlspecialchars_decode(json_encode([
-        'items' => $items,
-        'participants' => $participants,
-        'prices' => $prices,
-        'round' => $quantity
-    ]));
+    echo htmlspecialchars_decode(json_encode($arrayToReturn));

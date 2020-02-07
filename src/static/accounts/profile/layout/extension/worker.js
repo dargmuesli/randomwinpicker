@@ -4,7 +4,7 @@ function saveSettingsWorker(form, value, http_x_forwarded_prefix) {
     xhr.open('POST', http_x_forwarded_prefix + '/resources/dargmuesli/savesettings.php?form=' + form, false);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
-        if ((xhr.readyState == 4) && (xhr.status == 200)) {
+        if ((xhr.readyState == 4) && (xhr.status == 204)) {
             postMessage('done');
         }
     };

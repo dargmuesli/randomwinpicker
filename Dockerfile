@@ -1,5 +1,5 @@
 # Base image
-FROM node:buster AS stage_build
+FROM node:buster@sha256:03475bd966669dd8bc647fdd565cd4b84902f1f6a74aed6b3a6c98af21d8d570 AS stage_build
 
 # Update and install build dependencies
 RUN \
@@ -16,7 +16,7 @@ RUN yarn add gulp@4 -D
 RUN sg www-data "gulp build"
 
 # Base image
-FROM php:7.3-fpm-alpine AS stage_serve
+FROM php:7.4-fpm-alpine@sha256:05afdd143b8990e4530ff5c0383640fce60d8428a812e78f9bf268dbbeb5fc47 AS development
 
 # Environment variables
 ENV PHP_INI_DIR /usr/local/etc/php
@@ -29,7 +29,7 @@ RUN apk add --no-cache \
     libpng-dev \
     postgresql-dev \
     && docker-php-ext-configure \
-    gd --with-freetype-dir=/usr/include/ \
+    gd --with-freetype=/usr/include/ \
     && docker-php-ext-install \
     gd \
     pdo_pgsql
@@ -38,11 +38,10 @@ RUN apk add --no-cache \
 COPY --chown=www-data:www-data --from=stage_build /app/dist/$PROJECT_NAME/ /var/www/$PROJECT_NAME/
 
 # Copy PHP configuration files
-COPY ./docker/php/php.ini $PHP_INI_DIR/
-COPY --chown=www-data:www-data ./docker/php/prepend.php $PHP_INI_DIR/
+COPY --chown=www-data:www-data ./docker/php/* $PHP_INI_DIR/
 
 # Declare required mount points
-VOLUME /var/www/credentials/$PROJECT_NAME.env
+VOLUME /var/www/$PROJECT_NAME/credentials/$PROJECT_NAME.env
 
 # Update workdir to server files' location
 WORKDIR /var/www/$PROJECT_NAME/

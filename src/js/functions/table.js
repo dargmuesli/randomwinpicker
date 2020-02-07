@@ -24,7 +24,10 @@ export let xhrPromise = new Promise(function (resolve, reject) {
         }
     };
     xhr.open('GET', document.head.querySelector('[name~=HTTP_X_FORWARDED_PREFIX][content]').content + '/resources/dargmuesli/table.php?type=' + type, true);
-    xhr.send();
+
+    if (type == 'participants' || type == 'items') {
+        xhr.send();
+    }
 });
 
 let editing = false;

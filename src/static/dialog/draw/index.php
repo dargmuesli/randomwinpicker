@@ -5,7 +5,6 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/account.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/sessioncookie.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/warning.php';
-    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/tableload.php';
 
     if ($error != null) {
         die(header('Location: ../items/'));

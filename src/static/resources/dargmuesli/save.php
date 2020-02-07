@@ -30,6 +30,10 @@
         $storage = $stmt->fetch()[0];
     }
 
+    if (empty($_POST['type'])) {
+        exit;
+    }
+
     if ($_POST['type'] == 'participants') {
         if ($storage == 'Session') {
             $_SESSION['participants'] = json_decode($_POST['content'], true);
@@ -43,3 +47,5 @@
             setcookie('items', $_POST['content'], time() + (60 * 60 * 24 * 365), '/');
         }
     }
+
+    http_response_code(204);
