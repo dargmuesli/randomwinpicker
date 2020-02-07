@@ -9,7 +9,7 @@
 #back{float:left;}
 #back > a{background-image:url('../icons/arrow.png');background-position:center center;background-repeat:no-repeat;background-size:cover;display:block;height:3vw;margin:4vh 0 0 1.5vw;width:10vw;}
 #content{font-size:1.5vmin;margin-top:5vh;text-align:left;}
-#content p, #content div{font-family:'bangers';font-size:125%;text-align:left;}
+#content p, #content div{font-family:'bangers';font-size:125%;}
 #content .places{border-bottom:2px solid #000;border-top:2px solid #000;}
 #content figure{display:inline-block;margin-left:1.25vw;margin-right:1.25vw;min-width:27.5vmin;padding:1vmin;text-align:center;width:22.5vmin;}
 #dialogbox{display:none;left:50%;position:fixed;text-align:center;top:25vh;z-index:10;}
@@ -54,6 +54,7 @@
 .covert{background:linear-gradient(to right, #b04340 0%, #582d2f 100%) repeat scroll 0% 0%;}
 .consumergrade{background:linear-gradient(to right, #878f9d 0%, #484c52 100%) repeat scroll 0% 0%;}
 .data{padding:1vmin;}
+.data .price-img {width:auto !important;}
 .data img[src]{width:22.5vmin;}
 .dataview{float:none;width:auto;}
 .disabled{background:#550000;opacity:0.1;}
@@ -89,7 +90,7 @@
 .price{background:rgba(0,0,0,0) none repeat scroll 0% 0%;height:100%;left:0px;position:absolute;text-align:center;top:0px;transition:background 1s;vertical-align:middle;width:100%;z-index:1;}
 .price-outer{bottom:0px;height: 100%;left:0px;position:absolute;right:0px;transform:rotate(-15deg);z-index:1;}
 .price-inner{left:0px;position:absolute;text-align:center;top:50%;transform:translate(0px,-53%);width:100%;}
-.price-img{left:50%;max-height:100%;position:absolute;transform:translateX(-50%);width:auto;}
+.price-img{left:50%;max-height:100%;position:absolute;transform:translateX(-50%);}
 .ranking{white-space: nowrap; display: table-cell; vertical-align: middle;}
 .restricted{background:linear-gradient(to right, #6d3bc2 0%, #3a2c5a 100%) repeat scroll 0% 0%;}
 .rotate{transform:rotate(180deg);}
