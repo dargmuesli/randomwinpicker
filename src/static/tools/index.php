@@ -6,10 +6,10 @@
             Helper - RandomWinPicker
         </title>
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="../layout/stylesheets/loading.css">
-        <link rel="stylesheet" href="../layout/stylesheets/fonts.php">
-        <link rel="icon" href="'.getenv('BASE_URL').'/resources/dargmuesli/icons/favicon.ico" type="image/x-icon" />
-        <script src="'.getenv('BASE_URL').'/resources/dargmuesli/helper.php"></script>
+        <link rel="stylesheet" href="./layout/extension/loading.css">
+        <link rel="stylesheet" href="/resources/dargmuesli/base/style.min.css">
+        <link rel="icon" href="/resources/dargmuesli/icons/favicon.ico" type="image/x-icon" />
+        <script src="./layout/extension/extension.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     </head>
     <body>
