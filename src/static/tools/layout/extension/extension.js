@@ -85,7 +85,7 @@ var end_json = 0;
 function retrieveTitleData() {
     setTimeout(function () {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '?i=' + index, false);
+        xhr.open('GET', './layout/extension/extension.php?i=' + index, false);
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == 4) && (xhr.status == 200)) {
                 if (xhr.responseText != 'CS:GO Stash - Browse all skins, stickers, and music<br>') {
@@ -108,7 +108,7 @@ function retrieveTitleData() {
 function retrieveJsonData() {
     setTimeout(function () {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '?j=' + index, false);
+        xhr.open('GET', './layout/extension/extension.php?j=' + index, false);
         xhr.onreadystatechange = function () {
             if ((xhr.readyState == 4) && (xhr.status == 200)) {
                 var jsonNode = document.getElementById('json');
