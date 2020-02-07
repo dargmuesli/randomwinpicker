@@ -34,28 +34,16 @@
             Fonts
         </h1>
         <p>
-            Overview of available fonts.
+            Overview of available fonts:
         </p>
         <p>
-            <span class="calibri">Calibri</span>
-            <br>
             <span class="opensans">OpenSans</span>
             <br>
             <span class="bangers">Bangers</span>
             <br>
             <span class="inconsolata">Inconsolata</span>
             <br>
-            <span class="2dumb">2Dumb</span>
-            <br>
-            <span class="3dumb">3Dumb</span>
-            <br>
-            <span class="neord">Neord</span>
-            <br>
             <span class="neorf">Neorf</span>
-            <br>
-            <span class="saesrn">Seasrn</span>
-            <br>
-            <span class="specialelite">SpecialElite</span>
         </p>
         <h1>
             Titles
