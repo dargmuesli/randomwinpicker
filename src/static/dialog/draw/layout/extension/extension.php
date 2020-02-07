@@ -68,8 +68,7 @@
         }
 
         $pricesQuery = $stmt->fetch()[0];
-        $prices = $pricesQuery[0][0];
-        $arrayToReturn['prices'] = $prices;
+        $arrayToReturn['prices'] = $pricesQuery;
     }
 
     echo htmlspecialchars_decode(json_encode($arrayToReturn));
