@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25861e2c9601b9a6e327849f7060188b",
+    "content-hash": "cee1eb79ac075d70e8a3a165bc075f58",
     "packages": [
         {
             "name": "dapphp/securimage",
-            "version": "3.6.7",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dapphp/securimage.git",
-                "reference": "1ecb884797c66e01a875c058def46c85aecea45b"
+                "reference": "09d735e30378f506c5dab900af31321351f46e0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dapphp/securimage/zipball/1ecb884797c66e01a875c058def46c85aecea45b",
-                "reference": "1ecb884797c66e01a875c058def46c85aecea45b",
+                "url": "https://api.github.com/repos/dapphp/securimage/zipball/09d735e30378f506c5dab900af31321351f46e0d",
+                "reference": "09d735e30378f506c5dab900af31321351f46e0d",
                 "shasum": ""
             },
             "require": {
@@ -33,7 +33,10 @@
             "autoload": {
                 "classmap": [
                     "securimage.php"
-                ]
+                ],
+                "psr-4": {
+                    "Securimage\\": "./"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -53,7 +56,7 @@
                 "captcha",
                 "security"
             ],
-            "time": "2018-03-09T06:07:41+00:00"
+            "time": "2018-03-08T17:54:43+00:00"
         },
         {
             "name": "google/recaptcha",

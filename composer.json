@@ -15,7 +15,7 @@
         "issues": "https://github.com/Dargmuesli/randomwinpicker/issues"
     },
     "require": {
-        "dapphp/securimage": "3.6.7",
+        "dapphp/securimage": "4.0.1",
         "google/recaptcha": "1.2.3",
         "phpmailer/phpmailer": "6.1.4",
         "vlucas/phpdotenv": "4.1.0",
