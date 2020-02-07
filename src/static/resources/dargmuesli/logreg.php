@@ -26,6 +26,54 @@
         $dieLocation = getenv('BASE_URL').'/accounts/';
     }
 
+    function newEntry($email, $dbh, $hash) {
+        // Entry doesn't exist
+        $code = rand();
+        $link = $_SERVER['SERVER_ROOT_URL'].'/resources/dargmuesli/validation.php?task=validate&email=' . $email . '&code=' . $code;
+
+        $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_'.get_language().'.html');
+        $serverRootUrl = $_SERVER['SERVER_ROOT_URL'];
+
+        $string_processed = preg_replace_callback('~\{\$(.*?)\}~si', function ($match) use ($email, $link, $serverRootUrl) {
+            return eval('return $' . $match[1] . ';');
+        }, $file);
+
+        // Insert the form values into the database
+        $stmt = $dbh->prepare('INSERT INTO accounts(mail, hash, code) VALUES (:email, :hash, :code)');
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':hash', $hash);
+        $stmt->bindParam(':code', $code);
+
+        if (!$stmt->execute()) {
+            throw new PDOException($stmt->errorInfo()[2]);
+        }
+
+        // Send an email for confirmation
+        $mail = get_mailer(
+            $email,
+            'Confirm your email address!',
+            $string_processed,
+            'Hey ' . $email . ', to confirm your email and gain access to all features of RandomWinPicker, copy the link below and open it in any browser!' . $link
+        );
+
+        // Send the mail
+        if (!$mail->send()) {
+            $_SESSION['error'] = translate('scripts.logreg.in.email.error');
+        } else {
+            $_SESSION['success'] = translate('scripts.logreg.in.email.success');
+            $_SESSION['error'] = translate('scripts.logreg.in.email.success-error');
+
+            // Send an email for confirmation
+            $mailDev = get_mailer(
+                'e-mail@randomwinpicker.de',
+                'New account registered!',
+                'E-mail address: ' . $email
+            );
+
+            $mailDev->send();
+        }
+    }
+
     if ($task == 'out') {
         $_SESSION['email'] = null;
         $_SESSION['hash'] = null;
@@ -61,101 +109,63 @@
                     throw new PDOException($stmt->errorInfo()[2]);
                 }
 
-                $row = $stmt->fetch()[0];
+                $fetch = $stmt->fetch();
 
-                if (!$row) {
-                    // Entry doesn't exist
-                    $code = rand();
-                    $link = $_SERVER['SERVER_ROOT_URL'].'/resources/dargmuesli/validation.php?task=validate&email=' . $email . '&code=' . $code;
-
-                    $file = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/phpmailer/phpmailer/templates/confirm_'.get_language().'.html');
-                    $serverRootUrl = $_SERVER['SERVER_ROOT_URL'];
-
-                    $string_processed = preg_replace_callback('~\{\$(.*?)\}~si', function ($match) use ($email, $link, $serverRootUrl) {
-                        return eval('return $' . $match[1] . ';');
-                    }, $file);
-
-                    // Insert the form values into the database
-                    $stmt = $dbh->prepare('INSERT INTO accounts(mail, hash, code) VALUES (:email, :hash, :code)');
-                    $stmt->bindParam(':email', $email);
-                    $stmt->bindParam(':hash', $hash);
-                    $stmt->bindParam(':code', $code);
-
-                    if (!$stmt->execute()) {
-                        throw new PDOException($stmt->errorInfo()[2]);
-                    }
-
-                    // Send an email for confirmation
-                    $mail = get_mailer(
-                        $email,
-                        'Confirm your email address!',
-                        $string_processed,
-                        'Hey ' . $email . ', to confirm your email and gain access to all features of RandomWinPicker, copy the link below and open it in any browser!' . $link
-                    );
-
-                    // Send the mail
-                    if (!$mail->send()) {
-                        $_SESSION['error'] = translate('scripts.logreg.in.email.error');
-                    } else {
-                        $_SESSION['success'] = translate('scripts.logreg.in.email.success');
-                        $_SESSION['error'] = translate('scripts.logreg.in.email.success-error');
-
-                        // Send an email for confirmation
-                        $mailDev = get_mailer(
-                            'e-mail@randomwinpicker.de',
-                            'New account registered!',
-                            'E-mail address: ' . $email
-                        );
-
-                        $mailDev->send();
-                    }
+                if (!$fetch) {
+                    newEntry($email, $dbh, $hash);
                 } else {
-                    // Entry already exists
-                    $stmt = $dbh->prepare('SELECT hash FROM accounts WHERE mail = :email');
-                    $stmt->bindParam(':email', $email);
+                    $row = $fetch[0];
 
-                    if (!$stmt->execute()) {
-                        throw new PDOException($stmt->errorInfo()[2]);
-                    }
-
-                    $hash = $stmt->fetch()[0];
-
-                    // Check if password is correct
-                    if (password_verify($password, $hash) == false) {
-                        $_SESSION['error'] = translate('scripts.logreg.in.password.error');
+                    if (!$row) {
+                        newEntry($email, $dbh, $hash);
                     } else {
-                        $stmt = $dbh->prepare('SELECT code FROM accounts WHERE mail = :email');
+                        // Entry already exists
+                        $stmt = $dbh->prepare('SELECT hash FROM accounts WHERE mail = :email');
                         $stmt->bindParam(':email', $email);
 
                         if (!$stmt->execute()) {
                             throw new PDOException($stmt->errorInfo()[2]);
                         }
 
-                        $row = $stmt->fetch()[0];
+                        $hash = $stmt->fetch()[0];
 
-                        if ($row == -1) {
-                            $stmt = $dbh->prepare('SELECT view FROM accounts WHERE mail = :email');
+                        // Check if password is correct
+                        if (password_verify($password, $hash) == false) {
+                            $_SESSION['error'] = translate('scripts.logreg.in.password.error');
+                        } else {
+                            $stmt = $dbh->prepare('SELECT code FROM accounts WHERE mail = :email');
                             $stmt->bindParam(':email', $email);
 
                             if (!$stmt->execute()) {
                                 throw new PDOException($stmt->errorInfo()[2]);
                             }
 
-                            $view = $stmt->fetch()[0];
+                            $row = $stmt->fetch()[0];
 
-                            $_SESSION['email'] = $email;
-                            $_SESSION['hash'] = $hash;
-                            $_SESSION['view'] = $view;
+                            if ($row == -1) {
+                                $stmt = $dbh->prepare('SELECT view FROM accounts WHERE mail = :email');
+                                $stmt->bindParam(':email', $email);
 
-                            if ((isset($_POST['save'])) && ($_POST['save'] == 'on')) {
-                                setcookie('email', $email, time() + (60 * 60 * 24 * 365), '/');
-                                setcookie('hash', $hash, time() + (60 * 60 * 24 * 365), '/');
-                                setcookie('view', $view, time() + (60 * 60 * 24 * 365), '/');
+                                if (!$stmt->execute()) {
+                                    throw new PDOException($stmt->errorInfo()[2]);
+                                }
+
+                                $view = $stmt->fetch()[0];
+
+                                $_SESSION['email'] = $email;
+                                $_SESSION['hash'] = $hash;
+                                $_SESSION['view'] = $view;
+
+                                if ((isset($_POST['save'])) && ($_POST['save'] == 'on')) {
+                                    setcookie('email', $email, time() + (60 * 60 * 24 * 365), '/');
+                                    setcookie('hash', $hash, time() + (60 * 60 * 24 * 365), '/');
+                                    setcookie('view', $view, time() + (60 * 60 * 24 * 365), '/');
+                                }
+
+                                $_SESSION['success'] = translate('scripts.logreg.in.success');
+                            } else {
+                                $_SESSION['error'] = strtr(translate('scripts.logreg.in.incomplete.error'), array('%email' => $email));
                             }
-
-                            $_SESSION['success'] = translate('scripts.logreg.in.success');
-                        } else {
-                            $_SESSION['error'] = strtr(translate('scripts.logreg.in.incomplete.error'), array('%email' => $email));
                         }
                     }
                 }
