@@ -31,7 +31,7 @@
         }
     }
 
-    $result = shell_exec('/usr/bin/python '.$_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/cost.py ' . str_replace(')', '', str_replace('(', '', $line)));
+    $result = file_get_contents(str_replace(')', '', str_replace('(', '', $line)));
     $str = '';
 
     if (isset($_GET['tag']) && $tag == 'st') {
@@ -64,4 +64,3 @@
         $len = strpos($string, $end, $ini) - $ini;
         return substr($string, $ini, $len);
     }
-?>
