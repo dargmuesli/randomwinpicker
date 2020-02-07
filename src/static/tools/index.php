@@ -20,7 +20,7 @@
             Convert an ISO-8859-1 .csv-file to UTF-8.
         </p>
         <form enctype="multipart/form-data" action="#" method="post">
-            <input type="file" id="fileselect" accept=".csv" name="files" class="hide">
+            <input type="file" id="fileselect" accept=".csv" name="files">
         </form>
         <div class="wrap">
             <div class="bg">
