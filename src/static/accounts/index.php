@@ -8,6 +8,8 @@
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
 
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/dapphp/securimage/securimage.php';
+
     // Load .env file
     load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
 
@@ -32,10 +34,14 @@
         }
     }
 
+    $captchaId = $securimage::generateCaptchaId();//$securimage.getCaptchaId(true);
+
     // Redirect accordingly
     if (isset($dieLocation)) {
         die(header('Location: ' . $dieLocation));
     }
+
+    var_dump($captchaId);
 
     $skeletonTitle = translate('pages.accounts.title.head');
     $skeletonDescription = 'Login to or register for RandomWinPicker to gain access to all features';
@@ -82,9 +88,10 @@
         if ($timespan < 5) {
             $skeletonContent .= '
                 <p>
-                    <img id="captcha" alt="CAPTCHA Image" src="'.getenv('BASE_URL').'/resources/packages/composer/dapphp/securimage/securimage_show.php"></img>
+                    <img id="captcha" alt="CAPTCHA Image" src="'.getenv('BASE_URL').'/resources/packages/composer/dapphp/securimage/securimage_show.php?id='.$captchaId.'"></img>
                     <br>
                     <input type="text" title="6 characters and numbers." pattern=".{6,}" required size="6" name="captcha_code" placeholder="captcha" size="10" maxlength="6" />
+                    <input type="hidden" id="captchaId" name="captchaId" value="'.$captchaId.'" />
                 </p>';
         }
     }

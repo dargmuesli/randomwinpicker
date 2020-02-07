@@ -8,14 +8,13 @@
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/filesystem/environment.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/mail.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/translation/translations.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/resources/dargmuesli/packages/composer/dapphp/securimage/securimage.php';
 
     // Load .env file
     load_env_file($_SERVER['SERVER_ROOT'].'/credentials');
 
     // Get database handle
     $dbh = get_dbh($_ENV['PGSQL_DATABASE']);
-
-    $securimage = new Securimage();
 
     $task = $_GET['task'];
     $dieLocation = '';
@@ -83,7 +82,7 @@
 
         $_SESSION['success'] = translate('scripts.logreg.out.success');
     } elseif ($task == 'in') {
-        if (isset($_POST['captcha_code']) && $securimage->check($_POST['captcha_code']) == false) {
+        if (isset($_POST['captcha_code']) && isset($_POST['captchaId']) && $securimage->check($_POST['captcha_code'], $_POST['captchaId']) == false) {
             // Print error message
             $_SESSION['error'] = translate('scripts.logreg.in.captcha.error');
         } else {
