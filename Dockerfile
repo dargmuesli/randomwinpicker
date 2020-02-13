@@ -35,13 +35,19 @@ RUN apk add --no-cache \
     pdo_pgsql
 
 # Copy built source files, changing the server files' owner
-COPY --chown=www-data:www-data --from=stage_build /app/dist/$PROJECT_NAME/ /var/www/$PROJECT_NAME/
+COPY --chown=www-data:www-data --from=stage_build /app/dist/$PROJECT_NAME/ /usr/src/$PROJECT_NAME/
 
 # Copy PHP configuration files
 COPY --chown=www-data:www-data ./docker/php/* $PHP_INI_DIR/
+
+# Copy the entrypoint script to root
+COPY ./docker/entrypoint.sh /
 
 # Declare required mount points
 VOLUME /var/www/$PROJECT_NAME/credentials/$PROJECT_NAME.env
 
 # Update workdir to server files' location
 WORKDIR /var/www/$PROJECT_NAME/
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["php-fpm"]
