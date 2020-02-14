@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ca3436da5ef2472fb8658135cabaf60",
+    "content-hash": "4d43be2f260955685d7c98629a330cdf",
     "packages": [
         {
             "name": "dapphp/securimage",
