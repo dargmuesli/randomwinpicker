@@ -13,7 +13,7 @@ WORKDIR /app/
 # Install Gulp and build project
 RUN yarn global add gulp-cli
 RUN yarn add gulp@4 -D
-RUN gulp build
+RUN gulp build --production
 
 # Base image
 FROM php:7.4-fpm-alpine@sha256:eb168b3535ca340c9b54a2028def21de89ed23ab3b266e9c7e65b67cc63b15d1 AS development

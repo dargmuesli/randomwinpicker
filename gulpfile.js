@@ -17,6 +17,7 @@ const gEslint = require('gulp-eslint');
 const gGulp = require('gulp');
 const gJsdoc2md = require('jsdoc-to-markdown');
 const gMergeStream = require('merge-stream');
+const gMode = require('gulp-mode')();
 const gSymlink = require('gulp-symlink');
 const gPhplint = require('gulp-phplint');
 const gPluginError = require('plugin-error');
@@ -326,7 +327,7 @@ function sitemap() {
             gThrough.obj(function (file, enc, cb) {
                 if (!fs.existsSync(file.dirname + '/.hidden') && file.dirname.indexOf('migrations') == -1) {
                     exec('git log -1 --format="%aI" -- ' + file.path, function (exec_error, stdout) {
-                        let loc = file.dirname.replace(path.resolve(targetPath), 'https://' + pkg.name).replace(/\\/g, '/').replace();
+                        let loc = file.dirname.replace(path.resolve(targetPath), 'https://' + pkg.name + (gMode.production() ? '.de' : '.test')).replace(/\\/g, '/').replace();
                         let priority = (Math.round((1 - ((loc.match(/\//g) || []).length - 2) * 0.1) * 10) / 10).toFixed(1);
                         let url = `
     <url>
