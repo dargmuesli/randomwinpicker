@@ -1,7 +1,7 @@
 {
     "name": "dargmuesli/randomwinpicker",
     "description": "A website that chooses a \"true\" random winner for CS:GO case openings.",
-    "version": "5.0.4",
+    "version": "5.0.5",
     "homepage": "https://randomwinpicker.jonas-thelemann.de/",
     "type": "project",
     "license": "GPL-3.0",
