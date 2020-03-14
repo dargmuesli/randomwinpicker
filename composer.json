@@ -17,7 +17,7 @@
     "require": {
         "dapphp/securimage": "3.6.7",
         "google/recaptcha": "1.2.3",
-        "phpmailer/phpmailer": "6.1.4",
+        "phpmailer/phpmailer": "6.1.5",
         "vlucas/phpdotenv": "4.1.2",
         "wukka/nonce": "dev-master"
     }
