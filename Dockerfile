@@ -1,5 +1,5 @@
 # Base image
-FROM node:13.8.0-buster@sha256:011573cbcc710829a478f2c033b6624278fcca4525f0291188675dfd04e75599 AS stage_build
+FROM node:13.12.0-buster@sha256:bb7f0794f679c6a681a2ff1682cafb0c850efb46df952e10339f6939c7c0f692 AS stage_build
 
 # Update and install build dependencies
 RUN \
@@ -15,13 +15,41 @@ RUN yarn global add gulp-cli
 RUN yarn add gulp@4 -D
 RUN gulp build --production
 
+
 # Base image
-FROM php:7.4-fpm-alpine@sha256:eb168b3535ca340c9b54a2028def21de89ed23ab3b266e9c7e65b67cc63b15d1 AS development
+FROM php:7.4-fpm-alpine@sha256:a95c7860a162ebed639cb9f5d6040ba6ad02b909bf0d8c447cc59c7bd1b24bd0 AS development
 
 # Environment variables
 ENV PHP_INI_DIR /usr/local/etc/php
 ENV PROJECT_NAME randomwinpicker
-# ENV PROJECT_MODS headers macro rewrite ssl
+
+# Enable extensions
+RUN apk add --no-cache \
+    freetype-dev \
+    libpng-dev \
+    postgresql-dev \
+    && docker-php-ext-configure \
+    gd --with-freetype=/usr/include/ \
+    && docker-php-ext-install \
+    gd \
+    pdo_pgsql
+
+# Copy PHP configuration files
+COPY --chown=www-data:www-data ./docker/php/* $PHP_INI_DIR/
+
+# Declare required mount points
+VOLUME /var/www/$PROJECT_NAME/credentials/$PROJECT_NAME.env
+
+# Update workdir to server files' location
+WORKDIR /var/www/$PROJECT_NAME/
+
+
+# Base image
+FROM php:7.4-fpm-alpine@sha256:a95c7860a162ebed639cb9f5d6040ba6ad02b909bf0d8c447cc59c7bd1b24bd0 AS production
+
+# Environment variables
+ENV PHP_INI_DIR /usr/local/etc/php
+ENV PROJECT_NAME randomwinpicker
 
 # Enable extensions
 RUN apk add --no-cache \
@@ -49,5 +77,6 @@ VOLUME /var/www/$PROJECT_NAME/credentials/$PROJECT_NAME.env
 # Update workdir to server files' location
 WORKDIR /var/www/$PROJECT_NAME/
 
+# Specify entrypoint script, that updates the source files in the shared volume (nginx)
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]
