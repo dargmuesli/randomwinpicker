@@ -28,11 +28,11 @@ onmessage = function (event) {
     let args = event.data.args;
     let http_x_forwarded_prefix = event.data.http_x_forwarded_prefix;
 
-    if (typeof args === undefined) {
+    if (args === '') {
         console.error('Event does not contain data "args"!');
     }
 
-    if (typeof http_x_forwarded_prefix === undefined) {
+    if (http_x_forwarded_prefix === '') {
         console.error('Event does not contain data "http_x_forwarded_prefix"!');
     }
 
