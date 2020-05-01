@@ -1,75 +1,79 @@
 {
-    "name": "randomwinpicker",
-    "description": "A website that chooses a \"true\" random winner for CS:GO case openings.",
-    "author": {
-        "name": "Jonas Thelemann",
-        "url": "https://jonas-thelemann.de/"
-    },
-    "contributors": [
-        {
-            "name": "Jonas Thelemann",
-            "url": "https://jonas-thelemann.de/"
-        }
-    ],
-    "maintainers": [
-        {
-            "name": "Jonas Thelemann",
-            "url": "https://jonas-thelemann.de/"
-        }
-    ],
-    "homepage": "https://randomwinpicker.jonas-thelemann.de/",
-    "version": "5.0.7",
-    "private": true,
-    "license": "GPL-3.0",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/Dargmuesli/randomwinpicker.git"
-    },
-    "bugs": {
-        "url": "https://github.com/Dargmuesli/randomwinpicker/issues"
-    },
-    "dependencies": {
-        "i18next": "19.4.4",
-        "i18next-browser-languagedetector": "4.1.1",
-        "i18next-xhr-backend": "3.2.2",
-        "jquery": "3.5.0",
-        "jqueryfiletree": "2.1.4",
-        "jsdoc-to-markdown": "5.0.3",
-        "papaparse": "5.2.0",
-        "reset-css": "5.0.1"
-    },
-    "devDependencies": {
-        "@babel/core": "7.9.6",
-        "@babel/plugin-transform-runtime": "7.9.6",
-        "@babel/preset-env": "7.9.6",
-        "babelify": "10.0.0",
-        "browserify": "16.5.1",
-        "date-diff": "0.2.1",
-        "del": "5.1.0",
-        "eslint": "6.8.0",
-        "gulp": "4.0.2",
-        "gulp-autoprefixer": "7.0.1",
-        "gulp-babel-minify": "0.5.1",
-        "gulp-buffer": "0.0.2",
-        "gulp-cached": "1.1.1",
-        "gulp-chown": "2.0.0",
-        "gulp-composer": "0.4.5",
-        "gulp-eslint": "6.0.0",
-        "gulp-mode": "1.0.2",
-        "gulp-phplint": "0.9.0",
-        "gulp-rename": "2.0.0",
-        "gulp-sass": "4.1.0",
-        "gulp-sourcemaps": "2.6.5",
-        "gulp-symlink": "2.1.4",
-        "gulp-tap": "2.0.0",
-        "gulp-yarn": "2.0.0",
-        "gulp-zip": "5.0.1",
-        "merge-stream": "2.0.0",
-        "plugin-error": "1.0.1",
-        "through2": "3.0.1"
-    },
-    "scripts": {
-      "build": "gulp build --production",
-      "develop": "gulp"
+  "name": "randomwinpicker",
+  "description": "A website that chooses a \"true\" random winner for CS:GO case openings.",
+  "author": {
+    "name": "Jonas Thelemann",
+    "url": "https://jonas-thelemann.de/"
+  },
+  "contributors": [
+    {
+      "name": "Jonas Thelemann",
+      "url": "https://jonas-thelemann.de/"
     }
+  ],
+  "maintainers": [
+    {
+      "name": "Jonas Thelemann",
+      "url": "https://jonas-thelemann.de/"
+    }
+  ],
+  "homepage": "https://randomwinpicker.jonas-thelemann.de/",
+  "version": "5.0.7",
+  "private": true,
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Dargmuesli/randomwinpicker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dargmuesli/randomwinpicker/issues"
+  },
+  "dependencies": {
+    "i18next": "19.4.4",
+    "i18next-browser-languagedetector": "4.1.1",
+    "i18next-xhr-backend": "3.2.2",
+    "jquery": "3.5.0",
+    "jqueryfiletree": "2.1.4",
+    "jsdoc-to-markdown": "5.0.3",
+    "papaparse": "5.2.0",
+    "reset-css": "5.0.1",
+    "snyk": "^1.316.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.9.6",
+    "@babel/plugin-transform-runtime": "7.9.6",
+    "@babel/preset-env": "7.9.6",
+    "babelify": "10.0.0",
+    "browserify": "16.5.1",
+    "date-diff": "0.2.1",
+    "del": "5.1.0",
+    "eslint": "6.8.0",
+    "gulp": "4.0.2",
+    "gulp-autoprefixer": "7.0.1",
+    "gulp-babel-minify": "0.5.1",
+    "gulp-buffer": "0.0.2",
+    "gulp-cached": "1.1.1",
+    "gulp-chown": "2.0.0",
+    "gulp-composer": "0.4.5",
+    "gulp-eslint": "6.0.0",
+    "gulp-mode": "1.0.2",
+    "gulp-phplint": "0.9.0",
+    "gulp-rename": "2.0.0",
+    "gulp-sass": "4.1.0",
+    "gulp-sourcemaps": "2.6.5",
+    "gulp-symlink": "2.1.4",
+    "gulp-tap": "2.0.0",
+    "gulp-yarn": "2.0.0",
+    "gulp-zip": "5.0.1",
+    "merge-stream": "2.0.0",
+    "plugin-error": "1.0.1",
+    "through2": "3.0.1"
+  },
+  "scripts": {
+    "build": "gulp build --production",
+    "develop": "gulp",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
+  },
+  "snyk": true
 }
