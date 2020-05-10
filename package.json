@@ -45,7 +45,7 @@
     "@babel/preset-env": "7.9.6",
     "babelify": "10.0.0",
     "browserify": "16.5.1",
-    "date-diff": "0.2.1",
+    "date-diff": "0.2.2",
     "del": "5.1.0",
     "eslint": "7.0.0",
     "gulp": "4.0.2",
