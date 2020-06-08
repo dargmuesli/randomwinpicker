@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6df1a6aba84cfd19057fe1fe25d3596b",
+    "content-hash": "2b6a6672dde57784ac6bb3f8578e1b73",
     "packages": [
         {
             "name": "dapphp/securimage",
-            "version": "3.6.7",
+            "version": "3.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dapphp/securimage.git",
-                "reference": "1ecb884797c66e01a875c058def46c85aecea45b"
+                "reference": "5fc5953c4ffba1eb214cc83100672f238c184ca4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dapphp/securimage/zipball/1ecb884797c66e01a875c058def46c85aecea45b",
-                "reference": "1ecb884797c66e01a875c058def46c85aecea45b",
+                "url": "https://api.github.com/repos/dapphp/securimage/zipball/5fc5953c4ffba1eb214cc83100672f238c184ca4",
+                "reference": "5fc5953c4ffba1eb214cc83100672f238c184ca4",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "captcha",
                 "security"
             ],
-            "time": "2018-03-09T06:07:41+00:00"
+            "time": "2020-05-30T09:43:22+00:00"
         },
         {
             "name": "google/recaptcha",
