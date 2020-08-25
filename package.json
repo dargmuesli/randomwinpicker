@@ -35,7 +35,7 @@
     "jquery": "3.5.1",
     "jqueryfiletree": "2.1.4",
     "jsdoc-to-markdown": "6.0.1",
-    "papaparse": "5.2.0",
+    "papaparse": "5.3.0",
     "reset-css": "5.0.1",
     "snyk": "1.384.0"
   },
