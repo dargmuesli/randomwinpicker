@@ -1,7 +1,7 @@
 # Base image
 # "buster" for up-2-date php required
 # "slim" lacks python, which is required by node-gyp / sass
-FROM node:14.8.0-buster@sha256:253d3135f1c4d220fb34312f1c9e9b53e18f101dc1d7ece827dd7f4f3cc47838 AS stage_build
+FROM node:14.9.0-buster@sha256:03c80d03322d7f4870bff125ef40c90d35ae1a0fa00777d30195d187130e083f AS stage_build
 
 # Update and install build dependencies
 RUN \
