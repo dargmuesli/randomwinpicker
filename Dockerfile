@@ -1,7 +1,7 @@
 # Base image
 # "buster" for up-2-date php required
 # "slim" lacks python, which is required by node-gyp / sass
-FROM node:14.13.1-buster@sha256:8244483d3d1766c2903f64339171ec5e7ff92c0290d8b775bb3257eaa03a9685 AS stage_build
+FROM node:14.13.1-buster@sha256:8244483d3d1766c2903f64339171ec5e7ff92c0290d8b775bb3257eaa03a9685 AS build
 
 # Update and install build dependencies
 RUN \
@@ -65,7 +65,7 @@ RUN apk add --no-cache \
     pdo_pgsql
 
 # Copy built source files, changing the server files' owner
-COPY --chown=www-data:www-data --from=stage_build /app/dist/$PROJECT_NAME/ /usr/src/$PROJECT_NAME/
+COPY --chown=www-data:www-data --from=build /app/dist/$PROJECT_NAME/ /usr/src/$PROJECT_NAME/
 
 # Copy PHP configuration files
 COPY --chown=www-data:www-data ./docker/php/* $PHP_INI_DIR/
