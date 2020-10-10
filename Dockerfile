@@ -9,8 +9,8 @@ RUN \
     apt-get install -y composer php php-gd php-zip
 
 # Import project files
-COPY ./ /app/
-WORKDIR /app/
+COPY ./ /srv/app/
+WORKDIR /srv/app/
 
 # Install Gulp and build project
 RUN yarn global add gulp-cli
@@ -65,7 +65,7 @@ RUN apk add --no-cache \
     pdo_pgsql
 
 # Copy built source files, changing the server files' owner
-COPY --chown=www-data:www-data --from=build /app/dist/$PROJECT_NAME/ /usr/src/$PROJECT_NAME/
+COPY --chown=www-data:www-data --from=build /srv/app/dist/$PROJECT_NAME/ /usr/src/$PROJECT_NAME/
 
 # Copy PHP configuration files
 COPY --chown=www-data:www-data ./docker/php/* $PHP_INI_DIR/
