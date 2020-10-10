@@ -1,5 +1,7 @@
 # Base image
-FROM node:13.13.0-slim@sha256:6b7f44457be3b4414aa9d48f740cfab0c0afdfa2301b2f90816934711aaef7d2 AS stage_build
+# "buster" for up-2-date php required
+# "slim" lacks python, which is required by node-gyp / sass
+FROM node:14.13.1-buster@sha256:8244483d3d1766c2903f64339171ec5e7ff92c0290d8b775bb3257eaa03a9685 AS stage_build
 
 # Update and install build dependencies
 RUN \
@@ -17,7 +19,7 @@ RUN gulp build --production
 
 
 # Base image
-FROM php:7.4-fpm-alpine@sha256:a95c7860a162ebed639cb9f5d6040ba6ad02b909bf0d8c447cc59c7bd1b24bd0 AS development
+FROM php:7.4-fpm-alpine@sha256:82a498133f38af7dffe51cd39923d7c0cfc172cececb519c321e63eae22c42fa AS development
 
 # Environment variables
 ENV PHP_INI_DIR /usr/local/etc/php
@@ -45,7 +47,7 @@ WORKDIR /var/www/$PROJECT_NAME/
 
 
 # Base image
-FROM php:7.4-fpm-alpine@sha256:a95c7860a162ebed639cb9f5d6040ba6ad02b909bf0d8c447cc59c7bd1b24bd0 AS production
+FROM php:7.4-fpm-alpine@sha256:82a498133f38af7dffe51cd39923d7c0cfc172cececb519c321e63eae22c42fa AS production
 
 # Environment variables
 ENV PHP_INI_DIR /usr/local/etc/php
