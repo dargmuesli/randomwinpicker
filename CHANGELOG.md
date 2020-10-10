@@ -1,3 +1,11 @@
+## [5.1.2](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.1...5.1.2) (2020-10-10)
+
+
+### Bug Fixes
+
+* **ci:** correct zip file location ([d33f367](https://github.com/Dargmuesli/randomwinpicker/commit/d33f367e4df500769191757c97e30b9dd596f856))
+* **docker:** correct internal directory path ([c176c16](https://github.com/Dargmuesli/randomwinpicker/commit/c176c1616b68dcb2c48e4e93515bbd6b9f6a1b77))
+
 ## [5.1.1](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.0...5.1.1) (2020-10-10)
 
 
