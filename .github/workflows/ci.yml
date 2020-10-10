@@ -88,14 +88,14 @@ jobs:
           docker container cp extract:/srv/app/dist/ .
           docker container rm -f extract
 
-      - name: Zip
-        uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -qq -r ./randomwinpicker.zip ./dist/
+      # - name: Zip
+      #   uses: montudor/action-zip@v0.1.0
+      #   with:
+      #     args: zip -qq -r ./randomwinpicker.zip ./dist/
 
       - name: GitHub Release Asset
         uses: softprops/action-gh-release@v1
         with:
-          files: randomwinpicker.zip
+          files: ./dist/randomwinpicker.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
