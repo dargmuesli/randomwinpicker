@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.0...5.1.1) (2020-10-10)
+
+
+### Bug Fixes
+
+* **docker:** change build stage name ([07a3b1b](https://github.com/Dargmuesli/randomwinpicker/commit/07a3b1b8d4f4942ed35dd6d51267a2ace9329096))
+
 # [5.1.0](https://github.com/Dargmuesli/randomwinpicker/compare/5.0.7...5.1.0) (2020-10-10)
 
 
