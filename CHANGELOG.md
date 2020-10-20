@@ -1,3 +1,10 @@
+## [5.1.4](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.3...5.1.4) (2020-10-20)
+
+
+### Performance Improvements
+
+* **docker:** clean up apt lists ([100c4ce](https://github.com/Dargmuesli/randomwinpicker/commit/100c4ce2144097f7f74e77af8ed6bbcb867b6ca8))
+
 ## [5.1.3](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.2...5.1.3) (2020-10-19)
 
 
