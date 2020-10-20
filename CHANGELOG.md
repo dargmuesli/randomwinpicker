@@ -1,3 +1,12 @@
+## [5.1.5](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.4...5.1.5) (2020-10-20)
+
+
+### Bug Fixes
+
+* **deps:** bump crazy-max/ghaction-docker-buildx from v3.3.0 to v3.3.1 ([890e29b](https://github.com/Dargmuesli/randomwinpicker/commit/890e29bf2486861295b356078695ddc958e7eb6b))
+* **deps:** bump stefanzweifel/git-auto-commit-action ([6751c1d](https://github.com/Dargmuesli/randomwinpicker/commit/6751c1d8ce00ce4af0a6b647fdbf9e6c70a469a1))
+* **deps:** bump WyriHaximus/github-action-next-semvers from v1.0 to v1 ([191a1c0](https://github.com/Dargmuesli/randomwinpicker/commit/191a1c05efd6a78941f2f3b2341b9ad8a91b7924))
+
 ## [5.1.4](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.3...5.1.4) (2020-10-20)
 
 
