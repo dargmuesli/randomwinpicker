@@ -5,8 +5,10 @@ FROM node:14.14.0-buster@sha256:a054bd2e7ee8f0d40b6db577b4965e2f80e2707e40b2f221
 
 # Update and install build dependencies
 RUN \
-    apt-get update && \
-    apt-get install -y composer php php-gd php-zip
+    apt-get update \
+    && apt-get install --no-install-recommends -y composer php php-gd php-zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Import project files
 COPY ./ /srv/app/
