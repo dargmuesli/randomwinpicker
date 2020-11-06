@@ -21,7 +21,7 @@ RUN gulp build --production
 
 
 # Base image
-FROM php:7.4-fpm-alpine@sha256:a39bebc638bf6f2957200997c6f78d4810e1766bbddade977c6e91b32afbe885 AS development
+FROM php:7.4-fpm-alpine@sha256:e4e0e5e1f88f162bf53697a80fc6e48edccb9b85b51da585758be1ac1446621c AS development
 
 # Environment variables
 ENV PHP_INI_DIR /usr/local/etc/php
@@ -49,7 +49,7 @@ WORKDIR /var/www/$PROJECT_NAME/
 
 
 # Base image
-FROM php:7.4-fpm-alpine@sha256:a39bebc638bf6f2957200997c6f78d4810e1766bbddade977c6e91b32afbe885 AS production
+FROM php:7.4-fpm-alpine@sha256:e4e0e5e1f88f162bf53697a80fc6e48edccb9b85b51da585758be1ac1446621c AS production
 
 # Environment variables
 ENV PHP_INI_DIR /usr/local/etc/php
