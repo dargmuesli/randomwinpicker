@@ -1,5 +1,4 @@
 [![build status](https://github.com/dargmuesli/randomwinpicker/workflows/CI/badge.svg)](https://github.com/dargmuesli/randomwinpicker/actions?query=workflow%3A%22CI%22 "build status")
-[![Renovate](https://badges.renovateapi.com/github/dargmuesli/randomwinpicker)](https://renovatebot.com/"Renovate")
 [![website uptime monitoring](https://app.statuscake.com/button/index.php?Track=VRBItScv8j&Days=1000&Design=3)](https://www.statuscake.com "website uptime monitoring")
 
 # randomwinpicker
