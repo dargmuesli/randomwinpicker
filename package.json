@@ -50,7 +50,7 @@
     "browserify": "17.0.0",
     "date-diff": "0.2.2",
     "del": "6.0.0",
-    "eslint": "7.16.0",
+    "eslint": "7.17.0",
     "gulp": "4.0.2",
     "gulp-autoprefixer": "7.0.1",
     "gulp-babel-minify": "0.5.1",
