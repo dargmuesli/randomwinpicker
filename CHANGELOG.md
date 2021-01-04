@@ -1,3 +1,10 @@
+## [5.1.11](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.10...5.1.11) (2021-01-04)
+
+
+### Bug Fixes
+
+* **release:** schedule release ([8a9c166](https://github.com/Dargmuesli/randomwinpicker/commit/8a9c1667ab053410188f0c6fcce34d1d64722e4e))
+
 ## [5.1.10](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.9...5.1.10) (2020-12-28)
 
 
