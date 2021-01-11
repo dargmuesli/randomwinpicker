@@ -12,6 +12,7 @@
 #content p, #content div{font-family:'bangers';font-size:125%;}
 #content .places{border-bottom:2px solid #000;border-top:2px solid #000;}
 #content figure{display:inline-block;margin-left:1.25vw;margin-right:1.25vw;min-width:27.5vmin;padding:1vmin;text-align:center;width:22.5vmin;}
+#deprecation{position:absolute;left:0px;right:0px;text-align:center;z-index:999;}
 #dialogbox{display:none;left:50%;position:fixed;text-align:center;top:25vh;z-index:10;}
 #dialogbox > div{background:rgba(0,0,0,0.8);border:1px white solid;padding:0 2.5vw;position:relative;right:50%;}
 #dialogbox > div > #dialogboxbody{padding:20px;}

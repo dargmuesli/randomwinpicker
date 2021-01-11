@@ -50,6 +50,17 @@
                     <noscript>
                         <iframe height="0" sandbox="" src="//www.googletagmanager.com/ns.html?id=GTM-KL6875" width="0"></iframe>
                     </noscript>
+                    <div id="deprecation">';
+
+        switch (get_language()) {
+            case 'de':
+                $html .= 'Diese Website wird nicht mehr entwickelt. Du siehst die zuletzt veröffentlichte Version, die geringfügige Sicherheitslücken hat.';
+                break;
+            default:
+                $html .= 'This website is no longer developed. You\'re looking the last published version, which has minor security vulnerabilities.';
+        }
+
+        $html .= '  </div>
                     '.$content.'
                     <div id="dialogoverlay"></div>
                     <div id="dialogbox">
