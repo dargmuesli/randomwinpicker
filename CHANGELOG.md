@@ -1,3 +1,10 @@
+# [5.2.0](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.12...5.2.0) (2021-01-11)
+
+
+### Features
+
+* **deprecation:** add deprecation notice ([56dfe16](https://github.com/Dargmuesli/randomwinpicker/commit/56dfe161d0cd7e0943cc13efb757edd61375dd27))
+
 ## [5.1.12](https://github.com/Dargmuesli/randomwinpicker/compare/5.1.11...5.1.12) (2021-01-11)
 
 
